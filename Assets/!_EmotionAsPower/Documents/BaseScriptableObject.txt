@@ -1,0 +1,3 @@
+BaseScriptableObject will sync its file's name in project 
+with the name typed in the name field in inspector.
+File name = display name + "SO"
