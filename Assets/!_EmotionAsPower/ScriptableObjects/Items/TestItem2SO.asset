@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ad7f6e85eb27d64dafddb5dace898f2, type: 3}
-  m_Name: TestItemNameSO
+  m_Name: TestItem2SO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  id: TestedItem
+  id: TestItem2
   icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  displayName: TestItemName
+  displayName: TestItem2
   description: 
   sampleField: 

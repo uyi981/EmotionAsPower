@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ScriptableObjects
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: ScriptableObjects
+  m_GUID: d2f4d16702409eb4796a9d5eefc8546e
+  m_SerializeEntries:
+  - m_GUID: 91246b777fb6ea643ab7aee0ec7e7b36
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/ItemSO 2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebf727aa62e4e174a8b45d73d2e98cd0
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/ItemSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ff3cc23270ff7f74c95c5a28223c3e4a, type: 2}
+  m_SchemaSet:
+    m_Schemas: []

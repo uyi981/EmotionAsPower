@@ -1,10 +1,12 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 using System.Reflection;
 using System.IO;
 using System.Linq;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
 using Object = UnityEngine.Object;
 #endif
 
@@ -35,6 +37,7 @@ namespace LgTyUtils
         public Sprite Icon => icon;
         public string DisplayName => displayName;
         public string Description => description;
+
 
 #if UNITY_EDITOR
         private bool isInitializing = false;
@@ -441,8 +444,8 @@ namespace LgTyUtils
                 EditorGUILayout.EndHorizontal();
 
                 // Help text
-                EditorGUILayout.HelpBox("• Edit the ID directly in the text field above\n" +
-                                      "• Click 'Validate ID' to check for conflicts and clean formatting\n",
+                EditorGUILayout.HelpBox("ï¿½ Edit the ID directly in the text field above\n" +
+                                      "ï¿½ Click 'Validate ID' to check for conflicts and clean formatting\n",
                                       MessageType.Info);
             }
 
@@ -539,7 +542,7 @@ namespace LgTyUtils
         }
     }
 
-    // Handle asset renaming when renamed in project window
+    // Handle asset renaming when renamed in project window and Addressables setup on creation
     [InitializeOnLoad]
     public class BaseScriptableObjectAssetProcessor : AssetPostprocessor
     {
@@ -583,6 +586,43 @@ namespace LgTyUtils
 
                             Debug.Log($"Updated display name for {newPath}: '{baseScriptableObject.DisplayName}' -> '{newDisplayName}'");
                         }
+                    }
+                }
+            }
+
+            // Handle newly created assets for Addressables setup
+            foreach (string path in importedAssets)
+            {
+                var asset = AssetDatabase.LoadAssetAtPath<BaseScriptableObject>(path);
+                if (asset != null)
+                {
+                    var settings = AddressableAssetSettingsDefaultObject.Settings;
+                    if (settings == null)
+                    {
+                        Debug.LogError("Addressable Asset Settings not found. Please set up Addressables.");
+                        continue;
+                    }
+
+                    var group = settings.FindGroup("ScriptableObjects");
+                    if (group == null)
+                    {
+                        group = settings.CreateGroup("ScriptableObjects", false, false, false, null);
+                    }
+
+                    string guid = AssetDatabase.AssetPathToGUID(path);
+                    var entry = settings.CreateOrMoveEntry(guid, group, false, false);
+                    string label = asset.GetType().Name;
+
+                    if (!settings.GetLabels().Contains(label))
+                    {
+                        settings.AddLabel(label);
+                    }
+
+                    if (!entry.labels.Contains(label))
+                    {
+                        entry.labels.Add(label);
+                        settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryModified, entry, true);
+                        AssetDatabase.SaveAssets();
                     }
                 }
             }
