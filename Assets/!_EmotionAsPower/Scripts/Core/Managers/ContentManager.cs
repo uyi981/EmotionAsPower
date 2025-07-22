@@ -10,8 +10,9 @@ public class ContentManager : Singleton<ContentManager>
     [SerializeField]
     private SerializableDictionary<string, ItemSO> itemSOs;
     public SerializableDictionary<string, ItemSO> ItemSOs => itemSOs;
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         itemSOs = LoadlAllContentsOfType<ItemSO>(debugLoading);    
     }
 
