@@ -1,0 +1,1 @@
+An item have to be a child of ItemManager to be saveable
