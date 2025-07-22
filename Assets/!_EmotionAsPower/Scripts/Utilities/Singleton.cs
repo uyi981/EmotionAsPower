@@ -1,9 +1,6 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.IO.LowLevel.Unsafe;
-public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
+
+public class Singleton<T> : MonoBehaviour where T : Component
 {
     private static T instance;
     private static bool isShuttingDown = false;
@@ -13,46 +10,33 @@ public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
     {
         get
         {
-            if (isShuttingDown)
-            {
-                Debug.LogWarning($"[Singleton] Instance of {typeof(T)} already destroyed. Returning null.");
-                return null;
-            }
+            if (isShuttingDown) return null;
 
             lock (_lock)
             {
                 if (instance == null)
                 {
                     instance = FindFirstObjectByType<T>();
-
                     if (instance == null)
-                    {
-                        // Auto-create GameObject with component
-                        GameObject singletonObject = new GameObject($"{typeof(T)} (Singleton)");
-                        instance = singletonObject.AddComponent<T>();
-
-                        DontDestroyOnLoad(singletonObject); // optional
-                        Debug.Log($"[Singleton] Auto-created instance of {typeof(T)}");
-                    }
+                        Debug.LogWarning($"[Singleton] No active instance of {typeof(T)} found.");
                 }
 
                 return instance;
             }
         }
     }
+
     protected virtual void Awake()
     {
-        // Check for multiple instances
         if (instance == null)
         {
             instance = this as T;
-        } 
-        else
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else if (instance != this)
         {
-            if (instance != this)
-            {
-                Debug.LogError($"Multiple {typeof(T)} instances were found: {this.gameObject.name}, {instance.gameObject.name}. Only one instance is allowed");
-            }
+            Debug.LogWarning($"[Singleton] Duplicate detected for {typeof(T)}. Destroying {this.gameObject.name}");
+            Destroy(this.gameObject);
         }
     }
 
@@ -65,8 +49,8 @@ public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
     {
         if (instance == this)
         {
-            isShuttingDown = true;
             instance = null;
+            isShuttingDown = false;
         }
     }
 }

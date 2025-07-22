@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,16 +19,16 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        InputManager.Instance.OnCameraMovement += Instance_OnCameraMovement;
+        Singleton<InputManager>.Instance.OnCameraMovement += Instance_OnCameraMovement;
     }
 
     private void OnDisable()
     {
-        if(InputManager.Instance == null)
+        if (Singleton<InputManager>.Instance == null)
         {
             return;
         }
-        InputManager.Instance.OnCameraMovement -= Instance_OnCameraMovement;
+        Singleton<InputManager>.Instance.OnCameraMovement -= Instance_OnCameraMovement;
     }
 
     private void Instance_OnCameraMovement(Vector3 moveDir)
