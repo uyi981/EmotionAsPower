@@ -17,4 +17,10 @@ MonoBehaviour:
   requiredResources: []
   buildTime: 60
   blueprintPrefab: {fileID: 7737507821829721608, guid: 88a490a0f8aa6a44d85f6f40f0d87256, type: 3}
+  redprintPrefab: {fileID: 0}
   buildingPrefab: {fileID: 3004416037212060574, guid: 777ee98f79cd49f4588b1050da24d721, type: 3}
+  maxHP: 1000
+  damage: 0
+  attackRange: 0
+  attackSpeed: 0
+  description: "H\xE0ng r\xE0o"

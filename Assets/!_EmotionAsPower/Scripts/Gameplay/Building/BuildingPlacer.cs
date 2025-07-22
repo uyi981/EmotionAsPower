@@ -37,11 +37,11 @@ public class BuildingPlacer : MonoBehaviour
         
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-        // Vẽ tia raycast màu xanh lá, dài 100 đơn vị, hiện trong Scene view
         Debug.DrawRay(ray.origin, ray.direction * 200f, Color.green);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 200f, placementLayer))
         {
+            Debug.Log("Hit point: " + hit.point);
             if (blueprintInstance == null)
             {
                 blueprintInstance = Instantiate(selectedBuilding.blueprintPrefab);
@@ -52,7 +52,6 @@ public class BuildingPlacer : MonoBehaviour
 
     void TryPlaceBuilding()
     {
-        // Instantiate công trình thật
         GameObject buildingObj = Instantiate(selectedBuilding.buildingPrefab, blueprintInstance.transform.position, Quaternion.identity);
 
         // Truyền SO_Building cho script Building trên prefab
@@ -63,11 +62,9 @@ public class BuildingPlacer : MonoBehaviour
         }
 
         Destroy(blueprintInstance);
-        //selectedBuilding = null;
 
     }
 
-    // Kiem tra xem xay dung cong trinh hoan thanh chua
 
     // Hàm này gọi khi chọn công trình từ Shop
     public void SelectBuilding(SO_Building building)

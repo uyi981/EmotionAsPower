@@ -5,7 +5,7 @@ using UnityEngine;
 public class SO_Building : ScriptableObject
 {
     public string buildingName;
-    public BuildingType type; // enum: Defense, Tower, Production, Decoration, etc.
+    public BuildingType type; 
     public List<ResourceRequirement> requiredResources;
     public float buildTime;
     public GameObject blueprintPrefab;
@@ -34,6 +34,6 @@ public enum BuildingType
     Production,
     Decoration,
     Bed,
-    SpawnPoint,
+    //SpawnPoint,
     MainBase
 }

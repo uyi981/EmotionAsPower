@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: Tower
   m_EditorClassIdentifier: Assembly-CSharp::SO_Building
   buildingName: Tower1
-  type: 0
+  type: 1
   requiredResources: []
   buildTime: 60
   blueprintPrefab: {fileID: 7737507821829721608, guid: 88a490a0f8aa6a44d85f6f40f0d87256, type: 3}
+  redprintPrefab: {fileID: 0}
   buildingPrefab: {fileID: 3004416037212060574, guid: 777ee98f79cd49f4588b1050da24d721, type: 3}
+  maxHP: 300
+  damage: 10
+  attackRange: 10
+  attackSpeed: 10
+  description: "Th\xE1p b\u1EAFn nguy\xEAn t\u1ED1"
