@@ -6,19 +6,33 @@ using Unity.IO.LowLevel.Unsafe;
 public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
 {
     private static T instance;
+    private static bool isShuttingDown = false;
+    private static readonly object _lock = new object();
+
     public static T Instance
     {
         get
         {
-            if (instance == null)
+            if (isShuttingDown)
             {
-                instance = FindFirstObjectByType<T>();
+                Debug.LogWarning($"[Singleton] Instance '{typeof(T)}' already destroyed. Returning null.");
+                return null;
+            }
+
+            lock (_lock)
+            {
                 if (instance == null)
                 {
-                    Debug.LogError($"No {typeof(T)} instance found in the scene");
+                    instance = FindFirstObjectByType<T>();
+
+                    if (instance == null)
+                    {
+                        Debug.LogError($"[Singleton] No instance of {typeof(T)} found in the scene.");
+                    }
                 }
+
+                return instance;
             }
-            return instance;
         }
     }
     protected virtual void Awake()
@@ -37,10 +51,17 @@ public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
         }
     }
 
-    protected virtual void OnDestroy() { 
-        if(instance == this)
+    protected virtual void OnApplicationQuit()
+    {
+        isShuttingDown = true;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        if (instance == this)
         {
+            isShuttingDown = true;
             instance = null;
         }
-    } 
+    }
 }
