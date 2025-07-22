@@ -8,7 +8,7 @@ public class InteractionManager : Singleton<InteractionManager>
 
     private void OnEnable()
     {
-        InputManager.Instance.OnMouseLeftClick += Instance_OnMouseLeftClick;
+       Singleton<InputManager>.Instance.OnMouseLeftClick += Instance_OnMouseLeftClick;
     }
 
     private void OnDisable()
