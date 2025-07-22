@@ -13,6 +13,10 @@ public class InteractionManager : Singleton<InteractionManager>
 
     private void OnDisable()
     {
+        if (InputManager.Instance == null)
+        {
+            return;
+        }
         InputManager.Instance.OnMouseLeftClick -= Instance_OnMouseLeftClick;
     }
 

@@ -23,6 +23,10 @@ public class CameraController : MonoBehaviour
 
     private void OnDisable()
     {
+        if(InputManager.Instance == null)
+        {
+            return;
+        }
         InputManager.Instance.OnCameraMovement -= Instance_OnCameraMovement;
     }
 
