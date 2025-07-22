@@ -15,7 +15,7 @@ public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
         {
             if (isShuttingDown)
             {
-                Debug.LogWarning($"[Singleton] Instance '{typeof(T)}' already destroyed. Returning null.");
+                Debug.LogWarning($"[Singleton] Instance of {typeof(T)} already destroyed. Returning null.");
                 return null;
             }
 
@@ -27,7 +27,12 @@ public class Singleton<T> : UnityEngine.MonoBehaviour where T : Component
 
                     if (instance == null)
                     {
-                        Debug.LogError($"[Singleton] No instance of {typeof(T)} found in the scene.");
+                        // Auto-create GameObject with component
+                        GameObject singletonObject = new GameObject($"{typeof(T)} (Singleton)");
+                        instance = singletonObject.AddComponent<T>();
+
+                        DontDestroyOnLoad(singletonObject); // optional
+                        Debug.Log($"[Singleton] Auto-created instance of {typeof(T)}");
                     }
                 }
 
