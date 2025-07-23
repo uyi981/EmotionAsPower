@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Assets.__EmotionAsPower.Scripts.Gameplay.Building;
 using UnityEngine;
 
 namespace Assets.__EmotionAsPower.Scripts.Gameplay.ProcessBar
