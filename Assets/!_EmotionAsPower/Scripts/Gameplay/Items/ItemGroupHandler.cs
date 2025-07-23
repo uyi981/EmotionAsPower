@@ -24,7 +24,7 @@ public class ItemGroupHandler : MonoBehaviour
             // Check if items are the same type
             if (otherHandler.Item.ItemSO.ID == this.item.ItemSO.ID)
             {
-                Debug.Log("Detect same item - attempting to merge");
+                //Debug.Log("Detect same item - attempting to merge");
                 MergeItems(otherHandler);
             }
         }

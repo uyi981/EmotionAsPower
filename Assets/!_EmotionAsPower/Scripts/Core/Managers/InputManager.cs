@@ -8,10 +8,11 @@ public class InputManager : Singleton<InputManager>
     // Camera Input Actions
     private InputAction moveForward, moveBackward, moveLeft, moveRight, moveUp, moveDown;
     // Mouse Input Actions
-    private InputAction mouseLeftClick, mousePos;
+    private InputAction mouseLeftClick, mouseRightClick, mousePos;
     // Input Events
     public event Action<Vector3> OnCameraMovement;
     public event Action<Vector2> OnMouseLeftClick;
+    public event Action<Vector2> OnMouseRightClick;
     protected override void Awake()
     {
         base.Awake();
@@ -44,9 +45,21 @@ public class InputManager : Singleton<InputManager>
         moveUp = new InputAction("MoveUp", InputActionType.Value, "<keyboard>/q");
         moveDown = new InputAction("MoveDown", InputActionType.Value, "<keyboard>/e");
         mouseLeftClick = new InputAction("MouseLeftClick", InputActionType.Button, "<mouse>/leftButton");
+        mouseRightClick = new InputAction("MoustRightClick", InputActionType.Button, "<mouse>/rightButton");
         mousePos = new InputAction("MousePosition", InputActionType.Value, "<mouse>/position");
-        mouseLeftClick.performed += OnMouseClickPerformed;
+        mouseLeftClick.performed += MouseLeftClick_performed;
+        mouseRightClick.performed += MouseRightClick_performed; 
     }
+
+    private void MouseRightClick_performed(InputAction.CallbackContext obj)
+    {
+        Vector2 screenPos = mousePos.ReadValue<Vector2>();
+        if (IsPointerOverUI(screenPos)){
+            return;
+        }
+        OnMouseRightClick?.Invoke(screenPos);
+    }
+
     private void EnableInputActions()
     {
         moveForward.Enable(); moveBackward.Enable();
@@ -75,7 +88,7 @@ public class InputManager : Singleton<InputManager>
         if (dir != Vector3.zero)
             OnCameraMovement?.Invoke(dir.normalized);
     }
-    private void OnMouseClickPerformed(InputAction.CallbackContext ctx)
+    private void MouseLeftClick_performed(InputAction.CallbackContext ctx)
     {
         Vector2 screenPos = mousePos.ReadValue<Vector2>();
         StartCoroutine(PerformClickNextFrame(screenPos));
