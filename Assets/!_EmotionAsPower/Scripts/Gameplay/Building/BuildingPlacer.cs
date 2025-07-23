@@ -1,16 +1,16 @@
-﻿//using System.ComponentModel;
-//using Assets.__EmotionAsPower.Scripts.Gameplay.Building;
-//using UnityEngine;
+﻿using System.ComponentModel;
+using Assets.__EmotionAsPower.Scripts.Gameplay.Building;
+using UnityEngine;
 
-//public class BuildingPlacer : MonoBehaviour
-//{
-//    [Header("Cấu hình Building Placer")]
-//    [Tooltip("Camera chính để theo dõi vị trí chuột")]
-//    public Camera mainCamera;
-//    [Tooltip("Layer mask để xác định các bề mặt có thể đặt công trình")]
-//    public LayerMask placementLayer;
-//    [Tooltip("Công trình đang được chọn để xây dựng")]
-//    public SO_Building selectedBuilding;
+public class BuildingPlacer : MonoBehaviour
+{
+    [Header("Cấu hình Building Placer")]
+    [Tooltip("Camera chính để theo dõi vị trí chuột")]
+    public Camera mainCamera;
+    [Tooltip("Layer mask để xác định các bề mặt có thể đặt công trình")]
+    public LayerMask placementLayer;
+    [Tooltip("Công trình đang được chọn để xây dựng")]
+    public SO_Building selectedBuilding;
 
 
 //    [ReadOnly(true)] 
@@ -54,12 +54,12 @@
 //    //{
 //    //    GameObject buildingObj = Instantiate(selectedBuilding.buildingPrefab, blueprintInstance.transform.position, Quaternion.identity);
 
-//    //    // Truyền SO_Building cho script Building trên prefab
-//    //    Building buildingScript = buildingObj.GetComponent<Building>();
-//    //    if (buildingScript != null)
-//    //    {
-//    //        buildingScript.selectedBuilding = this;
-//    //    }
+        // Truyền SO_Building cho script Building trên prefab
+        Building buildingScript = buildingObj.GetComponent<Building>();
+        if (buildingScript != null)
+        {
+            buildingScript.selectedBuilding = this;
+        }
 
 //    //    Destroy(blueprintInstance);
 
