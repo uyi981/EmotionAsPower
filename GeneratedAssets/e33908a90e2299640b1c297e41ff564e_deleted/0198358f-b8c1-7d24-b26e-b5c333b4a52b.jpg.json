@@ -1,0 +1,19 @@
+{
+    "asset": "e33908a90e2299640b1c297e41ff564e",
+    "fileName": "0198358f-b8c1-7d24-b26e-b5c333b4a52b.jpg",
+    "prompt": "A cozy 2D bed with a wooden frame and soft pillows, neatly arranged blanket, top-down perspective, pixel art style, warm color tones, simple and clean design for a 2D game environment",
+    "negativePrompt": "",
+    "model": "d705ead1-1e42-4cdb-9f7d-41a88916df0a",
+    "customSeed": -1,
+    "w3CTraceId": "d5422187018dc0a0d33c4deeb50a39bb",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

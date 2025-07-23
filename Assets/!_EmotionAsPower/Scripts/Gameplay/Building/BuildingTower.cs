@@ -2,9 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building
-{
-    public class Building : MonoBehaviour
+    public class BuildingTower : MonoBehaviour
     {
         [Header("Cấu hình Building")]
         [Tooltip("Tiến độ xây dựng công trình từ 0-1")]
@@ -13,7 +11,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building
         [Tooltip("Thời gian xây dựng công trình (giây)")]
         public float buildTime;
         [Tooltip("Công trình đang được chọn để xây dựng")]
-        public BuildingPlacer selectedBuilding;
+        public Building selectedBuilding;
         [Tooltip("Công trình đang xây dựng")]
         public bool isBuilding = false;
         [Tooltip("Thời gian đã trôi qua kể từ khi bắt đầu xây dựng")]
@@ -28,7 +26,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building
 
         private void Start()
         {
-            buildTime = selectedBuilding.selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
+            buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
         }
 
         private void OnEnable()
@@ -63,4 +61,3 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building
             processBar.fillAmount = buildProgress; // Cập nhật thanh tiến độ UI
         }
     }
-}
