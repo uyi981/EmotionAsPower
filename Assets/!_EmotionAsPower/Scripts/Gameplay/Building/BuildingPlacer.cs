@@ -25,10 +25,10 @@ public class BuildingPlacer : MonoBehaviour
         if (selectedBuilding != null)
         {
             HandleBlueprintFollowMouse();
-            if (Input.GetMouseButtonDown(0))
-            {
-                TryPlaceBuilding();
-            }
+            //if (Input.GetMouseButtonDown(0))
+            //{
+            //    TryPlaceBuilding();
+            //}
         }
     }
 
@@ -50,20 +50,20 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
-    void TryPlaceBuilding()
-    {
-        GameObject buildingObj = Instantiate(selectedBuilding.buildingPrefab, blueprintInstance.transform.position, Quaternion.identity);
+    //void TryPlaceBuilding()
+    //{
+    //    GameObject buildingObj = Instantiate(selectedBuilding.buildingPrefab, blueprintInstance.transform.position, Quaternion.identity);
 
-        // Truyền SO_Building cho script Building trên prefab
-        Building buildingScript = buildingObj.GetComponent<Building>();
-        if (buildingScript != null)
-        {
-            buildingScript.selectedBuilding = this;
-        }
+    //    // Truyền SO_Building cho script Building trên prefab
+    //    Building buildingScript = buildingObj.GetComponent<Building>();
+    //    if (buildingScript != null)
+    //    {
+    //        buildingScript.selectedBuilding = this;
+    //    }
 
-        Destroy(blueprintInstance);
+    //    Destroy(blueprintInstance);
 
-    }
+    //}
 
 
     // Hàm này gọi khi chọn công trình từ Shop
