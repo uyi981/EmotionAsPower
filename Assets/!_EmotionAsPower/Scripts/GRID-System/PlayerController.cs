@@ -15,6 +15,7 @@ public class PlayerController : Singleton<PlayerController>
         inputManager = Singleton<InputManagerForGrid>.Instance;
         inputManager.OnRightClicked += Moving;
     }
+
     public void AddVillagerToList(Villager villager)
     {
         selectedVillagers.Add(villager);
@@ -58,21 +59,8 @@ public class PlayerController : Singleton<PlayerController>
             if (villager != null)
             {
                 Vector2Int targetPosition = new Vector2Int(gridPosition.x, gridPosition.z);
-                Vector3Int villagerPosition = grid.WorldToCell(villager.transform.position);
-                Vector2Int startPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
-               
-                Debug.Log(gridMap.Length);
-                
-                List<Vector2Int> path = pathFinding.GetPathResult(NormalizeGridPosition(startPosition,100,100), NormalizeGridPosition(targetPosition, 100, 100), gridMap, 1);
-                if (path != null && path.Count > 0)
-                {
-                    villager.Move(path, 1f); // Assuming speed is 1f, adjust as needed
-                    Debug.Log("Moving villager to: " + targetPosition);
-                }
-                else
-                {
-                    Debug.LogWarning("No valid path found for villager to move to: " + targetPosition);
-                }
+                villager.Move(targetPosition, 1f); // Assuming Move takes a Vector2Int position and speed
+
             }
             else
             {
