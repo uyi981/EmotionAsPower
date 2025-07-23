@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cac48fe896e84e922958c7b685710, type: 3}
+  m_Name: TreeSO
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceSO
+  id: Resource_Tree_1
+  icon: {fileID: 21300000, guid: 6ef36f3dad1fb834bb4b47ec7d0b4f3e, type: 3}
+  displayName: Tree
+  description: Just a tree
+  maxHealth: 10
+  harvestDamage: 1
+  dropableItems:
+  - item: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+    amountChances:
+    - amount: 3
+      chance: 10
+    - amount: 1
+      chance: 50
+    - amount: 2
+      chance: 40

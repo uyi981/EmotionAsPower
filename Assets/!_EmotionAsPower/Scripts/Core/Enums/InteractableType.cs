@@ -2,5 +2,5 @@ using UnityEngine;
 
 public enum InteractableType
 {
-   Land, Enemy, Building, Item, 
+   Land, Enemy, Building, Item, Resource
 }
