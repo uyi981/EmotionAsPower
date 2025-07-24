@@ -60,6 +60,7 @@ public class PlacementSystem : MonoBehaviour
         GameObject gameObject = Instantiate(database.buildings[selectedObjectIndex].buildingPrefab, gridPosition, Quaternion.identity);
         gameObject.transform.position = grid.CellToWorld(gridPosition);
         Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at position: " + gridPosition);
+        gridPosition = NormalizeGridPosition(gridPosition, 100, 100); // Assuming grid size is 100x100, adjust as needed
         gridMap[gridPosition.x, gridPosition.z] = 1; // Mark the cell as occupied
     }
     public void StopPlacement()
@@ -70,5 +71,10 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.SetActive(false);
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+        inputManager.CurrentState = State.Moving; // Reset to idle state
+    }
+    Vector3Int NormalizeGridPosition(Vector3Int pos, int gridWidth, int gridHeight)
+    {
+        return new Vector3Int(pos.x + gridWidth / 2, pos.z + gridHeight / 2);
     }
 }
