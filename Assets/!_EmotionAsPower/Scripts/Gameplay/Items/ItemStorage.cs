@@ -1,15 +1,15 @@
+using System;
 using LgTyUtils;
+using NUnit.Framework;
 using UnityEngine;
 
 public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
 {
     [SerializeField]
     private SerializableDictionary<string, int> storagedItems;
-
     public SerializableDictionary<string, int> StoragedItems => storagedItems;
 
-
-
+    public Action<SerializableDictionary<string, int>> OnStoragedItemsChange;
     public void AddItem(Item item)
     {
         this.AddItem(item.ItemSO.ID, item.Amount);
@@ -32,6 +32,7 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
         {
             storagedItems.Add(id, amount);
         }
+        OnStoragedItemsChange?.Invoke(storagedItems);
     }
 
     public int TryTakeItem(string id, int amount)
@@ -47,7 +48,7 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
             }
             return amount;
         }
-
+        OnStoragedItemsChange?.Invoke(storagedItems);
         return 0;
     }
 
@@ -59,6 +60,7 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
     public void LoadGame(GameData gameData)
     {
         this.storagedItems = gameData.storagedItems;
+        OnStoragedItemsChange?.Invoke(storagedItems);
     }
 
     public void SaveGame(ref GameData gameData)

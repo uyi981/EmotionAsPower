@@ -8,7 +8,6 @@ public class ItemManager : Singleton<ItemManager>, IDataPersistence
 {
     [SerializeField]
     private GameObject itemPrefab;
-
     public void LoadGame(GameData gameData)
     {
         ClearCurrentItems();
