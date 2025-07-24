@@ -22,4 +22,18 @@ MonoBehaviour:
     moveSpeed: 10
     attackDamage: 5
     attackSpeed: 5
+    existingTime: 5
   behaviour: {fileID: 11400000, guid: e7f69175ef800144ca4de7aaf7183a07, type: 2}
+  dropableItems:
+  - item: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+    amountChances:
+    - amount: 5
+      chance: 50
+    - amount: 8
+      chance: 50
+  - item: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+    amountChances:
+    - amount: 5
+      chance: 50
+    - amount: 8
+      chance: 50

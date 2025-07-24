@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SteelSO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   id: Item_Steel
-  icon: {fileID: 21300000, guid: f55c1743ff2bdc54785d6e9a70eda02c, type: 3}
+  icon: {fileID: 775446, guid: ea8f81f11395c624c8c452e45a28d2b9, type: 3}
   displayName: Steel
   description: Can be extracted from robots
