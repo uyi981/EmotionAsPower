@@ -4,5 +4,12 @@ using System;
 public class DropableItem
 {
     public ItemSO item;
-    public float dropChance;
+    public AmountChance[] amountChances;
+}
+
+[Serializable]
+public class AmountChance
+{
+    public int amount;
+    public float chance;
 }

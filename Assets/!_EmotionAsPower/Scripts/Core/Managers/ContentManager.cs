@@ -10,10 +10,20 @@ public class ContentManager : Singleton<ContentManager>
     [SerializeField]
     private SerializableDictionary<string, ItemSO> itemSOs;
     public SerializableDictionary<string, ItemSO> ItemSOs => itemSOs;
+
+    [SerializeField]
+    private SerializableDictionary<string, ResourceSO> resourceSOs;
+    public SerializableDictionary<string, ResourceSO> ResourceSOs => resourceSOs;
+
+    [SerializeField]
+    private SerializableDictionary<string, EnemySO> enemySOs;
+    public SerializableDictionary<string, EnemySO> EnemySOs => enemySOs;
     protected override void Awake()
     {
         base.Awake();
-        itemSOs = LoadlAllContentsOfType<ItemSO>(debugLoading);    
+        itemSOs = LoadlAllContentsOfType<ItemSO>(debugLoading);
+        resourceSOs = LoadlAllContentsOfType<ResourceSO>(debugLoading);
+        enemySOs = LoadlAllContentsOfType<EnemySO>(debugLoading);
     }
 
     public SerializableDictionary<string, T> LoadlAllContentsOfType<T>(bool debug) where T : BaseScriptableObject
