@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -574663602243424390, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+      propertyPath: dame
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -574663602243424390, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
       propertyPath: skillSO
       value: 
       objectReference: {fileID: 11400000, guid: 3a56846bd4910a2429503018cfb09e21, type: 2}
@@ -59,5 +63,59 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7556639615860125984}
+    - targetCorrespondingSourceObject: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4561589923268822390}
   m_SourcePrefab: {fileID: 100100000, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+--- !u!1 &1117793244244293449 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+  m_PrefabInstance: {fileID: 3230282094736377163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7556639615860125984
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117793244244293449}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 30cda70c2152aba4ba08d74391a0ea32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4561589923268822390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117793244244293449}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 0.69098413, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
