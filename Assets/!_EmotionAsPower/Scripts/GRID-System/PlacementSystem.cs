@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
-    [SerializeField] GameObject mouseIndicator,cellIndicator;
+    [SerializeField] GameObject mouseIndicator, cellIndicator;
     [SerializeField] private InputManagerForGrid inputManager;
     [SerializeField] private Grid grid;
     public float[,] gridMap;
@@ -11,13 +11,13 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private GameObject gridVisualization;
     private void Update()
     {
-        if(selectedObjectIndex == -1 || !gridVisualization.activeSelf)
+        if (selectedObjectIndex == -1 || !gridVisualization.activeSelf)
         {
             return; // No object selected or grid visualization is not active
         }
         Vector3 mousePostion = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePostion);
-       // mouseIndicator.transform.position = mousePostion;
+        // mouseIndicator.transform.position = mousePostion;
         cellIndicator.transform.position = gridPosition;
     }
     private void Start()
@@ -40,7 +40,7 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
         gridVisualization.SetActive(true);
-      //  gridVisualization.transform.position = grid.CellToWorld(grid.WorldToCell(inputManager.GetSelectedMapPosition()))+new Vector3(0.5f,0,-0.5f);
+        //  gridVisualization.transform.position = grid.CellToWorld(grid.WorldToCell(inputManager.GetSelectedMapPosition()))+new Vector3(0.5f,0,-0.5f);
         mouseIndicator.SetActive(true);
         cellIndicator.SetActive(true);
         inputManager.CurrentState = State.Building;
@@ -54,7 +54,7 @@ public class PlacementSystem : MonoBehaviour
         {
             Debug.Log("Pointer is over UI, cannot place structure.");
             return;
-        }  
+        }
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
         GameObject gameObject = Instantiate(database.buildings[selectedObjectIndex].buildingPrefab, gridPosition, Quaternion.identity);
@@ -72,6 +72,13 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
         inputManager.CurrentState = State.Moving; // Reset to idle state
+<<<<<<< HEAD
+=======
+    }
+    Vector3Int NormalizeGridPosition(Vector3Int pos, int gridWidth, int gridHeight)
+    {
+        return new Vector3Int(pos.x + gridWidth / 2, pos.z + gridHeight / 2);
+>>>>>>> 5e794eaf6625fab593e429efe110e37de06b0650
     }
     Vector3Int NormalizeGridPosition(Vector3Int pos, int gridWidth, int gridHeight)
     {
