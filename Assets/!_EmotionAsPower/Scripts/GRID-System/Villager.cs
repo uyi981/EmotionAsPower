@@ -26,11 +26,11 @@ public class Villager : MonoBehaviour
     IState CurrentState;
     Coroutine moveCoroutine;
     public event Action OnTakeItem;
+    public GameObject itemHandle;
     void TakeJob(JobForWorker currentJob)
     {
         currentJob = currentJob;
         OnTakeItem?.Invoke(); // Notify subscribers that a job has been taken
-       // Move(currentJob.Position, 1f); // Assuming Move takes a Vector2Int position and speed
     }
     void OnMouseDown()
     {
@@ -93,7 +93,8 @@ public class Villager : MonoBehaviour
         List<Vector2Int> path = pathFinding.GetPathResult(NormalizeGridPosition(startPosition, 100, 100), NormalizeGridPosition(targetPosition, 100, 100), Singleton<GridSystem>.Instance.gridMap, 1);
         if (path != null && path.Count > 0)
         {
-            if(moveCoroutine!= null)
+
+            if (moveCoroutine!= null)
             {
                 StopCoroutine(moveCoroutine); // Stop any existing movement coroutine
             }
@@ -113,12 +114,16 @@ public class Villager : MonoBehaviour
     }
     public IEnumerator Moving(List<Vector2Int> path, float speed)
     {
-        for(int i =path.Count - 1; i >= 0; i--)
+        for (int i = path.Count - 1; i >= 0; i--)
         {
+
             Vector2Int normalPosition = InverseNormalizeGridPosition(path[i], 100, 100); // Assuming grid size is 100x100
             Vector3 targetPosition = new Vector3(normalPosition.x, 0, normalPosition.y);
-            transform.position = targetPosition; // Set initial position to the first path point
-            yield return new WaitForSeconds(0.2f); // Wait for the next frame
+            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
+                yield return null;
+            }          
         }
         moveCoroutine = null; // Reset coroutine reference after movement is complete
     }

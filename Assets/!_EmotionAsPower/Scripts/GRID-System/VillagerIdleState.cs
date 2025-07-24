@@ -34,7 +34,7 @@ public class VillagerIdleState : IState
             }
 
             // Dừng 2s trước khi chọn điểm tiếp theo
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
     public void BackToHome()
@@ -56,6 +56,7 @@ public class VillagerIdleState : IState
         villager.OnTakeItem -= BackToHome; // Unsubscribe from the event
         if (moveCoroutine != null)
             villager.StopCoroutine(moveCoroutine);
+        moveCoroutine = null;
         // Implement logic for exiting the idle state
     }
 }
