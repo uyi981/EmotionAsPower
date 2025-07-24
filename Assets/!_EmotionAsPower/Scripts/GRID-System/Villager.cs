@@ -27,6 +27,7 @@ public class Villager : MonoBehaviour
     Coroutine moveCoroutine;
     public event Action OnTakeItem;
     public GameObject itemHandle;
+    public event Action OnComeHome;
     void TakeJob(JobForWorker currentJob)
     {
         currentJob = currentJob;
@@ -34,6 +35,10 @@ public class Villager : MonoBehaviour
     }
     void OnMouseDown()
     {
+        if(Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
+        {
+            return;
+        }
         Debug.Log("Villager clicked: " + gameObject.name);
         SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.color = Color.red; // Change color to indicate selection
@@ -107,7 +112,8 @@ public class Villager : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        collision.transform.SetParent(transform); // Set the collided object as a child of the villager
+        collision.transform.SetParent(itemHandle.transform); // Set the collided object as a child of the villager
+        collision.transform.localPosition = Vector3.zero; // Reset position to the villager's position
         collision.collider.enabled = false; // Disable the collider to prevent further collisions
         collision.rigidbody.useGravity = false; // Disable gravity for the collided object
         OnTakeItem?.Invoke(); // Notify subscribers that a job has been taken
@@ -125,6 +131,7 @@ public class Villager : MonoBehaviour
                 yield return null;
             }          
         }
+        OnComeHome?.Invoke(); // Notify subscribers that the villager has come home
         moveCoroutine = null; // Reset coroutine reference after movement is complete
     }
     Vector2Int InverseNormalizeGridPosition(Vector2Int pos, int gridWidth, int gridHeight)
@@ -166,6 +173,12 @@ public class VillagerBackToHomeState : IState
     public void EnterState()
     {
        villager.Move(new Vector2Int(0, 0), 1f); // Assuming home is at (0, 0)
+       villager.OnComeHome += DropItem;
+    }
+    public void DropItem()
+    {
+        villager.itemHandle.transform.DetachChildren(); // Detach all children from the item handle
+        villager.TransitionTo(villager.villagerIdleState);
     }
     public void UpdateState()
     {
@@ -173,6 +186,7 @@ public class VillagerBackToHomeState : IState
     }
     public void ExitState()
     {
+        villager.OnComeHome -= DropItem;
         // Logic for exiting the villager selected state
     }
 }
