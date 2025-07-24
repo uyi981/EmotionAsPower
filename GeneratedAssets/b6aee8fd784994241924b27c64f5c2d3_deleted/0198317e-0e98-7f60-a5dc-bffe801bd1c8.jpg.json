@@ -1,0 +1,19 @@
+{
+    "asset": "b6aee8fd784994241924b27c64f5c2d3",
+    "fileName": "0198317e-0e98-7f60-a5dc-bffe801bd1c8.jpg",
+    "prompt": "2d tree style like cult of the lamp. Dont have background\n",
+    "negativePrompt": "",
+    "model": "7a1d56ee-91f3-4a7f-b1ac-04a20d3283a1",
+    "customSeed": -1,
+    "w3CTraceId": "44c4c7f31f0f3353f5ebb942fb6396b9",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}

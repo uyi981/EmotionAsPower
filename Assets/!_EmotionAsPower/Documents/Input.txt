@@ -1,0 +1,4 @@
+AWSD: move camera
+Q: move camera up
+E: move camera down
+Left Click: interact 

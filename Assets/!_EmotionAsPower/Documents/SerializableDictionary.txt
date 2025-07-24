@@ -1,0 +1,1 @@
+SerializableDictionary can be used for both debugging in inspector and json serialization.
