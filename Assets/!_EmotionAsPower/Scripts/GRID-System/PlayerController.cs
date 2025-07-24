@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerController : Singleton<PlayerController>
 {
-    public GameObject prefab;
     List<Villager> selectedVillagers = new List<Villager>();
     InputManagerForGrid inputManager;
     Grid grid;
@@ -51,8 +50,6 @@ public class PlayerController : Singleton<PlayerController>
         }
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-        GameObject obj = Instantiate(prefab);
-        obj.transform.position = gridPosition+Vector3.up;
 
         foreach (Villager villager in selectedVillagers)
         {
