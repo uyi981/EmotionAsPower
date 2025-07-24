@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TreeSO
   m_EditorClassIdentifier: Assembly-CSharp::ResourceSO
   id: Resource_Tree_1
-  icon: {fileID: 21300000, guid: 6ef36f3dad1fb834bb4b47ec7d0b4f3e, type: 3}
+  icon: {fileID: -1723212424, guid: 4ff90205f8a356c4593ccd0cb5aac45c, type: 3}
   displayName: Tree
   description: Just a tree
   maxHealth: 10

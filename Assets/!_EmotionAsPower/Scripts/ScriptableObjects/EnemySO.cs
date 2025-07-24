@@ -6,4 +6,5 @@ public class EnemySO : BaseScriptableObject
 {
     public EnemyDefaultData defaultData;
     public EnemyBehaviourSO behaviour;
+    public DropableItem[] dropableItems;
 }

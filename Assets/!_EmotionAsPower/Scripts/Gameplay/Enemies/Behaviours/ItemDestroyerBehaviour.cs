@@ -3,6 +3,7 @@ using UnityEngine;
 public class ItemDestroyerBehaviour : IEnemyBehaviour
 {
     private Enemy enemy;
+    private Vector3 centerPosition = Vector3.zero;
 
     public ItemDestroyerBehaviour(Enemy enemy)
     {
@@ -12,12 +13,16 @@ public class ItemDestroyerBehaviour : IEnemyBehaviour
     public void Update()
     {
         Item target = FindNearestItem();
+
         if (target == null)
         {
-            return; // No items to destroy, remain idle
+            // No items to destroy, move towards center (0,0,0)
+            MoveTowardsCenter();
+            return;
         }
 
         float distance = Vector3.Distance(enemy.transform.position, target.transform.position);
+
         if (distance < 1f) // Destroy range
         {
             DestroyItem(target);
@@ -30,13 +35,26 @@ public class ItemDestroyerBehaviour : IEnemyBehaviour
         }
     }
 
+    private void MoveTowardsCenter()
+    {
+        float distanceToCenter = Vector3.Distance(enemy.transform.position, centerPosition);
+
+        // Only move if not already at center
+        if (distanceToCenter > 0.1f)
+        {
+            Vector3 direction = (centerPosition - enemy.transform.position).normalized;
+            enemy.transform.position += direction * enemy.EnemySO.defaultData.moveSpeed * Time.deltaTime;
+        }
+    }
+
     private Item FindNearestItem()
     {
-        Item[] items = Object.FindObjectsOfType<Item>();
+        Item[] items = Object.FindObjectsByType<Item>(FindObjectsSortMode.None);
         if (items.Length == 0) return null;
 
         Item nearest = null;
         float minDistance = float.MaxValue;
+
         foreach (var item in items)
         {
             float distance = Vector3.Distance(enemy.transform.position, item.transform.position);
@@ -46,6 +64,7 @@ public class ItemDestroyerBehaviour : IEnemyBehaviour
                 nearest = item;
             }
         }
+
         return nearest;
     }
 

@@ -24,8 +24,8 @@ public class Item : MonoBehaviour, IInteractable
 
         SetMaterial();
 
-        ItemGroupHandler itemGroupHandler  = GetComponentInChildren<ItemGroupHandler>();
-        itemGroupHandler.SetItem(this);
+        //ItemGroupHandler itemGroupHandler  = GetComponentInChildren<ItemGroupHandler>();
+        //itemGroupHandler.SetItem(this);
 
         TextMeshProUGUI amountText = GetComponentInChildren<TextMeshProUGUI>();
         amountText.text = amount.ToString();
@@ -41,8 +41,7 @@ public class Item : MonoBehaviour, IInteractable
 
     public void SetMaterial()
     {
-        Material material = this.GetComponentInChildren<Renderer>().material;
-        material.SetTexture(textureProperty, itemSO.Icon.texture);
+        this.GetComponentInChildren<SpriteRenderer>().sprite = itemSO.Icon;
     }
 
     public void Clear()

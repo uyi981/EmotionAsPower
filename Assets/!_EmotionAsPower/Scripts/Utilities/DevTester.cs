@@ -9,7 +9,10 @@ public class DevTester : Singleton<DevTester>
     public int spawnAmount;
     public float spawnRange;
     public bool spawn;
-    public bool spawnEnemies; // New flag for spawning enemies
+    public bool spawnEnemies; 
+    public bool addRandomItems; 
+    public int minItemAmount = 1; 
+    public int maxItemAmount = 10; 
 
     private void Update()
     {
@@ -22,6 +25,11 @@ public class DevTester : Singleton<DevTester>
         {
             SpawnRandomEnemies();
             spawnEnemies = false;
+        }
+        if (addRandomItems)
+        {
+            AddRandomItemsToStorage();
+            addRandomItems = false;
         }
     }
 
@@ -72,6 +80,28 @@ public class DevTester : Singleton<DevTester>
             );
             EnemyManager.Instance.SpawnEnemy(randomEnemySO, randomPosition);
             Debug.Log($"Spawned enemy '{randomEnemySO.DisplayName}' at position {randomPosition}");
+        }
+    }
+
+    [ContextMenu("Add Random Items to Storage")]
+    public void AddRandomItemsToStorage()
+    {
+        SerializableDictionary<string, ItemSO> itemSOs = ContentManager.Instance.ItemSOs;
+        if (itemSOs == null || itemSOs.Count == 0)
+        {
+            Debug.LogWarning("No ItemSOs found in ContentManager!");
+            return;
+        }
+
+        List<ItemSO> itemList = itemSOs.Values.ToList();
+
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            ItemSO randomItemSO = itemList[Random.Range(0, itemList.Count)];
+            int randomAmount = Random.Range(minItemAmount, maxItemAmount + 1);
+
+            ItemStorage.Instance.AddItem(randomItemSO, randomAmount);
+            Debug.Log($"Added {randomAmount} '{randomItemSO.DisplayName}' to item storage");
         }
     }
 }
