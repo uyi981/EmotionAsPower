@@ -157,7 +157,7 @@ public class Resource : MonoBehaviour, IInteractable
             // Drop items
             if (itemDropper != null)
             {
-                itemDropper.DropFunction(transform.position, false);
+                //itemDropper.DropFunction(transform.position, false);
             }
 
             OnResourceHarvested?.Invoke();
@@ -191,13 +191,7 @@ public class Resource : MonoBehaviour, IInteractable
 
     private void SetMaterial()
     {
-        if (resourceSO == null || resourceSO.Icon == null) return;
-
-        Renderer renderer = GetComponentInChildren<Renderer>();
-        if (renderer != null && renderer.material != null)
-        {
-            renderer.material.SetTexture(textureProperty, resourceSO.Icon.texture);
-        }
+        this.GetComponentInChildren<SpriteRenderer>().sprite = resourceSO.Icon;
     }
 
     private void UpdateHealthUI()
