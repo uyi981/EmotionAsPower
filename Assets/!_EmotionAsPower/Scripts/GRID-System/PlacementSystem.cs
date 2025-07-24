@@ -72,6 +72,13 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
         inputManager.CurrentState = State.Moving; // Reset to idle state
+<<<<<<< HEAD
+=======
+    }
+    Vector3Int NormalizeGridPosition(Vector3Int pos, int gridWidth, int gridHeight)
+    {
+        return new Vector3Int(pos.x + gridWidth / 2, pos.z + gridHeight / 2);
+>>>>>>> 5e794eaf6625fab593e429efe110e37de06b0650
     }
     Vector3Int NormalizeGridPosition(Vector3Int pos, int gridWidth, int gridHeight)
     {

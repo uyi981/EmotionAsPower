@@ -8,4 +8,6 @@ public class GameData
 {
     public SerializableDictionary<EmotionType, int> emotionEnergy;
     public ItemRuntimeInstance[] items;
+    public ResourceRuntimeInstance[] resources;
+    public EnemyRuntimeInstance[] enemies;
 }

@@ -46,7 +46,7 @@ public class ItemGroupHandler : MonoBehaviour
         if (totalAmount <= maxAmountPerItemInstance)
         {
             // Can merge into single item - spawn at center
-            SpawnMergedItem(this.item.ItemSO, totalAmount, FindValidSpawnPosition(centerPosition));
+            SpawnMergedItem(this.item.ItemSO, totalAmount, FindValidSpawnPosition(centerPosition) + Vector3.up);
 
             // Destroy both original items
             DestroyItems(this.item, otherHandler.Item);

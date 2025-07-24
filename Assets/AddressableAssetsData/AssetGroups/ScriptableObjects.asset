@@ -27,6 +27,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 49d3e51099bf97b47a17778dd3320023
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/FactorySO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourceSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5737c859d55700c41a37d31f14b4f929
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/WoodSO 1.asset
     m_ReadOnly: 0
@@ -39,11 +45,36 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 784914357d51502499772318928f26c2
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/TreeSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourceSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5924222bf1c9d743a9209c9be05be04
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/TomatoSO 1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8f7838bad5ac604bbc7b82ed8ab5228
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/ItemDestroyerSO
+      1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EnemySO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5165a75b148a5842b337cd622d3a995
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/StoneSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ResourceSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: edc8abdd9c45d7a46a318675c6e08ffc
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EnemySO
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff3cc23270ff7f74c95c5a28223c3e4a, type: 2}
