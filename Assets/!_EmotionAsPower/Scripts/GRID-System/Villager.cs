@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class Villager : MonoBehaviour
+public class Villager : MonoBehaviour,IInteractable
 {
     APathFinding pathFinding = new APathFinding();
     bool isSelected = false;
@@ -135,5 +135,14 @@ public class Villager : MonoBehaviour
         completedGoToTarget?.Invoke(); // Notify subscribers that the villager has come home
         moveCoroutine = null; // Reset coroutine reference after movement is complete
     }
-  
+
+    public void OnInteract()
+    {
+       
+    }
+
+    public InteractableType GetInteractableType()
+    {
+       return InteractableType.Enemy;
+    }
 }
