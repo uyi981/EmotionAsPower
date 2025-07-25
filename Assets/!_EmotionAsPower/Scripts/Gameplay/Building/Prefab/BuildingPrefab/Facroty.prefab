@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4840984023400531611}
-  - component: {fileID: 7397338087152883793}
+  - component: {fileID: -1460266599911579761}
   m_Layer: 0
   m_Name: Facroty
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 6233498537884664881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7397338087152883793
+--- !u!114 &-1460266599911579761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,25 +42,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 3499972825727605785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 897c9f91d14ade1498d2632165c92de3, type: 3}
+  m_Script: {fileID: 11500000, guid: ed20b52f09ab2e44ca516b9c52132730, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingTower
+  m_EditorClassIdentifier: Assembly-CSharp::ProductionBuilding
   buildProgress: 0
   buildTime: 0
   selectedBuilding:
     buildingID: 0
     buildingName: 
+    type: 2
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 0}
     cost: 0
     buildTime: 0
     size: {x: 0, y: 0}
-  isBuilding: 0
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  isBuild: 0
   time: 0
-  workersAmount: 0
+  workersAmount: 11
   processBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
-  processBarImg: {fileID: 0}
-  healthBarImg: {fileID: 0}
+  maxHP: 100
+  currentHP: 0
+  productionRate: 1
+  productionTime: 5
+  currentProductionTime: 0
+  isProducing: 0
+  itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
+  dropItemsOnProduction: 1
+  inputItems: []
+  outputItems:
+  - {fileID: 11400000, guid: 6b33d0f58ba06a24fbd129044bb865d1, type: 2}
+  - {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+  - {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+  - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
+  productionAmount: 1
 --- !u!1 &3829587370384280709
 GameObject:
   m_ObjectHideFlags: 0

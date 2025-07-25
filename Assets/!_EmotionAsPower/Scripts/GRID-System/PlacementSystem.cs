@@ -6,8 +6,8 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private InputManagerForGrid inputManager;
     [SerializeField] private Grid grid;
     public float[,] gridMap;
-    [SerializeField] private ObjectsDatabaseSO database;
-    [SerializeField] private int selectedObjectIndex = -1;
+    [SerializeField] public ObjectsDatabaseSO database;
+    [SerializeField] public int selectedObjectIndex = -1;
     [SerializeField] private GameObject gridVisualization;
 
     [SerializeField]
@@ -110,13 +110,18 @@ public class PlacementSystem : MonoBehaviour
         Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
         gameObject.transform.position = baseWorld + offset;
 
-        var towerScript = gameObject.GetComponent<BuildingBase>();
-        if (towerScript != null)
+       
+        var buildingComponents = gameObject.GetComponentsInChildren<BuildingBase>(true);
+        if (buildingComponents != null && buildingComponents.Length > 0)
         {
-            towerScript.selectedBuilding = database.buildings[selectedObjectIndex];
+            foreach (var building in buildingComponents)
+            {
+                // Gán selectedBuilding cho tất cả các component BuildingBase
+                building.selectedBuilding = database.buildings[selectedObjectIndex];
+            }
         }
 
-        Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
+                Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
         OccupyCells(baseCell);
     }
 

@@ -7,7 +7,7 @@ public interface IBuilding
     int MaxHealth { get; }
     bool IsDestroyed { get; }
     
-    void TakeDamage(int damage);
+    void TakeDamage(int damage); 
     void Heal(int amount);
     void UpdateBuilding();
     void OnBuildingDestroyed();

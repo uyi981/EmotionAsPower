@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IProductionBuilding : IBuilding
+public interface IProductionBuilding
 {
     bool IsProducing { get; }
     float ProductionRate { get; }

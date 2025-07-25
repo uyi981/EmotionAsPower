@@ -4,7 +4,7 @@ using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildingBase : MonoBehaviour
+public class BuildingBase : MonoBehaviour, IBuilding
 {
     [Header("Cấu hình Building")]
     [Tooltip("Tiến độ xây dựng công trình từ 0-1")]
@@ -14,8 +14,8 @@ public class BuildingBase : MonoBehaviour
     public float buildTime;
     [Tooltip("Công trình đang được chọn để xây dựng")]
     public Building selectedBuilding;
-    [Tooltip("Công trình đang xây dựng")]
-    public bool isBuilding = false;
+    [Tooltip("Công trình đã xây xong")]
+    public bool isBuild = false;
     [Tooltip("Thời gian đã trôi qua kể từ khi bắt đầu xây dựng")]
     public float time;
     [Tooltip("Số lượng công nhân tham gia xây dựng")]
@@ -34,14 +34,22 @@ public class BuildingBase : MonoBehaviour
     private HealthBar healthBarImg;
     private GameObject processBarInstance;
     private GameObject healthBarInstance;
-    private bool isBuildingComplete = false; 
+    private bool isBuildingComplete = false;
+    private bool isDestroyed = false;
 
+    public string Name => gameObject.name;
 
+    public int Health => currentHP;
 
-    private void Start()
+    public int MaxHealth => maxHP;
+
+    public bool IsDestroyed => isDestroyed;
+
+    public virtual void Start()
     {
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
+
         // Tìm Image con tên 'Fill' trong processBarInstance và healthBarInstance
         if (processBar != null)
         {
@@ -60,14 +68,14 @@ public class BuildingBase : MonoBehaviour
     private void OnEnable()
     {
         
-        isBuilding = true;
+        //isBuild = true;
     }
 
-    void Update()
+    public virtual void Update()
     {
 
 
-        if (isBuilding)
+        if (!isBuild && workersAmount > 0)
         {
             IsBuildingComplete();
         }
@@ -88,7 +96,7 @@ public class BuildingBase : MonoBehaviour
         if (time > buildTime)
         {
             buildProgress = 1f; // Hoàn thành xây dựng
-            isBuilding = false;
+            isBuild = true;
             processBarInstance.SetActive(false);
             healthBarInstance.SetActive(true);
             healthBarImg = GetComponentInChildren<HealthBar>();
@@ -102,22 +110,7 @@ public class BuildingBase : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
-    {
-        if (!isBuildingComplete) return;
-
-        currentHP -= damage;
-        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
-
-        UpdateHealthBar();
-
-        if (currentHP <= 0)
-        {
-            // Handle building destroyed logic here
-            Destroy(gameObject);
-        }
-    }
-
+    
 
 
 
@@ -134,18 +127,34 @@ public class BuildingBase : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Tìm Image con theo tên trong một GameObject (tìm sâu)
-    /// </summary>
-    private Image FindImageByName(GameObject parent, string imageName)
+    public virtual void TakeDamage(int damage)
     {
-        Image[] imgs = parent.GetComponentsInChildren<Image>(true);
-        foreach (var img in imgs)
+        if (!isBuildingComplete) return;
+
+        currentHP -= damage;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+
+        UpdateHealthBar();
+
+        if (currentHP <= 0)
         {
-            if (img.gameObject.name == imageName)
-                return img;
+            // Handle building destroyed logic here
+            Destroy(gameObject);
         }
-        return null;
+    }
+
+    public virtual void Heal(int amount)
+    {
+        
+    }
+
+    public virtual void UpdateBuilding()
+    {
+       
+    }
+
+    public virtual void OnBuildingDestroyed()
+    {
+       
     }
 }
