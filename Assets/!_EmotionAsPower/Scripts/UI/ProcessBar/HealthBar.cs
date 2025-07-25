@@ -1,19 +1,16 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.__EmotionAsPower.Scripts.UI.ProcessBar
 {
-    public class ProcessBar : MonoBehaviour
+    public class HealthBar : MonoBehaviour
     {
-
         [SerializeField] private Image fillImage;
 
-        public void SetProcess(float normalized)
+        public void SetHealth(float normalized)
         {
             if (fillImage != null)
                 fillImage.fillAmount = normalized;
         }
-        
     }
 }

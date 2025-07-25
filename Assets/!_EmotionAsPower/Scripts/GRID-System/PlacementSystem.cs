@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
@@ -51,6 +51,8 @@ public class PlacementSystem : MonoBehaviour
         StopPlacement();
         grid = Singleton<GridSystem>.Instance.grid;
         gridMap = Singleton<GridSystem>.Instance.gridMap;
+
+
     }
 
     // Sự kiện sau khi click vào vật thể trong shop (UI)
@@ -108,7 +110,7 @@ public class PlacementSystem : MonoBehaviour
         Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
         gameObject.transform.position = baseWorld + offset;
 
-        var towerScript = gameObject.GetComponent<BuildingTower>();
+        var towerScript = gameObject.GetComponent<BuildingBase>();
         if (towerScript != null)
         {
             towerScript.selectedBuilding = database.buildings[selectedObjectIndex];

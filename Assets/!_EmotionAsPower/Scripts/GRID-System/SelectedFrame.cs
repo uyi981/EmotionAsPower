@@ -8,7 +8,6 @@ public class SelectedFrame : MonoBehaviour
     private List<GameObject> pool = new List<GameObject>();
 
 
-
     public void SetSize(Vector2Int size)
     {
         int total = size.x * size.y;

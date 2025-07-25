@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.ComponentModel;
+using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildingTower : MonoBehaviour
+public class BuildingBase : MonoBehaviour
 {
     [Header("Cấu hình Building")]
     [Tooltip("Tiến độ xây dựng công trình từ 0-1")]
@@ -23,33 +24,36 @@ public class BuildingTower : MonoBehaviour
     public GameObject processBar;
     [Tooltip("Thanh HP")]
     public GameObject healthBar;
+    [Tooltip("Máu tối đa của công trình")]
+    public int maxHP = 100;
+    [Tooltip("Máu hiện tại của công trình")]
+    public int currentHP;
 
 
-    [Tooltip("Thành phần UI hiển thị tiến độ xây dựng")]
-    public Image processBarImg;
-    [Tooltip("Thành phần UI hiển thị thanh máu của công trình")]
-    public Image healthBarImg;
-
+    private ProcessBar processBarImg;
+    private HealthBar healthBarImg;
     private GameObject processBarInstance;
     private GameObject healthBarInstance;
+    private bool isBuildingComplete = false; 
 
-    
+
 
     private void Start()
     {
-        
+        currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
         // Tìm Image con tên 'Fill' trong processBarInstance và healthBarInstance
         if (processBar != null)
         {
             processBarInstance = Instantiate(processBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
-            processBarImg = FindImageByName(processBarInstance, "Fill");
+            processBarImg = GetComponentInChildren<ProcessBar>();
         }
         if (healthBar != null)
         {
             healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
+            
             healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu
-            healthBarImg = FindImageByName(healthBarInstance, "Fill");
+            
         }
     }
 
@@ -67,9 +71,16 @@ public class BuildingTower : MonoBehaviour
         {
             IsBuildingComplete();
         }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            TakeDamage(10); // Giả lập việc công trình bị tấn công
+        }
     }
 
-
+    /// <summary>
+    /// Kiểm tra xem công trình đã hoàn thành xây dựng hay chưa.
+    /// </summary>
     public void IsBuildingComplete()
     {
         time += Time.deltaTime * workersAmount;
@@ -80,16 +91,48 @@ public class BuildingTower : MonoBehaviour
             isBuilding = false;
             processBarInstance.SetActive(false);
             healthBarInstance.SetActive(true);
+            healthBarImg = GetComponentInChildren<HealthBar>();
+            isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
         }
         else
         {
             buildProgress = time / buildTime; // Tính toán tiến độ từ 0 đến 1
         }
-        processBarImg.fillAmount = buildProgress; // Cập nhật thanh tiến độ UI
+        processBarImg.SetProcess(buildProgress); // Cập nhật thanh tiến độ UI
+    }
+
+
+    public void TakeDamage(int damage)
+    {
+        if (!isBuildingComplete) return;
+
+        currentHP -= damage;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+
+        UpdateHealthBar();
+
+        if (currentHP <= 0)
+        {
+            // Handle building destroyed logic here
+            Destroy(gameObject);
+        }
     }
 
 
 
+
+
+
+    /// <summary>
+    /// Cập nhật thanh máu của công trình dựa trên máu hiện tại và tối đa.
+    /// </summary>
+    private void UpdateHealthBar()
+    {
+        if (healthBarImg != null)
+        {
+            healthBarImg.SetHealth((float)currentHP / maxHP);
+        }
+    }
 
 
     /// <summary>
