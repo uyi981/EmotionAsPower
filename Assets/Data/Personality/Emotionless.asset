@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d7fe13b0681f9458a5cde40d2f3d5c, type: 3}
-  m_Name: Joy
+  m_Name: Emotionless
   m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
-  name: 
-  description: 
-  rateSendChat: 0.6
-  rateAcceptChat: 0.7
+  name: Emotionless
+  description: Barely feels anything. Conversations have no effect.
+  rateSendChat: 0.3
+  rateAcceptChat: 0.3
   emotionSendAffterChat:
     AngerLevel: 0
-    JoyLevel: 5
+    JoyLevel: 0
     SadnessLevel: 0
     FearLevel: 0
     ApatheticLevel: 0
   emotionSensity:
-    AngerLevel: 1
-    JoyLevel: 1
-    SadnessLevel: 1
-    FearLevel: 1
-    ApatheticLevel: 1
+    AngerLevel: 0.1
+    JoyLevel: 0.1
+    SadnessLevel: 0.1
+    FearLevel: 0.1
+    ApatheticLevel: 0.1
   hungerModifier: 0
   thirstModifier: 0
   tiredModifier: 0

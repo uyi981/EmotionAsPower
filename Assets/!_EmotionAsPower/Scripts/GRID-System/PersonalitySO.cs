@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPersonality", menuName = "EmotionAsPower/Personality")]
 public class PersonalitySO :ScriptableObject
 {
+    public string name;
+    [TextArea(20,10)]
+    public string description;
     public float rateSendChat;
     public float rateAcceptChat;
     public EmotionVector emotionSendAffterChat; // will send emotion after chat

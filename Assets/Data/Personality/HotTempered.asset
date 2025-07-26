@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d7fe13b0681f9458a5cde40d2f3d5c, type: 3}
-  m_Name: Joy
+  m_Name: HotTempered
   m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
-  name: 
-  description: 
-  rateSendChat: 0.6
-  rateAcceptChat: 0.7
+  name: HotTempered
+  description: Easily angered and quick to react negatively.
+  rateSendChat: 0.4
+  rateAcceptChat: 0.5
   emotionSendAffterChat:
-    AngerLevel: 0
-    JoyLevel: 5
+    AngerLevel: 10
+    JoyLevel: 0
     SadnessLevel: 0
     FearLevel: 0
     ApatheticLevel: 0
   emotionSensity:
-    AngerLevel: 1
-    JoyLevel: 1
-    SadnessLevel: 1
-    FearLevel: 1
-    ApatheticLevel: 1
-  hungerModifier: 0
-  thirstModifier: 0
-  tiredModifier: 0
+    AngerLevel: 2
+    JoyLevel: 0.5
+    SadnessLevel: 0.5
+    FearLevel: 0.5
+    ApatheticLevel: 0.5
+  hungerModifier: 0.3
+  thirstModifier: 0.3
+  tiredModifier: 0.4

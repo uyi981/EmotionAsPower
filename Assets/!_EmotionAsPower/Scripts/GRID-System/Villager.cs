@@ -13,20 +13,18 @@ public class Villager : MonoBehaviour,IInteractable
     APathFinding pathFinding = new APathFinding();
     bool isSelected = false;
     public bool isWorking = false;
+    Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
-    int AngerLevel = 0;
-    int JoyLevel = 0;
-    int SadnessLevel = 0;
-    int FearLevel = 0;
-    int ApatheticLevel = 0;
+    EmotionVector emotion = new EmotionVector();
     public VillagerWorkingState villagerWorkingState;
     public VillagerIdleState villagerIdleState;
     public villagerSelectedState villagerSelectedState;
     public VillagerBackToHomeState villagerBackToHomeState;
     public VillagerChattingState villagerChattingState;
+    public VillagerSleepState villagerSleepState;
     public PersonalitySO personality;
     IState CurrentState;
-    Coroutine moveCoroutine;
+    public Coroutine moveCoroutine;
     public GameObject itemHandle;
     public event Action completedGoToTarget;
     public event Action<Collision> collisionTrigger;
@@ -64,12 +62,57 @@ public class Villager : MonoBehaviour,IInteractable
         villagerSelectedState = new villagerSelectedState(this);
         villagerBackToHomeState = new VillagerBackToHomeState(this);
         villagerChattingState = new VillagerChattingState(this);
-
+        villagerSleepState = new VillagerSleepState(this);
         InvokeRepeating("UpdateState", 0f, 0.1f);
         Initialize(villagerIdleState);
         TransitionTo(villagerIdleState); // Start with idle state
         // Initialize the villager state to idle
     }
+    void HandleEmotion(Emotion currentEmotion)
+    {
+        SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
+        switch (currentEmotion)
+        {
+            case Emotion.Joy:
+                // Ví dụ: NPC cười, vẫy tay, chạy nhanh
+                spriteRenderer.color = Color.yellow; // Change color to indicate selection
+                break;
+
+            case Emotion.Sad:
+                // Ví dụ: NPC chậm chạp, cúi đầu
+                spriteRenderer.color = Color.blue; // Change color to indicate selection
+                break;
+
+            case Emotion.Anger:
+                // Ví dụ: NPC đỏ mặt, nói gắt, đấm tường
+                spriteRenderer.color = Color.orangeRed; // Change color to indicate selection
+                break;
+
+            case Emotion.Fear:
+                // Ví dụ: NPC rung, bỏ chạy, né xa player
+                spriteRenderer.color = Color.lawnGreen; // Change color to indicate selection
+
+                break;
+
+            case Emotion.Apethatic:
+                // Ví dụ: NPC không phản ứng gì, đứng yên
+                spriteRenderer.color = Color.gray; // Change color to indicate selection
+                break;
+
+            case Emotion.Normal:
+            default:
+                // NPC hoạt động bình thường
+                break;
+        }
+    }
+    public void ReceiveEmotion(EmotionVector emotion)
+    {
+        this.emotion += emotion*personality.emotionSensity; // Add the received emotion to the villager's emotion vector
+        Emotion emo = this.emotion.CheckEmotion();
+        currentEmotion = emo;
+        HandleEmotion(emo);
+    }
+ 
     public void Initialize(IState startingState)
     {
         CurrentState = startingState;
@@ -94,8 +137,6 @@ public class Villager : MonoBehaviour,IInteractable
         Vector2Int startPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
         Debug.Log("Before Start Position: " + startPosition);
         Debug.Log("Before Target Position: " + targetPosition);
-        Debug.Log("start"+VoHauMethod.NormalizeGridPosition(startPosition, 500, 500));
-        Debug.Log("target"+ VoHauMethod.NormalizeGridPosition(targetPosition, 500, 500));
         List<Vector2Int> path = pathFinding.GetPathResult(VoHauMethod.NormalizeGridPosition(startPosition, 100, 100), VoHauMethod.NormalizeGridPosition(targetPosition, 100, 100), Singleton<GridSystem>.Instance.gridMap, 1);
         if (path != null && path.Count > 0)
         {
