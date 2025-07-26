@@ -6,7 +6,6 @@ public class PlayerController : Singleton<PlayerController>
     InputManagerForGrid inputManager;
     Grid grid;
     float[,] gridMap;
-    APathFinding pathFinding = new APathFinding();
     public void Start()
     {
         grid = Singleton<GridSystem>.Instance.grid;
