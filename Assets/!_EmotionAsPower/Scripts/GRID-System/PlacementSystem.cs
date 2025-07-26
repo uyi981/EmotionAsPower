@@ -100,7 +100,8 @@ public class PlacementSystem : MonoBehaviour
           cellUnderMouse.y,
           cellUnderMouse.z - currentSize.y / 2);
 
-        MarkWorkerSpots(baseCell);
+        Debug.Log("Base cell for placement: " + baseCell);
+        
 
         if (!CanPlace(baseCell))
         {
@@ -126,6 +127,7 @@ public class PlacementSystem : MonoBehaviour
 
         Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
         OccupyCells(baseCell);
+        MarkWorkerSpots(baseCell);
     }
 
     // Kiểm tra một footprint kích thước currentSize có thể đặt tại basePos hay không
@@ -185,12 +187,13 @@ public class PlacementSystem : MonoBehaviour
         {
             new Vector3Int(baseCell.x + 1, baseCell.y, baseCell.z),
             new Vector3Int(baseCell.x - 1, baseCell.y, baseCell.z),
-            new Vector3Int(baseCell.x, baseCell.y, baseCell.z + 1)
+            new Vector3Int(baseCell.x, baseCell.y, baseCell.z - 1)
         };
 
         foreach (var spot in workerSpots)
         {
-            Vector3 worldPos = grid.CellToWorld(spot) + new Vector3(0.5f, 0.25f, 0.5f); // căn giữa cube
+            Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
+            Vector3 worldPos = grid.CellToWorld(spot) + offset; // căn giữa cube
             Instantiate(workerSpotCubePrefab, worldPos, Quaternion.identity);
         }
     }

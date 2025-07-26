@@ -77,7 +77,7 @@ MonoBehaviour:
   dropItemsOnProduction: 1
   inputItems: []
   outputItems:
-  - {fileID: 11400000, guid: 6b33d0f58ba06a24fbd129044bb865d1, type: 2}
+  - {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
   - {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
   - {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
   - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
