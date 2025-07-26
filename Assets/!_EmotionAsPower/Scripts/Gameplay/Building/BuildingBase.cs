@@ -54,7 +54,7 @@ public class BuildingBase : MonoBehaviour, IBuilding
 
     public bool IsBuild => isBuild;
 
-    public JobType JobType { get; set }
+    public JobType JobType { get; set; }
 
     public virtual void Start()
     {
