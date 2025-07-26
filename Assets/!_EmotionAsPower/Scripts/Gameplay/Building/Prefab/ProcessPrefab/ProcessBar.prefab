@@ -263,6 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4434535659323785924}
   - component: {fileID: -3944896736990316672}
+  - component: {fileID: 6183634909497880900}
   m_Layer: 0
   m_Name: ProcessBar
   m_TagString: Untagged
@@ -298,3 +299,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cc4c7fd63361341b3f27d6f7aeee25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.ProcessBar.ProcessBar
+--- !u!114 &6183634909497880900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392199525925716247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ab98ceee1d040743bd59c6abd3d513c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.UI.ProcessBar.ProcessBar
+  fillImage: {fileID: 6012012996234494087}
