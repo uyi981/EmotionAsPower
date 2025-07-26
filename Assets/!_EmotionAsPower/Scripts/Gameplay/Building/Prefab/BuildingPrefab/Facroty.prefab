@@ -69,6 +69,8 @@ MonoBehaviour:
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   maxHP: 100
   currentHP: 0
+  workerPositions: []
+  jobType: 0
   productionRate: 1
   productionTime: 5
   currentProductionTime: 0
