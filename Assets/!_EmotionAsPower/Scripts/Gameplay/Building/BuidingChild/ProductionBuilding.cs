@@ -18,6 +18,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     [SerializeField] private List<ItemSO> outputItems;
     [SerializeField] private int productionAmount = 1;
 
+
     private void Awake()
     {
         if (itemDropper == null)
@@ -40,13 +41,16 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     {
         base.Start();
         StartProduction();
+        
     }
 
     public override void Update()
     {
         base.Update();
-        if(isBuild) isProducing = true; 
+        if(IsBuild) isProducing = true; 
         if (isProducing) UpdateProduction();
+
+        
     }
 
     private void UpdateProduction()
@@ -66,10 +70,13 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         }
     }
 
+    
+
     private bool HasRequiredInputs()
     {
         // Kiểm tra xem có đủ nguyên liệu đầu vào không
         // Cần implement InventorySystem để kiểm tra
+        return true; // Tạm thởi luôn trả về true
         return true; // Tạm thời luôn trả về true
     }
 
@@ -145,4 +152,21 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     {
         // Cập nhật trạng thái công trình
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }

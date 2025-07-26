@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlacementSystem : MonoBehaviour
     // Offset để chuyển toạ độ lưới (có thể âm) sang chỉ số mảng >= 0
     [SerializeField] private Vector2Int gridOffset = new Vector2Int(50, 50);
     [SerializeField] private SelectedFrame selectedFrame;
+    [SerializeField] private GameObject workerSpotCubePrefab;
+
     private void Update()
     {
         if (selectedObjectIndex == -1 || !gridVisualization.activeSelf)
@@ -98,11 +101,15 @@ public class PlacementSystem : MonoBehaviour
           cellUnderMouse.y,
           cellUnderMouse.z - currentSize.y / 2);
 
+        Debug.Log("Base cell for placement: " + baseCell);
+
+
         if (!CanPlace(baseCell))
         {
             Debug.LogWarning("Area is occupied or out of bounds, cannot place structure.");
             return;
         }
+        List<Vector2Int> workerPositions = MarkWorkerSpots(baseCell);
 
         GameObject gameObject = Instantiate(database.buildings[selectedObjectIndex].buildingPrefab);
         Vector3 baseWorld = grid.CellToWorld(baseCell);
@@ -117,11 +124,13 @@ public class PlacementSystem : MonoBehaviour
             {
                 // Gán selectedBuilding cho tất cả các component BuildingBase
                 building.selectedBuilding = database.buildings[selectedObjectIndex];
+                building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
             }
         }
 
         Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
         OccupyCells(baseCell);
+
     }
 
     // Kiểm tra một footprint kích thước currentSize có thể đặt tại basePos hay không
@@ -175,4 +184,43 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
     }
+    //public void MarkWorkerSpots(Vector3Int baseCell)
+    //{
+    //    Vector3Int[] workerSpots = new Vector3Int[]
+    //    {
+    //        new Vector3Int(baseCell.x + 1, baseCell.y, baseCell.z),
+    //        new Vector3Int(baseCell.x - 1, baseCell.y, baseCell.z),
+    //        new Vector3Int(baseCell.x, baseCell.y, baseCell.z - 1)
+    //    };
+
+    //    foreach (var spot in workerSpots)
+    //    {
+    //        Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
+    //        Vector3 worldPos = grid.CellToWorld(spot) + offset; // căn giữa cube
+    //        Instantiate(workerSpotCubePrefab, worldPos, Quaternion.identity);
+    //    }
+    //}
+    public List<Vector2Int> MarkWorkerSpots(Vector3Int baseCell)
+    {
+        Vector3 worldPos;
+        Vector3Int[] workerSpots = new Vector3Int[]
+        {
+        new Vector3Int(baseCell.x + 1, baseCell.y, baseCell.z),
+        new Vector3Int(baseCell.x - 1, baseCell.y, baseCell.z),
+        new Vector3Int(baseCell.x, baseCell.y, baseCell.z - 1)
+        };
+
+        List<Vector2Int> workerSpotsResult = new List<Vector2Int>();
+
+        foreach (var spot in workerSpots)
+        {
+            Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
+            worldPos = grid.CellToWorld(spot) + offset; // Center the cube
+            Instantiate(workerSpotCubePrefab, worldPos, Quaternion.identity);
+            workerSpotsResult.Add(new Vector2Int((int)worldPos.x, (int)worldPos.z));
+        }
+
+        return workerSpotsResult;
+    }
+
 }
