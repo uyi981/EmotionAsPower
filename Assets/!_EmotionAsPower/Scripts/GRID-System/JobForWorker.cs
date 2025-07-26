@@ -17,5 +17,6 @@ public enum JobType
     Gather,
     Build,
     Repair,
-    Transport
+    Transport,
+    Sleep,
 }
