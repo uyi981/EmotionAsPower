@@ -17,6 +17,8 @@ public class PlacementSystem : MonoBehaviour
     // Offset để chuyển toạ độ lưới (có thể âm) sang chỉ số mảng >= 0
     [SerializeField] private Vector2Int gridOffset = new Vector2Int(50, 50);
     [SerializeField] private SelectedFrame selectedFrame;
+    [SerializeField] private GameObject workerSpotCubePrefab;
+
     private void Update()
     {
         if (selectedObjectIndex == -1 || !gridVisualization.activeSelf)
@@ -98,6 +100,8 @@ public class PlacementSystem : MonoBehaviour
           cellUnderMouse.y,
           cellUnderMouse.z - currentSize.y / 2);
 
+        MarkWorkerSpots(baseCell);
+
         if (!CanPlace(baseCell))
         {
             Debug.LogWarning("Area is occupied or out of bounds, cannot place structure.");
@@ -174,5 +178,20 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.transform.localScale = Vector3.one;
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+    }
+    public void MarkWorkerSpots(Vector3Int baseCell)
+    {
+        Vector3Int[] workerSpots = new Vector3Int[]
+        {
+            new Vector3Int(baseCell.x + 1, baseCell.y, baseCell.z),
+            new Vector3Int(baseCell.x - 1, baseCell.y, baseCell.z),
+            new Vector3Int(baseCell.x, baseCell.y, baseCell.z + 1)
+        };
+
+        foreach (var spot in workerSpots)
+        {
+            Vector3 worldPos = grid.CellToWorld(spot) + new Vector3(0.5f, 0.25f, 0.5f); // căn giữa cube
+            Instantiate(workerSpotCubePrefab, worldPos, Quaternion.identity);
+        }
     }
 }

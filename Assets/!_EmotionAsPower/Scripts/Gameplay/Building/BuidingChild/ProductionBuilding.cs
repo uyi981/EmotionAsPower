@@ -45,7 +45,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     public override void Update()
     {
         base.Update();
-        if(isBuild) isProducing = true; 
+        if(IsBuild) isProducing = true; 
         if (isProducing) UpdateProduction();
     }
 

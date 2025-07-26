@@ -45,6 +45,8 @@ public class BuildingBase : MonoBehaviour, IBuilding
 
     public bool IsDestroyed => isDestroyed;
 
+    public bool IsBuild => isBuild;
+
     public virtual void Start()
     {
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
@@ -55,11 +57,11 @@ public class BuildingBase : MonoBehaviour, IBuilding
         {
             processBarInstance = Instantiate(processBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
             processBarImg = GetComponentInChildren<ProcessBar>();
+            processBarImg.SetProcess(0f); // Đặt tiến độ ban đầu là 0
         }
         if (healthBar != null)
         {
             healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
-            
             healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu
             
         }
