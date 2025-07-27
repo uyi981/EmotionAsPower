@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ProductionBuilding : BuildingBase, IProductionBuilding
 {
@@ -40,19 +41,17 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     public override void Start()
     {
         base.Start();
-        StartProduction();
-        
     }
 
-    public override void Update()
+    public override void OnBuildingComplete()
     {
-        base.Update();
-        if(IsBuild) isProducing = true; 
-        if (isProducing) UpdateProduction();
 
-        
+        ResetWorkerList();
+        isProducing = true;
+        Debug.Log($" đã hoàn thành!");
+        base.AssignJobToWorker(JobType.Produce);
+        StartCoroutine(ProduceItem());
     }
-
     private void UpdateProduction()
     {
         //if (!HasRequiredInputs())
@@ -69,39 +68,55 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             currentProductionTime = 0f;
         }
     }
-
-    
-
+    IEnumerator ProduceItem()
+    {
+        while(isProducing)
+        {
+            Debug.Log($"{Name} đang sản xuất...");
+            yield return new WaitForSeconds(productionTime);
+            CompleteProduction();
+        }
+    }
     private bool HasRequiredInputs()
     {
-        // Kiểm tra xem có đủ nguyên liệu đầu vào không
-        // Cần implement InventorySystem để kiểm tra
         return true; // Tạm thởi luôn trả về true
         return true; // Tạm thời luôn trả về true
     }
-
     private void CompleteProduction()
     {
         // Tiêu thụ nguyên liệu đầu vào
-        ConsumeInputs();
+        if(!ConsumeInputs())
+        {
+            return;
+        }    
         
         // Tạo sản phẩm
         if (dropItemsOnProduction && itemDropper != null)
         {
-
             // Dùng ItemManager.Instance.SpawnItem spawn mang outputItems
-            for (int i = 0; i < outputItems.Count; i++)
-            {
-                ItemManager.Instance.SpawnItem(outputItems[i], productionAmount, transform.position);
-            }
-            Debug.Log($"{Name} đã sản xuất {productionAmount} sản phẩm!");
+                ItemManager.Instance.SpawnItem(outputItems[0], productionAmount, transform.position+ new Vector3(0,0.5f, -(1 + selectedBuilding.size.y)));
+                Vector3Int vector3Int = Singleton<GridSystem>.Instance.grid.WorldToCell(transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
+                Vector2Int vector2Int = new Vector2Int(vector3Int.x, vector3Int.z);
+                Singleton<VillagerManager>.Instance.SendJobRequestToManager(new JobForWorker(vector2Int, JobType.Transport, this));
+                Debug.Log($"{Name} đã sản xuất {productionAmount} sản phẩm!");
         }
         
         OnProductionCompleted();
     }
 
-    private void ConsumeInputs()
+    private bool ConsumeInputs()
     {
+        foreach (var item in inputItems)
+        {
+          int amount =  Singleton<ItemStorage>.Instance.TryTakeItem(item.ID, 10);
+            if(amount <= 0)
+            {
+                Debug.LogWarning($"Không đủ nguyên liệu!");
+                StopProduction();
+                return false;
+            }
+        }
+        return true;
         // Tiêu thụ nguyên liệu đầu vào
         // Cần implement InventorySystem để xử lý
     }
@@ -124,6 +139,9 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         if (isProducing)
         {
             isProducing = false;
+            base.ResetWorkerList();
+            workers.Clear();
+            workersAmount = 0;
         }
     }
 

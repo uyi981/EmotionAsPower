@@ -13,21 +13,40 @@ public class VillagerWorkingState : IState
         Debug.Log("Villager is now working.");
         villager.Move(villager.currentJob.Position, 1f);
         villager.completedGoToTarget += OnWork;
+        villager.collisionTrigger += OnCollisionEnter; // Subscribe to collision events
         // Implement logic for entering the working state
     }
     public void OnWork()
     {
+        if (villager.currentJob.JobType.Equals(JobType.Transport))
+        {
+            villager.TransitionTo(villager.villagerIdleState);
+        }
+        else
+        {
+            villager.currentJob.buildingBase.OnWorkerCome(villager);
 
+        }
+    }
+    public void OnCollisionEnter(Collision collision)
+    {
+         if (collision.gameObject.CompareTag("Item"))
+        {
+            collision.transform.SetParent(villager.itemHandle.transform); // Set the collided object as a child of the villager
+            collision.transform.localPosition = Vector3.zero; // Reset position to the villager's position
+            collision.collider.enabled = false; // Disable the collider to prevent further collisions
+            collision.rigidbody.useGravity = false; // Disable gravity for the collided object
+        }
     }
     public void UpdateState()
     {
-        // Implement logic for updating the working state
-        Debug.Log("Villager is working...");
+
     }
     public void ExitState()
     {
         Debug.Log("Villager has finished working.");
         villager.completedGoToTarget -= OnWork;
+        villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from collision events
         if (villager.moveCoroutine != null)
         {
             villager.StopCoroutine(villager.moveCoroutine);

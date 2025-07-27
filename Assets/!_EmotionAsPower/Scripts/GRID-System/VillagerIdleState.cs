@@ -92,7 +92,12 @@ public class VillagerIdleState : IState
     public void EnterState()
     {
         moveCoroutine = villager.StartCoroutine(MoveToRandomPointRoutine());
+        villager.isWorking = false; // Set working state to false
         villager.collisionTrigger += OnCollisionEnter; // Subscribe to the collision event
+        if(villager.itemHandle.transform.childCount > 0)
+        {
+            BackToHome();
+        }
     }
     public void UpdateState()
     {

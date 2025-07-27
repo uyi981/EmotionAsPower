@@ -71,6 +71,7 @@ MonoBehaviour:
   currentHP: 0
   workerPositions: []
   jobType: 0
+  workers: []
   productionRate: 1
   productionTime: 10
   currentProductionTime: 0
@@ -78,12 +79,9 @@ MonoBehaviour:
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
   dropItemsOnProduction: 1
   inputItems:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
   outputItems:
   - {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-  - {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-  - {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-  - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
   productionAmount: 1
 --- !u!1 &3829587370384280709
 GameObject:

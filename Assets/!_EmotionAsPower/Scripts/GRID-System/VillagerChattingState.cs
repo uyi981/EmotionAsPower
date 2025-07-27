@@ -56,8 +56,10 @@ public class VillagerSleepState : IState
     public void EnterState()
     {
         // Logic for entering the villager sleep state
+        Debug.Log("Villager is entering sleep state.");
         villager.StartCoroutine(WaitForBed());
         villager.completedGoToTarget += OnGoToTarget;
+        villager.isWorking = true;
     }
     public IEnumerator WaitForBed()
     {
@@ -73,7 +75,6 @@ public class VillagerSleepState : IState
         else
         {
             // Handle case where no bed is available
-            Debug.LogWarning("No bed available for villager to sleep.");
         }
     }
     public void OnGoToTarget()

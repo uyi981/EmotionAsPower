@@ -50,6 +50,10 @@ public class DayTimeController : Singleton<DayTimeController>
             CheckTimeStage();
         }
     }
+    private void Start()
+    {
+        timeOfDay = 0.3f;
+    }
 
     //private void OnValidate()
     //{
