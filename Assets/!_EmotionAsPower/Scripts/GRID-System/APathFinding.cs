@@ -20,7 +20,7 @@ public class APathFinding
         openList = new List<ANode>();
         startNode=null;
         endNode= null;
-        if (CheckIsObstacle(start, heightMap)||CheckIsObstacle(end, heightMap))
+        if (CheckIsObstacle(start, heightMap) || CheckIsObstacle(end, heightMap))
         {
             //Debug.Log("Start or End is Obstacle");
             //Debug.Log("Start: "+ heightMap[start.x,start.y]);

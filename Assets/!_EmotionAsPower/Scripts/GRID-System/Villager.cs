@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 public class Villager : MonoBehaviour,IInteractable
 {
     APathFinding pathFinding = new APathFinding();
-    bool isSelected = false;
+    public bool isSelected = false;
     public bool isWorking = false;
     Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
@@ -30,6 +30,7 @@ public class Villager : MonoBehaviour,IInteractable
     public event Action<Collision> collisionTrigger;
     public event Action<Villager> receiveChat;
     public bool isChatting;
+    public string currentStateName;
     void OnMouseDown()
     {
         if(Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
@@ -54,6 +55,20 @@ public class Villager : MonoBehaviour,IInteractable
             isSelected = !isSelected;
             TransitionTo(villagerSelectedState);
         }
+    }
+    public string GetCurrentStateName()
+    {
+        if (CurrentState == villagerIdleState) return "Idle";
+        if (CurrentState == villagerWorkingState) return "Working";
+        if (CurrentState == villagerSelectedState) return "Selected";
+        if (CurrentState == villagerBackToHomeState) return "BackToHome";
+        if (CurrentState == villagerChattingState) return "Chatting";
+        if (CurrentState == villagerSleepState) return "Sleeping";
+        return "Unknown";
+    }
+    public void Update()
+    {
+        currentStateName = GetCurrentStateName();
     }
     private void Start()
     {
@@ -120,6 +135,10 @@ public class Villager : MonoBehaviour,IInteractable
     }
     public void TransitionTo(IState nextState)
     {
+        if (isSelected && !nextState.Equals(villagerSelectedState))
+        {
+            return;
+        }
         CurrentState.ExitState();
         CurrentState = nextState;
         nextState.EnterState();
@@ -149,7 +168,8 @@ public class Villager : MonoBehaviour,IInteractable
         }
         else
         {
-
+            Debug.LogWarning("No valid path found for villager to move from " + startPosition + " to " + targetPosition);
+            // Handle case where no path is found
         }
     }
     private void OnCollisionEnter(Collision collision)

@@ -18,7 +18,6 @@ public class PlacementSystem : MonoBehaviour
     // Offset để chuyển toạ độ lưới (có thể âm) sang chỉ số mảng >= 0
     [SerializeField] private Vector2Int gridOffset = new Vector2Int(50, 50);
     [SerializeField] private SelectedFrame selectedFrame;
-    [SerializeField] private GameObject workerSpotCubePrefab;
 
     private void Update()
     {
@@ -73,6 +72,7 @@ public class PlacementSystem : MonoBehaviour
         }
 
         currentSize = database.buildings[selectedObjectIndex].size;
+        Destroy(blueprintInstance.gameObject);
         blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
 
         selectedFrame.SetSize(currentSize);
@@ -183,6 +183,9 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.transform.localScale = Vector3.one;
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+        if(blueprintInstance != null)
+        blueprintInstance.gameObject.SetActive(false);
+        inputManager.CurrentState = State.Moving;
     }
     //public void MarkWorkerSpots(Vector3Int baseCell)
     //{
@@ -216,11 +219,34 @@ public class PlacementSystem : MonoBehaviour
         {
             Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
             worldPos = grid.CellToWorld(spot) + offset; // Center the cube
-            Instantiate(workerSpotCubePrefab, worldPos, Quaternion.identity);
             workerSpotsResult.Add(new Vector2Int((int)worldPos.x, (int)worldPos.z));
         }
+        Vector2Int baseVector2 = new Vector2Int(baseCell.x, baseCell.z);
+        return GetAdjacentCells(baseVector2, database.buildings[selectedObjectIndex].size);
+    }
+    public static List<Vector2Int> GetAdjacentCells(Vector2Int origin,Vector2Int size)
+    {
+        var adjacent = new HashSet<Vector2Int>();
 
-        return workerSpotsResult;
+        // Phía trước (dưới building)
+        for (int dx = 0; dx < size.x; dx++)
+        {
+            adjacent.Add(new Vector2Int(origin.x + dx, origin.y -1));
+        }
+
+        // Bên trái
+        for (int dy = 0; dy < size.y; dy++)
+        {
+            adjacent.Add(new Vector2Int(origin.x - 1, origin.y + dy));
+        }
+
+        // Bên phải
+        for (int dy = 0; dy < size.y; dy++)
+        {
+            adjacent.Add(new Vector2Int(origin.x + size.x, origin.y + dy));
+        }
+
+        return new List<Vector2Int>(adjacent);
     }
 
 }

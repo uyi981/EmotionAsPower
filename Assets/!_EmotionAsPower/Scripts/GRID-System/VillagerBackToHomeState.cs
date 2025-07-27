@@ -10,6 +10,7 @@ public class VillagerBackToHomeState : IState
     {
         villager.Move(new Vector2Int(0, 0), 1f); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
+        villager.isWorking = true; // Set working state to false
     }
     public void DropItem()
     {
@@ -26,6 +27,7 @@ public class VillagerBackToHomeState : IState
         }
         Singleton<ItemStorage>.Instance.AddItem(item.ItemSO, 1); // Add item to storage
         villager.itemHandle.transform.DetachChildren(); // Detach all children from the item handle
+        GameObject.Destroy(item.gameObject); // Destroy the item game object
         villager.TransitionTo(villager.villagerIdleState);
     }
     public void UpdateState()
