@@ -5,6 +5,6 @@ using UnityEngine;
 public class EnemySO : BaseScriptableObject
 {
     public EnemyDefaultData defaultData;
-    public EnemyBehaviourSO behaviour;
+    public AIBehaviour behaviour;
     public DropableItem[] dropableItems;
 }
