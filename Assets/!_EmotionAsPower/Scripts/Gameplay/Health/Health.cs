@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IInteractable
 {
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
@@ -256,4 +256,11 @@ public class Health : MonoBehaviour
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         }
     }
+
+    public void OnInteract()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public InteractableType GetInteractableType() => InteractableType.Any;
 }

@@ -17,12 +17,15 @@ public class PlayerController : Singleton<PlayerController>
     public void AddVillagerToList(Villager villager)
     {
         selectedVillagers.Add(villager);
+        Singleton<VillagerDetailUI>.Instance.ReceiveVillagerData(villager);
+        Singleton<VillagerDetailUI>.Instance.transform.position = villager.transform.position + new Vector3(1, 1, 0); // Adjust the position of the UI to be above the villager
     }
     public void RemoveVillagerOutOfList(Villager villager)
     {
         if (selectedVillagers.Contains(villager))
         {
             selectedVillagers.Remove(villager);
+            Singleton<VillagerDetailUI>.Instance.transform.position+= Vector3.up * 1000; // Move the UI far away when the villager is removed
         }
         else
         {

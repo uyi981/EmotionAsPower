@@ -17,7 +17,7 @@ MonoBehaviour:
   rateSendChat: 0.8
   rateAcceptChat: 0.9
   emotionSendAffterChat:
-    AngerLevel: 0
+    AngerLevel: 5
     JoyLevel: 20
     SadnessLevel: 0
     FearLevel: 0

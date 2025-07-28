@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class BuildingBase : MonoBehaviour, IBuilding
+public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 {
     [Header("Building Properties")]
     [Tooltip("Công trình đang được chọn để xây dựng")]
@@ -248,5 +248,11 @@ public class BuildingBase : MonoBehaviour, IBuilding
 
         Debug.Log($"Assigned jobs for {workerPositions.Count} worker positions for building {gameObject.name}");
     }
-  
+
+    public void OnInteract()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public InteractableType GetInteractableType() => InteractableType.Building;
 }
