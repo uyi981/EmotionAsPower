@@ -13,7 +13,7 @@ public class Villager : MonoBehaviour,IInteractable
     APathFinding pathFinding = new APathFinding();
     public bool isSelected = false;
     public bool isWorking = false;
-    Emotion currentEmotion = Emotion.Normal;
+    public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
     EmotionVector emotion = new EmotionVector();
     public VillagerWorkingState villagerWorkingState;
@@ -31,6 +31,9 @@ public class Villager : MonoBehaviour,IInteractable
     public event Action<Villager> receiveChat;
     public bool isChatting;
     public string currentStateName;
+    public float currentHunger = 100f;
+    public float currentThirst = 100f;
+
     void OnMouseDown()
     {
         if(Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
@@ -55,6 +58,10 @@ public class Villager : MonoBehaviour,IInteractable
             isSelected = !isSelected;
             TransitionTo(villagerSelectedState);
         }
+    }
+    public void Hunger()
+    {
+
     }
     public string GetCurrentStateName()
     {
