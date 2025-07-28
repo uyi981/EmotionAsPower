@@ -41,13 +41,4 @@ public class SelectedFrame : MonoBehaviour
             }
         }
     }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Vector2Int size = new Vector2Int(3, 3); // Example size
-            SetSize(size);
-        }
-    }
 }
