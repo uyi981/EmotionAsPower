@@ -5,7 +5,7 @@ using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildingBase : MonoBehaviour, IBuilding
+public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 {
     [Header("Cấu hình Building")]
     [Tooltip("Tiến độ xây dựng công trình từ 0-1")]
@@ -223,5 +223,11 @@ public class BuildingBase : MonoBehaviour, IBuilding
 
         Debug.Log($"Assigned jobs for {workerPositions.Count} worker positions for building {gameObject.name}");
     }
-  
+
+    public void OnInteract()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public InteractableType GetInteractableType() => InteractableType.Building;
 }

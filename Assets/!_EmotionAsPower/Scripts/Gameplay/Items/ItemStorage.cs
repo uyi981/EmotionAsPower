@@ -57,6 +57,22 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
         return TryTakeItem(itemSO.ID, amount);
     }
 
+    public int Check(Item item, int amount)
+    {
+        return Check(item.ItemSO, amount);
+    }
+
+    public int Check(ItemSO itemSO, int amount)
+    {
+        return Check(itemSO.ID, amount);
+    }
+
+    public int Check(string id, int amount)
+    {
+        if (!storagedItems.ContainsKey(id)) return -amount;
+        return storagedItems[id] - amount;
+    }
+
     public void LoadGame(GameData gameData)
     {
         this.storagedItems = gameData.storagedItems;
