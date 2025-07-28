@@ -50,17 +50,28 @@ MonoBehaviour:
   selectedBuilding:
     buildingID: 0
     buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 0}
     cost: 0
     buildTime: 0
     size: {x: 0, y: 0}
-  isBuilding: 0
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  isBuild: 0
   time: 0
   workersAmount: 0
-  processBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
+  buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
-  processBarImg: {fileID: 0}
-  healthBarImg: {fileID: 0}
+  maxHP: 100
+  currentHP: 0
+  workerPositions: []
+  jobType: 0
+  workers: []
 --- !u!1 &8185190616515605927
 GameObject:
   m_ObjectHideFlags: 0

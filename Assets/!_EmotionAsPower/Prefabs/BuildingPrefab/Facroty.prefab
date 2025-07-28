@@ -65,7 +65,7 @@ MonoBehaviour:
   isBuild: 0
   time: 0
   workersAmount: 11
-  processBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
+  buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   maxHP: 100
   currentHP: 0
@@ -82,7 +82,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
   outputItems:
   - {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+  cost: 1000
   productionAmount: 1
+  productionBarPrefab: {fileID: 8392199525925716247, guid: 91d04d7e450b8bd409d8135d3d8b6db3, type: 3}
 --- !u!1 &3829587370384280709
 GameObject:
   m_ObjectHideFlags: 0
