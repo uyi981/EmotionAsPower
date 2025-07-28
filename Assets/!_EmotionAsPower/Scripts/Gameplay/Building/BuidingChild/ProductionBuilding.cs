@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
 
 public class ProductionBuilding : BuildingBase, IProductionBuilding
 {
@@ -17,12 +18,13 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     [Header("Input/Output")]
     [SerializeField] private List<ItemSO> inputItems;
     [SerializeField] private List<ItemSO> outputItems;
-    [SerializeField] private uint cost;
     [SerializeField] private int productionAmount = 1;
 
 
     [Header("Production Bar")]
     [SerializeField] private GameObject productionBarPrefab;
+
+    public Emotion requireEmotion = Emotion.Normal;
 
 
 
@@ -49,15 +51,13 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     public override void Start()
     {
         base.Start();
-        cost = selectedBuilding.cost;
         productionBarInstance = Instantiate(productionBarPrefab, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
         productionBarInstance.SetActive(false); // Ẩn thanh tiến độ sản xuất ban đầu
     }
 
     public override void OnBuildingComplete()
     {
-
-        ResetWorkerList();
+        base.OnBuildingComplete();
         isProducing = true;
         Debug.Log($" đã hoàn thành!");
         base.AssignJobToWorker(JobType.Produce);
@@ -70,31 +70,24 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         {
             productionBarInstance.SetActive(true);
             Debug.Log($"{Name} đang sản xuất...");
-            
+
             // Update production progress
             currentProductionTime = 0f;
             while (currentProductionTime < productionTime && isProducing)
             {
-                currentProductionTime += Time.deltaTime;
-                SetProcess(currentProductionTime / productionTime);
-                yield return null;
+                currentProductionTime += 0.1f;
+                ProcessBar processBar = productionBarInstance.GetComponent<ProcessBar>();
+
+                processBar.SetProcess(currentProductionTime / productionTime);
+
+                yield return new WaitForSeconds(0.1f);
             }
-            
+
             CompleteProduction();
         }
     }
 
-    public void SetProcess(float progress)
-    {
-        // Update the production bar UI with the current progress (0 to 1)
-        if (productionBarInstance != null)
-        {
-            // Assuming the production bar has a UI element that shows progress
-            // You'll need to implement the actual UI update logic here
-            // For example, if using Unity's UI Slider:
-            // productionBarInstance.GetComponent<Slider>().value = progress;
-        }
-    }
+
 
     private void CompleteProduction()
     {

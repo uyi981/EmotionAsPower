@@ -26,6 +26,9 @@ public class BuildingBase : MonoBehaviour, IBuilding
     public int maxHP = 100;
     [Tooltip("Máu hiện tại của công trình")]
     public int currentHP;
+    [Tooltip("Sát thương của công trình (nếu có)")]
+    [SerializeField] private uint cost;
+
 
     [Header("Postion Task of Worker")]
     [Tooltip("Vị trí của công nhân trong quá trình xây dựng")]
@@ -130,7 +133,7 @@ public class BuildingBase : MonoBehaviour, IBuilding
     }    
     public virtual void OnBuildingComplete()
     {
-
+        ResetWorkerList(); // Reset danh sách công nhân
     }
     public void ResetWorkerList()
     {
