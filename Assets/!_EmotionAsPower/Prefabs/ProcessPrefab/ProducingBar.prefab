@@ -58,7 +58,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -138,7 +138,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.5, y: 0.2}
+  m_SizeDelta: {x: 2.5, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7657631608700077572
 CanvasRenderer:
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b5eb52cd4654b7f4981a67d614d7d75d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6fcd69dbefdffe149984a1fc005abc42, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -213,7 +213,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.5, y: 0.2}
+  m_SizeDelta: {x: 2.5, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4300367254782474952
 CanvasRenderer:
@@ -263,9 +263,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4434535659323785924}
   - component: {fileID: -3944896736990316672}
-  - component: {fileID: 2013981661047784680}
+  - component: {fileID: -3991362521964159157}
   m_Layer: 0
-  m_Name: HeathBar
+  m_Name: ProducingBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29cc4c7fd63361341b3f27d6f7aeee25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.ProcessBar.ProcessBar
---- !u!114 &2013981661047784680
+--- !u!114 &-3991362521964159157
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8392199525925716247}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3f77662d1b15849bae58e30b34aa22, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ab98ceee1d040743bd59c6abd3d513c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.UI.ProcessBar.HealthBar
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.UI.ProcessBar.ProcessBar
   fillImage: {fileID: 6012012996234494087}

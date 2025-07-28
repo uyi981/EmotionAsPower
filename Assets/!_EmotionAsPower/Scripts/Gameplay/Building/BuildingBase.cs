@@ -2,46 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
+using LgTyUtils;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 {
-    [Header("Cấu hình Building")]
+    [Header("Building Properties")]
+    [Tooltip("Công trình đang được chọn để xây dựng")]
+    public Building selectedBuilding;
     [Tooltip("Tiến độ xây dựng công trình từ 0-1")]
     [Range(0, 1)]
     public float buildProgress = 0f;
     [Tooltip("Thời gian xây dựng công trình (giây)")]
     public float buildTime;
-    [Tooltip("Công trình đang được chọn để xây dựng")]
-    public Building selectedBuilding;
+    
     [Tooltip("Công trình đã xây xong")]
     public bool isBuild = false;
-    [Tooltip("Thời gian đã trôi qua kể từ khi bắt đầu xây dựng")]
-    public float time;
     [Tooltip("Số lượng công nhân tham gia xây dựng")]
     public int workersAmount = 0;
-    [Tooltip("Thanh tiến độ")]
-    public GameObject processBar;
-    [Tooltip("Thanh HP")]
-    public GameObject healthBar;
+    
+    [Header("Building Stats")]
     [Tooltip("Máu tối đa của công trình")]
     public int maxHP = 100;
     [Tooltip("Máu hiện tại của công trình")]
     public int currentHP;
+    [Tooltip("Danh sách các vật phẩm cần thiết để xây dựng công trình")]
+    public SerializableDictionary<ItemSO, int> requiredItems = new SerializableDictionary<ItemSO, int>();
+
+
 
     [Header("Postion Task of Worker")]
     [Tooltip("Vị trí của công nhân trong quá trình xây dựng")]
     public List<Vector2Int> workerPositions;
     [Tooltip("Loại công việc của công trình")]
-    public JobType jobType = JobType.Produce;
+    public JobType jobType;
+
+    [Header("Bar UI")]
+    [Tooltip("Thanh tiến độ")]
+    public GameObject buildingBar;
+    [Tooltip("Thanh HP")]
+    public GameObject healthBar;
+
+
     private ProcessBar processBarImg;
     private HealthBar healthBarImg;
     private GameObject processBarInstance;
     private GameObject healthBarInstance;
     private bool isBuildingComplete = false;
     private bool isDestroyed = false;
-    public List<Villager> workers = new List<Villager>();
+    protected List<Villager> workers = new List<Villager>();
 
     public string Name => gameObject.name;
 
@@ -57,14 +68,15 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 
     public virtual void Start()
     {
+
         workersAmount = 0; // Khởi tạo số lượng công nhân tham gia xây dựng    
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
         AssignJobToWorker(JobType.Build);
         // Tìm Image con tên 'Fill' trong processBarInstance và healthBarInstance
-        if (processBar != null)
+        if (buildingBar != null)
         {
-            processBarInstance = Instantiate(processBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
+            processBarInstance = Instantiate(buildingBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
             processBarImg = GetComponentInChildren<ProcessBar>();
             processBarImg.SetProcess(0f); // Đặt tiến độ ban đầu là 0
         }
@@ -75,10 +87,23 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         }
         Singleton<DayTimeController>.Instance.OnTimeStageChanged += OnDayStageChange; 
         StartCoroutine(Building()); // Bắt đầu quá trình xây dựng
+
     }
 
-    private void OnEnable()
+    public bool TryConsumeRequiredItems()
     {
+      
+
+        foreach (var pair in requiredItems)
+        {
+            ItemSO item = pair.Key;
+            int amount = pair.Value;
+            Singleton<ItemStorage>.Instance.TryTakeItem(item, amount);
+            Debug.Log($"Consumed {amount} of {item.ID} for {Name}");
+        }
+
+        Debug.Log($"Consumed all required items for {Name}");
+        return true;
     }
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {
@@ -87,25 +112,25 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
          //   AssignJobToWorker(jobType);
         }
     }
-    public void IsBuildingComplete()
-    {
-        time += Time.deltaTime * workersAmount;
-        // Cập nhật tiến độ xây dựng (giả sử mỗi giây tăng 0.2, bạn có thể thay đổi logic này)
-        if (time > buildTime)
-        {
-            buildProgress = 1f; // Hoàn thành xây dựng
-            isBuild = false;
-            OnBuildingComplete();
-            processBarInstance.SetActive(false);
-            workersAmount = 0;
-            isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
-        }
-        else
-        {
-            buildProgress = time / buildTime; // Tính toán tiến độ từ 0 đến 1
-        }
-        processBarImg.SetProcess(buildProgress); // Cập nhật thanh tiến độ UI
-    }
+    //public void IsBuildingComplete()
+    //{
+    //    time += Time.deltaTime * workersAmount;
+    //    // Cập nhật tiến độ xây dựng (giả sử mỗi giây tăng 0.2, bạn có thể thay đổi logic này)
+    //    if (time > buildTime)
+    //    {
+    //        buildProgress = 1f; // Hoàn thành xây dựng
+    //        isBuild = false;
+    //        OnBuildingComplete();
+    //        processBarInstance.SetActive(false);
+    //        workersAmount = 0;
+    //        isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
+    //    }
+    //    else
+    //    {
+    //        buildProgress = time / buildTime; // Tính toán tiến độ từ 0 đến 1
+    //    }
+    //    processBarImg.SetProcess(buildProgress); // Cập nhật thanh tiến độ UI
+    //}
     public IEnumerator Building()
     {
         float time = buildTime;
@@ -125,7 +150,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     }    
     public virtual void OnBuildingComplete()
     {
-
+        ResetWorkerList(); // Reset danh sách công nhân
     }
     public void ResetWorkerList()
     {
@@ -190,6 +215,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     ///// Viet phuong thuc giao việc cho công nhân
     public void AssignJobToWorker(JobType jobType)
     {
+        this.jobType = jobType;
         Debug.Log($"Assigning job of type {jobType} to workers at positions: {workerPositions.Count}");
         
         if (workerPositions == null || workerPositions.Count == 0)

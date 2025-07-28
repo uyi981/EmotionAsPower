@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa0117a00a27ad6438f9272295fc6c72, type: 3}
-  m_Name: ObjectsDatabase
+  m_Name: BuildingDatabase
   m_EditorClassIdentifier: Assembly-CSharp::ObjectsDatabaseSO
   buildings:
   - buildingID: 0
