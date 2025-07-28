@@ -32,6 +32,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public SerializableDictionary<ItemSO, int> requiredItems = new SerializableDictionary<ItemSO, int>();
 
 
+
     [Header("Postion Task of Worker")]
     [Tooltip("Vị trí của công nhân trong quá trình xây dựng")]
     public List<Vector2Int> workerPositions;
