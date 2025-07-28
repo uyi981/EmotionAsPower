@@ -66,7 +66,12 @@ MonoBehaviour:
   workersAmount: 11
   maxHP: 100
   currentHP: 0
-  cost: 1000
+  requiredItems:
+    pairs:
+    - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      value: 10
+    - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+      value: 10
   workerPositions: []
   jobType: 0
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}

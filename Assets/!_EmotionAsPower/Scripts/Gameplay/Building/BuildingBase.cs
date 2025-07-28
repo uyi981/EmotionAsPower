@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
+using LgTyUtils;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class BuildingBase : MonoBehaviour, IBuilding
@@ -26,8 +28,8 @@ public class BuildingBase : MonoBehaviour, IBuilding
     public int maxHP = 100;
     [Tooltip("Máu hiện tại của công trình")]
     public int currentHP;
-    [Tooltip("Sát thương của công trình (nếu có)")]
-    [SerializeField] private uint cost;
+    [Tooltip("Danh sách các vật phẩm cần thiết để xây dựng công trình")]
+    public SerializableDictionary<ItemSO, int> requiredItems = new SerializableDictionary<ItemSO, int>();
 
 
     [Header("Postion Task of Worker")]
@@ -65,6 +67,7 @@ public class BuildingBase : MonoBehaviour, IBuilding
 
     public virtual void Start()
     {
+
         workersAmount = 0; // Khởi tạo số lượng công nhân tham gia xây dựng    
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
@@ -83,10 +86,23 @@ public class BuildingBase : MonoBehaviour, IBuilding
         }
         Singleton<DayTimeController>.Instance.OnTimeStageChanged += OnDayStageChange; 
         StartCoroutine(Building()); // Bắt đầu quá trình xây dựng
+
     }
 
-    private void OnEnable()
+    public bool TryConsumeRequiredItems()
     {
+      
+
+        foreach (var pair in requiredItems)
+        {
+            ItemSO item = pair.Key;
+            int amount = pair.Value;
+            Singleton<ItemStorage>.Instance.TryTakeItem(item, amount);
+            Debug.Log($"Consumed {amount} of {item.ID} for {Name}");
+        }
+
+        Debug.Log($"Consumed all required items for {Name}");
+        return true;
     }
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {

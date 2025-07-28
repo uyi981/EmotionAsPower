@@ -125,6 +125,7 @@ public class PlacementSystem : MonoBehaviour
                 // Gán selectedBuilding cho tất cả các component BuildingBase
                 building.selectedBuilding = database.buildings[selectedObjectIndex];
                 building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
+                building.TryConsumeRequiredItems(); // Tiêu thụ các vật phẩm cần thiết
             }
         }
 
