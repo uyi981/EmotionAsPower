@@ -1,126 +1,91 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(Health))]
-[RequireComponent(typeof(ItemDropper))]
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(AIController), typeof(Health))]
+public class Enemy : MonoBehaviour, IInteractable
 {
-    [SerializeField]
-    private EnemySO enemySO;
-    public EnemySO EnemySO => enemySO;
+    [Header("Enemy Configuration")]
+    [SerializeField] private EnemySO enemySO;
 
+    private AIController aiController;
     private Health health;
-    private ItemDropper itemDropper;
-    private SpriteRenderer spriteRenderer;
-    private IEnemyBehaviour behaviourInstance;
-    [SerializeField]
     private float existingTimer;
-    public float ExistingTimer => existingTimer;    
+    private bool isInitialized = false;
+    private EnemyState currentState = EnemyState.Spawning;
+
+    public EnemySO EnemySO => enemySO;
     public Health Health => health;
+    public AIController AIController => aiController;
+    public float ExistingTimer => existingTimer;
+    public EnemyState CurrentState => currentState;
+    public bool IsInitialized => isInitialized;
+
+    public System.Action<Enemy> OnEnemyDeath;
+    public System.Action<Enemy, EnemyState> OnStateChanged;
 
     private void Awake()
     {
+
+        aiController = GetComponent<AIController>();
         health = GetComponent<Health>();
-        if (health == null)
-        {
-            health = gameObject.AddComponent<Health>();
-        }
 
-        itemDropper = GetComponent<ItemDropper>();
-        if (itemDropper == null)
+        if (aiController == null || health == null)
         {
-            itemDropper = gameObject.AddComponent<ItemDropper>();
-        }
-
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-
-    public void Initialize(EnemySO enemySO)
-    {
-        if (enemySO == null)
-        {
-            Debug.LogWarning("Cannot initialize Enemy with null EnemySO!");
+            Debug.LogError($"Enemy {gameObject.name} is missing required components!");
+            enabled = false;
             return;
         }
-
-        this.enemySO = enemySO;
-
-        // Initialize Health
-        health.SetMaxHealth(enemySO.defaultData.maxHealth, true);
-        health.SetHealth(enemySO.defaultData.maxHealth);
-
-        // Initialize ItemDropper
-        if (itemDropper != null && enemySO.dropableItems != null && enemySO.dropableItems.Length > 0)
-        {
-            itemDropper.Initialize(enemySO.dropableItems);
-        }
-
-        // Set existing time
-        existingTimer = enemySO.defaultData.existingTime;
-
-        // Set sprite
-        if (spriteRenderer != null && enemySO.Icon != null)
-        {
-            spriteRenderer.sprite = enemySO.Icon;
-        }
-
-        // Initialize behavior
-        if (enemySO.behaviour != null)
-        {
-            behaviourInstance = enemySO.behaviour.CreateBehaviour(this);
-        }
-
-        this.gameObject.name = "Enemy_" + enemySO.name + "_" + GetInstanceID();
     }
 
-    public void UpdateExistingTime(float time)
+    private void Start()
     {
-        this.existingTimer = time;
-    }
-
-    private void OnEnable()
-    {
-        if (health != null)
+        if (!isInitialized)
         {
-            health.OnDeath.AddListener(OnDeath);
-        }
-    }
-
-    private void OnDisable()
-    {
-        if (health != null)
-        {
-            health.OnDeath.RemoveListener(OnDeath);
+            Debug.LogWarning($"Enemy {gameObject.name} was not properly initialized!");
         }
     }
 
     private void Update()
     {
-        if (existingTimer > 0f)
-        {
-            existingTimer -= Time.deltaTime;
-
-            // If timer expires, die automatically
-            if (existingTimer <= 0f)
-            {
-                health.Die();
-                return;
-            }
-        }
-
-        if (behaviourInstance != null)
-        {
-            behaviourInstance.Update();
-        }
+        if (!isInitialized) return;
     }
 
-    private void OnDeath()
+    public void Initialize(EnemySO enemyData)
     {
-        if (itemDropper != null)
+        if (enemyData == null)
         {
-            itemDropper.DropFunction(transform.position);
+            Debug.LogError("Cannot initialize enemy with null EnemySO!");
+            return;
         }
 
-        Destroy(gameObject);
+        enemySO = enemyData;
+
+        // Initialize health with enemy data
+        if (health != null)
+        {
+            health.SetMaxHealth(enemyData.defaultData.maxHealth, true);
+            health.SetHealth(enemyData.defaultData.maxHealth);
+        }
+
+        // Set existing timer
+        existingTimer = enemyData.defaultData.existingTime;
+
+        aiController.Initialize(enemyData.behaviour);
     }
 
+    public void UpdateExistingTime(float newTime)
+    {
+        existingTimer = newTime;
+    }
+
+    public void OnInteract()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public InteractableType GetInteractableType() => InteractableType.Enemy;
 }
+
+
+

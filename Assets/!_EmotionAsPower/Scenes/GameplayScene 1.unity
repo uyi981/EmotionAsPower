@@ -16059,7 +16059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e8a8a8b7a5fd749b5c6688ed3d7cc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DayTimeController
-  dayDurationInMinutes: 2
+  dayDurationInMinutes: 0.1
+  day: 0
   timeOfDay: 0.368
   sunLight: {fileID: 2054706850}
   moon: {fileID: 1044786797}

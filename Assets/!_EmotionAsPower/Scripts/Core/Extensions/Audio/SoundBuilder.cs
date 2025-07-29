@@ -10,7 +10,6 @@ public class SoundBuilder
     public SoundBuilder(AudioManager audioManager)
     {
         this.audioManager = audioManager;
-
     }
 
     public SoundBuilder WithSoundData(SoundData soundData)
