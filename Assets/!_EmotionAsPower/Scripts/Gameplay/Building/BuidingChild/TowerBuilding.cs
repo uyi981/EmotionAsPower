@@ -19,10 +19,10 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         [Tooltip("Hiệu ứng tấn công (nếu có)")]
         public GameObject attackEffectPrefab;
 
-        private float attackTimer = 0f;
         private Vector2Int gridPosition;
         private LayerMask enemyLayer;
         private GameObject attackEffect;
+        private const float CHECK_INTERVAL = 0.1f; // Thời gian giữa các lần kiểm tra (giây)
 
         public override void Start()
         {
@@ -32,16 +32,27 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             // Lấy vị trí grid của tòa tháp (tính từ góc dưới trái)
             Vector3 worldPos = transform.position;
             gridPosition = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.z));
+            
+            // Bắt đầu kiểm tra kẻ địch định kỳ
+            InvokeRepeating(nameof(CheckForEnemies), 0f, CHECK_INTERVAL);
         }
-
-        private void Update()
+        
+        private void OnDisable()
+        {
+            // Dừng kiểm tra khi đối tượng bị vô hiệu hóa
+            CancelInvoke(nameof(CheckForEnemies));
+        }
+        
+        private float lastAttackTime = 0f;
+        
+        private void CheckForEnemies()
         {
             if (!isBuild) return;
             
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackCooldown)
+            // Kiểm tra thời gian giữa các lần tấn công
+            if (Time.time - lastAttackTime >= attackCooldown)
             {
-                attackTimer = 0f;
+                lastAttackTime = Time.time;
                 TryAttack();
             }
         }
