@@ -1,9 +1,10 @@
+using System.Collections;
 using LgTyUtils;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class ContentManager : Singleton<ContentManager>
+public class ContentManager : Singleton<ContentManager>, ISetup
 {
     [SerializeField]
     private bool debugLoading = true;   
@@ -18,38 +19,50 @@ public class ContentManager : Singleton<ContentManager>
     [SerializeField]
     private SerializableDictionary<string, EnemySO> enemySOs;
     public SerializableDictionary<string, EnemySO> EnemySOs => enemySOs;
-    protected override void Awake()
-    {
-        base.Awake();
-        itemSOs = LoadlAllContentsOfType<ItemSO>(debugLoading);
-        resourceSOs = LoadlAllContentsOfType<ResourceSO>(debugLoading);
-        enemySOs = LoadlAllContentsOfType<EnemySO>(debugLoading);
-    }
 
-    public SerializableDictionary<string, T> LoadlAllContentsOfType<T>(bool debug) where T : BaseScriptableObject
+    public IEnumerator LoadAllContentsOfTypeCoroutine<T>(SerializableDictionary<string, T> dictionary, bool debug) where T : BaseScriptableObject
     {
-        SerializableDictionary<string, T> result = new SerializableDictionary<string, T>(); 
-        Addressables.LoadAssetsAsync<T>(typeof(T).Name, item =>
+        var handle = Addressables.LoadAssetsAsync<T>(typeof(T).Name, item =>
         {
             if (item != null)
             {
-                result.Add(item.ID, item);
+                dictionary.Add(item.ID, item);
             }
-        }).Completed += handled =>
+        });
+
+        yield return handle;
+
+        if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            if (handled.Status == AsyncOperationStatus.Succeeded)
+            if (debug)
             {
-                if (debug)
-                {
-                    Debug.Log($"Successfully loaded {itemSOs.Count} ItemSO assets");
-                }
+                Debug.Log($"Successfully loaded {dictionary.Count} {typeof(T).Name} assets");
             }
-            else
-            {
-                Debug.LogError($"Failed to load ItemSO assets: {handled.OperationException?.Message}");
-            }
-        };
-        return result;
+        }
+        else
+        {
+            Debug.LogError($"Failed to load {typeof(T).Name} assets: {handle.OperationException?.Message}");
+        }
+    }
+
+    public void Setup()
+    {
+        StartCoroutine(SetupCoroutine());
+    }
+    public IEnumerator SetupCoroutine()
+    {
+        // Initialize dictionaries
+        itemSOs = new SerializableDictionary<string, ItemSO>();
+        resourceSOs = new SerializableDictionary<string, ResourceSO>();
+        enemySOs = new SerializableDictionary<string, EnemySO>();
+
+        var loadItems = StartCoroutine(LoadAllContentsOfTypeCoroutine<ItemSO>(itemSOs, debugLoading));
+        var loadResources = StartCoroutine(LoadAllContentsOfTypeCoroutine<ResourceSO>(resourceSOs, debugLoading));
+        var loadEnemies = StartCoroutine(LoadAllContentsOfTypeCoroutine<EnemySO>(enemySOs, debugLoading));
+
+        yield return loadItems;
+        yield return loadResources;
+        yield return loadEnemies;
     }
 
     // TODO: Implement loading and unloading of a specific amount of content using pooling

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ActionResult
+public enum ActionState
 {
     Running,   
     Success,   

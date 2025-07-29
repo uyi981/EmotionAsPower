@@ -15,10 +15,15 @@ public class ItemStoragePanel : MonoBehaviour
 
     public void UpdateUI(SerializableDictionary<string, int> items)
     {
+        if (!UIManager.Instance.ShowUI) return;
         // Clear existing UI items
         foreach (Transform child in content)
         {
             Destroy(child.gameObject);
+        }
+        if(items == null)
+        {
+            return;
         }
 
         // Add new items

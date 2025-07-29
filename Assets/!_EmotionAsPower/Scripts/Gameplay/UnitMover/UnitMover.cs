@@ -9,11 +9,6 @@ public class UnitMover : MonoBehaviour
     public float rotationSpeed = 10f;
     public float stopDistance = 0.1f;
 
-    [Header("Path Visualization")]
-    public bool showPath = true;
-    public Color pathColor = Color.green;
-    public float pathDrawHeight = 0.5f;
-
     private APathFinding pathFinding;
     private Grid grid;
     private float[,] gridMap;
@@ -58,51 +53,7 @@ public class UnitMover : MonoBehaviour
         Vector2Int start = new Vector2Int(startGridPos.x, startGridPos.z);
         Vector2Int target = new Vector2Int(targetGridPos.x, targetGridPos.z);
 
-        MoveToGridPosition(target);
-    }
-
-    public void MoveToGridPosition(Vector2Int targetGridPosition)
-    {
-        if (pathFinding == null || grid == null || gridMap == null)
-        {
-            Debug.LogError($"Required components not initialized for {gameObject.name}");
-            OnMovementFailed?.Invoke();
-            return;
-        }
-
-        // Stop current movement
-        StopMovement();
-
-        // Get current grid position
-        Vector3Int currentGridPos = grid.WorldToCell(transform.position);
-        Debug.Log(currentGridPos);
-        Vector2Int startGridPosition = new Vector2Int(currentGridPos.x, currentGridPos.z);
-
-        // Check if this is already at the target
-        if (startGridPosition == targetGridPosition)
-        {
-            Debug.Log($"{gameObject.name} is already at target position");
-            return;
-        }
-
-        int gridSize = Mathf.Max(gridMap.GetLength(0), gridMap.GetLength(1));
-        currentPath = pathFinding.GetPathResult(startGridPosition, targetGridPosition, gridMap, 1);
-
-        if (currentPath == null || currentPath.Count == 0)
-        {
-            Debug.LogWarning($"No path found for {gameObject.name} from {startGridPosition} to {targetGridPosition}");
-            OnMovementFailed?.Invoke();
-            return;
-        }
-
-        currentPath.Reverse();
-
-        currentPathIndex = 1;
-        isMoving = true;
-        moveCoroutine = StartCoroutine(FollowPath());
-        OnMovementStarted?.Invoke();
-
-        Debug.Log($"{gameObject.name} starting movement. Path length: {currentPath.Count}");
+        Move(target);
     }
 
     public void StopMovement()
@@ -128,77 +79,84 @@ public class UnitMover : MonoBehaviour
         return currentPath;
     }
 
-    private IEnumerator FollowPath()
+    public void Move(Vector2Int targetPosition)
     {
-        while (currentPathIndex < currentPath.Count)
+        if (grid == null || gridMap == null)
         {
-            Vector2Int nextGridPos = currentPath[currentPathIndex];
+            Debug.LogError($"Grid system not initialized for {gameObject.name}");
+            OnMovementFailed?.Invoke();
+            return;
+        }
 
-            // Convert grid position to world position
-            Vector3Int gridPos3D = new Vector3Int(nextGridPos.x, 0, nextGridPos.y);
-            Vector3 target = grid.CellToWorld(gridPos3D);
-            target.y = transform.position.y; 
+        // Stop any existing movement
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
 
-            // Move towards the target
-            while (Vector3.Distance(transform.position, target) > stopDistance)
+        Vector3Int unitGridPos = grid.WorldToCell(transform.position);
+        Vector2Int startPosition = new Vector2Int(unitGridPos.x, unitGridPos.z);
+
+        Debug.Log($"Moving from {startPosition} to {targetPosition}");
+
+        List<Vector2Int> path = pathFinding.GetPathResult(
+            VoHauMethod.NormalizeGridPosition(startPosition, 100, 100),
+            VoHauMethod.NormalizeGridPosition(targetPosition, 100, 100),
+            gridMap,
+            1
+        );
+
+        if (path != null && path.Count > 0)
+        {
+            currentPath = path;
+            currentPathIndex = 0;
+            isMoving = true;
+
+            OnMovementStarted?.Invoke();
+            moveCoroutine = StartCoroutine(Moving(path, moveSpeed));
+        }
+        else
+        {
+            Debug.LogWarning($"No valid path found for {gameObject.name} to move from {startPosition} to {targetPosition}");
+            OnMovementFailed?.Invoke();
+        }
+    }
+
+    private IEnumerator Moving(List<Vector2Int> path, float speed)
+    {
+        for (int i = path.Count - 1; i >= 0; i--)
+        {
+            currentPathIndex = path.Count - 1 - i;
+
+            // Convert normalized grid position back to world position
+            Vector2Int normalPosition = VoHauMethod.InverseNormalizeGridPosition(path[i], 100, 100);
+            Vector3 targetPosition = new Vector3(normalPosition.x, transform.position.y, normalPosition.y);
+
+            while (Vector3.Distance(transform.position, targetPosition) > stopDistance)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
                 yield return null;
             }
 
+            transform.position = targetPosition;
 
-            transform.position = target;
-
-
-            OnReachedWaypoint?.Invoke(nextGridPos);
-
-            currentPathIndex++;
+            OnReachedWaypoint?.Invoke(normalPosition);
         }
 
         isMoving = false;
         currentPath = null;
         currentPathIndex = 0;
+        moveCoroutine = null;
+
         OnMovementCompleted?.Invoke();
-
-        Debug.Log($"{gameObject.name} reached destination");
     }
 
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
+    public void Move(Vector2Int targetPosition, float speed)
     {
-        if (!showPath || currentPath == null || grid == null)
-            return;
-
-        Gizmos.color = pathColor;
-        for (int i = 0; i < currentPath.Count - 1; i++)
-        {
-            Vector2Int currentGrid = currentPath[i];
-            Vector2Int nextGrid = currentPath[i + 1];
-
-            Vector3Int current3D = new Vector3Int(currentGrid.x, 0, currentGrid.y);
-            Vector3Int next3D = new Vector3Int(nextGrid.x, 0, nextGrid.y);
-
-            Vector3 currentWorld = grid.CellToWorld(current3D);
-            Vector3 nextWorld = grid.CellToWorld(next3D);
-
-            currentWorld.y += pathDrawHeight;
-            nextWorld.y += pathDrawHeight;
-
-            Gizmos.DrawLine(currentWorld, nextWorld);
-            Gizmos.DrawSphere(currentWorld, 0.1f);
-        }
-
-        if (currentPath.Count > 0)
-        {
-            Vector2Int targetGrid = currentPath[currentPath.Count - 1];
-            Vector3Int target3D = new Vector3Int(targetGrid.x, 0, targetGrid.y);
-            Vector3 targetWorld = grid.CellToWorld(target3D);
-            targetWorld.y += pathDrawHeight;
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(targetWorld, 0.15f);
-        }
+        moveSpeed = speed;
+        Move(targetPosition);
     }
-#endif
+
 }

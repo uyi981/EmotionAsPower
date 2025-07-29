@@ -17,6 +17,8 @@ public class Item : MonoBehaviour, IInteractable
     
     public void Initialize(ItemSO itemSO, int amount)
     {
+        this.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+
         this.gameObject.name = itemSO.DisplayName + "_" + amount;
 
         this.amount = amount;
