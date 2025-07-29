@@ -257,7 +257,7 @@ MonoBehaviour:
   moveSpeed: 3
   rotationSpeed: 10
   stopDistance: 0.1
-  showPath: 1
+  showPath: 0
   pathColor: {r: 0, g: 1, b: 0, a: 1}
   pathDrawHeight: 0.5
 --- !u!114 &7890787105668812900

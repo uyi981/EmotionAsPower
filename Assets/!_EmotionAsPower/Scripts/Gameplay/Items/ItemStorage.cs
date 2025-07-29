@@ -10,6 +10,11 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
     public SerializableDictionary<string, int> StoragedItems => storagedItems;
 
     public Action<SerializableDictionary<string, int>> OnStoragedItemsChange;
+
+    private void Start()
+    {
+        OnStoragedItemsChange?.Invoke(StoragedItems);
+    }
     public void AddItem(Item item)
     {
         this.AddItem(item.ItemSO.ID, item.Amount);
@@ -73,6 +78,21 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
         return storagedItems[id] - amount;
     }
 
+    public int GetStoragedItemAmount(Item item)
+    {
+        return GetStoragedItemAmount(item.ItemSO);
+    }
+
+    public int GetStoragedItemAmount(ItemSO itemSO)
+    {
+        return GetStoragedItemAmount(itemSO.ID);
+    }
+
+    public int GetStoragedItemAmount(string id)
+    {
+        if(!storagedItems.ContainsKey(id)) return 0;
+        return storagedItems[id];
+    }
     public void LoadGame(GameData gameData)
     {
         this.storagedItems = gameData.storagedItems;

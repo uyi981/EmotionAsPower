@@ -79,7 +79,6 @@ public class DevTester : Singleton<DevTester>
                 Random.Range(-spawnRange, spawnRange)
             );
             EnemyManager.Instance.SpawnEnemy(randomEnemySO, randomPosition);
-            Debug.Log($"Spawned enemy '{randomEnemySO.DisplayName}' at position {randomPosition}");
         }
     }
 
@@ -101,7 +100,6 @@ public class DevTester : Singleton<DevTester>
             int randomAmount = Random.Range(minItemAmount, maxItemAmount + 1);
 
             ItemStorage.Instance.AddItem(randomItemSO, randomAmount);
-            Debug.Log($"Added {randomAmount} '{randomItemSO.DisplayName}' to item storage");
         }
     }
 }

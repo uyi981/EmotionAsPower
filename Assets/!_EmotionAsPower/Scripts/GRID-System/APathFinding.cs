@@ -46,7 +46,7 @@ public class APathFinding
             closed.Add(currentNode.position);
             if (currentNode.position == endNode.position)
             {
-                Debug.Log("Path Found!");
+                //Debug.Log("Path Found!");
                 return RevervePath(currentNode,heightMap,size);
             }
         }

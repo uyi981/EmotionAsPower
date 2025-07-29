@@ -8,59 +8,69 @@ public class AttackAction : AIAction
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackDamage = 25f;
     [SerializeField] private float attackSpeed = 1f;
-
-    [Header("Target Types")]
     [SerializeField] private List<InteractableType> preferredTargets = new List<InteractableType>();
+
+    private Transform target;
+    private float lastAttackTime;
 
     public override bool CanPerform(AIController controller)
     {
-        Transform target = GetAttackTarget(controller);
-        return target != null;
+        return GetAttackTarget(controller) != null;
     }
 
     public override void StartAction(AIController controller)
     {
-        Transform target = GetAttackTarget(controller);
-        if (target != null)
-        {
-            controller.ActionData.target = target;
-            controller.ActionData.lastActionTime = 0f; // Allow immediately first attack
-        }
-
-        if (debugMode)
-            Debug.Log($"Starting attack on {target?.name}");
+        target = GetAttackTarget(controller);
+        lastAttackTime = 0f;
     }
 
-    public override ActionResult UpdateAction(AIController controller)
+    public override ActionState UpdateAction(AIController controller)
     {
-        // Check if target is still valid
-        if (controller.ActionData.target == null)
-        {
-            return ActionResult.Failed;
-        }
+        if (target == null)
+            return ActionState.Failed;
 
-        Health targetHealth = controller.ActionData.target.GetComponent<Health>();
+        Health targetHealth = target.GetComponent<Health>();
         if (targetHealth == null || targetHealth.IsDead)
-        {
-            return ActionResult.Success; // Target destroyed
-        }
+            return ActionState.Success;
 
-        // Check if target is still in range
-        float distance = Vector3.Distance(controller.transform.position, controller.ActionData.target.position);
+        float distance = Vector3.Distance(controller.transform.position, target.position);
         if (distance > attackRange)
-        {
-            return ActionResult.Failed; // Target moved out of range
-        }
+            return ActionState.Failed;
 
-        // Check if we can attack (based on attack speed)
-        float timeSinceLastAttack = Time.time - controller.ActionData.lastActionTime;
+        float timeSinceLastAttack = Time.time - lastAttackTime;
         if (timeSinceLastAttack >= 1f / attackSpeed)
         {
-            PerformAttack(controller, targetHealth);
-            controller.ActionData.lastActionTime = Time.time;
+            targetHealth.TakeDamage(attackDamage);
+            lastAttackTime = Time.time;
         }
 
-        return ActionResult.Running;
+        return ActionState.Running;
+    }
+
+    public override void StopAction(AIController controller)
+    {
+        target = null;
+    }
+
+    public override void OnActionComplete(AIController controller)
+    {
+        target = null;
+    }
+
+    public override void OnActionInterrupted(AIController controller)
+    {
+        target = null;
+    }
+
+    public override int GetDynamicPriority(AIController controller)
+    {
+        Transform nearestTarget = GetAttackTarget(controller);
+        if (nearestTarget != null)
+        {
+            float distance = Vector3.Distance(controller.transform.position, nearestTarget.position);
+            return basePriority + Mathf.RoundToInt((attackRange - distance) * 10);
+        }
+        return 0;
     }
 
     private Transform GetAttackTarget(AIController controller)
@@ -68,7 +78,6 @@ public class AttackAction : AIAction
         Transform bestTarget = null;
         float closestDistance = attackRange;
 
-        // Try each preferred target type in order
         foreach (var targetType in preferredTargets)
         {
             bestTarget = FindTargetOfType(controller.transform.position, targetType, closestDistance);
@@ -76,7 +85,6 @@ public class AttackAction : AIAction
                 break;
         }
 
-        // If no preferred targets found and Any is included, find any valid target
         if (bestTarget == null && preferredTargets.Contains(InteractableType.Any))
         {
             bestTarget = TargetFinder.FindNearestTarget<Health>(controller.transform.position, attackRange)?.transform;
@@ -91,19 +99,14 @@ public class AttackAction : AIAction
         {
             case InteractableType.Building:
                 return FindTargetWithComponent<BuildingBase>(position, maxRange);
-
             case InteractableType.Villager:
                 return FindTargetWithComponent<Villager>(position, maxRange);
-
             case InteractableType.Resource:
                 return FindTargetWithComponent<Resource>(position, maxRange);
-
             case InteractableType.Enemy:
                 return FindTargetWithComponent<Enemy>(position, maxRange);
-
             case InteractableType.Any:
                 return TargetFinder.FindNearestTarget<Health>(position, maxRange)?.transform;
-
             default:
                 return null;
         }
@@ -113,13 +116,5 @@ public class AttackAction : AIAction
     {
         T target = TargetFinder.FindNearestTarget<T>(position, maxRange);
         return target?.transform;
-    }
-
-    private void PerformAttack(AIController controller, Health targetHealth)
-    {
-        targetHealth.TakeDamage(attackDamage);
-
-        if (debugMode)
-            Debug.Log($"{controller.name} attacked {targetHealth.name} for {attackDamage} damage");
     }
 }
