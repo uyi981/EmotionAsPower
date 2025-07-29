@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public interface IProductionBuilding
@@ -5,5 +6,5 @@ public interface IProductionBuilding
     bool IsProducing { get; }
     void StartProduction();
     void StopProduction();
-    void Produce();
+    IEnumerator ProduceItem();
 }

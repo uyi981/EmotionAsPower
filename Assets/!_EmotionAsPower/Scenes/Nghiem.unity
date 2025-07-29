@@ -375,10 +375,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 1531051801}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &3640640
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -755,10 +758,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 254856908}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &16132355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1163,10 +1169,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 1264335974}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &45893402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1504,10 +1513,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 1007946672}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &71288466
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2007,10 +2019,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 1253955476}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &110175041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2565,10 +2580,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 956882676}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &197890777
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3146,10 +3164,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 672732271}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &258349748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4624,10 +4645,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 1823426449}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &391872253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4856,7 +4880,8 @@ Transform:
   m_LocalPosition: {x: 0.1864, y: 0.11, z: 3.98692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 716111261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &441368609
@@ -5598,10 +5623,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 304877740}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &463153940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6162,10 +6190,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 1722325320}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &613019434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6264,10 +6295,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 466958026}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &663469166
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6445,10 +6479,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 795207769}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &692311613
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6824,6 +6861,117 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &716111260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 716111261}
+  - component: {fileID: 716111264}
+  - component: {fileID: 716111263}
+  - component: {fileID: 716111262}
+  m_Layer: 7
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &716111261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716111260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.58, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 441243529}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &716111262
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716111260}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &716111263
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716111260}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &716111264
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716111260}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &730444689
 GameObject:
   m_ObjectHideFlags: 0
@@ -7251,10 +7399,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 1898835494}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &762597378
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9228,10 +9379,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 902310249}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &958969816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9330,10 +9484,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 814317874}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &974255413
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9432,10 +9589,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 65524972}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &992294686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10385,10 +10545,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 1195154712}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1057825430
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11230,10 +11393,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 1156421718}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1132606442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11332,10 +11498,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 901752614}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1140419511
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11434,10 +11603,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 1914787754}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1142984535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11700,10 +11872,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 1071206362}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1167232348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12589,10 +12764,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 1500709078}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1213460773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12957,10 +13135,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 1562973625}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1294825257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14483,10 +14664,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 89396975}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1463105127
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14694,10 +14878,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 2066335818}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1470468426
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14796,10 +14983,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 2073881210}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1470943890
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14973,10 +15163,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 588893968}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1478413434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16421,10 +16614,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 1178681218}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1589668267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18745,10 +18941,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 1090949821}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1816204843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20138,10 +20337,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 1826507091}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1942807739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20563,10 +20765,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 1956323270}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &2002710017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21601,10 +21806,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 1653759149}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &2107976906
 BoxCollider:
   m_ObjectHideFlags: 0

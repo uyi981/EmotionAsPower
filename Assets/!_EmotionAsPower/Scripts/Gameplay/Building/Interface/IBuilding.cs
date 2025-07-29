@@ -6,9 +6,11 @@ public interface IBuilding
     int Health { get; }
     int MaxHealth { get; }
     bool IsDestroyed { get; }
-    
+    bool IsBuild { get; }
+
     void TakeDamage(int damage); 
     void Heal(int amount);
     void UpdateBuilding();
     void OnBuildingDestroyed();
+    void OnBuildingComplete();
 }
