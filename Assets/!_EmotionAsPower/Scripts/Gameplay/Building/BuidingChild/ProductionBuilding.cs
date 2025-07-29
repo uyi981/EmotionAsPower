@@ -5,15 +5,16 @@ using Assets.__EmotionAsPower.Scripts.UI.ProcessBar;
 
 public class ProductionBuilding : BuildingBase, IProductionBuilding
 {
+    [Tooltip("Prefab của thanh tiến độ sản xuất")]
+    [SerializeField] private GameObject productionBarPrefab;
+
+
     [Header("Production Settings")]
-    [SerializeField] private float productionRate = 1f;
     [SerializeField] private float productionTime = 5f;
     [SerializeField] private float currentProductionTime = 0f;
     [SerializeField] private bool isProducing = false;
 
-    [Header("Item Drop")]
-    [SerializeField] private ItemDropper itemDropper;
-    [SerializeField] private bool dropItemsOnProduction = true;
+
 
     [Header("Input/Output")]
     [SerializeField] private List<ItemSO> inputItems;
@@ -21,14 +22,17 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     [SerializeField] private int productionAmount = 1;
 
 
-    [Header("Production Bar")]
-    [SerializeField] private GameObject productionBarPrefab;
-
-    public Emotion requireEmotion = Emotion.Normal;
+    
+    [Tooltip("Emotion yêu cầu để sản xuất")]
+    [SerializeField] private Emotion requireEmotion = Emotion.Normal;
 
 
 
     private GameObject productionBarInstance;
+
+
+
+    public bool IsProducing => isProducing;
 
     private void Awake()
     {
@@ -42,29 +46,38 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         }
     }
 
-    public bool IsProducing => isProducing;
+  
 
-    public float ProductionRate => productionRate;
 
-    public string Name => gameObject.name;
 
     public override void Start()
     {
         base.Start();
+        StartProduction();
+    }
+
+
+    
+
+
+    public void StartProduction()
+    {
         productionBarInstance = Instantiate(productionBarPrefab, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
         productionBarInstance.SetActive(false); // Ẩn thanh tiến độ sản xuất ban đầu
     }
 
-    public override void OnBuildingComplete()
+    public void StopProduction()
     {
-        base.OnBuildingComplete();
-        isProducing = true;
-        Debug.Log($" đã hoàn thành!");
-        base.AssignJobToWorker(JobType.Produce);
-        StartCoroutine(ProduceItem());
+        if (isProducing)
+        {
+            isProducing = false;
+            base.ResetWorkerList();
+            workers.Clear();
+            workersAmount = 0;
+        }
     }
 
-    IEnumerator ProduceItem()
+    public IEnumerator ProduceItem()
     {
         while (isProducing)
         {
@@ -88,6 +101,14 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     }
 
 
+    public override void OnBuildingComplete()
+    {
+        base.OnBuildingComplete();
+        isProducing = true;
+        Debug.Log($" đã hoàn thành!");
+        base.AssignJobToWorker(JobType.Produce);
+        StartCoroutine(ProduceItem());
+    }
 
     private void CompleteProduction()
     {
@@ -98,7 +119,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         }
 
         // Tạo sản phẩm
-        if (dropItemsOnProduction && itemDropper != null)
+        if (itemDropper != null)
         {
             // Dùng ItemManager.Instance.SpawnItem spawn mang outputItems
             ItemManager.Instance.SpawnItem(outputItems[0], productionAmount, transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
@@ -128,47 +149,10 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         // Cần implement InventorySystem để xử lý
     }
 
-    public void StopProduction()
-    {
-        if (isProducing)
-        {
-            isProducing = false;
-            base.ResetWorkerList();
-            workers.Clear();
-            workersAmount = 0;
-        }
-    }
-
-
-    public void StartProduction()
-    {
-        if (!isProducing && !IsDestroyed)
-        {
-            currentProductionTime = 0f;
-        }
-    }
-
-
-
-    public void Produce()
-    {
-        if (isProducing)
-        {
-            CompleteProduction();
-        }
-    }
-
-
     public override void OnBuildingDestroyed()
     {
         base.OnBuildingDestroyed();
         StopProduction();
-
-        // Rơi vật phẩm khi công trình bị phá hủy
-        if (itemDropper != null)
-        {
-            itemDropper.DropFunction(transform.position, true);
-        }
     }
 
     public override void UpdateBuilding()
@@ -176,20 +160,5 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         // Cập nhật trạng thái công trình
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 }

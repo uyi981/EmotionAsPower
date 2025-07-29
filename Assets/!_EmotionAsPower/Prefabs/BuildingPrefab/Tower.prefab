@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1266733069862123591}
-  - component: {fileID: 1291095615968340511}
+  - component: {fileID: -7879238648489694564}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -123,7 +123,7 @@ Transform:
   - {fileID: 6656365442442641361}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1291095615968340511
+--- !u!114 &-7879238648489694564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,9 +132,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2201955314891710906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 897c9f91d14ade1498d2632165c92de3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d3217d6ac4a73144bac2f0bd6b9a4f7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildingTower
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild.TowerBuilding
   selectedBuilding:
     buildingID: 0
     buildingName: 
@@ -157,12 +157,13 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   requiredItems:
-    pairs:
-    - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-      value: 10
-    - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-      value: 10
+    pairs: []
   workerPositions: []
   jobType: 0
+  itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
+  attackDamage: 10
+  attackRange: 5
+  attackCooldown: 1
+  attackEffectPrefab: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
