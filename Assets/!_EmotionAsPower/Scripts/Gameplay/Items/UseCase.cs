@@ -3,5 +3,8 @@ using LgTyUtils;
 
 public enum UseCaseType
 {
-    Consumpt,
+    Eat,
+    Recovery,
+    Entertain,
+
 }

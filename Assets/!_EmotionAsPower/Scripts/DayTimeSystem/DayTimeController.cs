@@ -10,6 +10,7 @@ public class DayTimeController : Singleton<DayTimeController>
     [Tooltip("Duration of a full day in real-time minutes. 10f => 10mins in real time")]
     public float dayDurationInMinutes = 10f;
 
+    [SerializeField] private int day = 0;
     [Range(0, 1)]
     [SerializeField] private float timeOfDay = 0f;
 
@@ -35,6 +36,7 @@ public class DayTimeController : Singleton<DayTimeController>
     public Color dayEquatorColor;
     public enum TimeStage { Dawn, Morning, Noon, Evening, Night }
     public TimeStage currentStage;
+    private TimeStage previousStage;
     public Action<TimeStage> OnTimeStageChanged;
 
     private TimeStage lastStage;
@@ -48,6 +50,7 @@ public class DayTimeController : Singleton<DayTimeController>
             timeOfDay = (timeOfDay + delta) % 1f;
             UpdateLighting();
             CheckTimeStage();
+            UpdateDay();
         }
     }
     private void Start()
@@ -122,6 +125,7 @@ public class DayTimeController : Singleton<DayTimeController>
 
     void CheckTimeStage()
     {
+        previousStage = currentStage;
         TimeStage newStage = GetTimeStage();
         if (newStage != lastStage)
         {
@@ -141,9 +145,31 @@ public class DayTimeController : Singleton<DayTimeController>
         return TimeStage.Morning; // Default to Dawn if no other condition matches
     }
 
+    private void UpdateDay()
+    {
+        if (currentStage == TimeStage.Morning && previousStage == TimeStage.Night) {
+            day++;
+        }
+    }
+
     public float GetTimePercent() => timeOfDay;
 
-  
+    public GameDateTime GetCurrentDateTime()
+    {
+        return new GameDateTime
+        {
+            timeOfDay = timeOfDay,
+            day = day,
+        };
+    }
+    
+}
+
+[Serializable]
+public struct GameDateTime
+{
+    public float timeOfDay;
+    public int day;
 }
 
 public struct HourMinute

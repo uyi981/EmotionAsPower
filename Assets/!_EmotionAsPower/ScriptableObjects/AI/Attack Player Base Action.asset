@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6a86d7507e4214da79ee872c582c7e, type: 3}
   m_Name: Attack Player Base Action
   m_EditorClassIdentifier: Assembly-CSharp::AttackPlayerBaseAction
-  actionName: 
+  actionName: Attack Player Base
   basePriority: 1
   attackRange: 2
-  attackDamage: 50
+  attackDamage: 5
   attackSpeed: 0.5
+  priorityRange: 100

@@ -1,16 +1,20 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Action OnSetupFinished;
+
+    protected override void Awake()
     {
-        
+        SetupAll();
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator SetupAll()
     {
-        
+        yield return ContentManager.Instance.SetupCoroutine();
+        UIManager.Instance.Setup();
+        OnSetupFinished?.Invoke();
     }
 }

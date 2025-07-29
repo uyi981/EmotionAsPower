@@ -7,6 +7,7 @@ public class AttackPlayerBaseAction : AIAction
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackDamage = 50f;
     [SerializeField] private float attackSpeed = 0.5f;
+    [SerializeField] private float priorityRange = 10f; 
 
     private Transform target;
     private float lastAttackTime;
@@ -17,7 +18,7 @@ public class AttackPlayerBaseAction : AIAction
         if (playerBase == null) return false;
 
         float distance = Vector3.Distance(controller.transform.position, playerBase.transform.position);
-        return distance <= attackRange;
+        return distance <= priorityRange;
     }
 
     public override void StartAction(AIController controller)
@@ -37,17 +38,30 @@ public class AttackPlayerBaseAction : AIAction
             return ActionState.Success;
 
         float distance = Vector3.Distance(controller.transform.position, target.position);
-        if (distance > attackRange)
-            return ActionState.Failed;
+        UnitMover mover = controller.GetUnitMover();
 
-        float timeSinceLastAttack = Time.time - lastAttackTime;
-        if (timeSinceLastAttack >= 1f / attackSpeed)
+        if (distance <= attackRange)
         {
-            targetHealth.TakeDamage(attackDamage);
-            lastAttackTime = Time.time;
+            float timeSinceLastAttack = Time.time - lastAttackTime;
+            if (timeSinceLastAttack >= 1f / attackSpeed)
+            {
+                targetHealth.TakeDamage(attackDamage);
+                lastAttackTime = Time.time;
+            }
+            return ActionState.Running;
         }
-
-        return ActionState.Running;
+        else
+        {
+            if (!mover.IsMoving())
+            {
+                mover.MoveToWorldPosition(target.position);
+                if (mover.GetCurrentPath() == null)
+                {
+                    return ActionState.Failed;
+                }
+            }
+            return ActionState.Running;
+        }
     }
 
     public override void StopAction(AIController controller)
@@ -71,8 +85,10 @@ public class AttackPlayerBaseAction : AIAction
         if (playerBase != null)
         {
             float distance = Vector3.Distance(controller.transform.position, playerBase.transform.position);
-            if (distance <= attackRange)
-                return basePriority + 50;
+            if (distance <= priorityRange)
+            {
+                return basePriority + Mathf.RoundToInt((priorityRange - distance) * 10);
+            }
         }
         return 0;
     }

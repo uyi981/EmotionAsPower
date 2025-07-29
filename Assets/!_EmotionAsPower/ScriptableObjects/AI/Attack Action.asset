@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75528b46766a60342bbd306609828a83, type: 3}
   m_Name: Attack Action
   m_EditorClassIdentifier: Assembly-CSharp::AttackAction
-  actionName: atk
-  defaultPriority: 50
-  canBeInterrupted: 1
-  cooldownTime: 0
-  debugMode: 0
+  actionName: Attack
+  basePriority: 1
   attackRange: 2
   attackDamage: 25
   attackSpeed: 1
