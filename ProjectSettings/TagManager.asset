@@ -10,6 +10,7 @@ TagManager:
   - Villager
   - Item
   - PlayerBase
+  - Food
   layers:
   - Default
   - TransparentFX

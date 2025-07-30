@@ -28,6 +28,7 @@ MonoBehaviour:
     SadnessLevel: 0.3
     FearLevel: 0.2
     ApatheticLevel: 0.2
-  hungerModifier: 0.1
-  thirstModifier: 0.1
-  tiredModifier: 0.1
+  hungerModifier: 0.5
+  thirstModifier: 1
+  tiredModifier: 1
+  moveSpeedModifier: 1.5

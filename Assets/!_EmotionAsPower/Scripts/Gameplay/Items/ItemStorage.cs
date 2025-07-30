@@ -13,7 +13,7 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
 
     private void Start()
     {
-        OnStoragedItemsChange?.Invoke(StoragedItems);
+        GameManager.Instance.OnSetupFinished += () => OnStoragedItemsChange?.Invoke(StoragedItems);
     }
     public void AddItem(Item item)
     {
@@ -51,6 +51,7 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
             {
                 storagedItems.Remove(id); 
             }
+            OnStoragedItemsChange?.Invoke(storagedItems);
             return amount;
         }
         OnStoragedItemsChange?.Invoke(storagedItems);

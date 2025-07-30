@@ -13,6 +13,8 @@ public class Villager : MonoBehaviour,IInteractable
     APathFinding pathFinding = new APathFinding();
     public bool isSelected = false;
     public bool isWorking = false;
+    public bool isSleeping = false;
+    public bool isStarving = false;
     public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
     EmotionVector emotion = new EmotionVector();
@@ -22,6 +24,7 @@ public class Villager : MonoBehaviour,IInteractable
     public VillagerBackToHomeState villagerBackToHomeState;
     public VillagerChattingState villagerChattingState;
     public VillagerSleepState villagerSleepState;
+    public VillagerStarvingState villagerStarvingState;
     public PersonalitySO personality;
     IState CurrentState;
     public Coroutine moveCoroutine;
@@ -33,7 +36,7 @@ public class Villager : MonoBehaviour,IInteractable
     public string currentStateName;
     public float currentHunger = 100f;
     public float currentThirst = 100f;
-
+    public event Action OnVillagerUpdate;
     void OnMouseDown()
     {
         if(Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
@@ -85,8 +88,10 @@ public class Villager : MonoBehaviour,IInteractable
         villagerBackToHomeState = new VillagerBackToHomeState(this);
         villagerChattingState = new VillagerChattingState(this);
         villagerSleepState = new VillagerSleepState(this);
+        villagerStarvingState = new VillagerStarvingState(this);
         InvokeRepeating("UpdateState", 0f, 0.1f);
-        Initialize(villagerIdleState);
+        currentHunger = 25f;
+        Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
         TransitionTo(villagerIdleState); // Start with idle state
         // Initialize the villager state to idle
     }
@@ -138,11 +143,19 @@ public class Villager : MonoBehaviour,IInteractable
     public void Initialize(IState startingState)
     {
         CurrentState = startingState;
-        startingState.ExitState();
+        CurrentState.ExitState();
     }
     public void TransitionTo(IState nextState)
     {
+        if(CurrentState.Equals(nextState))
+        {
+            return; // No transition needed if the next state is the same as the current state
+        }
         if (isSelected && !nextState.Equals(villagerSelectedState))
+        {
+            return;
+        }
+        if(isSleeping)
         {
             return;
         }
@@ -155,6 +168,13 @@ public class Villager : MonoBehaviour,IInteractable
         if (CurrentState != null)
         {
             CurrentState.UpdateState();
+            currentHunger = Mathf.Clamp(currentHunger - 0.1f * personality.hungerModifier,0,100);
+            //currentThirst -= 0.1f * personality.thirstModifier;
+            if (currentHunger <= 20f)
+            {
+                TransitionTo(villagerStarvingState);
+            }
+            OnVillagerUpdate?.Invoke();
         }
     }
     public void Move(Vector2Int targetPosition, float speed)
@@ -197,7 +217,7 @@ public class Villager : MonoBehaviour,IInteractable
             Vector3 targetPosition = new Vector3(normalPosition.x, 0, normalPosition.y);
             while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, 5f * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition,personality.moveSpeedModifier * Time.deltaTime);
                 yield return null;
             }          
         }

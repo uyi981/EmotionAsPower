@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField]
+    private bool isDebugMode;
+    public bool IsDebugMode => isDebugMode;
+
+    public GameObject[] debugFeatures;
+
     [Header("Game State")]
     [SerializeField] private bool isPaused = false;
     [SerializeField] private float timeScaleBeforePause = 1f;
@@ -61,5 +67,28 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log("Game Resumed");
         OnGamePaused?.Invoke(false);
+    }
+
+    public void EnterDebug()
+    {
+        isDebugMode = true;
+        foreach (GameObject debugFeature in debugFeatures) { 
+            debugFeature.SetActive(true);
+        }
+    }
+
+    public void ExitDebug()
+    {
+        isDebugMode = false;
+        foreach (GameObject debugFeature in debugFeatures)
+        {
+            debugFeature.SetActive(false);
+        }
+    }
+
+    public void ToggleDebugMode()
+    {
+        if(isDebugMode) ExitDebug();
+        else EnterDebug();
     }
 }

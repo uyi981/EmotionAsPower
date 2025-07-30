@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour, IInteractable
         }
 
         enemySO = enemyData;
+        itemDropper.Initialize(enemySO.dropableItems);
 
         // Initialize visual
         GetComponentInChildren<SpriteRenderer>().sprite = enemySO.Icon;
