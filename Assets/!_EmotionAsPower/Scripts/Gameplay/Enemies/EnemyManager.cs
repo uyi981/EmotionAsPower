@@ -8,11 +8,19 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     [SerializeField]
     private GameObject enemyPrefab;
 
+    [SerializeField]
+    private  EnemySpawningConfig enemySpawningConfig;
+
     [Header("Spawn Settings")]
     [SerializeField]
     private float spawnRadius = 10f;
     [SerializeField]
     private Vector3 spawnCenter = Vector3.zero;
+
+    private void Start()
+    {
+        DayTimeController.Instance.OnStageOfDayChanged += SpawnEnemyWave;
+    }
 
     public GameObject SpawnEnemy(EnemySO enemySO, Vector3 position)
     {
@@ -154,6 +162,8 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
         return result;
     }
 
+
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         // Draw spawn circle in scene view
@@ -163,5 +173,26 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
         // Draw center point
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(spawnCenter, 0.2f);
+    }
+#endif
+
+    public void SpawnEnemyWave(StageOfDayCondition stageOfDayCondition)
+    {
+        // If there is no wave on this stage of the day then return
+        if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
+        Debug.LogWarning(stageOfDayCondition.ToString());
+        EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
+
+        var enemies = enemyWave.enemies;
+        foreach (var enemy in enemies)
+        {
+            int spawnedAmount = 0;
+            while (spawnedAmount < enemy.Value)
+            {
+                SpawnEnemyOnCircle(enemy.Key, spawnRadius);
+                spawnedAmount++;
+            }
+
+        }
     }
 }
