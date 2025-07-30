@@ -13,4 +13,5 @@ public class PersonalitySO :ScriptableObject
     public float hungerModifier; // how much hunger will be affected by emotion
     public float thirstModifier; // how much thirst will be affected by emotion
     public float tiredModifier; // how much tiredness will be affected by emotion
+    public float moveSpeedModifier; // how much movement speed will be affected by emotion
 }

@@ -17,7 +17,7 @@ public class VillagerDetailUI : Singleton<VillagerDetailUI>
     {
         villagerNameText.text = "NPC";
         villagerPersonalityText.text = "Personality: " + currentSelectedVillager.personality.name;
-        villagerHungerText.text = "Hunger: " + "100/100";
+        villagerHungerText.text = "Hunger: " + (int)currentSelectedVillager.currentHunger + "/100";
         villagerEmotion.text = "Emotion: " + currentSelectedVillager.currentEmotion.ToString();
         villagerThirstText.text = "Thirst: " + "100/100";
         villagerStateText.text = "State: " + currentSelectedVillager.currentStateName;
@@ -27,7 +27,13 @@ public class VillagerDetailUI : Singleton<VillagerDetailUI>
     }
     public void ReceiveVillagerData(Villager villager)
     {
+        if(currentSelectedVillager != null)
+        {
+            // Unsubscribe from the previous villager's update event
+            currentSelectedVillager.OnVillagerUpdate -= UpdateUI;
+        }
         this.currentSelectedVillager = villager;
+        villager.OnVillagerUpdate += UpdateUI;
         UpdateUI();
     }
     // Update is called once per frame
