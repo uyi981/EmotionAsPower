@@ -22,11 +22,22 @@ public class ContentManager : Singleton<ContentManager>, ISetup
 
     public IEnumerator LoadAllContentsOfTypeCoroutine<T>(SerializableDictionary<string, T> dictionary, bool debug) where T : BaseScriptableObject
     {
-        var handle = Addressables.LoadAssetsAsync<T>(typeof(T).Name, item =>
+        string label = typeof(T).Name;
+        Debug.Log($"Attempting to load assets with label: {label}");
+
+        var handle = Addressables.LoadAssetsAsync<T>(label, item =>
         {
             if (item != null)
             {
                 dictionary.Add(item.ID, item);
+                if (debug)
+                {
+                    Debug.Log($"Loaded: {item.ID} ({typeof(T).Name})");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Null item found when loading {typeof(T).Name}");
             }
         });
 
@@ -51,10 +62,14 @@ public class ContentManager : Singleton<ContentManager>, ISetup
     }
     public IEnumerator SetupCoroutine()
     {
+        Debug.Log("ContentManager Setup Started");
+
         // Initialize dictionaries
         itemSOs = new SerializableDictionary<string, ItemSO>();
         resourceSOs = new SerializableDictionary<string, ResourceSO>();
         enemySOs = new SerializableDictionary<string, EnemySO>();
+
+        Debug.Log("Starting to load content...");
 
         var loadItems = StartCoroutine(LoadAllContentsOfTypeCoroutine<ItemSO>(itemSOs, debugLoading));
         var loadResources = StartCoroutine(LoadAllContentsOfTypeCoroutine<ResourceSO>(resourceSOs, debugLoading));
@@ -63,6 +78,8 @@ public class ContentManager : Singleton<ContentManager>, ISetup
         yield return loadItems;
         yield return loadResources;
         yield return loadEnemies;
+
+        Debug.Log("ContentManager Setup Completed");
     }
 
     // TODO: Implement loading and unloading of a specific amount of content using pooling
