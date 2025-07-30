@@ -153,10 +153,10 @@ public class Villager : MonoBehaviour,IInteractable
     public void Move(Vector2Int targetPosition, float speed)
     {
         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(transform.position);
-        Debug.Log(villagerPosition);
+        //Debug.Log(villagerPosition);
         Vector2Int startPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
-        Debug.Log("Before Start Position: " + startPosition);
-        Debug.Log("Before Target Position: " + targetPosition);
+        //Debug.Log("Before Start Position: " + startPosition);
+        //Debug.Log("Before Target Position: " + targetPosition);
         List<Vector2Int> path = pathFinding.GetPathResult(VoHauMethod.NormalizeGridPosition(startPosition, 100, 100), VoHauMethod.NormalizeGridPosition(targetPosition, 100, 100), Singleton<GridSystem>.Instance.gridMap, 1);
         if (path != null && path.Count > 0)
         {
