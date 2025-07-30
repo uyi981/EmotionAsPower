@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(AIController), typeof(Health))]
+[RequireComponent(typeof(AIController), typeof(Health),  typeof(ItemDropper))]
 public class Enemy : MonoBehaviour, IInteractable
 {
     [Header("Enemy Configuration")]
@@ -10,12 +10,16 @@ public class Enemy : MonoBehaviour, IInteractable
 
     private AIController aiController;
     private Health health;
+    private ItemDropper itemDropper;
+    [SerializeField]
     private float existingTimer;
+    [SerializeField]
     private bool isInitialized = false;
     private EnemyState currentState = EnemyState.Spawning;
 
     public EnemySO EnemySO => enemySO;
     public Health Health => health;
+    public ItemDropper ItemDropper => itemDropper;
     public AIController AIController => aiController;
     public float ExistingTimer => existingTimer;
     public EnemyState CurrentState => currentState;
@@ -29,8 +33,9 @@ public class Enemy : MonoBehaviour, IInteractable
 
         aiController = GetComponent<AIController>();
         health = GetComponent<Health>();
+        itemDropper = GetComponent<ItemDropper>();
 
-        if (aiController == null || health == null)
+        if (aiController == null || health == null ||  itemDropper == null)
         {
             Debug.LogError($"Enemy {gameObject.name} is missing required components!");
             enabled = false;
@@ -49,6 +54,7 @@ public class Enemy : MonoBehaviour, IInteractable
     private void Update()
     {
         if (!isInitialized) return;
+        UpdateLife();
     }
 
     public void Initialize(EnemySO enemyData)
@@ -61,17 +67,23 @@ public class Enemy : MonoBehaviour, IInteractable
 
         enemySO = enemyData;
 
+        // Initialize visual
+        GetComponentInChildren<SpriteRenderer>().sprite = enemySO.Icon;
+
         // Initialize health with enemy data
         if (health != null)
         {
             health.SetMaxHealth(enemyData.defaultData.maxHealth, true);
             health.SetHealth(enemyData.defaultData.maxHealth);
+            health.OnDeath.AddListener(Die);
         }
 
         // Set existing timer
         existingTimer = enemyData.defaultData.existingTime;
 
         aiController.Initialize(enemyData.behaviour);
+
+        isInitialized = true;
     }
 
     public void UpdateExistingTime(float newTime)
@@ -85,6 +97,21 @@ public class Enemy : MonoBehaviour, IInteractable
     }
 
     public InteractableType GetInteractableType() => InteractableType.Enemy;
+
+    public void UpdateLife()
+    {
+        existingTimer -= Time.deltaTime;
+        if (existingTimer <= 0)
+        {
+            Health.Die();
+        }
+    }
+
+    public void Die()
+    {
+        ItemDropper.DropItems();
+        Destroy(gameObject);
+    }
 }
 
 
