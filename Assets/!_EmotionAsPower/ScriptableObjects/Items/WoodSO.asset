@@ -17,3 +17,6 @@ MonoBehaviour:
   displayName: Wood
   description: "Builds cozy cabins, calms pops. \nSome name their planks. \nGreat
     for anti-robot bonfires."
+  category: 1
+  useCases:
+    pairs: []

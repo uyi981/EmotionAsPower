@@ -10,6 +10,7 @@ using System.Linq;
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
 public class ItemSO : BaseScriptableObject
 {
+    public ItemCategory category;
     public SerializableDictionary<UseCaseType, int> useCases;
 
     public int GetUsedValue(UseCaseType type)
@@ -25,4 +26,6 @@ public class ItemSO : BaseScriptableObject
     public List<UseCaseType> GetUseCaseTypes() =>  useCases.Keys.ToList();
 
     public bool CanBeUsedFor(UseCaseType type) => useCases.ContainsKey(type);
+
+    public ItemCategory Category => category;
 }
