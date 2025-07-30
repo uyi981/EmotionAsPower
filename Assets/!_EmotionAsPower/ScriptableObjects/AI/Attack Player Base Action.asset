@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75528b46766a60342bbd306609828a83, type: 3}
-  m_Name: Attack Action
-  m_EditorClassIdentifier: Assembly-CSharp::AttackAction
-  actionName: Attack
+  m_Script: {fileID: 11500000, guid: 5e6a86d7507e4214da79ee872c582c7e, type: 3}
+  m_Name: Attack Player Base Action
+  m_EditorClassIdentifier: Assembly-CSharp::AttackPlayerBaseAction
+  actionName: Attack Player Base
   basePriority: 1
   attackRange: 2
-  attackDamage: 25
-  attackSpeed: 1
-  preferredTargets: 040000000500000000000000
+  attackDamage: 5
+  attackSpeed: 0.5
+  priorityRange: 100

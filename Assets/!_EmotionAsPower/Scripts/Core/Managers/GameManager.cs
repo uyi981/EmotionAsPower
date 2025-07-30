@@ -1,16 +1,65 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Game State")]
+    [SerializeField] private bool isPaused = false;
+    [SerializeField] private float timeScaleBeforePause = 1f;
+
+    public Action OnSetupFinished;
+    public Action<bool> OnGamePaused;
+    public bool IsPaused => isPaused;
+    public float CurrentTimeScale => Time.timeScale;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+        PauseGame();
+        StartCoroutine(SetupAll());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator SetupAll()
     {
-        
+        yield return ContentManager.Instance.SetupCoroutine();
+        UIManager.Instance.Setup();
+        ResumeGame();
+        OnSetupFinished?.Invoke();
+    }
+
+    public void TogglePause()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+
+    public void PauseGame()
+    {
+        if (isPaused) return;
+
+        timeScaleBeforePause = Time.timeScale;
+        Time.timeScale = 0f;
+        isPaused = true;
+
+        Debug.Log("Game Paused");
+        OnGamePaused?.Invoke(true);
+    }
+
+    public void ResumeGame()
+    {
+        if (!isPaused) return;
+
+        Time.timeScale = timeScaleBeforePause;
+        isPaused = false;
+
+        Debug.Log("Game Resumed");
+        OnGamePaused?.Invoke(false);
     }
 }

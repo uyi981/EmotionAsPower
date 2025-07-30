@@ -3,6 +3,7 @@
 //#endif
 using UnityEngine;
 using System;
+using static DayTimeController;
 
 public class DayTimeController : Singleton<DayTimeController>
 {
@@ -10,6 +11,7 @@ public class DayTimeController : Singleton<DayTimeController>
     [Tooltip("Duration of a full day in real-time minutes. 10f => 10mins in real time")]
     public float dayDurationInMinutes = 10f;
 
+    [SerializeField] private int day = 0;
     [Range(0, 1)]
     [SerializeField] private float timeOfDay = 0f;
 
@@ -35,7 +37,9 @@ public class DayTimeController : Singleton<DayTimeController>
     public Color dayEquatorColor;
     public enum TimeStage { Dawn, Morning, Noon, Evening, Night }
     public TimeStage currentStage;
+    private TimeStage previousStage;
     public Action<TimeStage> OnTimeStageChanged;
+    public Action<StageOfDayCondition> OnStageOfDayChanged;
 
     private TimeStage lastStage;
     private HourMinute HourMinute = new HourMinute(0, 0);
@@ -48,6 +52,7 @@ public class DayTimeController : Singleton<DayTimeController>
             timeOfDay = (timeOfDay + delta) % 1f;
             UpdateLighting();
             CheckTimeStage();
+            UpdateDay();
         }
     }
     private void Start()
@@ -122,12 +127,14 @@ public class DayTimeController : Singleton<DayTimeController>
 
     void CheckTimeStage()
     {
+        previousStage = currentStage;
         TimeStage newStage = GetTimeStage();
         if (newStage != lastStage)
         {
             currentStage = newStage;
             lastStage = newStage;
             OnTimeStageChanged?.Invoke(newStage);
+            OnStageOfDayChanged?.Invoke(new StageOfDayCondition(GetCurrentDateTime()));
         }
     }
 
@@ -141,9 +148,69 @@ public class DayTimeController : Singleton<DayTimeController>
         return TimeStage.Morning; // Default to Dawn if no other condition matches
     }
 
+    private void UpdateDay()
+    {
+        if (currentStage == TimeStage.Morning && previousStage == TimeStage.Night) {
+            day++;
+        }
+    }
+
     public float GetTimePercent() => timeOfDay;
 
-  
+    public GameDateTime GetCurrentDateTime()
+    {
+        return new GameDateTime
+        {
+            timeOfDay = timeOfDay,
+            timeStage = currentStage,
+            day = day,
+        };
+    }
+    
+}
+
+[Serializable]
+public struct GameDateTime
+{
+    public float timeOfDay;
+    public TimeStage timeStage;
+    public int day;
+}
+
+[Serializable]
+public class StageOfDayCondition
+{
+    public TimeStage stage;
+    public int day;
+
+    public StageOfDayCondition(TimeStage stage, int day)
+    {
+        this.stage = stage;
+        this.day = day;
+    }
+
+    public StageOfDayCondition(GameDateTime dateTime)
+    {
+        this.stage = dateTime.timeStage;
+        this.day = dateTime.day;
+    }
+
+    public bool Match(GameDateTime dateTime)
+    {
+        return stage == dateTime.timeStage && day == dateTime.day;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is StageOfDayCondition condition &&
+               stage == condition.stage &&
+               day == condition.day;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(stage, day);
+    }
 }
 
 public struct HourMinute

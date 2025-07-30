@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1318164095100825579}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7429332572593792860}
@@ -231,17 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemySO: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
-  defaultBehaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
-  combatBehaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
-  fleeingBehaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
-  lowHealthBehaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
-  combatHealthThreshold: 0.8
-  fleeHealthThreshold: 0.3
-  threatDetectionRange: 8
-  threatLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  debugMode: 0
 --- !u!114 &3583203535932230069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,9 +246,6 @@ MonoBehaviour:
   moveSpeed: 3
   rotationSpeed: 10
   stopDistance: 0.1
-  showPath: 1
-  pathColor: {r: 0, g: 1, b: 0, a: 1}
-  pathDrawHeight: 0.5
 --- !u!114 &7890787105668812900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,8 +258,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a28f1c599f5da42a4188e0f906445e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIController
-  currentBehaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
-  actionUpdateInterval: 0.1
-  debugMode: 0
-  unitMover: {fileID: 0}
-  health: {fileID: 0}
+  currentAction: {fileID: 0}

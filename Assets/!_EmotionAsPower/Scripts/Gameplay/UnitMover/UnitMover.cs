@@ -9,15 +9,15 @@ public class UnitMover : MonoBehaviour
     public float rotationSpeed = 10f;
     public float stopDistance = 0.1f;
 
-    [Header("Path Visualization")]
-    public bool showPath = true;
-    public Color pathColor = Color.green;
-    public float pathDrawHeight = 0.5f;
+    [Header("Path Smoothing")]
+    public bool enablePathSmoothing = true;
+    public float smoothingRadius = 0.5f;
 
     private APathFinding pathFinding;
     private Grid grid;
     private float[,] gridMap;
     private List<Vector2Int> currentPath;
+    private List<Vector3> smoothedPath;
     private int currentPathIndex;
     private bool isMoving;
     private Coroutine moveCoroutine;
@@ -58,51 +58,7 @@ public class UnitMover : MonoBehaviour
         Vector2Int start = new Vector2Int(startGridPos.x, startGridPos.z);
         Vector2Int target = new Vector2Int(targetGridPos.x, targetGridPos.z);
 
-        MoveToGridPosition(target);
-    }
-
-    public void MoveToGridPosition(Vector2Int targetGridPosition)
-    {
-        if (pathFinding == null || grid == null || gridMap == null)
-        {
-            Debug.LogError($"Required components not initialized for {gameObject.name}");
-            OnMovementFailed?.Invoke();
-            return;
-        }
-
-        // Stop current movement
-        StopMovement();
-
-        // Get current grid position
-        Vector3Int currentGridPos = grid.WorldToCell(transform.position);
-        Debug.Log(currentGridPos);
-        Vector2Int startGridPosition = new Vector2Int(currentGridPos.x, currentGridPos.z);
-
-        // Check if this is already at the target
-        if (startGridPosition == targetGridPosition)
-        {
-            Debug.Log($"{gameObject.name} is already at target position");
-            return;
-        }
-
-        int gridSize = Mathf.Max(gridMap.GetLength(0), gridMap.GetLength(1));
-        currentPath = pathFinding.GetPathResult(startGridPosition, targetGridPosition, gridMap, 1);
-
-        if (currentPath == null || currentPath.Count == 0)
-        {
-            Debug.LogWarning($"No path found for {gameObject.name} from {startGridPosition} to {targetGridPosition}");
-            OnMovementFailed?.Invoke();
-            return;
-        }
-
-        currentPath.Reverse();
-
-        currentPathIndex = 1;
-        isMoving = true;
-        moveCoroutine = StartCoroutine(FollowPath());
-        OnMovementStarted?.Invoke();
-
-        Debug.Log($"{gameObject.name} starting movement. Path length: {currentPath.Count}");
+        Move(target);
     }
 
     public void StopMovement()
@@ -115,6 +71,7 @@ public class UnitMover : MonoBehaviour
 
         isMoving = false;
         currentPath = null;
+        smoothedPath = null;
         currentPathIndex = 0;
     }
 
@@ -128,76 +85,201 @@ public class UnitMover : MonoBehaviour
         return currentPath;
     }
 
-    private IEnumerator FollowPath()
+    public List<Vector3> GetSmoothedPath()
     {
-        while (currentPathIndex < currentPath.Count)
+        return smoothedPath;
+    }
+
+    public void Move(Vector2Int targetPosition)
+    {
+        if (grid == null || gridMap == null)
         {
-            Vector2Int nextGridPos = currentPath[currentPathIndex];
+            Debug.LogError($"Grid system not initialized for {gameObject.name}");
+            OnMovementFailed?.Invoke();
+            return;
+        }
 
-            // Convert grid position to world position
-            Vector3Int gridPos3D = new Vector3Int(nextGridPos.x, 0, nextGridPos.y);
-            Vector3 target = grid.CellToWorld(gridPos3D);
-            target.y = transform.position.y; 
+        // Stop any existing movement
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+        }
 
-            // Move towards the target
-            while (Vector3.Distance(transform.position, target) > stopDistance)
+        Vector3Int unitGridPos = grid.WorldToCell(transform.position);
+        Vector2Int startPosition = new Vector2Int(unitGridPos.x, unitGridPos.z);
+
+        Debug.Log($"Moving from {startPosition} to {targetPosition}");
+
+        List<Vector2Int> path = pathFinding.GetPathResult(
+            VoHauMethod.NormalizeGridPosition(startPosition, 100, 100),
+            VoHauMethod.NormalizeGridPosition(targetPosition, 100, 100),
+            gridMap,
+            1
+        );
+
+        if (path != null && path.Count > 0)
+        {
+            currentPath = path;
+
+            // Convert path to world positions
+            List<Vector3> worldPath = ConvertPathToWorldPositions(path);
+
+            // Apply path smoothing if enabled
+            if (enablePathSmoothing)
             {
-                transform.position = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
+                smoothedPath = SmoothPath(worldPath);
+            }
+            else
+            {
+                smoothedPath = worldPath;
+            }
 
+            currentPathIndex = 0;
+            isMoving = true;
+
+            OnMovementStarted?.Invoke();
+            moveCoroutine = StartCoroutine(MovingSmooth(smoothedPath, moveSpeed));
+        }
+        else
+        {
+            Debug.LogWarning($"No valid path found for {gameObject.name} to move from {startPosition} to {targetPosition}");
+            OnMovementFailed?.Invoke();
+        }
+    }
+
+    private List<Vector3> ConvertPathToWorldPositions(List<Vector2Int> gridPath)
+    {
+        List<Vector3> worldPath = new List<Vector3>();
+
+        for (int i = gridPath.Count - 1; i >= 0; i--)
+        {
+            Vector2Int normalPosition = VoHauMethod.InverseNormalizeGridPosition(gridPath[i], 100, 100);
+            Vector3 worldPos = new Vector3(normalPosition.x, transform.position.y, normalPosition.y);
+            worldPath.Add(worldPos);
+        }
+
+        return worldPath;
+    }
+
+    private List<Vector3> SmoothPath(List<Vector3> originalPath)
+    {
+        if (originalPath.Count <= 2)
+            return originalPath;
+
+        List<Vector3> smoothed = new List<Vector3>();
+        smoothed.Add(originalPath[0]); 
+
+        for (int i = 1; i < originalPath.Count - 1; i++)
+        {
+            Vector3 prev = originalPath[i - 1];
+            Vector3 current = originalPath[i];
+            Vector3 next = originalPath[i + 1];
+
+            if (CanCreateDiagonalPath(prev, next))
+            {
+                continue;
+            }
+            else
+            {
+                Vector3 smoothedPoint = SmoothCorner(prev, current, next);
+                smoothed.Add(smoothedPoint);
+            }
+        }
+
+        smoothed.Add(originalPath[originalPath.Count - 1]);
+
+        return smoothed;
+    }
+
+    private bool CanCreateDiagonalPath(Vector3 from, Vector3 to)
+    {
+        // Check if the diagonal path is clear
+        Vector3 direction = (to - from).normalized;
+        float distance = Vector3.Distance(from, to);
+
+        float deltaX = Mathf.Abs(to.x - from.x);
+        float deltaZ = Mathf.Abs(to.z - from.z);
+
+        return Mathf.Abs(deltaX - deltaZ) < 0.5f && distance <= 2.0f;
+    }
+
+    private Vector3 SmoothCorner(Vector3 prev, Vector3 current, Vector3 next)
+    {
+        Vector3 dirToPrev = (prev - current).normalized;
+        Vector3 dirToNext = (next - current).normalized;
+        Vector3 avgDirection = (dirToPrev + dirToNext).normalized;
+
+        return current + avgDirection * smoothingRadius;
+    }
+
+    private IEnumerator MovingSmooth(List<Vector3> path, float speed)
+    {
+        for (int i = 0; i < path.Count; i++)
+        {
+            currentPathIndex = i;
+            Vector3 targetPosition = path[i];
+
+
+            while (Vector3.Distance(transform.position, targetPosition) > stopDistance)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
                 yield return null;
             }
 
+            transform.position = targetPosition;
 
-            transform.position = target;
-
-
-            OnReachedWaypoint?.Invoke(nextGridPos);
-
-            currentPathIndex++;
+            Vector3Int gridPos = grid.WorldToCell(targetPosition);
+            Vector2Int gridPos2D = new Vector2Int(gridPos.x, gridPos.z);
+            OnReachedWaypoint?.Invoke(gridPos2D);
         }
 
         isMoving = false;
         currentPath = null;
+        smoothedPath = null;
         currentPathIndex = 0;
-        OnMovementCompleted?.Invoke();
+        moveCoroutine = null;
 
-        Debug.Log($"{gameObject.name} reached destination");
+        OnMovementCompleted?.Invoke();
+    }
+
+    public void Move(Vector2Int targetPosition, float speed)
+    {
+        moveSpeed = speed;
+        Move(targetPosition);
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (!showPath || currentPath == null || grid == null)
-            return;
-
-        Gizmos.color = pathColor;
-        for (int i = 0; i < currentPath.Count - 1; i++)
+        if (smoothedPath != null && smoothedPath.Count > 1)
         {
-            Vector2Int currentGrid = currentPath[i];
-            Vector2Int nextGrid = currentPath[i + 1];
+            Gizmos.color = Color.green;
+            for (int i = 0; i < smoothedPath.Count - 1; i++)
+            {
+                Gizmos.DrawLine(smoothedPath[i], smoothedPath[i + 1]);
+            }
 
-            Vector3Int current3D = new Vector3Int(currentGrid.x, 0, currentGrid.y);
-            Vector3Int next3D = new Vector3Int(nextGrid.x, 0, nextGrid.y);
-
-            Vector3 currentWorld = grid.CellToWorld(current3D);
-            Vector3 nextWorld = grid.CellToWorld(next3D);
-
-            currentWorld.y += pathDrawHeight;
-            nextWorld.y += pathDrawHeight;
-
-            Gizmos.DrawLine(currentWorld, nextWorld);
-            Gizmos.DrawSphere(currentWorld, 0.1f);
+            Gizmos.color = Color.yellow;
+            foreach (Vector3 point in smoothedPath)
+            {
+                Gizmos.DrawSphere(point, 0.1f);
+            }
         }
 
-        if (currentPath.Count > 0)
+        if (currentPath != null && currentPath.Count > 1)
         {
-            Vector2Int targetGrid = currentPath[currentPath.Count - 1];
-            Vector3Int target3D = new Vector3Int(targetGrid.x, 0, targetGrid.y);
-            Vector3 targetWorld = grid.CellToWorld(target3D);
-            targetWorld.y += pathDrawHeight;
-
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(targetWorld, 0.15f);
+            for (int i = currentPath.Count - 1; i > 0; i--)
+            {
+                Vector2Int pos1 = VoHauMethod.InverseNormalizeGridPosition(currentPath[i], 100, 100);
+                Vector2Int pos2 = VoHauMethod.InverseNormalizeGridPosition(currentPath[i - 1], 100, 100);
+
+                Vector3 world1 = new Vector3(pos1.x, transform.position.y + 0.5f, pos1.y);
+                Vector3 world2 = new Vector3(pos2.x, transform.position.y + 0.5f, pos2.y);
+
+                Gizmos.DrawLine(world1, world2);
+            }
         }
     }
 #endif
