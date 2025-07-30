@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 77c09f9cadd493d42bec0de14e288f22
+guid: 8cc0149c99a0c974f9af16b11fe790bb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: homeAndTower_0
+      name: food_0
       rect:
         serializedVersion: 2
-        x: 83
-        y: 386
-        width: 200
-        height: 204
+        x: 91
+        y: 598
+        width: 92
+        height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,20 +138,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad0e79578bcf4c14da627676840e27e2
-      internalID: 1952208395
+      spriteID: e10c6d4c86bcbb8459c4f4b8f8dca8d4
+      internalID: -2116019032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: homeAndTower_1
+      name: food_1
       rect:
         serializedVersion: 2
-        x: 413
-        y: 328
-        width: 192
-        height: 371
+        x: 203
+        y: 601
+        width: 58
+        height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,20 +160,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90999ffa4231dcf478255aee9c52674c
-      internalID: 992145435
+      spriteID: 6bc1dc93bb7ad1e4b89afa12c5f40a32
+      internalID: 1451502622
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: homeAndTower_2
+      name: food_2
       rect:
         serializedVersion: 2
-        x: 606
-        y: 265
-        width: 9
-        height: 17
+        x: 266
+        y: 595
+        width: 69
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +182,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68a3098dc7c09e143955883d537e35c7
-      internalID: -1390570896
+      spriteID: 35d65827d205a3a4d8f7a2a7dc2faec4
+      internalID: 688446878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: food_3
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 602
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 580d26fd4bc7b854ba14deb85d4cf526
+      internalID: -1549358265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: food_4
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 589
+        width: 84
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9149048ff04618c439e02cb27b89df92
+      internalID: 1403349418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: food_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 588
+        width: 83
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23ccbd96a5a7814bba6f0c1cfb8a82f
+      internalID: 1757028799
       vertices: []
       indices: 
       edges: []
@@ -192,7 +258,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f1cdfe1fa3ef18e46823ac91afc47f5c
+    spriteID: 5844f34c48d20b541b1366bae733028f
     internalID: 0
     vertices: []
     indices: 
@@ -204,9 +270,12 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      homeAndTower_0: 1952208395
-      homeAndTower_1: 992145435
-      homeAndTower_2: -1390570896
+      food_0: -2116019032
+      food_1: 1451502622
+      food_2: 688446878
+      food_3: -1549358265
+      food_4: 1403349418
+      food_5: 1757028799
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

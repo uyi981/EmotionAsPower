@@ -76,7 +76,7 @@ public class VillagerIdleState : IState
                 villager.transform.position = Vector3.MoveTowards(
                     villager.transform.position,
                     targetPosition,
-                    5 * Time.deltaTime
+                    villager.personality.moveSpeedModifier * Time.deltaTime
                 );
                 yield return null;
             }
