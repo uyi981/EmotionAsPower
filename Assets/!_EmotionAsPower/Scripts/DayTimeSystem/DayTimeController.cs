@@ -3,6 +3,7 @@
 //#endif
 using UnityEngine;
 using System;
+using static DayTimeController;
 
 public class DayTimeController : Singleton<DayTimeController>
 {
@@ -38,6 +39,7 @@ public class DayTimeController : Singleton<DayTimeController>
     public TimeStage currentStage;
     private TimeStage previousStage;
     public Action<TimeStage> OnTimeStageChanged;
+    public Action<StageOfDayCondition> OnStageOfDayChanged;
 
     private TimeStage lastStage;
     private HourMinute HourMinute = new HourMinute(0, 0);
@@ -132,6 +134,7 @@ public class DayTimeController : Singleton<DayTimeController>
             currentStage = newStage;
             lastStage = newStage;
             OnTimeStageChanged?.Invoke(newStage);
+            OnStageOfDayChanged?.Invoke(new StageOfDayCondition(GetCurrentDateTime()));
         }
     }
 
@@ -159,6 +162,7 @@ public class DayTimeController : Singleton<DayTimeController>
         return new GameDateTime
         {
             timeOfDay = timeOfDay,
+            timeStage = currentStage,
             day = day,
         };
     }
@@ -169,7 +173,44 @@ public class DayTimeController : Singleton<DayTimeController>
 public struct GameDateTime
 {
     public float timeOfDay;
+    public TimeStage timeStage;
     public int day;
+}
+
+[Serializable]
+public class StageOfDayCondition
+{
+    public TimeStage stage;
+    public int day;
+
+    public StageOfDayCondition(TimeStage stage, int day)
+    {
+        this.stage = stage;
+        this.day = day;
+    }
+
+    public StageOfDayCondition(GameDateTime dateTime)
+    {
+        this.stage = dateTime.timeStage;
+        this.day = dateTime.day;
+    }
+
+    public bool Match(GameDateTime dateTime)
+    {
+        return stage == dateTime.timeStage && day == dateTime.day;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return obj is StageOfDayCondition condition &&
+               stage == condition.stage &&
+               day == condition.day;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(stage, day);
+    }
 }
 
 public struct HourMinute
