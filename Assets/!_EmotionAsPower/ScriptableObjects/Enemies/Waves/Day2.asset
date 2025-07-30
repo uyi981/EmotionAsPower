@@ -15,6 +15,6 @@ MonoBehaviour:
   enemies:
     pairs:
     - key: {fileID: 11400000, guid: c8f7838bad5ac604bbc7b82ed8ab5228, type: 2}
-      value: 5
+      value: 3
     - key: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
       value: 2

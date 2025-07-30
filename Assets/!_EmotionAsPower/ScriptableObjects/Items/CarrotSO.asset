@@ -20,7 +20,10 @@ MonoBehaviour:
     \nor chuck it at a robot to \nbriefly confuse its circuits with organic goodness.
     \nWarning: Overzealous pops may start \na carrot fan club, leading to endless
     \"carrot karaoke\" nights."
+  category: 4
   useCases:
     pairs:
     - key: 0
-      value: 0
+      value: 50
+    - key: 1
+      value: 50
