@@ -24,7 +24,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
 
     
     [Tooltip("Emotion yêu cầu để sản xuất")]
-    [SerializeField] private Emotion requireEmotion = Emotion.Normal;
+    [SerializeField] public Emotion requireEmotion = Emotion.Normal;
 
 
 

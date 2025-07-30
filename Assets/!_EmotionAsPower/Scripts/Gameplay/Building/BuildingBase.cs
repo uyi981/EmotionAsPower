@@ -17,10 +17,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public float buildProgress = 0f;
     [Tooltip("Thời gian xây dựng công trình (giây)")]
     public float buildTime;
-    [Tooltip("Công trình có được chọn hay không")]
-    public bool isSelected = false;
-    [Tooltip("UI công trình đang xây dựng")]
-    public GameObject buildingUI;
+
 
     [Tooltip("Công trình đã xây xong")]
     public bool isBuild = false;
@@ -108,12 +105,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 
     }
 
-    private void OnMouseDown()
-    {
-        if(!IsBuild) return; // Không cho phép chọn công trình chưa xây xong
 
-        isSelected = !isSelected; // Đảo trạng thái chọn công trình
-    }
 
     /// <summary>
     /// Phương thức này sẽ tiêu thụ các vật phẩm cần thiết để xây dựng công trình.
