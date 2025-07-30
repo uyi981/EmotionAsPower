@@ -6,6 +6,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class ContentManager : Singleton<ContentManager>, ISetup
 {
+    public ItemCategoryIconConfig categoryIcons;
+
     [SerializeField]
     private bool debugLoading = true;   
     [SerializeField]
