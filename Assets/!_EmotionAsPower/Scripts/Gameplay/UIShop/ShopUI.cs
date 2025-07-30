@@ -13,12 +13,12 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 
 
 
-        private void OnMouseDown()
-        {
-            if (!IsBuild) return; // Không cho phép chọn công trình chưa xây xong
+        //private void OnMouseDown()
+        //{
+        //    if (!IsBuild) return; // Không cho phép chọn công trình chưa xây xong
 
-            isSelected = !isSelected; // Đảo trạng thái chọn công trình
-        }
+        //    isSelected = !isSelected; // Đảo trạng thái chọn công trình
+        //}
 
         // Use this for initialization
         void Start()
