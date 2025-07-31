@@ -13,11 +13,14 @@ public class GameManager : Singleton<GameManager>
     [Header("Game State")]
     [SerializeField] private bool isPaused = false;
     [SerializeField] private float timeScaleBeforePause = 1f;
+    [SerializeField] private float currentGameSpeed = 1f;
 
     public Action OnSetupFinished;
     public Action<bool> OnGamePaused;
+    public Action<float> OnGameSpeedChanged;
     public bool IsPaused => isPaused;
     public float CurrentTimeScale => Time.timeScale;
+    public float CurrentGameSpeed => currentGameSpeed;
 
     protected override void Awake()
     {
@@ -72,7 +75,8 @@ public class GameManager : Singleton<GameManager>
     public void EnterDebug()
     {
         isDebugMode = true;
-        foreach (GameObject debugFeature in debugFeatures) { 
+        foreach (GameObject debugFeature in debugFeatures)
+        {
             debugFeature.SetActive(true);
         }
     }
@@ -88,7 +92,22 @@ public class GameManager : Singleton<GameManager>
 
     public void ToggleDebugMode()
     {
-        if(isDebugMode) ExitDebug();
+        if (isDebugMode) ExitDebug();
         else EnterDebug();
     }
+
+    public void SetGameSpeed(float speed)
+    {
+        if (speed <= 0f) return;
+
+        currentGameSpeed = speed;
+        if (!isPaused)
+        {
+            Time.timeScale = currentGameSpeed;
+        }
+        timeScaleBeforePause = currentGameSpeed;
+
+        OnGameSpeedChanged?.Invoke(currentGameSpeed);
+    }
+
 }

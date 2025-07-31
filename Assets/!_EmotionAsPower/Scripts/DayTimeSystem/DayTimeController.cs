@@ -39,7 +39,7 @@ public class DayTimeController : Singleton<DayTimeController>
     public TimeStage currentStage;
     private TimeStage previousStage;
     public Action<TimeStage> OnTimeStageChanged;
-    public Action<StageOfDayCondition> OnStageOfDayChanged;
+    public Action<StageOfDay> OnStageOfDayChanged;
 
     private TimeStage lastStage;
     private HourMinute HourMinute = new HourMinute(0, 0);
@@ -57,7 +57,7 @@ public class DayTimeController : Singleton<DayTimeController>
     }
     private void Start()
     {
-        timeOfDay = 0.3f;
+        //timeOfDay = 0.3f;
     }
 
     //private void OnValidate()
@@ -134,7 +134,7 @@ public class DayTimeController : Singleton<DayTimeController>
             currentStage = newStage;
             lastStage = newStage;
             OnTimeStageChanged?.Invoke(newStage);
-            OnStageOfDayChanged?.Invoke(new StageOfDayCondition(GetCurrentDateTime()));
+            OnStageOfDayChanged?.Invoke(new StageOfDay(GetCurrentDateTime()));
         }
     }
 
@@ -166,6 +166,8 @@ public class DayTimeController : Singleton<DayTimeController>
             day = day,
         };
     }
+
+
     
 }
 
@@ -178,18 +180,18 @@ public struct GameDateTime
 }
 
 [Serializable]
-public class StageOfDayCondition
+public class StageOfDay
 {
     public TimeStage stage;
     public int day;
 
-    public StageOfDayCondition(TimeStage stage, int day)
+    public StageOfDay(TimeStage stage, int day)
     {
         this.stage = stage;
         this.day = day;
     }
 
-    public StageOfDayCondition(GameDateTime dateTime)
+    public StageOfDay(GameDateTime dateTime)
     {
         this.stage = dateTime.timeStage;
         this.day = dateTime.day;
@@ -202,7 +204,7 @@ public class StageOfDayCondition
 
     public override bool Equals(object obj)
     {
-        return obj is StageOfDayCondition condition &&
+        return obj is StageOfDay condition &&
                stage == condition.stage &&
                day == condition.day;
     }
