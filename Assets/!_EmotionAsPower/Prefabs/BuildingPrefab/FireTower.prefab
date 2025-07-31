@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8724502197430232070}
   - component: {fileID: 5430472270137315337}
+  - component: {fileID: 5091091424898028556}
   m_Layer: 0
   m_Name: FireTower
   m_TagString: Untagged
@@ -152,6 +153,8 @@ MonoBehaviour:
     description: 
   buildProgress: 0
   buildTime: 0
+  isSelected: 0
+  buildingUI: {fileID: 0}
   isBuild: 0
   workersAmount: 0
   maxHP: 100
@@ -167,3 +170,49 @@ MonoBehaviour:
   attackRange: 5
   attackCooldown: 1
   attackEffectPrefab: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+--- !u!61 &5091091424898028556
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388843474569102852}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.009493828, y: 1.5355649}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.0953946, y: 3.3169603}
+  m_EdgeRadius: 0

@@ -17,7 +17,8 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public float buildProgress = 0f;
     [Tooltip("Thời gian xây dựng công trình (giây)")]
     public float buildTime;
-    
+
+
     [Tooltip("Công trình đã xây xong")]
     public bool isBuild = false;
     [Tooltip("Số lượng công nhân tham gia xây dựng")]
@@ -103,6 +104,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         StartCoroutine(Building()); // Bắt đầu quá trình xây dựng
 
     }
+
 
 
     /// <summary>
