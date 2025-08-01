@@ -22,6 +22,8 @@ public class ContentManager : Singleton<ContentManager>, ISetup
     private SerializableDictionary<string, EnemySO> enemySOs;
     public SerializableDictionary<string, EnemySO> EnemySOs => enemySOs;
 
+    public SerializableDictionary<int, PlayerBaseLevel> playerBaseLevelConfig;
+
     public IEnumerator LoadAllContentsOfTypeCoroutine<T>(SerializableDictionary<string, T> dictionary, bool debug) where T : BaseScriptableObject
     {
         string label = typeof(T).Name;

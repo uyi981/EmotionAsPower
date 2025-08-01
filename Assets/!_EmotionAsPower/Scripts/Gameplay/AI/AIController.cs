@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using static AIBehaviour;
 
 [RequireComponent(typeof(UnitMover))]
 public class AIController : MonoBehaviour
@@ -11,6 +12,8 @@ public class AIController : MonoBehaviour
     [SerializeField]
     private AIAction currentAction;
     private PerformingAction performingAction;
+    private Dictionary<AIAction, float> lastFailureTimes = new Dictionary<AIAction, float>();
+    [SerializeField] private float actionCooldownTime = 5f;
 
     private void Awake()
     {
@@ -29,19 +32,20 @@ public class AIController : MonoBehaviour
         {
             ActionState result = currentAction.UpdateAction(this);
             performingAction.state = result;
-
-            if (result == ActionState.Success || result == ActionState.Failed)
+            if (result == ActionState.Success)
             {
-                if (result == ActionState.Success)
-                    currentAction.OnActionComplete(this);
-                else
-                    currentAction.OnActionInterrupted(this);
-
+                currentAction.OnActionComplete(this);
+                currentAction = null;
+                performingAction = null;
+            }
+            else if (result == ActionState.Failed)
+            {
+                lastFailureTimes[currentAction] = Time.time;
+                currentAction.OnActionInterrupted(this);
                 currentAction = null;
                 performingAction = null;
             }
         }
-
         if (currentAction == null)
         {
             SelectBestAction();
@@ -50,36 +54,43 @@ public class AIController : MonoBehaviour
 
     private void SelectBestAction()
     {
-        AIAction bestAction = null;
-        int highestPriority = -1;
+        var possibleActions = behaviour.Actions
+            .Where(config => config.isEnabled && config.action.CanPerform(this))
+            .ToList();
 
-        foreach (var config in behaviour.Actions)
+        if (possibleActions.Count == 0)
         {
-            if (!config.isEnabled || !config.action.CanPerform(this))
-                continue;
-
-            int priority = config.priorityOverride != -1 ?
-                config.priorityOverride :
-                config.action.GetDynamicPriority(this);
-
-            if (priority > highestPriority)
-            {
-                highestPriority = priority;
-                bestAction = config.action;
-            }
+            currentAction = null;
+            return;
         }
 
-        if (bestAction != null)
+        // Find actions that are not on cooldown
+        var availableActions = possibleActions
+            .Where(config => !lastFailureTimes.ContainsKey(config.action) || Time.time - lastFailureTimes[config.action] > actionCooldownTime)
+            .ToList();
+
+        ActionConfiguration bestConfig;
+        if (availableActions.Count > 0)
         {
-            currentAction = bestAction;
-            performingAction = new PerformingAction
-            {
-                actionName = bestAction.actionName,
-                state = ActionState.Running,
-                isInteruptable = true
-            };
-            currentAction.StartAction(this);
+            bestConfig = availableActions
+                .OrderByDescending(config => config.priorityOverride != -1 ? config.priorityOverride : config.action.GetDynamicPriority(this))
+                .First();
         }
+        else
+        {
+            bestConfig = possibleActions
+                .OrderByDescending(config => config.priorityOverride != -1 ? config.priorityOverride : config.action.GetDynamicPriority(this))
+                .First();
+        }
+
+        currentAction = bestConfig.action;
+        performingAction = new PerformingAction
+        {
+            actionName = currentAction.actionName,
+            state = ActionState.Running,
+            isInteruptable = true
+        };
+        currentAction.StartAction(this);
     }
 
     public UnitMover GetUnitMover() => unitMover;

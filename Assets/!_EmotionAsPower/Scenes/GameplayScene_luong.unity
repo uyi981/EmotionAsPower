@@ -205,7 +205,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &65768
@@ -375,10 +375,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 1531051801}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &3640640
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -755,10 +760,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 254856908}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &16132355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1068,7 +1078,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &38477976
@@ -1163,10 +1173,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 1264335974}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &45893402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1504,10 +1519,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 1007946672}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &71288466
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2007,10 +2027,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 1253955476}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &110175041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2387,6 +2412,7 @@ RectTransform:
   - {fileID: 866934905}
   - {fileID: 1381109801}
   - {fileID: 273513356}
+  - {fileID: 1828813817}
   m_Father: {fileID: 5180366}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2565,10 +2591,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 956882676}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &197890777
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3010,10 +3041,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 672732271}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &258349748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3456,7 +3492,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &285875350
@@ -3712,7 +3748,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &331835349
@@ -4393,10 +4429,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 1823426449}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &391872253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4579,7 +4620,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &437260544
@@ -5241,7 +5282,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &457792121
@@ -5336,10 +5377,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 304877740}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &463153940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5478,7 +5524,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &533847216
@@ -5573,7 +5619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1dcdfeab8435043a6a4e97cf1b07b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  baseSpeed: 20
+  baseSpeed: 40
   heightSpeedCurve:
     serializedVersion: 2
     m_Curve:
@@ -5600,6 +5646,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxHeight: 1000
   minHeight: 2
+  allowMovementWhenPaused: 1
 --- !u!4 &563976218
 Transform:
   m_ObjectHideFlags: 0
@@ -5948,10 +5995,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 1722325320}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &613019434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6050,10 +6102,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 466958026}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &663469166
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6231,10 +6288,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 795207769}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &692311613
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6592,7 +6654,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &714747644
@@ -6942,7 +7004,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &747227890
@@ -7037,10 +7099,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 1898835494}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &762597378
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7732,7 +7799,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &819731456
@@ -8588,7 +8655,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &919822071
@@ -8679,7 +8746,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &949896783
@@ -8862,10 +8929,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 902310249}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &958969816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8964,10 +9036,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: f4db7c4ac4be53148a09911811c06bc3, type: 2}
   itemHandle: {fileID: 814317874}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &974255413
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9066,10 +9143,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 65524972}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &992294686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10019,10 +10101,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 1195154712}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1057825430
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10593,10 +10680,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 1156421718}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1132606442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10695,10 +10787,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 901752614}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1140419511
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10797,10 +10894,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 1914787754}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1142984535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11063,10 +11165,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 1071206362}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1167232348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11816,10 +11923,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 1500709078}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1213460773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12135,10 +12247,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 1562973625}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1294825257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12347,6 +12464,51 @@ MonoBehaviour:
   itemSO: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
   amount: 1
   textureProperty: 
+--- !u!1 &1305490048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1305490050}
+  - component: {fileID: 1305490049}
+  m_Layer: 0
+  m_Name: PlayerBase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1305490049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305490048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126e80a99985a9f4383b874d0b343c5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBase
+  level: 0
+--- !u!4 &1305490050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305490048}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1323007123
 GameObject:
   m_ObjectHideFlags: 0
@@ -13279,7 +13441,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1385257556
@@ -13383,7 +13545,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1392527980
@@ -13620,7 +13782,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1429877758
@@ -13715,10 +13877,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 89396975}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1463105127
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13926,10 +14093,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   itemHandle: {fileID: 2066335818}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1470468426
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14028,10 +14200,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: b26985756ea4bce46b6091a17aa75527, type: 2}
   itemHandle: {fileID: 2073881210}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1470943890
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14205,10 +14382,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 588893968}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1478413434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14548,7 +14730,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 1.2366667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1481891736
@@ -15243,7 +15425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DayTimeController
   dayDurationInMinutes: 0.05
   day: 0
-  timeOfDay: 0.368
+  timeOfDay: 0
   sunLight: {fileID: 2054706850}
   moon: {fileID: 1044786797}
   lightColorOverDay:
@@ -15369,8 +15551,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  skyboxMaterial: {fileID: 0}
-  nightSkybox: {fileID: 0}
+  skyboxMaterial: {fileID: 2100000, guid: fe52b536ebfa90d47b1bd4e839ce02ad, type: 2}
+  nightSkybox: {fileID: 2100000, guid: f7f7801a56e2d7b44a036115336263ce, type: 2}
   skyboxColorOverDay:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 1}
@@ -15654,10 +15836,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6aa05144045b45643a1502d481af0867, type: 2}
   itemHandle: {fileID: 1178681218}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1589668267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16019,7 +16206,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1668546518
@@ -16123,7 +16310,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1688656442
@@ -16227,7 +16414,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1705880662
@@ -16487,7 +16674,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1711321661
@@ -17048,7 +17235,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1731771432
@@ -17115,6 +17302,7 @@ MonoBehaviour:
   - {fileID: 1381109800}
   isPaused: 0
   timeScaleBeforePause: 1
+  currentGameSpeed: 1
 --- !u!1 &1740850616
 GameObject:
   m_ObjectHideFlags: 0
@@ -17322,58 +17510,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1751135373
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1751135374}
-  - component: {fileID: 1751135375}
-  m_Layer: 0
-  m_Name: ContentManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1751135374
+--- !u!4 &1751135374 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+  m_PrefabInstance: {fileID: 7087340009371892791}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751135373}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1832583617}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1751135375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751135373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36e11a924160c224caf07e9ca761c5cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ContentManager
-  categoryIcons: {fileID: 11400000, guid: 8f67649daff9f44419156ebed17f7f27, type: 2}
-  debugLoading: 1
-  itemSOs:
-    pairs: []
-  resourceSOs:
-    pairs: []
-  enemySOs:
-    pairs: []
 --- !u!1 &1761837367
 GameObject:
   m_ObjectHideFlags: 0
@@ -17754,7 +17895,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1798576597
@@ -17849,10 +17990,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
   itemHandle: {fileID: 1090949821}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1816204843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18137,6 +18283,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1942807736}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1828813817 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+  m_PrefabInstance: {fileID: 1433188813891989923}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1832583616
 GameObject:
   m_ObjectHideFlags: 0
@@ -18261,7 +18412,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1864778634
@@ -18732,7 +18883,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1903888890
@@ -19029,10 +19180,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 6a52124a78999974cade386ceeecd61e, type: 2}
   itemHandle: {fileID: 1826507091}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &1942807739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19318,10 +19474,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 1956323270}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &2002710017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19429,7 +19590,7 @@ SpriteRenderer:
   m_Size: {x: 0.6666667, y: 0.68}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2044339408
@@ -20033,10 +20194,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Villager
   isSelected: 0
   isWorking: 0
+  isSleeping: 0
+  isStarving: 0
+  currentEmotion: 5
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 1653759149}
   isChatting: 0
   currentStateName: 
+  currentHunger: 100
+  currentThirst: 100
 --- !u!65 &2107976906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20861,6 +21027,207 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645c87cbe0f5216428363f4a7ee906b7, type: 3}
+--- !u!1001 &1433188813891989923
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 194259598}
+    m_Modifications:
+    - target: {fileID: 1437265437548002099, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437265437548002099, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437265437548002099, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437265437548002099, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437265437548002099, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_Pivot.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402462732655111104, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452063612719192419, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452063612719192419, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452063612719192419, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452063612719192419, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452063612719192419, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600534357824224709, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_Name
+      value: TimePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008172556823659385, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008172556823659385, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008172556823659385, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008172556823659385, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112308291715958180, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112308291715958180, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112308291715958180, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112308291715958180, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672071974345796996, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672071974345796996, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672071974345796996, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8672071974345796996, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999272766818696522, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999272766818696522, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999272766818696522, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999272766818696522, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9c18209be3cad24fa268f604c9423ca, type: 3}
 --- !u!1001 &2845230516439395583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21128,6 +21495,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5d2b6b3d64804d4fa04a4dc750f84fe, type: 3}
+--- !u!1001 &7087340009371892791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1832583617}
+    m_Modifications:
+    - target: {fileID: 1630186357978606733, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_Name
+      value: ContentManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121475730583013506, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f76b2e520e79d94d820b797a60c4907, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -21147,6 +21571,7 @@ SceneRoots:
   - {fileID: 2138485030}
   - {fileID: 561825575}
   - {fileID: 322593598}
+  - {fileID: 1305490050}
   - {fileID: 197682035}
   - {fileID: 882640269}
   - {fileID: 812285496}
