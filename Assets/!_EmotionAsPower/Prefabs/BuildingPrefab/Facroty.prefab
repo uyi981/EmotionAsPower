@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4840984023400531611}
   - component: {fileID: -1460266599911579761}
   - component: {fileID: 7353888560728203467}
+  - component: {fileID: 9136693628546261431}
   m_Layer: 0
   m_Name: Facroty
   m_TagString: Untagged
@@ -63,8 +64,6 @@ MonoBehaviour:
     description: 
   buildProgress: 0
   buildTime: 0
-  isSelected: 0
-  buildingUI: {fileID: 0}
   isBuild: 0
   workersAmount: 11
   maxHP: 100
@@ -136,6 +135,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.1140013, y: 3.3169603}
   m_EdgeRadius: 0
+--- !u!114 &9136693628546261431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499972825727605785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
+  isSelected: 0
+  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
+  UIPosition: {x: 4, y: 2, z: 1}
 --- !u!1 &3829587370384280709
 GameObject:
   m_ObjectHideFlags: 0
