@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.__EmotionAsPower.Scripts.Gameplay.Building.Interface;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.VFX;
 
 namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
 {
-    public class TowerBuilding : BuildingBase
+    public class TowerBuilding : BuildingBase, IAttack
     {
         [Header("Tower Settings")]
         [Tooltip("Sát thương của tháp")]
@@ -19,36 +21,61 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         [Tooltip("Hiệu ứng tấn công (nếu có)")]
         public GameObject attackEffectPrefab;
 
+
+        [Header("Pool Settings")]
+        [SerializeField] int poolDefaultCapacity = 5;
+        [SerializeField] int poolMaxSize = 20;
+
         private Vector2Int gridPosition;
         private LayerMask enemyLayer;
         private GameObject attackEffect;
         private const float CHECK_INTERVAL = 0.1f; // Thời gian giữa các lần kiểm tra (giây)
+        private float lastAttackTime = 0f;
+        private IObjectPool<GameObject> attackEffectPool;
+
+
+        public int AttackDamage { get; set; }
+        public int AttackRange { get; set; }
+        public float AttackCooldown { get; set; }
 
         public override void Start()
         {
             base.Start();
             enemyLayer = LayerMask.GetMask("Enemy");
-            
+
+            InstantiateObjectPool();
             // Lấy vị trí grid của tòa tháp (tính từ góc dưới trái)
             Vector3 worldPos = transform.position;
             gridPosition = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.z));
-            
+
             // Bắt đầu kiểm tra kẻ địch định kỳ
             InvokeRepeating(nameof(CheckForEnemies), 0f, CHECK_INTERVAL);
         }
-        
+
         private void OnDisable()
         {
             // Dừng kiểm tra khi đối tượng bị vô hiệu hóa
             CancelInvoke(nameof(CheckForEnemies));
         }
-        
-        private float lastAttackTime = 0f;
-        
+
+
+        private void InstantiateObjectPool()
+        {
+            attackEffectPool = new ObjectPool<GameObject>(
+            CreateAttackEffect,
+            OnTakeFromPool,
+            OnReturnedToPool,
+            OnDestroyPoolObject,
+            true,
+            poolDefaultCapacity,
+            poolMaxSize
+            );
+        }
+
         private void CheckForEnemies()
         {
             if (!isBuild) return;
-            
+
             // Kiểm tra thời gian giữa các lần tấn công
             if (Time.time - lastAttackTime >= attackCooldown)
             {
@@ -61,30 +88,30 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         {
             // Tạo kích thước của box dựa trên tầm tấn công
             Vector3 boxSize = new Vector3(attackRange * 2 + 1, 10f, attackRange * 2 + 1);
-            
+
             // Lấy tất cả kẻ địch trong phạm vi box
             Collider[] hitColliders = Physics.OverlapBox(
-                transform.position, 
+                transform.position,
                 boxSize * 0.5f, // Half extents
-                Quaternion.identity, 
+                Quaternion.identity,
                 enemyLayer
             );
-            
+
             // Tìm kẻ địch gần nhất
             Transform nearestEnemy = null;
             float nearestDistance = float.MaxValue;
-            
+
             foreach (var hitCollider in hitColliders)
             {
                 // Kiểm tra xem kẻ địch có nằm trong tầm tấn công theo grid không
                 Vector3 enemyPos = hitCollider.transform.position;
                 Vector2Int enemyGridPos = new Vector2Int(Mathf.FloorToInt(enemyPos.x), Mathf.FloorToInt(enemyPos.z));
-                
+
                 // Tính khoảng cách grid (Chebyshev distance)
                 int distanceX = Mathf.Abs(gridPosition.x - enemyGridPos.x);
                 int distanceY = Mathf.Abs(gridPosition.y - enemyGridPos.y);
                 int distance = Mathf.Max(distanceX, distanceY);
-                
+
                 if (distance <= attackRange)
                 {
                     float currentDistance = Vector3.Distance(transform.position, enemyPos);
@@ -95,7 +122,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                     }
                 }
             }
-            
+
             // Tấn công kẻ địch gần nhất
             if (nearestEnemy != null)
             {
@@ -103,24 +130,24 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             }
         }
 
-        private void Attack(Transform target)
+        public void Attack(Transform target)
         {
             // Tính toán vị trí bắt đầu và kết thúc chính xác hơn
             Vector3 startPos = GetAttackOrigin();
             Vector3 endPos = GetTargetCenter(target);
 
-            attackEffect = Instantiate(attackEffectPrefab, endPos, Quaternion.identity);
+            attackEffect = attackEffectPool.Get();
+            attackEffect.transform.position = endPos;
+            attackEffect.transform.rotation = Quaternion.identity;
             VisualEffect vfx = attackEffect.GetComponent<VisualEffect>();
             if (vfx != null)
             {
-                vfx.SetVector3("TargetPosition", endPos);
-                vfx.SetFloat("Damage", attackDamage);
                 vfx.Play();
             }
 
             StartCoroutine(DrawAttackLine(startPos, endPos));
         }
-        
+
         // Lấy vị trí bắt đầu của tia bắn (giữa đỉnh tháp)
         private Vector3 GetAttackOrigin()
         {
@@ -133,11 +160,11 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                     transform.position.z
                 );
             }
-            
+
             // Mặc định trả về vị trí hiện tại + 1.5 đơn vị lên trên
             return transform.position + Vector3.up * 1.5f;
         }
-        
+
         // Lấy vị trí giữa của mục tiêu
         private Vector3 GetTargetCenter(Transform target)
         {
@@ -146,7 +173,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             {
                 return collider.bounds.center;
             }
-            
+
             // Mặc định trả về vị trí hiện tại của mục tiêu
             return target.position;
         }
@@ -162,22 +189,22 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                 line.material = new Material(Shader.Find("Sprites/Default"));
                 line.startColor = Color.red;
                 line.endColor = Color.yellow;
-                
+
                 // Thêm thuộc tính để tia bắn mượt hơn
                 line.useWorldSpace = true;
                 line.positionCount = 2;
             }
-            
+
             // Đặt vị trí bắt đầu và kết thúc cho tia bắn
             line.SetPosition(0, start);
             line.SetPosition(1, end);
             line.enabled = true;
-            
+
             // Hiển thị tia bắn trong 0.1 giây
             yield return new WaitForSeconds(0.1f);
             line.enabled = false;
         }
-        
+
         // Vẽ Gizmos để xem tầm tấn công trong Editor
         private void OnDrawGizmosSelected()
         {
@@ -185,11 +212,39 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             Gizmos.color = new Color(1, 0, 0, 0.3f);
             Vector3 boxSize = new Vector3(attackRange * 2 + 1, 10f, attackRange * 2 + 1);
             Gizmos.DrawWireCube(transform.position, boxSize);
-            
+
             // Vẽ hình vuông 2D thể hiện tầm tấn công trên mặt phẳng
             Gizmos.color = new Color(1, 0, 0, 0.2f);
             float gridSize = attackRange * 2 + 1; // +1 để tính cả ô trung tâm
             Gizmos.DrawCube(transform.position, new Vector3(gridSize, 0.1f, gridSize));
+        }
+
+
+
+
+
+
+
+        private GameObject CreateAttackEffect()
+        {
+            var obj = Instantiate(attackEffectPrefab);
+            obj.SetActive(false);
+            return obj;
+        }
+
+        private void OnTakeFromPool(GameObject obj)
+        {
+            obj.SetActive(true);
+        }
+
+        private void OnReturnedToPool(GameObject obj)
+        {
+            obj.SetActive(false);
+        }
+
+        private void OnDestroyPoolObject(GameObject obj)
+        {
+            Destroy(obj);
         }
     }
 }
