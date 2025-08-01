@@ -47,6 +47,7 @@ public class EmotionEnergyManager : Singleton<EmotionEnergyManager>, IDataPersis
         return amount;
     }
 
+
     public void LoadGame(GameData gameData)
     {
         this.emotionEnergy = gameData.emotionEnergy;

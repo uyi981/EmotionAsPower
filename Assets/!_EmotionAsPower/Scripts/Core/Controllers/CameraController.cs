@@ -10,6 +10,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxHeight = 10000f;
     [SerializeField] private float minHeight = 500f;
 
+    [Header("Pause Behavior")]
+    [SerializeField] private bool allowMovementWhenPaused = true;
+
     public Camera mainCamera { get; private set; }
 
     private void Awake()
@@ -37,15 +40,34 @@ public class CameraController : MonoBehaviour
         float speedMultiplier = heightSpeedCurve.Evaluate(height);
         float moveSpeed = baseSpeed * speedMultiplier;
 
-        transform.Translate(moveDir * moveSpeed * Time.deltaTime, Space.World);
+        float deltaTime = GetDeltaTime();
 
-        if (transform.position.y > maxHeight)
+        transform.Translate(moveDir * moveSpeed * deltaTime, Space.World);
+
+        ClampCameraHeight();
+    }
+
+    private float GetDeltaTime()
+    {
+        if (allowMovementWhenPaused || !GameManager.Instance.IsPaused)
         {
-            transform.position = new Vector3(transform.position.x, maxHeight, transform.position.z);
+            return Time.unscaledDeltaTime;
         }
-        else if (transform.position.y < minHeight)
+
+        return Time.deltaTime;
+    }
+
+    private void ClampCameraHeight()
+    {
+        Vector3 pos = transform.position;
+
+        if (pos.y > maxHeight)
         {
-            transform.position = new Vector3(transform.position.x, minHeight, transform.position.z);
+            transform.position = new Vector3(pos.x, maxHeight, pos.z);
+        }
+        else if (pos.y < minHeight)
+        {
+            transform.position = new Vector3(pos.x, minHeight, pos.z);
         }
     }
 }

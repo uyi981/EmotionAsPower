@@ -12,3 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759354da3775d2d4f965a1882f249a7a, type: 3}
   m_Name: ItemCategoryIconConfig
   m_EditorClassIdentifier: Assembly-CSharp::ItemCategoryIconConfig
+  itemCategoryIcons:
+    pairs:
+    - key: 0
+      value: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - key: 1
+      value: {fileID: 141814526, guid: 2a91061eb3ca4ce4bb1491fd766a6fb3, type: 3}
+    - key: 2
+      value: {fileID: 948970194, guid: 2a91061eb3ca4ce4bb1491fd766a6fb3, type: 3}
+    - key: 3
+      value: {fileID: 1852215464, guid: 2a91061eb3ca4ce4bb1491fd766a6fb3, type: 3}
+    - key: 4
+      value: {fileID: 21300000, guid: 954315c9802a8924aabe1798fb1eccac, type: 3}

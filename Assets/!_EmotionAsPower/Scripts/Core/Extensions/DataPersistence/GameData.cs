@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class GameData
 {
+    public int playerBaseLevel;
     public SerializableDictionary<EmotionType, int> emotionEnergy;
     public SerializableDictionary<string, int> storagedItems;
     public ItemRuntimeInstance[] items;

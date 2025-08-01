@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIBehaviour
   actions:
   - action: {fileID: 11400000, guid: 3e93cf0f9a5e13546b09723e35eec9b8, type: 2}
-    priorityOverride: 50
+    priorityOverride: 1000
     isEnabled: 1
   - action: {fileID: 11400000, guid: bf53ec7dde3c6cd4d800ad65cde9b766, type: 2}
-    priorityOverride: 500
+    priorityOverride: 5000
     isEnabled: 1
