@@ -11,6 +11,7 @@ TagManager:
   - Item
   - PlayerBase
   - Food
+  - Resource
   layers:
   - Default
   - TransparentFX

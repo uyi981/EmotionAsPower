@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
   name: Distant
   description: Hard to get close to. Dislikes conversation.
-  rateSendChat: 0.2
-  rateAcceptChat: 0.2
+  rateSendChat: 1
+  rateAcceptChat: 1
   emotionSendAffterChat:
-    AngerLevel: 5
+    AngerLevel: 10000
     JoyLevel: 0
     SadnessLevel: 0
     FearLevel: 0
     ApatheticLevel: 0
   emotionSensity:
-    AngerLevel: 0.2
-    JoyLevel: 0.2
-    SadnessLevel: 0.2
-    FearLevel: 0.2
-    ApatheticLevel: 0.2
-  hungerModifier: 0.5
+    AngerLevel: 1
+    JoyLevel: 1
+    SadnessLevel: 1
+    FearLevel: 1
+    ApatheticLevel: 1
+  hungerModifier: 0.1
   thirstModifier: 1
   tiredModifier: 1
   moveSpeedModifier: 1.5

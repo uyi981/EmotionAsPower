@@ -134,3 +134,4 @@ MonoBehaviour:
   level: 0
   cooldown: 0
   duration: 0
+  dame: 100

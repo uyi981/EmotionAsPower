@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10d7fe13b0681f9458a5cde40d2f3d5c, type: 3}
   m_Name: Joy
   m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
-  name: 
-  description: 
-  rateSendChat: 0.6
-  rateAcceptChat: 0.7
+  name: JOy
+  description: saadasdasda
+  rateSendChat: 0.25
+  rateAcceptChat: 0.25
   emotionSendAffterChat:
     AngerLevel: 0
-    JoyLevel: 5
+    JoyLevel: 25
     SadnessLevel: 0
     FearLevel: 0
     ApatheticLevel: 0
@@ -31,3 +31,4 @@ MonoBehaviour:
   hungerModifier: 0
   thirstModifier: 0
   tiredModifier: 0
+  moveSpeedModifier: 2

@@ -13,8 +13,8 @@ public class BedBehavior : MonoBehaviour
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {
         if (timeStage == DayTimeController.TimeStage.Evening)
-        {      Singleton<VillagerManager>.Instance.AssignFreeBed(position);
-     
+        {      
+            Singleton<VillagerManager>.Instance.AssignFreeBed(position);
         }
     }
 }

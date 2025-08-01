@@ -15,6 +15,7 @@ public class Villager : MonoBehaviour,IInteractable
     public bool isWorking = false;
     public bool isSleeping = false;
     public bool isStarving = false;
+    public Animator animator;
     public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
     EmotionVector emotion = new EmotionVector();
@@ -25,6 +26,7 @@ public class Villager : MonoBehaviour,IInteractable
     public VillagerChattingState villagerChattingState;
     public VillagerSleepState villagerSleepState;
     public VillagerStarvingState villagerStarvingState;
+    public VillagerAttackEnermyState villagerAttackEnermyState;
     public PersonalitySO personality;
     IState CurrentState;
     public Coroutine moveCoroutine;
@@ -37,6 +39,8 @@ public class Villager : MonoBehaviour,IInteractable
     public float currentHunger = 100f;
     public float currentThirst = 100f;
     public event Action OnVillagerUpdate;
+    public PlayerEmotion playerEmotion;
+    public GameObject Target;
     void OnMouseDown()
     {
         if(Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
@@ -79,9 +83,16 @@ public class Villager : MonoBehaviour,IInteractable
     public void Update()
     {
         currentStateName = GetCurrentStateName();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+
+                Debug.Log("Villager " + gameObject.name + " is attacking!");
+                animator.Play("Attack");
+        }
     }
     private void Start()
     {
+        animator = transform.GetComponentInChildren<Animator>();
         villagerWorkingState = new VillagerWorkingState(this);
         villagerIdleState = new VillagerIdleState(this);
         villagerSelectedState = new villagerSelectedState(this);
@@ -89,10 +100,12 @@ public class Villager : MonoBehaviour,IInteractable
         villagerChattingState = new VillagerChattingState(this);
         villagerSleepState = new VillagerSleepState(this);
         villagerStarvingState = new VillagerStarvingState(this);
+        villagerAttackEnermyState = new VillagerAttackEnermyState(this);
         InvokeRepeating("UpdateState", 0f, 0.1f);
         currentHunger = 25f;
         Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
         TransitionTo(villagerIdleState); // Start with idle state
+        playerEmotion =GetComponent<PlayerEmotion>();
         // Initialize the villager state to idle
     }
     void HandleEmotion(Emotion currentEmotion)
@@ -102,33 +115,34 @@ public class Villager : MonoBehaviour,IInteractable
         {
             case Emotion.Joy:
                 // Ví dụ: NPC cười, vẫy tay, chạy nhanh
-                spriteRenderer.color = Color.yellow; // Change color to indicate selection
+                playerEmotion.SetEmotion(Emotion.Joy, Color.yellow);
                 break;
 
             case Emotion.Sad:
                 // Ví dụ: NPC chậm chạp, cúi đầu
-                spriteRenderer.color = Color.blue; // Change color to indicate selection
+                playerEmotion.SetEmotion(Emotion.Sad, Color.blue);
                 break;
 
             case Emotion.Anger:
                 // Ví dụ: NPC đỏ mặt, nói gắt, đấm tường
-                spriteRenderer.color = Color.orangeRed; // Change color to indicate selection
+                playerEmotion.SetEmotion(Emotion.Anger, Color.orangeRed);
                 break;
 
             case Emotion.Fear:
                 // Ví dụ: NPC rung, bỏ chạy, né xa player
-                spriteRenderer.color = Color.lawnGreen; // Change color to indicate selection
+                playerEmotion.SetEmotion(Emotion.Fear, Color.lawnGreen);
 
                 break;
 
             case Emotion.Apethatic:
                 // Ví dụ: NPC không phản ứng gì, đứng yên
-                spriteRenderer.color = Color.gray; // Change color to indicate selection
+                playerEmotion.SetEmotion(Emotion.Apethatic, Color.gray);
                 break;
 
             case Emotion.Normal:
             default:
                 // NPC hoạt động bình thường
+                playerEmotion.SetEmotion(Emotion.Normal, Color.white);
                 break;
         }
     }
@@ -147,10 +161,10 @@ public class Villager : MonoBehaviour,IInteractable
     }
     public void TransitionTo(IState nextState)
     {
-        if(CurrentState.Equals(nextState))
-        {
-            return; // No transition needed if the next state is the same as the current state
-        }
+        //if(CurrentState.Equals(nextState))
+        //{
+        //    return; // No transition needed if the next state is the same as the current state
+        //}
         if (isSelected && !nextState.Equals(villagerSelectedState))
         {
             return;
