@@ -55,3 +55,7 @@ public class VillagerWorkingState : IState
         // Implement logic for exiting the working state
     }
 }
+public class VillagerAttackState
+{
+
+}

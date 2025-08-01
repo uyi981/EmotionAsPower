@@ -5,6 +5,7 @@ using UnityEngine;
 public class VillagerChattingState : IState
 {
     Villager villager;
+    Coroutine chatCoroutine;
     float time = 3;
     public VillagerChattingState(Villager villager)
     {
@@ -14,10 +15,12 @@ public class VillagerChattingState : IState
     {
         time = 3;
         villager.receiveChat += OnReceiveChat;
+        Debug.Log("Villager is entering chatting state.");
     }
     public void OnReceiveChat(Villager sender)
     {
-      villager.StartCoroutine(ReplyChat(sender));
+        Debug.Log("Villager received chat from: " + sender.name);
+        chatCoroutine = villager.StartCoroutine(ReplyChat(sender));
     }
     public IEnumerator ReplyChat(Villager sender)
     {
@@ -36,6 +39,7 @@ public class VillagerChattingState : IState
         cp.transform.position = villager.transform.position;
         cp.transform.SetParent(villager.itemHandle.transform);
         sender.ReceiveChat(villager);
+        chatCoroutine = null;
     }
     public void UpdateState()
     {
@@ -43,7 +47,10 @@ public class VillagerChattingState : IState
     }
     public void ExitState()
     {
+        villager.isChatting = false;
         villager.receiveChat -= OnReceiveChat;
+        if(chatCoroutine != null)
+            villager.StopCoroutine(chatCoroutine); // Stop the chat coroutine if it is running
         // Logic for exiting the villager selected state
     }
 }

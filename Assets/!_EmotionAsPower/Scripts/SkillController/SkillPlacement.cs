@@ -28,6 +28,7 @@ public class SkillPlacement : MonoBehaviour
     }
     public void StartPlacement(int objectIndex)
     {
+        
         if (objectIndex < 0 || objectIndex >= database.skills.Count)
         {
             Debug.LogError("Invalid object index: " + objectIndex);
@@ -46,6 +47,7 @@ public class SkillPlacement : MonoBehaviour
         inputManager.CurrentState = State.Building;
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
+        cellIndicator.GetComponent<SelectedFrame>().SetSize(Vector2Int.one*3);
     }
     public void PlaceStructure()
     {
