@@ -230,3 +230,6 @@ MonoBehaviour:
   effectCooldown: 1
   emotionType: 1
   emotionAmount: 1
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256

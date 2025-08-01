@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using Assets.__EmotionAsPower.Scripts.Gameplay.Building.Interface;
 
@@ -12,20 +12,20 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         [Tooltip("Thời gian giữa các lần kiểm tra (giây)")]
         public float effectCooldown = 1f;
         [Tooltip("Loại cảm xúc sẽ cộng")]
-        public EmotionType emotionType = EmotionType.Fun;
+        public Emotion emotionType = Emotion.Normal;
         [Tooltip("Số lượng năng lượng cảm xúc cộng mỗi lần")]
         public int emotionAmount = 1;
+        [Tooltip("Layer của đối tượng mục tiêu (ví dụ: Villager)")]
+        public LayerMask targetLayer;
+
 
         private Vector2Int gridPosition;
-        private LayerMask targetLayer;
         private const float CHECK_INTERVAL = 0.1f;
         private float lastEffectTime = 0f;
 
         public override void Start()
         {
             base.Start();
-            // Giả sử Villager nằm ở layer "Villager"
-            targetLayer = LayerMask.GetMask("Villager");
 
             Vector3 worldPos = transform.position;
             gridPosition = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.z));
@@ -66,10 +66,34 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                 Villager villager = hitCollider.GetComponent<Villager>();
                 if (villager != null)
                 {
-                    // Cộng năng lượng cảm xúc cho Villager
-                    EmotionEnergyManager.Instance.AddEnergy(emotionType, emotionAmount);
+                    EmotionVector emotionVector = CreateEmotionVector(emotionType, emotionAmount);
+                    villager.ReceiveEmotion(emotionVector);
                     Debug.Log($"Đã cộng {emotionAmount} {emotionType} cho {villager.name} từ {Name}!");
                 }
+            }
+        }
+
+        // Tạo EmotionVector dựa trên EmotionType
+        private EmotionVector CreateEmotionVector(Emotion type, float amount)
+        {
+            switch (type)
+            {
+                case Emotion.Anger:
+                    return new EmotionVector(amount, 0, 0, 0, 0);
+                case Emotion.Joy:
+                    return new EmotionVector(0, amount, 0, 0, 0);
+                case Emotion.Sad:
+                    return new EmotionVector(0, 0, amount, 0, 0);
+                case Emotion.Fear:
+                    return new EmotionVector(0, 0, 0, amount, 0);
+                case Emotion.Apethatic:
+                    return new EmotionVector(0, 0, 0, 0, amount);
+                case Emotion.Normal:
+                    return new EmotionVector(0, 0, 0, 0, 0);
+                default:
+                    Debug.LogWarning($"Emotion type {type} không hợp lệ, trả về EmotionVector mặc định.");
+                    return new EmotionVector(0, 0, 0, 0, 0);
+
             }
         }
 
