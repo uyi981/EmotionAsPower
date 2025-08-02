@@ -176,7 +176,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     }
 #endif
 
-    public void SpawnEnemyWave(StageOfDayCondition stageOfDayCondition)
+    public void SpawnEnemyWave(StageOfDay stageOfDayCondition)
     {
         // If there is no wave on this stage of the day then return
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;

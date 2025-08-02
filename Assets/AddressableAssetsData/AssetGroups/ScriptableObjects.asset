@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b52fb6c29da6cc40b7cdd003c0ee273
+    m_Address: Assets/!_EmotionAsPower/Data/ItemData/food1 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 303b48996972d0040b22ff1c21c13a4a
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/WoodSO 1.asset
     m_ReadOnly: 0
@@ -93,6 +99,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ResourceSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6cbc9019a9459d43bd0560013462dd7
+    m_Address: Assets/!_EmotionAsPower/Data/ItemData/food1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edc8abdd9c45d7a46a318675c6e08ffc
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset

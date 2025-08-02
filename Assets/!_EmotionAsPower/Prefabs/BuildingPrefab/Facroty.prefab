@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4840984023400531611}
   - component: {fileID: -1460266599911579761}
+  - component: {fileID: 7353888560728203467}
+  - component: {fileID: 9136693628546261431}
   m_Layer: 0
   m_Name: Facroty
   m_TagString: Untagged
@@ -74,21 +76,80 @@ MonoBehaviour:
       value: 10
   workerPositions: []
   jobType: 0
+  itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
-  productionRate: 1
+  productionBarPrefab: {fileID: 8392199525925716247, guid: 91d04d7e450b8bd409d8135d3d8b6db3, type: 3}
   productionTime: 10
   currentProductionTime: 0
   isProducing: 0
-  itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
-  dropItemsOnProduction: 1
   inputItems:
   - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
   outputItems:
   - {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
   productionAmount: 1
-  productionBarPrefab: {fileID: 8392199525925716247, guid: 91d04d7e450b8bd409d8135d3d8b6db3, type: 3}
   requireEmotion: 3
+--- !u!61 &7353888560728203467
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499972825727605785}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.003086567, y: 1.5355649}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.1140013, y: 3.3169603}
+  m_EdgeRadius: 0
+--- !u!114 &9136693628546261431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499972825727605785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
+  isSelected: 0
+  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
+  UIPosition: {x: 4, y: 2, z: 1}
 --- !u!1 &3829587370384280709
 GameObject:
   m_ObjectHideFlags: 0
