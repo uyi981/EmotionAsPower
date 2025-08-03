@@ -16,7 +16,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
         public TextMeshProUGUI textMeshPro;
         public GameObject iconBuildings;
 
-        
+
 
 
         private GameObject iconUIInstance;
@@ -24,14 +24,14 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 
         public GameObject InstantiateIcon()
         {
-            iconUIInstance =  Instantiate(iconUI, iconBuildings.transform);
+            iconUIInstance = Instantiate(iconUI, iconBuildings.transform);
             //iconUIInstance.GetComponent<IconUI>().InstantiateResource();
             return iconUIInstance;
         }
 
         public void SetImage(Sprite sprite)
         {
-            
+
             var iconImage = iconUIInstance.GetComponent<IconUI>();
             if (iconImage != null)
             {
@@ -41,15 +41,18 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 
         public void SetResource(SerializableDictionary<ItemSO, int> resources)
         {
-           iconUIInstance.GetComponent<IconUI>().SetResource(resources);
+            iconUIInstance.GetComponent<IconUI>().SetResource(resources);
         }
 
 
-        public void SetInformation(GameObject info)
-        {
+        public void SetInformation(GameObject info, Sprite img, string text, string des) { 
             var iconUI = iconUIInstance.GetComponent<IconUI>();
             iconUI.information = info;
-
+            var information = iconUI.information.GetComponent<Information>();
+            
+            information.Image.sprite = img;
+            information.Name.text = text;
+            information.Description.text = des;
         }
     }
-    }
+}

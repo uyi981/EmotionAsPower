@@ -28,7 +28,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 
         private void Start()
         {
-            information = GameObject.FindWithTag("Info");
+            //information = GameObject.FindWithTag("Info");
 
             information.SetActive(false); // Ensure information panel is initially hidden
             // Add button component if not exists
