@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using LgTyUtils;
+using UnityEngine;
 
 [System.Serializable]
 public class Building
@@ -10,7 +11,7 @@ public class Building
     public GameObject blueprintPrefab;
     public GameObject redprintPrefab;
     public GameObject buildingPrefab;
-    public uint cost;
+    public SerializableDictionary<ItemSO, int> keyValuePairs;
     public int buildTime;
     public Vector2Int size;
 

@@ -144,7 +144,8 @@ MonoBehaviour:
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 0}
-    cost: 0
+    keyValuePairs:
+      pairs: []
     buildTime: 0
     size: {x: 0, y: 0}
     maxHP: 0
