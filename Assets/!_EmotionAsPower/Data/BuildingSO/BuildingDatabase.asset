@@ -33,7 +33,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: AAAAA
   - buildingID: 1
-    buildingName: Tree
+    buildingName: Bed
     type: 4
     blueprintPrefab: {fileID: 8443792576710133411, guid: 443baab71a7285646b696031a22b24f8, type: 3}
     redprintPrefab: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: AAAAA
   - buildingID: 2
-    buildingName: Tree
+    buildingName: Decoration
     type: 3
     blueprintPrefab: {fileID: 4931738015568124356, guid: f4e945b8190fd054fad05c43554fb566, type: 3}
     redprintPrefab: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: AAAAA
   - buildingID: 3
-    buildingName: Tree
+    buildingName: Factory
     type: 2
     blueprintPrefab: {fileID: 3499972825727605785, guid: 054465ad89ffe574990f9564337b304f, type: 3}
     redprintPrefab: {fileID: 0}
@@ -90,7 +90,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: AAAAA
   - buildingID: 4
-    buildingName: Tree
+    buildingName: Fence
     type: 0
     blueprintPrefab: {fileID: 4392708550497959710, guid: f7f3010ec3d511640acdd08cd49e7973, type: 3}
     redprintPrefab: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
     attackSpeed: 2
     description: AAAAA
   - buildingID: 5
-    buildingName: Tree
+    buildingName: Tower
     type: 1
     blueprintPrefab: {fileID: 388843474569102852, guid: d10f5da6e6550ea47b5258579e635b59, type: 3}
     redprintPrefab: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
     attackSpeed: 20
     description: AAAAA
   - buildingID: 6
-    buildingName: Tree
+    buildingName: MainBase
     type: 5
     blueprintPrefab: {fileID: 7126514967281293369, guid: 953441a260a58d943add798cc5e91154, type: 3}
     redprintPrefab: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: AAAAA
   - buildingID: 7
-    buildingName: Tree
+    buildingName: Tower
     type: 1
     blueprintPrefab: {fileID: 2201955314891710906, guid: 9d9a6783578fad9499bda9b4cc262867, type: 3}
     redprintPrefab: {fileID: 0}
@@ -166,7 +166,7 @@ MonoBehaviour:
     attackSpeed: 10
     description: AAAAA
   - buildingID: 8
-    buildingName: Tree
+    buildingName: Wall
     type: 0
     blueprintPrefab: {fileID: 7942805265075847101, guid: 7f7eb1e188461774fa715a01cf804116, type: 3}
     redprintPrefab: {fileID: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: AAAAA
   - buildingID: 9
-    buildingName: Tree
+    buildingName: Reproduction
     type: 2
     blueprintPrefab: {fileID: 3019881531279135992, guid: 717ac5befc9fb7d4488dde5f53a4bf9e, type: 3}
     redprintPrefab: {fileID: 0}
