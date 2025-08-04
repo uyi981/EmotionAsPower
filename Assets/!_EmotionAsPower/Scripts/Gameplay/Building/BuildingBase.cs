@@ -87,6 +87,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         workersAmount = 0; // Khởi tạo số lượng công nhân tham gia xây dựng    
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
+        Debug.Log($"Building {Name} started with build time: {buildTime} seconds");
         AssignJobToWorker(JobType.Build);
         // Tìm Image con tên 'Fill' trong processBarInstance và healthBarInstance
         if (buildingBar != null)
@@ -135,7 +136,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     {
         if (timeStage == DayTimeController.TimeStage.Morning)
         {
-         //   AssignJobToWorker(jobType);
+            AssignJobToWorker(jobType);
         }
     }
 

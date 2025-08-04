@@ -10,6 +10,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
 
         private void Start()
         {
+            base.Start();
             // Initialize the villagerManager if not set
             if (villagerManager == null)
             {

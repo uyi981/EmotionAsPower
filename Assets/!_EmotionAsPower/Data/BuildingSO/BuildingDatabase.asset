@@ -184,7 +184,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: This is the Wall
-  - buildingID: 6
+  - buildingID: 9
     buildingName: Reproduction
     type: 2
     blueprintPrefab: {fileID: 3019881531279135992, guid: 717ac5befc9fb7d4488dde5f53a4bf9e, type: 3}
