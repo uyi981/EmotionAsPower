@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75528b46766a60342bbd306609828a83, type: 3}
   m_Name: Attack Action 1
   m_EditorClassIdentifier: Assembly-CSharp::AttackAction
-  actionName: 
-  basePriority: 1
-  attackRange: 2
+  attackRange: 3
   attackDamage: 25
   attackSpeed: 1
-  preferredTargets: 
+  targetTypes: 04000000
