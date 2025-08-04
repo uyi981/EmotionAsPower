@@ -19,137 +19,187 @@ MonoBehaviour:
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 5471406547847055844, guid: 11299fbb11014774ba3bec24fac91305, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 9c9918d4a2bb9e842bf8dbb93d1bb62b, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 1, y: 1}
     maxHP: 0
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
   - buildingID: 1
-    buildingName: Tree
+    buildingName: Bed
     type: 4
     blueprintPrefab: {fileID: 8443792576710133411, guid: 443baab71a7285646b696031a22b24f8, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 8443792576710133411, guid: aced1b4325ca7db46a9fbd154ddd930a, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 2, y: 2}
     maxHP: 200
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
   - buildingID: 2
-    buildingName: Tree
+    buildingName: Decoration
     type: 3
     blueprintPrefab: {fileID: 4931738015568124356, guid: f4e945b8190fd054fad05c43554fb566, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 4931738015568124356, guid: c9cc849977166fb4daf50b84a50e5dcb, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 1, y: 1}
     maxHP: 200
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
   - buildingID: 3
-    buildingName: Tree
+    buildingName: Factory
     type: 2
     blueprintPrefab: {fileID: 3499972825727605785, guid: 054465ad89ffe574990f9564337b304f, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 3499972825727605785, guid: 50f660d7c1b4b0648b5cf4f9b9b199ba, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 10
     size: {x: 2, y: 2}
     maxHP: 500
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
   - buildingID: 4
-    buildingName: Tree
+    buildingName: Fence
     type: 0
     blueprintPrefab: {fileID: 4392708550497959710, guid: f7f3010ec3d511640acdd08cd49e7973, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 4392708550497959710, guid: b8063ae4ffd86254d9b49debf2eb8f00, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 2, y: 2}
     maxHP: 1000
     damage: 10
     attackRange: 2
     attackSpeed: 2
-    description: 
+    description: AAAAA
   - buildingID: 5
-    buildingName: Tree
+    buildingName: Tower
     type: 1
     blueprintPrefab: {fileID: 388843474569102852, guid: d10f5da6e6550ea47b5258579e635b59, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 388843474569102852, guid: d2f416eac00e91f48a13e3fcbd1ec45c, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 3, y: 3}
     maxHP: 500
     damage: 10
     attackRange: 5
     attackSpeed: 20
-    description: 
+    description: AAAAA
   - buildingID: 6
-    buildingName: Tree
+    buildingName: MainBase
     type: 5
     blueprintPrefab: {fileID: 7126514967281293369, guid: 953441a260a58d943add798cc5e91154, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 7126514967281293369, guid: 86c42c1dba24d704fa124d1ebf420925, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 2, y: 2}
     maxHP: 2000
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
   - buildingID: 7
-    buildingName: Tree
+    buildingName: Tower
     type: 1
     blueprintPrefab: {fileID: 2201955314891710906, guid: 9d9a6783578fad9499bda9b4cc262867, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 2201955314891710906, guid: 348441cb4e4fd6e49ba5105ae910b338, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 2, y: 2}
     maxHP: 500
     damage: 10
     attackRange: 10
     attackSpeed: 10
-    description: 
+    description: AAAAA
   - buildingID: 8
-    buildingName: Tree
+    buildingName: Wall
     type: 0
     blueprintPrefab: {fileID: 7942805265075847101, guid: 7f7eb1e188461774fa715a01cf804116, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 7942805265075847101, guid: 9d3f268f8863bf0438337b6b19f4ecde, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 2, y: 2}
     maxHP: 1000
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
   - buildingID: 9
-    buildingName: Tree
+    buildingName: Reproduction
     type: 2
     blueprintPrefab: {fileID: 3019881531279135992, guid: 717ac5befc9fb7d4488dde5f53a4bf9e, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 2236321759163685813, guid: c86de41660d5c9e4b8e2ab7aee954a1f, type: 3}
-    cost: 0
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
     buildTime: 60
     size: {x: 3, y: 3}
     maxHP: 1000
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: 
+    description: AAAAA
