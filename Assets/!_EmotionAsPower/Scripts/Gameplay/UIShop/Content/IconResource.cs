@@ -7,7 +7,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 {
     public class IconResource : MonoBehaviour
     {
-        [Header("UI References")]
+        [Header("UI References Object")]
         public Image image;
         public TextMeshProUGUI amountText;
         

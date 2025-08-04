@@ -31,7 +31,7 @@ MonoBehaviour:
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: AAAAA
+    description: This is the tree
   - buildingID: 1
     buildingName: Bed
     type: 4
@@ -50,7 +50,7 @@ MonoBehaviour:
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: AAAAA
+    description: This is the bed
   - buildingID: 2
     buildingName: Decoration
     type: 3
@@ -69,7 +69,7 @@ MonoBehaviour:
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: AAAAA
+    description: This is the Decoration
   - buildingID: 3
     buildingName: Factory
     type: 2
@@ -88,7 +88,7 @@ MonoBehaviour:
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: AAAAA
+    description: This is the Factory
   - buildingID: 4
     buildingName: Fence
     type: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
     damage: 10
     attackRange: 2
     attackSpeed: 2
-    description: AAAAA
+    description: This is the Fence
   - buildingID: 5
     buildingName: Tower
     type: 1
@@ -126,7 +126,7 @@ MonoBehaviour:
     damage: 10
     attackRange: 5
     attackSpeed: 20
-    description: AAAAA
+    description: This is the Fire Tower
   - buildingID: 6
     buildingName: MainBase
     type: 5
@@ -164,7 +164,7 @@ MonoBehaviour:
     damage: 10
     attackRange: 10
     attackSpeed: 10
-    description: AAAAA
+    description: This is the Tower
   - buildingID: 8
     buildingName: Wall
     type: 0
@@ -183,8 +183,8 @@ MonoBehaviour:
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: AAAAA
-  - buildingID: 9
+    description: This is the Wall
+  - buildingID: 6
     buildingName: Reproduction
     type: 2
     blueprintPrefab: {fileID: 3019881531279135992, guid: 717ac5befc9fb7d4488dde5f53a4bf9e, type: 3}
@@ -202,4 +202,4 @@ MonoBehaviour:
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: AAAAA
+    description: This is the Reproduction

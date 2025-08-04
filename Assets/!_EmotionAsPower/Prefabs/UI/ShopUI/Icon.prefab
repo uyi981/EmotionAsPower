@@ -209,7 +209,10 @@ MonoBehaviour:
   iconResourcePrefab: {fileID: 5431027937675881469, guid: 33e95f54b9b34914696ad4f5f4b8623c, type: 3}
   resource: {fileID: 7118263184569614320}
   information: {fileID: 7241178688810196231, guid: 7d5eb9fa49e06964d8ca79e4bb9d14b3, type: 3}
-  iconImage: {fileID: 4380078023506622308}
+  buildingID: 0
+  buildingIcon: {fileID: 4380078023506622308}
+  buildingName: 
+  buildingDescription: 
 --- !u!1 &7118263184569614320
 GameObject:
   m_ObjectHideFlags: 0
