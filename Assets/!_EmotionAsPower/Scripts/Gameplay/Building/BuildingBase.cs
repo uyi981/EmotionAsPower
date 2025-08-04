@@ -50,9 +50,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     [Tooltip("Thanh HP")]
     public GameObject healthBar;
 
- 
 
 
+    public Vector3Int baseCell;
+    private int selectedBuildingID;
     private ProcessBar processBarImg;
     private HealthBar healthBarImg;
     private GameObject processBarInstance;
@@ -61,6 +62,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     private bool isDestroyed = false;
     protected List<Villager> workers = new List<Villager>();
 
+    public int ID { get => selectedBuildingID; set => selectedBuildingID = value; }
     public string Name => gameObject.name;
 
     public int Health => currentHP;
@@ -72,6 +74,12 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public bool IsBuild => isBuild;
 
     public JobType JobType { get; set; }
+
+    public Vector3Int BaseCell
+    {
+        get => baseCell;
+        set => baseCell = value;
+    }
 
     private void Update()
     {
@@ -93,13 +101,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         if (buildingBar != null)
         {
             processBarInstance = Instantiate(buildingBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
-            processBarImg = GetComponentInChildren<ProcessBar>();
+            processBarImg = processBarInstance.GetComponent<ProcessBar>();
             processBarImg.SetProcess(0f); // Đặt tiến độ ban đầu là 0
         }
         if (healthBar != null)
         {
             healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
-            healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu           
+            healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu
+            healthBarImg = healthBarInstance.GetComponent<HealthBar>(); 
         }
         Singleton<DayTimeController>.Instance.OnTimeStageChanged += OnDayStageChange; 
         StartCoroutine(Building()); // Bắt đầu quá trình xây dựng
@@ -157,18 +166,13 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         buildProgress = 1f; // Hoàn thành xây dựng
         isBuild = true;
         processBarInstance.SetActive(false);
+        healthBarInstance.SetActive(true); // Hiển thị thanh máu khi công trình đã hoàn thành
         workersAmount = 0;
         OnBuildingComplete();
         isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
     }
 
-    /// <summary>
-    /// Phương thức này được gọi khi công trình hoàn thành xây dựng.
-    /// </summary>
-    public virtual void OnBuildingComplete()
-    {
-        ResetWorkerList(); // Reset danh sách công nhân
-    }
+    
 
     /// <summary>
     /// Phương thức này được gọi để reset danh sách công nhân.
@@ -186,7 +190,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     {
         if (healthBarImg != null)
         {
-            healthBarImg.SetHealth((float)currentHP / maxHP);
+            healthBarImg.SetHealth(currentHP);
         }
     }
 
@@ -269,29 +273,81 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 
         UpdateHealthBar();
 
-        if (currentHP <= 0)
+        //if (currentHP <= 0)
+        //{
+        //    OnBuildingDestroyed();
+        //}
+    }
+    public virtual void RepairBuilding(int amount)
+    {
+        StartCoroutine(Repair(amount));
+    }
+
+    /// <summary>
+    /// Coroutine để sửa chữa công trình.
+    /// </summary>
+    private IEnumerator Repair(int amount)
+    {
+        Debug.Log($"Starting repair for {gameObject.name} with amount: {amount}");
+        while (currentHP < maxHP)
         {
-            OnBuildingDestroyed();
+            yield return new WaitForSeconds(1f); // Kiểm tra mỗi 0.5 giây
+
+            // Tăng máu dựa trên số lượng công nhân đang sửa chữa
+            int healAmount = workersAmount * amount; // Mỗi công nhân hồi 5 máu
+            currentHP = Mathf.Min(currentHP + healAmount, maxHP);
+            UpdateHealthBar();
+            Debug.Log($"Repairing {gameObject.name}: Current HP = {currentHP}/{maxHP}");
+            // Nếu đã hồi đủ máu thì dừng
+            if (currentHP >= maxHP)
+            {
+                currentHP = maxHP;
+            }
         }
+        ResetWorkerList();
+
     }
-    public virtual void Heal(int amount)
+
+    public virtual void MoveBuilding()
     {
-
+        PlacementSystem placementSystem = FindFirstObjectByType<PlacementSystem>();
+        placementSystem.OccupyCells(baseCell, 1);
+        placementSystem.StartPlacement(selectedBuildingID);
+        Destroy(gameObject); // Xóa công trình hiện tại
     }
 
-    public virtual void UpdateBuilding()
-    {
-
-    }
-
+    /// <summary>
+    /// Phương thức này được gọi khi công trình bị phá hủy.
+    /// </summary>
     public virtual void OnBuildingDestroyed()
     {
-        // Rơi vật phẩm khi công trình bị phá hủy
-        if (itemDropper != null)
+    
+        
+        // Spawn half of each required item if there are any
+        if (requiredItems != null && requiredItems.Count > 0)
         {
-            itemDropper.DropFunction(transform.position, true);
+            foreach (var item in requiredItems)
+            {
+                int halfAmount = Mathf.Max(1, item.Value / 2); // At least 1 item
+                ItemManager.Instance.SpawnItem(item.Key, halfAmount, transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
+                Debug.Log($"Spawned {halfAmount} of {item.Key.ID} at position {transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y))}");
+            }
         }
+        
+        isDestroyed = true; // Đánh dấu công trình đã bị phá hủy
         Destroy(gameObject);
+        ResetWorkerList();
+    }
+
+    /// <summary>
+    /// Phương thức này được gọi khi công trình hoàn thành xây dựng.
+    /// </summary>
+    public virtual void OnBuildingComplete()
+    {
+        ResetWorkerList(); // Reset danh sách công nhân
     }
     //////////////////////////////////////
+    ///
+
+
 }

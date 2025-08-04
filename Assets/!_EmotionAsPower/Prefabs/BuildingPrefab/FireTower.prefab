@@ -160,7 +160,11 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   requiredItems:
-    pairs: []
+    pairs:
+    - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      value: 10
+    - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      value: 10
   workerPositions: []
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}

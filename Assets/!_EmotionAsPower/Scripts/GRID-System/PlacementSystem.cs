@@ -19,6 +19,8 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private Vector2Int gridOffset = new Vector2Int(50, 50);
     [SerializeField] private SelectedFrame selectedFrame;
 
+    private Vector3Int baseCell;
+
     private void Update()
     {
         if (selectedObjectIndex == -1 || !gridVisualization.activeSelf)
@@ -96,7 +98,7 @@ public class PlacementSystem : MonoBehaviour
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int cellUnderMouse = grid.WorldToCell(mousePosition);
-        Vector3Int baseCell = new Vector3Int(
+        baseCell = new Vector3Int(
           cellUnderMouse.x - currentSize.x / 2,
           cellUnderMouse.y,
           cellUnderMouse.z - currentSize.y / 2);
@@ -117,20 +119,32 @@ public class PlacementSystem : MonoBehaviour
         gameObject.transform.position = baseWorld + offset;
 
 
-        var buildingComponents = gameObject.GetComponentsInChildren<BuildingBase>(true);
-        if (buildingComponents != null && buildingComponents.Length > 0)
+        //var buildingComponents = gameObject.GetComponentsInChildren<BuildingBase>(true);
+        //if (buildingComponents != null && buildingComponents.Length > 0)
+        //{
+        //    foreach (var building in buildingComponents)
+        //    {
+        //        // Gán selectedBuilding cho tất cả các component BuildingBase
+        //        building.selectedBuilding = database.buildings[selectedObjectIndex];
+        //        building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
+        //        building.TryConsumeRequiredItems(); // Tiêu thụ các vật phẩm cần thiết
+        //    }
+        //}
+
+        var building = gameObject.GetComponent<BuildingBase>();
+        if (building != null)
         {
-            foreach (var building in buildingComponents)
-            {
-                // Gán selectedBuilding cho tất cả các component BuildingBase
-                building.selectedBuilding = database.buildings[selectedObjectIndex];
-                building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
+            building.ID = database.buildings[selectedObjectIndex].buildingID;
+            building.selectedBuilding = database.buildings[selectedObjectIndex];
+            building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
+            building.BaseCell = baseCell; // Gán vị trí ô cơ sở
+            if (!building.IsBuild)
                 building.TryConsumeRequiredItems(); // Tiêu thụ các vật phẩm cần thiết
-            }
+
         }
 
         Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
-        OccupyCells(baseCell);
+        OccupyCells(baseCell, 1);
 
     }
 
@@ -155,7 +169,7 @@ public class PlacementSystem : MonoBehaviour
     }
 
     // Đánh dấu các ô đã chiếm
-    private void OccupyCells(Vector3Int basePos)
+    public void OccupyCells(Vector3Int basePos, int check)
     {
 
         Debug.Log($"Occupying cells for object at base position: {basePos} with size {currentSize.x}");
@@ -168,7 +182,7 @@ public class PlacementSystem : MonoBehaviour
                 int gx = basePos.x + dx;
                 int gz = basePos.z + dz;
                 Debug.Log($"Occupying cell at: {gx}, {gz} with value 1");
-                gridMap[gx + gridOffset.x, gz + gridOffset.y] = 1;
+                gridMap[gx + gridOffset.x, gz + gridOffset.y] = check;
 
             }
         }
@@ -184,8 +198,8 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.transform.localScale = Vector3.one;
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
-        if(blueprintInstance != null)
-        blueprintInstance.gameObject.SetActive(false);
+        if (blueprintInstance != null)
+            blueprintInstance.gameObject.SetActive(false);
         inputManager.CurrentState = State.Moving;
     }
     //public void MarkWorkerSpots(Vector3Int baseCell)
@@ -225,14 +239,14 @@ public class PlacementSystem : MonoBehaviour
         Vector2Int baseVector2 = new Vector2Int(baseCell.x, baseCell.z);
         return GetAdjacentCells(baseVector2, database.buildings[selectedObjectIndex].size);
     }
-    public static List<Vector2Int> GetAdjacentCells(Vector2Int origin,Vector2Int size)
+    public static List<Vector2Int> GetAdjacentCells(Vector2Int origin, Vector2Int size)
     {
         var adjacent = new HashSet<Vector2Int>();
 
         // Phía trước (dưới building)
         for (int dx = 0; dx < size.x; dx++)
         {
-            adjacent.Add(new Vector2Int(origin.x + dx, origin.y -1));
+            adjacent.Add(new Vector2Int(origin.x + dx, origin.y - 1));
         }
 
         // Bên trái
