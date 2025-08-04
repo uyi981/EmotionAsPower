@@ -180,7 +180,6 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     {
         // If there is no wave on this stage of the day then return
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
-        Debug.LogWarning(stageOfDayCondition.ToString());
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
 
         var enemies = enemyWave.enemies;
