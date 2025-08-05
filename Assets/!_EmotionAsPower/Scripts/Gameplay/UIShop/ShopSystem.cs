@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 
 namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 {
-    public class ShopSystem : MonoBehaviour
+    public class ShopSystem : Singleton<ShopSystem>
     {
         [Header("Building Lists")]
         public List<GameObject> listProductionBuildings = new List<GameObject>();
@@ -90,8 +90,11 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             contentUIInstance.InstantiateIcon();
                             contentUIInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIInstance.SetResource(building.keyValuePairs);
-                            contentUIInstance.SetInformation(infoInstance, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                            contentUIInstance.SetInfo(building.buildingID,building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
                                 building.buildingName, building.description);
+                            contentUIInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
+
+
                             Debug.Log($"Adding production buildinggggggggggggggggggggggg: " + building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite.name);
                             listProductionBuildings.Add(building.buildingPrefab);
                             break;
@@ -100,31 +103,38 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             contentUIBedInstance.InstantiateIcon();
                             contentUIBedInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIBedInstance.SetResource(building.keyValuePairs);
-                            contentUIBedInstance.SetInformation(infoInstance, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                            contentUIBedInstance.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
                                 building.buildingName, building.description);
+                            contentUIBedInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listBedBuildings.Add(building.buildingPrefab);
                             break;
                         case BuildingType.Tower:
                             contentUITowerInstance.textMeshPro.text = "Tower"; contentUITowerInstance.InstantiateIcon();
                             contentUITowerInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUITowerInstance.SetResource(building.keyValuePairs);
-                            contentUITowerInstance.SetInformation(infoInstance, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                           
+                            contentUITowerInstance.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
                                 building.buildingName, building.description);
+                            contentUITowerInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listTowerBuildings.Add(building.buildingPrefab);
                             break;
                         case BuildingType.Decoration:
                             contentUIDecorationInstance.textMeshPro.text = "Decoration"; contentUIDecorationInstance.InstantiateIcon();
                             contentUIDecorationInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIDecorationInstance.SetResource(building.keyValuePairs);
-
+                            contentUIDecorationInstance.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                                building.buildingName, building.description);
+                            contentUIDecorationInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listDecorationBuildings.Add(building.buildingPrefab);
                             break;
                         case BuildingType.Defense:
                             contentUIDefenseInstance.textMeshPro.text = "Defense"; contentUIDefenseInstance.InstantiateIcon();
                             contentUIDefenseInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIDefenseInstance.SetResource(building.keyValuePairs);
-                            contentUIDefenseInstance.SetInformation(infoInstance, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                      
+                            contentUIDefenseInstance.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
                                 building.buildingName, building.description);
+                            contentUIDefenseInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listDefenseBuildings.Add(building.buildingPrefab);
                             break;
                         
@@ -145,16 +155,10 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             Debug.Log($"Main Base: {listMainBaseBuildings.Count}");
         }
 
-        public void SetActiveInfomation(bool isActive)
+        public void CloseShop()
         {
-            if (infoInstance != null)
-            {
-                infoInstance.SetActive(isActive);
-            }
-            else
-            {
-                Debug.LogWarning("Info instance is not assigned or instantiated.");
-            }
+                gameObject.SetActive(false);
+            
         }
 
 

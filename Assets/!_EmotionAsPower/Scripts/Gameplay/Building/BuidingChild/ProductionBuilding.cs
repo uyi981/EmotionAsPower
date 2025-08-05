@@ -155,10 +155,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         StopProduction();
     }
 
-    public override void UpdateBuilding()
-    {
-        // Cập nhật trạng thái công trình
-    }
+   
 
    
 }

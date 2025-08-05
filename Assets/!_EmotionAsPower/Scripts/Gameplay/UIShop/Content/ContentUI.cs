@@ -8,11 +8,11 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 {
     public class ContentUI : MonoBehaviour
     {
-        [Header("IconPrefab Settings")]
+        [Header("IconPrefab Spawn")]
         public GameObject iconUI;
 
 
-        [Header("Content Settings")]
+        [Header("Reference Object")]
         public TextMeshProUGUI textMeshPro;
         public GameObject iconBuildings;
 
@@ -21,6 +21,9 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 
         private GameObject iconUIInstance;
         public TextMeshProUGUI TextMeshPro { get; set; }
+        public GameObject IconBuildings { get; set; }
+        public GameObject IconUIInstance { get => iconUIInstance; set => iconUIInstance = value; }
+
 
         public GameObject InstantiateIcon()
         {
@@ -31,11 +34,20 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 
         public void SetImage(Sprite sprite)
         {
+            if (iconUIInstance == null)
+            {
+                Debug.LogError("iconUIInstance is null in SetImage. Make sure InstantiateIcon() is called first.");
+                return;
+            }
 
             var iconImage = iconUIInstance.GetComponent<IconUI>();
-            if (iconImage != null)
+            if (iconImage != null && iconImage.buildingIcon != null)
             {
-                iconImage.iconImage.sprite = sprite;
+                iconImage.buildingIcon.sprite = sprite;
+            }
+            else
+            {
+                Debug.LogError("IconUI component or buildingIcon is not properly set up on the iconUIInstance prefab.");
             }
         }
 
@@ -44,15 +56,15 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
             iconUIInstance.GetComponent<IconUI>().SetResource(resources);
         }
 
-
-        public void SetInformation(GameObject info, Sprite img, string text, string des) { 
+        public void SetInfo(int id, Sprite img, string name, string des)
+        {
             var iconUI = iconUIInstance.GetComponent<IconUI>();
-            iconUI.information = info;
-            var information = iconUI.information.GetComponent<Information>();
-            
-            information.Image.sprite = img;
-            information.Name.text = text;
-            information.Description.text = des;
+            iconUI.SetInformation(id, img, name, des);
         }
+
+
+
+
+
     }
 }

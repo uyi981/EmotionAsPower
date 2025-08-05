@@ -7,6 +7,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 {
     public class Information : MonoBehaviour
     {
+        [Header("UI References Object")]
         public Image image;
         public TextMeshProUGUI name;
         public TextMeshProUGUI description;
