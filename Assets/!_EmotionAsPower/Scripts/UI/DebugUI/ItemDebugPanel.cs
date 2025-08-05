@@ -6,6 +6,7 @@ using static UnityEditor.Progress;
 
 public class ItemDebugPanel : MonoBehaviour
 {
+    public bool forEmotion = true;
     [SerializeField]
     private Transform content;
     [SerializeField]
@@ -24,14 +25,19 @@ public class ItemDebugPanel : MonoBehaviour
         }
 
         ItemSO[] itemSOs = ContentManager.Instance.ItemSOs.Values.ToArray();
-        foreach (var itemSO in itemSOs) {
-            GameObject itemObj = Instantiate(itemInStoragePrefab, content);
-
-            ItemUISlotForDebug itemInStorage = itemObj.GetComponent<ItemUISlotForDebug>();
-            if (itemInStorage != null)
+        foreach (var itemSO in itemSOs)
+        {
+            if (forEmotion == (itemSO.category == ItemCategory.Emotion))
             {
-                itemInStorage.SetData(itemSO, 100);
+                GameObject itemObj = Instantiate(itemInStoragePrefab, content);
+
+                ItemUISlotForDebug itemInStorage = itemObj.GetComponent<ItemUISlotForDebug>();
+                if (itemInStorage != null)
+                {
+                    itemInStorage.SetData(itemSO, 100);
+                }
             }
         }
+
     }
 }

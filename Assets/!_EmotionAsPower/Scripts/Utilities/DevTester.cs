@@ -6,16 +6,23 @@ using Random = UnityEngine.Random;
 
 public class DevTester : Singleton<DevTester>
 {
+    public ItemSO itemSO;
+    public Emotion emotion;
+
     public int spawnAmount;
     public float spawnRange;
     public bool spawn;
     public bool spawnEnemies; 
     public bool addRandomItems; 
     public int minItemAmount = 1; 
-    public int maxItemAmount = 10; 
+    public int maxItemAmount = 10;
 
     private void Update()
     {
+        if (GameManager.Instance.FinishedSetup)
+        {
+            this.itemSO = EmotionHelper.GetEmotion(emotion);
+        }
         if (spawn)
         {
             SpawnRandomResources();

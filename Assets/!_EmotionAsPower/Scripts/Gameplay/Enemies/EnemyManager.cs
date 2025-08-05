@@ -30,7 +30,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
             return null;
         }
 
-        GameObject spawnedEnemy = Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
+        GameObject spawnedEnemy = Instantiate(enemySO.prefab, position, Quaternion.identity, this.transform);
         Enemy enemy = spawnedEnemy.GetComponent<Enemy>();
         enemy.Initialize(enemySO);
         return spawnedEnemy;
@@ -180,7 +180,6 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     {
         // If there is no wave on this stage of the day then return
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
-        Debug.LogWarning(stageOfDayCondition.ToString());
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
 
         var enemies = enemyWave.enemies;

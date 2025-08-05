@@ -115,7 +115,8 @@ MonoBehaviour:
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 0}
-    cost: 0
+    keyValuePairs:
+      pairs: []
     buildTime: 0
     size: {x: 0, y: 0}
     maxHP: 0
@@ -130,14 +131,19 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   requiredItems:
-    pairs: []
+    pairs:
+    - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      value: 10
+    - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      value: 10
   workerPositions: []
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
+  baseCell: {x: 0, y: 0, z: 0}
   villagerManager: {fileID: 0}
-  villagerPrefab: {fileID: 3329578327918105278, guid: afc1f37e28dd03e44a4a9123d6c4f9b1, type: 3}
+  villagerPrefab: {fileID: 1955632567045984396, guid: 323a33caf0b2211449da9d117a6174b9, type: 3}
 --- !u!1 &7119193932412156662
 GameObject:
   m_ObjectHideFlags: 0

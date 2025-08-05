@@ -1,3 +1,4 @@
+using LgTyUtils;
 using TMPro;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ using UnityEngine;
 public class EmotionLabel : MonoBehaviour
 {
     [SerializeField]
-    private EmotionType targetEmotion;
+    private Emotion emotion;
     [SerializeField]
     private TextMeshProUGUI text;
     private void Awake()
@@ -15,15 +16,20 @@ public class EmotionLabel : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        EmotionEnergyManager.Instance.OnEmotionEnergyChange += SetEmotionAmount;
+        ItemStorage.Instance.OnStoragedItemsChange += SetEmotionAmount;
     }
 
-    public void SetEmotionAmount(EmotionType emotion, int amount)
+    public void SetEmotionAmount(SerializableDictionary<string, int> items)
     {
-        if(emotion == targetEmotion)
+        string emotionID = EmotionHelper.GetEmotionID(emotion);
+        if (items.ContainsKey(emotionID)) {
+            text.text = items[emotionID].ToString();
+        }
+        else
         {
-            text.text = amount.ToString();
-        }    
+            text.text = "0";
+        }
+        
     }
 
     private void OnDestroy()

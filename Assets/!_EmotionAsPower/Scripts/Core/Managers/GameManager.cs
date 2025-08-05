@@ -8,6 +8,10 @@ public class GameManager : Singleton<GameManager>
     private bool isDebugMode;
     public bool IsDebugMode => isDebugMode;
 
+    [SerializeField]
+    private bool finishedSetup = false;
+    public bool FinishedSetup => finishedSetup;
+
     public GameObject[] debugFeatures;
 
     [Header("Game State")]
@@ -31,10 +35,12 @@ public class GameManager : Singleton<GameManager>
 
     private IEnumerator SetupAll()
     {
+        finishedSetup = false ;
         yield return ContentManager.Instance.SetupCoroutine();
         UIManager.Instance.Setup();
         ResumeGame();
         OnSetupFinished?.Invoke();
+        finishedSetup = true;
     }
 
     public void TogglePause()

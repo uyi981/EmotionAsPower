@@ -12,12 +12,12 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         [Tooltip("Vị trí hiển thị UI công trình")]
         public Vector3 UIPosition;
 
-        private BuildingBase[] buildingComponents;
+        private BuildingBase buildingComponents;
         private GameObject buildingUIInstance;
 
         private void Start()
         {
-            buildingComponents = gameObject.GetComponentsInChildren<BuildingBase>(true);
+            buildingComponents = gameObject.GetComponentInChildren<BuildingBase>(true);
             buildingUIInstance = Instantiate(buildingUI, transform.position + UIPosition, Quaternion.identity, transform);
             buildingUIInstance.SetActive(false); // Ẩn UI ban đầu
         }
@@ -25,23 +25,17 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         private void OnMouseDown()
         {
             // Kiểm tra xem có building component nào không
-            if (buildingComponents == null || buildingComponents.Length == 0)
+            if (buildingComponents == null)
             {
                 Debug.LogWarning("Không tìm thấy BuildingBase component");
                 return;
             }
 
-            // Kiểm tra tất cả các building component
-            foreach (var building in buildingComponents)
-            {
-                if (building != null)
-                {
-                    isSelected = !isSelected; // Đảo trạng thái chọn công trình
-                    buildingUIInstance.SetActive(isSelected); // Hiển thị hoặc ẩn UI công trình
-                    return;
-                }
-            }
-            
+            isSelected = !isSelected; // Đảo trạng thái chọn công trình
+            buildingUIInstance.SetActive(isSelected); // Hiển thị hoặc ẩn UI công trình
+            return;
+
+
             Debug.Log("Không thể chọn công trình chưa xây xong");
         }
     }

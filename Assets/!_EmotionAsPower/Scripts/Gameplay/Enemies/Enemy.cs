@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(AIController), typeof(Health),  typeof(ItemDropper))]
+[RequireComponent(typeof(NewAIController), typeof(Health),  typeof(ItemDropper))]
 public class Enemy : MonoBehaviour, IInteractable
 {
     [Header("Enemy Configuration")]
     [SerializeField] private EnemySO enemySO;
 
-    private AIController aiController;
+    private NewAIController aiController;
     private Health health;
     private ItemDropper itemDropper;
     [SerializeField]
@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour, IInteractable
     public EnemySO EnemySO => enemySO;
     public Health Health => health;
     public ItemDropper ItemDropper => itemDropper;
-    public AIController AIController => aiController;
+    public NewAIController AIController => aiController;
     public float ExistingTimer => existingTimer;
     public EnemyState CurrentState => currentState;
     public bool IsInitialized => isInitialized;
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour, IInteractable
     private void Awake()
     {
 
-        aiController = GetComponent<AIController>();
+        aiController = GetComponent<NewAIController>();
         health = GetComponent<Health>();
         itemDropper = GetComponent<ItemDropper>();
 
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IInteractable
         itemDropper.Initialize(enemySO.dropableItems);
 
         // Initialize visual
-        GetComponentInChildren<SpriteRenderer>().sprite = enemySO.Icon;
+        //GetComponentInChildren<SpriteRenderer>().sprite = enemySO.Icon;
 
         // Initialize health with enemy data
         if (health != null)
@@ -82,7 +82,7 @@ public class Enemy : MonoBehaviour, IInteractable
         // Set existing timer
         existingTimer = enemyData.defaultData.existingTime;
 
-        aiController.Initialize(enemyData.behaviour);
+        aiController.Initialize(enemyData);
 
         isInitialized = true;
     }

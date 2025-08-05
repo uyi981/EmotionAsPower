@@ -1,120 +1,170 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Attack Action", menuName = "Scriptable Objects/AI/Actions/Attack")]
-public class AttackAction : AIAction
+public class AttackAction : NewAIAction
 {
     [Header("Attack Settings")]
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackDamage = 25f;
     [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private List<InteractableType> preferredTargets = new List<InteractableType>();
+    [SerializeField] private DetectableType[] targetTypes;
 
-    private Transform target;
     private float lastAttackTime;
+    private bool isMovingToTarget;
 
-    public override bool CanPerform(AIController controller)
+    public override DetectableType[] TargetTypes()
     {
-        return GetAttackTarget(controller) != null;
+        return targetTypes;
     }
 
-    public override void StartAction(AIController controller)
+    public override bool Interruptible()
     {
-        target = GetAttackTarget(controller);
+        return false;
+    }
+
+    public override void StartAction(AIActionData actionData)
+    {
         lastAttackTime = 0f;
+        isMovingToTarget = false;
     }
 
-    public override ActionState UpdateAction(AIController controller)
+    public override ActionState UpdateAction(AIActionData actionData)
     {
-        if (target == null)
+        if (actionData.targetObject == null)
             return ActionState.Failed;
 
-        Health targetHealth = target.GetComponent<Health>();
+        Health targetHealth = actionData.targetObject.GetComponent<Health>();
         if (targetHealth == null || targetHealth.IsDead)
             return ActionState.Success;
 
-        float distance = Vector3.Distance(controller.transform.position, target.position);
-        if (distance > attackRange)
-            return ActionState.Failed;
-
-        float timeSinceLastAttack = Time.time - lastAttackTime;
-        if (timeSinceLastAttack >= 1f / attackSpeed)
+        float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, actionData.targetObject.transform.position);
+        if (distanceToTarget <= attackRange)
         {
-            targetHealth.TakeDamage(attackDamage);
-            lastAttackTime = Time.time;
+            isMovingToTarget = false;
+            float timeSinceLastAttack = Time.time - lastAttackTime;
+            if (timeSinceLastAttack >= 1f / attackSpeed)
+            {
+                Debug.LogWarning("Damaging");
+                targetHealth.TakeDamage(attackDamage);
+                lastAttackTime = Time.time;
+            }
+            return ActionState.Running;
         }
-
-        return ActionState.Running;
-    }
-
-    public override void StopAction(AIController controller)
-    {
-        target = null;
-    }
-
-    public override void OnActionComplete(AIController controller)
-    {
-        target = null;
-    }
-
-    public override void OnActionInterrupted(AIController controller)
-    {
-        target = null;
-    }
-
-    public override int GetDynamicPriority(AIController controller)
-    {
-        Transform nearestTarget = GetAttackTarget(controller);
-        if (nearestTarget != null)
+        else
         {
-            float distance = Vector3.Distance(controller.transform.position, nearestTarget.position);
-            return basePriority + Mathf.RoundToInt((attackRange - distance) * 10);
-        }
-        return 0;
-    }
-
-    private Transform GetAttackTarget(AIController controller)
-    {
-        Transform bestTarget = null;
-        float closestDistance = attackRange;
-
-        foreach (var targetType in preferredTargets)
-        {
-            bestTarget = FindTargetOfType(controller.transform.position, targetType, closestDistance);
-            if (bestTarget != null)
-                break;
-        }
-
-        if (bestTarget == null && preferredTargets.Contains(InteractableType.Any))
-        {
-            bestTarget = TargetFinder.FindNearestTarget<Health>(controller.transform.position, attackRange)?.transform;
-        }
-
-        return bestTarget;
-    }
-
-    private Transform FindTargetOfType(Vector3 position, InteractableType targetType, float maxRange)
-    {
-        switch (targetType)
-        {
-            case InteractableType.Building:
-                return FindTargetWithComponent<BuildingBase>(position, maxRange);
-            case InteractableType.Villager:
-                return FindTargetWithComponent<Villager>(position, maxRange);
-            case InteractableType.Resource:
-                return FindTargetWithComponent<Resource>(position, maxRange);
-            case InteractableType.Enemy:
-                return FindTargetWithComponent<Enemy>(position, maxRange);
-            case InteractableType.Any:
-                return TargetFinder.FindNearestTarget<Health>(position, maxRange)?.transform;
-            default:
-                return null;
+            if (!isMovingToTarget)
+            {
+                UnitMover mover = actionData.ai.UnitMover;
+                if (mover != null)
+                {
+                    mover.MoveToWorldPosition(actionData.targetObject.transform.position);
+                    isMovingToTarget = true;
+                }
+            }
+            UnitMover unitMover = actionData.ai.UnitMover;
+            if (unitMover != null && !unitMover.IsMoving())
+            {
+                unitMover.MoveToWorldPosition(actionData.targetObject.transform.position);
+                isMovingToTarget = true;
+            }
+            return ActionState.Running;
         }
     }
 
-    private Transform FindTargetWithComponent<T>(Vector3 position, float maxRange) where T : MonoBehaviour, IInteractable
+    public override void StopAction(AIActionData actionData)
     {
-        T target = TargetFinder.FindNearestTarget<T>(position, maxRange);
-        return target?.transform;
+        UnitMover mover = actionData.ai.UnitMover;
+        if (mover != null)
+        {
+            mover.StopMovement();
+        }
+        isMovingToTarget = false;
+    }
+
+    public override void OnActionComplete(AIActionData actionData)
+    {
+        isMovingToTarget = false;
+    }
+
+    public override void OnActionInterrupted(AIActionData actionData)
+    {
+        UnitMover mover = actionData.ai.UnitMover;
+        if (mover != null)
+        {
+            mover.StopMovement();
+        }
+        isMovingToTarget = false;
+    }
+
+    public override void Perform(AIActionData actionData)
+    {
+        if (actionData.state != ActionState.Running)
+        {
+            StartAction(actionData);
+            actionData.state = ActionState.Running;
+        }
+
+        if (actionData.targetObject == null)
+        {
+            Debug.LogWarning("Stopping action");
+            actionData.state = ActionState.Failed;
+            StopAction(actionData);
+            return;
+        }
+
+        Health targetHealth = actionData.targetObject.GetComponent<Health>();
+        if (targetHealth == null || targetHealth.IsDead)
+        {
+            actionData.state = ActionState.Success;
+            OnActionComplete(actionData);
+            return;
+        }
+
+        float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, actionData.targetObject.transform.position);
+        if (distanceToTarget <= attackRange)
+        {
+            // Stop moving if within range
+            if (isMovingToTarget)
+            {
+                UnitMover mover = actionData.ai.UnitMover;
+                if (mover != null)
+                {
+                    mover.StopMovement();
+                    isMovingToTarget = false;
+                }
+            }
+
+            // Attack logic
+            float timeSinceLastAttack = Time.time - lastAttackTime;
+            if (timeSinceLastAttack >= 1f / attackSpeed)
+            {
+                targetHealth.TakeDamage(attackDamage);
+                lastAttackTime = Time.time;
+            }
+        }
+        else
+        {
+            // Move towards the target
+            if (!isMovingToTarget)
+            {
+                UnitMover mover = actionData.ai.UnitMover;
+                if (mover != null)
+                {
+                    mover.MoveToWorldPosition(actionData.targetObject.transform.position);
+                    isMovingToTarget = true;
+                }
+            }
+        }
+
+        // Check if the target is still valid
+        if (targetHealth.IsDead)
+        {
+            actionData.state = ActionState.Success;
+            OnActionComplete(actionData);
+        }
+        else
+        {
+            actionData.state = ActionState.Running;
+        }
     }
 }
