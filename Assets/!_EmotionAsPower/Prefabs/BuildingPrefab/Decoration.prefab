@@ -228,8 +228,8 @@ MonoBehaviour:
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   effectRange: 5
   effectCooldown: 1
-  emotionType: 1
-  emotionAmount: 1
+  emotionType: 0
+  emotionAmount: 21
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
