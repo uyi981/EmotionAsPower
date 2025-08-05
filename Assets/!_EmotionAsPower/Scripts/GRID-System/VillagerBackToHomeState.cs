@@ -59,6 +59,11 @@ public class VillagerAttackEnermyState : IState
     }
     public void DropItem()
     {
+        if(villager.Target == null)
+        {
+            Debug.LogWarning("No target to attack.");
+            return;
+        }
         Health health = villager.Target.GetComponent<Health>();
         if (health == null)
         {
@@ -71,7 +76,7 @@ public class VillagerAttackEnermyState : IState
         while(health.CurrentHealth>0)
         {
             villager.animator.Play("Attack");
-            health.TakeDamage(-5);
+            //health.TakeDamage(-5);
             yield return new WaitForSeconds(1f); // Wait for 1 second before the next attack
         }
         villager.TransitionTo(villager.villagerIdleState); // Transition to idle state after defeating the enemy
