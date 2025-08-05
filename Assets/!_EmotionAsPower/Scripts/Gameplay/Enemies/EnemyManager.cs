@@ -30,7 +30,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
             return null;
         }
 
-        GameObject spawnedEnemy = Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
+        GameObject spawnedEnemy = Instantiate(enemySO.prefab, position, Quaternion.identity, this.transform);
         Enemy enemy = spawnedEnemy.GetComponent<Enemy>();
         enemy.Initialize(enemySO);
         return spawnedEnemy;

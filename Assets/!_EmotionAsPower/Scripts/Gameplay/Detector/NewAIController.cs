@@ -23,10 +23,7 @@ public class NewAIController : MonoBehaviour
     [SerializeField]
     private AIActionData actionData = new AIActionData();
 
-    private void OnEnable()
-    {
-        Initialize();
-    }
+
 
     private void Update()
     {
@@ -53,7 +50,7 @@ public class NewAIController : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    public void Initialize(EnemySO enemySO)
     {
         detector = GetComponent<Detector>();
         unitMover = GetComponent<UnitMover>();
