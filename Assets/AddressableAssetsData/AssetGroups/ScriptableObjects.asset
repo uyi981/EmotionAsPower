@@ -21,6 +21,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2ab91960f439a534e9e658f6c3b7f8cc
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2b52fb6c29da6cc40b7cdd003c0ee273
     m_Address: Assets/!_EmotionAsPower/Data/ItemData/food1 1.asset
     m_ReadOnly: 0
@@ -35,6 +41,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 340b8ce8aeb90d8419bcd8259411f864
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/WoodSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3cbcbe712591fc44d80408721b29c9ed
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/JoySO 1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
@@ -63,6 +75,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 65d0c0ff07e78234ab06dc59a8f60be8
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6b33d0f58ba06a24fbd129044bb865d1
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/ItemSO.asset
     m_ReadOnly: 0
@@ -74,6 +92,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ResourceSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d4b0da18b79856429f94ac7b6a59ccb
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/ItemSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b92a9fe28c427c4b807d5a4d4123c34
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9c9918d4a2bb9e842bf8dbb93d1bb62b
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/StoneSO 1.asset
@@ -111,6 +141,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - EnemySO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f134000a9fdfc1c43a50369cb89676fb
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ff3cc23270ff7f74c95c5a28223c3e4a, type: 2}

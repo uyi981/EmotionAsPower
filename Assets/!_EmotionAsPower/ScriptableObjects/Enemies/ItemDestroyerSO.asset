@@ -22,7 +22,8 @@ MonoBehaviour:
     moveSpeed: 10
     attackDamage: 5
     attackSpeed: 5
-    existingTime: 10
+    existingTime: 30
+  prefab: {fileID: 6170872781834844453, guid: a6e36effa3faccd4ebf11ac8c489d9a3, type: 3}
   behaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
   dropableItems:
   - item: {fileID: 11400000, guid: 19f75e1cafb6f724bab40ba6cf3bc831, type: 2}

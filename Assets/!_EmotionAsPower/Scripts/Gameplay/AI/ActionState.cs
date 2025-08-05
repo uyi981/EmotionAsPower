@@ -1,9 +1,9 @@
 using UnityEngine;
 
+
 public enum ActionState
 {
-    Running,   
-    Success,   
-    Failed,   
-    Cancelled  
+    Running,
+    Success,
+    Failed
 }

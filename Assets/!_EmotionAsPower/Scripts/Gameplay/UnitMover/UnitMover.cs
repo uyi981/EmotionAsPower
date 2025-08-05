@@ -9,6 +9,11 @@ public class UnitMover : MonoBehaviour
     public float rotationSpeed = 10f;
     public float stopDistance = 0.1f;
 
+    [Header("Flip Settings")]
+    public bool flipable = true;
+    public bool baseFlip;
+    private SpriteRenderer sprite;
+
     [Header("Path Smoothing")]
     public bool enablePathSmoothing = true;
     public float smoothingRadius = 0.5f;
@@ -30,6 +35,18 @@ public class UnitMover : MonoBehaviour
     private void Start()
     {
         pathFinding = new APathFinding();
+
+        sprite = GetComponent<SpriteRenderer>();
+        if (sprite == null && flipable)
+        {
+            Debug.LogWarning($"No SpriteRenderer found on {gameObject.name}. Flipping disabled.");
+            flipable = false;
+        }
+
+        if (flipable && sprite != null)
+        {
+            sprite.flipX = baseFlip;
+        }
 
         if (GridSystem.Instance != null)
         {
@@ -73,6 +90,12 @@ public class UnitMover : MonoBehaviour
         currentPath = null;
         smoothedPath = null;
         currentPathIndex = 0;
+
+        // Revert to base flip when stopping
+        if (flipable && sprite != null)
+        {
+            sprite.flipX = baseFlip;
+        }
     }
 
     public bool IsMoving()
@@ -168,7 +191,7 @@ public class UnitMover : MonoBehaviour
             return originalPath;
 
         List<Vector3> smoothed = new List<Vector3>();
-        smoothed.Add(originalPath[0]); 
+        smoothed.Add(originalPath[0]);
 
         for (int i = 1; i < originalPath.Count - 1; i++)
         {
@@ -215,11 +238,21 @@ public class UnitMover : MonoBehaviour
 
     private IEnumerator MovingSmooth(List<Vector3> path, float speed)
     {
+        Vector3 previousPosition = transform.position;
+
         for (int i = 0; i < path.Count; i++)
         {
             currentPathIndex = i;
             Vector3 targetPosition = path[i];
 
+            // Determine flip direction based on movement and base flip
+            if (flipable && i > 0)
+            {
+                Vector3 movementDirection = targetPosition - previousPosition;
+                // If baseFlip is true (left-facing by default), flip logic is inverted
+                bool shouldFlip = baseFlip ? (movementDirection.x >= 0) : (movementDirection.x < 0);
+                ToggleFlip(shouldFlip);
+            }
 
             while (Vector3.Distance(transform.position, targetPosition) > stopDistance)
             {
@@ -228,6 +261,7 @@ public class UnitMover : MonoBehaviour
             }
 
             transform.position = targetPosition;
+            previousPosition = targetPosition;
 
             Vector3Int gridPos = grid.WorldToCell(targetPosition);
             Vector2Int gridPos2D = new Vector2Int(gridPos.x, gridPos.z);
@@ -240,6 +274,12 @@ public class UnitMover : MonoBehaviour
         currentPathIndex = 0;
         moveCoroutine = null;
 
+        // Revert to base flip when movement completes
+        if (flipable && sprite != null)
+        {
+            sprite.flipX = baseFlip;
+        }
+
         OnMovementCompleted?.Invoke();
     }
 
@@ -247,6 +287,14 @@ public class UnitMover : MonoBehaviour
     {
         moveSpeed = speed;
         Move(targetPosition);
+    }
+
+    public void ToggleFlip(bool direction)
+    {
+        if (flipable && sprite != null)
+        {
+            sprite.flipX = direction;
+        }
     }
 
 #if UNITY_EDITOR

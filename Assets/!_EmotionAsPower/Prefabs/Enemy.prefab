@@ -231,6 +231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   enemySO: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
+  existingTimer: 0
+  isInitialized: 0
 --- !u!114 &3583203535932230069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +248,9 @@ MonoBehaviour:
   moveSpeed: 3
   rotationSpeed: 10
   stopDistance: 0.1
+  flipable: 1
+  enablePathSmoothing: 1
+  smoothingRadius: 0.5
 --- !u!114 &7890787105668812900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,3 +264,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   currentAction: {fileID: 0}
+  actionCooldownTime: 5
