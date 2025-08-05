@@ -83,7 +83,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &746324527325999672
 RectTransform:
   m_ObjectHideFlags: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2800047324474455589}
         m_TargetAssemblyTypeName: Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.OptionFunctionUI,
           Assembly-CSharp
-        m_MethodName: OnBreedButtonClicked
+        m_MethodName: BreedButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -336,7 +336,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4729320355936742231}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2800047324474455589}
+        m_TargetAssemblyTypeName: Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.OptionFunctionUI,
+          Assembly-CSharp
+        m_MethodName: RepairBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &5445528236186017563
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -836,7 +849,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4240765456565906228}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2800047324474455589}
+        m_TargetAssemblyTypeName: Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.OptionFunctionUI,
+          Assembly-CSharp
+        m_MethodName: MoveBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &8044794831635472268
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1060,7 +1086,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5042599206429626509}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2800047324474455589}
+        m_TargetAssemblyTypeName: Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.OptionFunctionUI,
+          Assembly-CSharp
+        m_MethodName: DestroyBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &3090962766527868477
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1250,7 +1289,7 @@ GameObject:
   - component: {fileID: 5855226212670563955}
   - component: {fileID: 2800047324474455589}
   m_Layer: 5
-  m_Name: OptionUI
+  m_Name: DetailBuildingUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1321,7 +1360,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8745494338019516556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,7 +1385,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3221087871439616253}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29cc4c7fd63361341b3f27d6f7aeee25, type: 3}
   m_Name: 
@@ -1363,7 +1402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3139350538d70f4e8bbe2534b5a8f59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.OptionFunctionUI
-  breedingBuildings: []
+  breedingBuilding: {fileID: 0}
+  buildingBase: {fileID: 0}
 --- !u!1 &3595062865296978963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,7 +1431,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3595062865296978963}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -40.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1400,7 +1440,7 @@ RectTransform:
   - {fileID: 6711135868999363339}
   - {fileID: 117330884662720341}
   m_Father: {fileID: 4683977613982876090}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -13, y: 63.7}
@@ -3488,7 +3528,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "N\xE2ng c\u1EA5p"
+  m_text: "Di chuy\u1EC3n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

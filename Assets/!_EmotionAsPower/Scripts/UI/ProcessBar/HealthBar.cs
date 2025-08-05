@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.__EmotionAsPower.Scripts.UI.ProcessBar
 {
     public class HealthBar : MonoBehaviour
     {
-        [SerializeField] private Image fillImage;
+        [SerializeField] private TextMeshProUGUI health;
 
-        public void SetHealth(float normalized)
+        public void SetHealth(int health)
         {
-            if (fillImage != null)
-                fillImage.fillAmount = normalized;
+            this.health.text = health.ToString();
+            Debug.Log("Health set to: " + health);
         }
     }
 }
