@@ -88,7 +88,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             currentProductionTime = 0f;
             while (currentProductionTime < productionTime && isProducing)
             {
-                currentProductionTime += 0.1f;
+                currentProductionTime += 0.1f*workersAmount;
                 ProcessBar processBar = productionBarInstance.GetComponent<ProcessBar>();
 
                 processBar.SetProcess(currentProductionTime / productionTime);
