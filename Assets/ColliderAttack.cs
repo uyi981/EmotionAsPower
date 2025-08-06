@@ -8,6 +8,7 @@ public class ColliderAttack : MonoBehaviour
         {
            Health health = other.GetComponent<Health>();
            health?.TakeDamage(1f); // Assuming the resource has a Health component
+           Debug.Log("Attacked resource: -10" + other.name);
         }
     }
 }
