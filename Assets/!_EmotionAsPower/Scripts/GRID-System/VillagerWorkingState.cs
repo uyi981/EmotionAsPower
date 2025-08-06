@@ -44,6 +44,7 @@ public class VillagerWorkingState : IState
     }
     public void ExitState()
     {
+        //villager.currentJob.buildingBase.
         Debug.Log("Villager has finished working.");
         villager.completedGoToTarget -= OnWork;
         villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from collision events

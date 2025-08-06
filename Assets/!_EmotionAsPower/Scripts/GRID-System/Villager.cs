@@ -66,6 +66,19 @@ public class Villager : MonoBehaviour,IInteractable
             TransitionTo(villagerSelectedState);
         }
     }
+    public void OnDayStageChange(DayTimeController.TimeStage timeStage)
+    {
+        if (timeStage == DayTimeController.TimeStage.Morning)
+        {
+
+        }
+        else if (timeStage == DayTimeController.TimeStage.Evening)
+        {
+            currentJob.Position = Vector2Int.zero;
+            currentJob.JobType = JobType.None;
+        }
+    }
+
     public void Hunger()
     {
 
@@ -179,6 +192,10 @@ public class Villager : MonoBehaviour,IInteractable
     }
     public void UpdateState()
     {
+        if(isSleeping||isStarving)
+        {
+            return;
+        }
         if (CurrentState != null)
         {
             CurrentState.UpdateState();
