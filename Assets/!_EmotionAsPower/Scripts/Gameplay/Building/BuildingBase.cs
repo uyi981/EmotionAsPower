@@ -23,12 +23,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public bool isBuild = false;
     [Tooltip("Số lượng công nhân tham gia xây dựng")]
     public int workersAmount = 0;
-    
+
     [Header("Building Stats")]
     [Tooltip("Máu tối đa của công trình")]
-    public int maxHP = 100;
+    public int maxHP;
     [Tooltip("Máu hiện tại của công trình")]
     public int currentHP;
+    [Tooltip("Loại công trình")]
+    public BuildingType buildingType;
     [Tooltip("Danh sách các vật phẩm cần thiết để xây dựng công trình")]
     public SerializableDictionary<ItemSO, int> requiredItems = new SerializableDictionary<ItemSO, int>();
 
@@ -74,16 +76,26 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public bool IsBuild => isBuild;
 
     public JobType JobType { get; set; }
+    public BuildingType BuildingType
+    {
+        get => buildingType;
+        set => buildingType = value;
+    }
 
     public Vector3Int BaseCell
     {
         get => baseCell;
         set => baseCell = value;
     }
+    public Building SelectedBuilding
+    {
+        get => selectedBuilding;
+        set => selectedBuilding = value;
+    }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             TakeDamage(30); // Giả lập việc công trình bị tấn công
         }
@@ -91,13 +103,15 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 
     public virtual void Start()
     {
-
-        workersAmount = 0; // Khởi tạo số lượng công nhân tham gia xây dựng    
+        workersAmount = 0; // Khởi tạo số lượng công nhân tham gia xây dựng 
+        maxHP = selectedBuilding.maxHP; // Lấy máu tối đa từ SO_Building
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
+        buildingType = selectedBuilding.type; // Lấy loại công trình từ SO_Building
         Debug.Log($"Building {Name} started with build time: {buildTime} seconds");
+
         AssignJobToWorker(JobType.Build);
-        // Tìm Image con tên 'Fill' trong processBarInstance và healthBarInstance
+
         if (buildingBar != null)
         {
             processBarInstance = Instantiate(buildingBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
@@ -107,10 +121,18 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         if (healthBar != null)
         {
             healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
+            healthBarImg = healthBarInstance.GetComponent<HealthBar>();
+            Debug.Log(healthBarImg.name);
+            Debug.Log($"Building {Name} started with max HP: {maxHP} and current HP: {currentHP}");
+            InstantiateHealthBar(currentHP, maxHP);
+
             healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu
-            healthBarImg = healthBarInstance.GetComponent<HealthBar>(); 
+
+
+
         }
-        Singleton<DayTimeController>.Instance.OnTimeStageChanged += OnDayStageChange; 
+
+        Singleton<DayTimeController>.Instance.OnTimeStageChanged += OnDayStageChange;
         StartCoroutine(Building()); // Bắt đầu quá trình xây dựng
 
     }
@@ -123,14 +145,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     /// <returns></returns>
     public bool TryConsumeRequiredItems()
     {
-      
+
 
         foreach (var pair in requiredItems)
         {
             ItemSO item = pair.Key;
             int amount = pair.Value;
             int checkAmount = Singleton<ItemStorage>.Instance.TryTakeItem(item, amount);
-            if(checkAmount <= 0)
+            if (checkAmount <= 0)
             {
                 Debug.LogWarning($"Not enough {item.ID} to consume for {Name}. Required: {amount}, Available: {checkAmount}");
                 return false; // Không đủ vật phẩm cần thiết
@@ -158,10 +180,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         float time = buildTime;
         while (time > 0f)
         {
-            yield return new WaitForSeconds(0.05f);
-            time -= 0.1f*workersAmount;
+            yield return new WaitForSeconds(0.1f);
+            time -= 0.1f * workersAmount;
             buildProgress = time / buildTime;
-            processBarImg.SetProcess(1-buildProgress);
+            processBarImg.SetProcess(1 - buildProgress);
         }
         buildProgress = 1f; // Hoàn thành xây dựng
         isBuild = true;
@@ -172,7 +194,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
     }
 
-    
+
 
     /// <summary>
     /// Phương thức này được gọi để reset danh sách công nhân.
@@ -185,16 +207,21 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         }
         workers.Clear();
     }
-   
+
     private void UpdateHealthBar()
     {
         if (healthBarImg != null)
         {
-            healthBarImg.SetHealth(currentHP);
+            healthBarImg.Health.text = currentHP.ToString();
         }
     }
 
-    
+    private void InstantiateHealthBar(int health, int maxhealth)
+    {
+        healthBarImg.Instantiate(health, maxhealth);
+    }
+
+
 
     /// <summary>
     /// Phương thức này được gọi khi một công nhân đến làm việc tại công trình.
@@ -204,12 +231,12 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public void OnWorkerCome(Villager villager)
     {
         workersAmount++;
-        if(workers.Contains(villager))
+        if (workers.Contains(villager))
         {
             return;
         }
         workers.Add(villager);
-    }    
+    }
 
     ////////////////////////////
     ///// Viet phuong thuc giao việc cho công nhân
@@ -217,7 +244,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     {
         this.jobType = jobType;
         Debug.Log($"Assigning job of type {jobType} to workers at positions: {workerPositions.Count}");
-        
+
         if (workerPositions == null || workerPositions.Count == 0)
         {
             Debug.LogWarning($"No worker positions defined for {gameObject.name}");
@@ -228,7 +255,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         {
             // Create job for each worker position
             JobForWorker job = new JobForWorker(position, jobType, this);
-            
+
             // Send job request to VillagerManager
             if (VillagerManager.Instance != null)
             {
@@ -322,8 +349,8 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     /// </summary>
     public virtual void OnBuildingDestroyed()
     {
-    
-        
+
+
         // Spawn half of each required item if there are any
         if (requiredItems != null && requiredItems.Count > 0)
         {
@@ -334,7 +361,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
                 Debug.Log($"Spawned {halfAmount} of {item.Key.ID} at position {transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y))}");
             }
         }
-        
+
         isDestroyed = true; // Đánh dấu công trình đã bị phá hủy
         Destroy(gameObject);
         ResetWorkerList();

@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -395, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -260.4983, y: 0}
+  m_SizeDelta: {x: 469.0034, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4043500760078951772
 CanvasRenderer:
@@ -228,9 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5287ec91d95dada4f873578210ac412b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content.ContentUI
+  iconUI: {fileID: 4861966066752616040, guid: 9e690864e6c3d594a928fa7c9651f0bb, type: 3}
   textMeshPro: {fileID: 7983928784501763955}
   iconBuildings: {fileID: 5832869863788543094}
-  iconUI: {fileID: 4861966066752616040, guid: 9e690864e6c3d594a928fa7c9651f0bb, type: 3}
 --- !u!1 &5832869863788543094
 GameObject:
   m_ObjectHideFlags: 0

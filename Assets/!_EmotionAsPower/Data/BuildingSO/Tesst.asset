@@ -1,0 +1,300 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0117a00a27ad6438f9272295fc6c72, type: 3}
+  m_Name: Tesst
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectsDatabaseSO
+  buildings:
+  - buildingID: 0
+    buildingName: Tree
+    type: 3
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 5471406547847055844, guid: 11299fbb11014774ba3bec24fac91305, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 9c9918d4a2bb9e842bf8dbb93d1bb62b, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the tree
+  - buildingID: 1
+    buildingName: Tent
+    type: 4
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 8501337020369230570, guid: aaf8dd65cea75a8419c45a8eb37b8fba, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 200
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the bed
+  - buildingID: 2
+    buildingName: Entertaiment Joy
+    type: 3
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 1773861809528477264, guid: bccdc11d3b2fc1d46afd1f43a6577dd5, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 200
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Entertainment Joy
+  - buildingID: 3
+    buildingName: Entertaiment Sad
+    type: 3
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 279218985217429014, guid: 58ba305986709614ea2c21eda66f1dfd, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 10
+    size: {x: 1, y: 1}
+    maxHP: 500
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Entertaiment Sad
+  - buildingID: 4
+    buildingName: Entertaiment Fear
+    type: 3
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 76506552556472127, guid: b801401cc647e2948b56c8c9e3590293, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Entertaiment Fear
+  - buildingID: 5
+    buildingName: Entertaiment Anger
+    type: 3
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 4094005548699814757, guid: 161a813cb791c0b449a88b1848b9587d, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 500
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Entertaiment Anger
+  - buildingID: 6
+    buildingName: Entertaiment Apethatic
+    type: 3
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 5715943784165529665, guid: e15a2280668c69c4fb89e39938c902ee, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 2000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Apethatic
+  - buildingID: 7
+    buildingName: Factory
+    type: 2
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 3176276359225916853, guid: c9f8cadaa09847a43a1b8889fefb8f0c, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 500
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Factory 1
+  - buildingID: 8
+    buildingName: Factory 1
+    type: 2
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 6438594455533947798, guid: b5a6326556c12764db5070346d2a1cc6, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Factory 1
+  - buildingID: 9
+    buildingName: Factory 2
+    type: 2
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 844683087737877263, guid: 82b0d30904d135f46bbb53701c3476b0, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Factory 2
+  - buildingID: 10
+    buildingName: Tower
+    type: 1
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 4156817599570265274, guid: 418ac1b2e7f68954eaf32691ea8a32a0, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower
+  - buildingID: 11
+    buildingName: Tower 1
+    type: 1
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 3670662489938317494, guid: fd8159a4705d8334aa9bfa01cde36151, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower 1
+  - buildingID: 12
+    buildingName: Tower 1
+    type: 1
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 622358888786554861, guid: e1dc381e2009edd4086c2452223df727, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower 1
+  - buildingID: 13
+    buildingName: Wall
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 8881148771481265413, guid: 322de27795bc9554a80fe02301c0a7ca, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower 1
+  - buildingID: 11
+    buildingName: Tower 1
+    type: 2
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 5068722114887075134, guid: 4dd59b6bf9b12f84ca695f09fba734d4, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 60
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower 1

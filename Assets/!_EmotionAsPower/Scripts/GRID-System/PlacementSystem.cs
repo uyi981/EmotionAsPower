@@ -11,8 +11,8 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] public int selectedObjectIndex = -1;
     [SerializeField] private GameObject gridVisualization;
 
-    [SerializeField]
-    private GameObject blueprintInstance;
+    [SerializeField] private GameObject blueprintInstance;
+    [SerializeField] private GameObject prefabInstance;
     [SerializeField]
     private Vector2Int currentSize = Vector2Int.one;
     // Offset để chuyển toạ độ lưới (có thể âm) sang chỉ số mảng >= 0
@@ -20,6 +20,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private SelectedFrame selectedFrame;
 
     private Vector3Int baseCell;
+    private Quaternion rotationBuilding;
 
     private void Update()
     {
@@ -43,12 +44,19 @@ public class PlacementSystem : MonoBehaviour
 
         // Preview cell indicator
         cellIndicator.transform.position = worldPos;
-
-        // Blueprint preview
-        if (blueprintInstance != null)
+        prefabInstance = database.buildings[selectedObjectIndex].buildingPrefab;
+        // Blueprint preview
+        //if (blueprintInstance != null)
+        //{
+        //blueprintInstance.transform.position = worldPos;
+        if (Input.GetMouseButtonDown(1) && prefabInstance.GetComponent<BuildingBase>().BuildingType == BuildingType.Defense)
         {
-            blueprintInstance.transform.position = worldPos;
+            // Mỗi khi click là xoay 90 độ
+            rotationBuilding = Quaternion.Euler(0, rotationBuilding.eulerAngles.y + 90, 0);
+            Debug.Log("Rotating building by 90 degrees for defense type building.");
         }
+
+        //}
     }
     private void Start()
     {
@@ -75,7 +83,7 @@ public class PlacementSystem : MonoBehaviour
 
         currentSize = database.buildings[selectedObjectIndex].size;
         Destroy(blueprintInstance.gameObject);
-        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
+        //blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
 
         selectedFrame.SetSize(currentSize);
         gridVisualization.SetActive(true);
@@ -117,7 +125,7 @@ public class PlacementSystem : MonoBehaviour
         Vector3 baseWorld = grid.CellToWorld(baseCell);
         Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
         gameObject.transform.position = baseWorld + offset;
-
+        gameObject.transform.rotation = rotationBuilding;
 
         //var buildingComponents = gameObject.GetComponentsInChildren<BuildingBase>(true);
         //if (buildingComponents != null && buildingComponents.Length > 0)
