@@ -314,6 +314,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     }
     public virtual void RepairBuilding(int amount)
     {
+        AssignJobToWorker(JobType.Build);
         StartCoroutine(Repair(amount));
     }
 
@@ -345,10 +346,9 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public virtual void MoveBuilding()
     {
         PlacementSystem placementSystem = FindFirstObjectByType<PlacementSystem>();
-        placementSystem.OccupyCells(baseCell, 1);
-        placementSystem.StartPlacement(selectedBuildingID);
-        AssignJobToWorker(JobType.Build);
-        Destroy(gameObject); // Xóa công trình hiện tại
+
+        placementSystem.StartMovingBuilding(gameObject);
+
     }
 
     /// <summary>

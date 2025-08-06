@@ -279,7 +279,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: This is the Tower 1
-  - buildingID: 11
+  - buildingID: 14
     buildingName: Tower 1
     type: 2
     blueprintPrefab: {fileID: 5068722114887075134, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}

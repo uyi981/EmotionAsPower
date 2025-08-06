@@ -3733,6 +3733,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 622358888786554861, guid: 068860b6aa188e240ba517d5a2e1098b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5553971110654202921, guid: 068860b6aa188e240ba517d5a2e1098b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.00116
@@ -4192,6 +4196,10 @@ PrefabInstance:
     - target: {fileID: 8501337020369230570, guid: 16d67b4bb034eca478e26a9fd2bd7904, type: 3}
       propertyPath: m_Name
       value: Tent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501337020369230570, guid: 16d67b4bb034eca478e26a9fd2bd7904, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6130,6 +6138,10 @@ PrefabInstance:
     - target: {fileID: 5068722114887075134, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}
       propertyPath: m_Name
       value: Reproduction
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068722114887075134, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7071597984926566668, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8198,6 +8210,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entertainment (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5715943784165529665, guid: 86a118e23c7f48f498903e9d4d28a5d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8219,6 +8235,10 @@ PrefabInstance:
     - target: {fileID: 3176276359225916853, guid: dfcbcbd4908909f4e94457eae3110e1f, type: 3}
       propertyPath: m_Name
       value: Facroty
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176276359225916853, guid: dfcbcbd4908909f4e94457eae3110e1f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5448407976186818501, guid: dfcbcbd4908909f4e94457eae3110e1f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9953,6 +9973,10 @@ PrefabInstance:
     - target: {fileID: 1773861809528477264, guid: fd3b85928bf311047a5a20b0e67dc24a, type: 3}
       propertyPath: m_Name
       value: Entertainment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773861809528477264, guid: fd3b85928bf311047a5a20b0e67dc24a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3537967840745891146, guid: fd3b85928bf311047a5a20b0e67dc24a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15979,6 +16003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entertainment (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4764776674267554124, guid: 41ca768f3d809c547a9a30f5748c329a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6157829356389697582, guid: 41ca768f3d809c547a9a30f5748c329a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.00116
@@ -16040,6 +16068,10 @@ PrefabInstance:
     - target: {fileID: 844683087737877263, guid: ffcf7554ee84d8d4cae7c5bb489ca8fa, type: 3}
       propertyPath: m_Name
       value: Facroty (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 844683087737877263, guid: ffcf7554ee84d8d4cae7c5bb489ca8fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5846905903390838951, guid: ffcf7554ee84d8d4cae7c5bb489ca8fa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16259,6 +16291,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entertainment (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 76506552556472127, guid: adb1a431514f9ef45a548501dedf4d4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1875289739278388547, guid: adb1a431514f9ef45a548501dedf4d4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.00116
@@ -16320,6 +16356,10 @@ PrefabInstance:
     - target: {fileID: 4156817599570265274, guid: fc0703bb5b423ea45ac6083ed4ef7652, type: 3}
       propertyPath: m_Name
       value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4156817599570265274, guid: fc0703bb5b423ea45ac6083ed4ef7652, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6326003570331607049, guid: fc0703bb5b423ea45ac6083ed4ef7652, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16515,6 +16555,10 @@ PrefabInstance:
     - target: {fileID: 4094005548699814757, guid: e053f6b7fd4b5e841ac28f57a3800ae2, type: 3}
       propertyPath: m_Name
       value: Entertainment (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4094005548699814757, guid: e053f6b7fd4b5e841ac28f57a3800ae2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418668628474896542, guid: e053f6b7fd4b5e841ac28f57a3800ae2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -18239,6 +18283,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3670662489938317494, guid: 8fdf9b2b23846dd41a96fbc1e72e4cc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18300,6 +18348,10 @@ PrefabInstance:
     - target: {fileID: 6438594455533947798, guid: 1809b89622323054097e2ec5a38eb9e7, type: 3}
       propertyPath: m_Name
       value: Facroty (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438594455533947798, guid: 1809b89622323054097e2ec5a38eb9e7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18978,6 +19030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 8881148771481265413, guid: fe7e55423c877c0468705da0648813c2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19439,6 +19495,10 @@ PrefabInstance:
     - target: {fileID: 279218985217429014, guid: c9169f79e2d386649b75196575bbf63c, type: 3}
       propertyPath: m_Name
       value: Entertainment (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 279218985217429014, guid: c9169f79e2d386649b75196575bbf63c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8758797173547656610, guid: c9169f79e2d386649b75196575bbf63c, type: 3}
       propertyPath: m_LocalPosition.x
