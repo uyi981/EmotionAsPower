@@ -114,22 +114,19 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 
         if (buildingBar != null)
         {
-            processBarInstance = Instantiate(buildingBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
+            processBarInstance = Instantiate(buildingBar, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
             processBarImg = processBarInstance.GetComponent<ProcessBar>();
             processBarImg.SetProcess(0f); // Đặt tiến độ ban đầu là 0
         }
         if (healthBar != null)
         {
-            healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
+            healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
             healthBarImg = healthBarInstance.GetComponent<HealthBar>();
             Debug.Log(healthBarImg.name);
             Debug.Log($"Building {Name} started with max HP: {maxHP} and current HP: {currentHP}");
             InstantiateHealthBar(currentHP, maxHP);
 
             healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu
-
-
-
         }
 
         Singleton<DayTimeController>.Instance.OnTimeStageChanged += OnDayStageChange;
@@ -236,6 +233,16 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
             return;
         }
         workers.Add(villager);
+    }
+
+    public void OnWorkerLeave(Villager villager)
+    {
+        workersAmount--;
+        if (workers.Contains(villager))
+        {
+            workers.Remove(villager);
+        }
+        
     }
 
     ////////////////////////////

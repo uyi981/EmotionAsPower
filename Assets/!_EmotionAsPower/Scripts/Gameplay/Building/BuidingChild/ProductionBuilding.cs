@@ -62,7 +62,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
 
     public void StartProduction()
     {
-        productionBarInstance = Instantiate(productionBarPrefab, transform.position + Vector3.up * 3f, Quaternion.identity, transform);
+        productionBarInstance = Instantiate(productionBarPrefab, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
         productionBarInstance.SetActive(false); // Ẩn thanh tiến độ sản xuất ban đầu
     }
 
