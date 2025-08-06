@@ -17,13 +17,13 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         public GameObject iconResourcePrefab;
 
         [Header("Referece Gameobject")]
+        public Image buildingIcon;
         public GameObject resource;
         public GameObject information;
 
 
         [Header("Icon Building Infomation")]
         public int buildingID;
-        public Image buildingIcon;
         public string buildingName;
         public string buildingDescription;
 
@@ -61,7 +61,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             }
 
             information.SetActive(true);
-            SetInformation(information, buildingIcon, buildingName, buildingDescription);
+            SetInformation(information, buildingIcon, buildingName, buildingDescription, resource);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -92,7 +92,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 
 
 
-        public void SetInformation(GameObject info, Image img, string text, string des)
+        public void SetInformation(GameObject info, Image img, string text, string des, GameObject resource)
         {
             if (info == null)
             {
@@ -123,6 +123,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             informationComponent.Image.sprite = img.sprite;
             informationComponent.Name.text = text;
             informationComponent.Description.text = des;
+            informationComponent.Resource = resource;
         }
 
 

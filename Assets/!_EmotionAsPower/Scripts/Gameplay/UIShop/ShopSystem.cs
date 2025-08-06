@@ -86,7 +86,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                     switch (building.type)
                     {
                         case BuildingType.Production:
-                            contentUIInstance.textMeshPro.text = "Production";
+                            contentUIInstance.textMeshPro.text = building.type.ToString();
                             contentUIInstance.InstantiateIcon();
                             contentUIInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIInstance.SetResource(building.keyValuePairs);
@@ -98,8 +98,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             Debug.Log($"Adding production buildinggggggggggggggggggggggg: " + building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite.name);
                             listProductionBuildings.Add(building.buildingPrefab);
                             break;
-                        case BuildingType.Bed:
-                            contentUIBedInstance.textMeshPro.text = "Bed";
+                        case BuildingType.Housing:
+                            contentUIBedInstance.textMeshPro.text = building.type.ToString();
                             contentUIBedInstance.InstantiateIcon();
                             contentUIBedInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIBedInstance.SetResource(building.keyValuePairs);
@@ -109,7 +109,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             listBedBuildings.Add(building.buildingPrefab);
                             break;
                         case BuildingType.Tower:
-                            contentUITowerInstance.textMeshPro.text = "Tower"; contentUITowerInstance.InstantiateIcon();
+                            contentUITowerInstance.textMeshPro.text = building.type.ToString();
+                            contentUITowerInstance.InstantiateIcon();
                             contentUITowerInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUITowerInstance.SetResource(building.keyValuePairs);
                            
@@ -118,8 +119,9 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             contentUITowerInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listTowerBuildings.Add(building.buildingPrefab);
                             break;
-                        case BuildingType.Decoration:
-                            contentUIDecorationInstance.textMeshPro.text = "Decoration"; contentUIDecorationInstance.InstantiateIcon();
+                        case BuildingType.Entertainment:
+                            contentUIDecorationInstance.textMeshPro.text = building.type.ToString();
+                            contentUIDecorationInstance.InstantiateIcon();
                             contentUIDecorationInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIDecorationInstance.SetResource(building.keyValuePairs);
                             contentUIDecorationInstance.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
@@ -128,7 +130,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             listDecorationBuildings.Add(building.buildingPrefab);
                             break;
                         case BuildingType.Defense:
-                            contentUIDefenseInstance.textMeshPro.text = "Defense"; contentUIDefenseInstance.InstantiateIcon();
+                            contentUIDefenseInstance.textMeshPro.text = building.type.ToString();
+                            contentUIDefenseInstance.InstantiateIcon();
                             contentUIDefenseInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
                             contentUIDefenseInstance.SetResource(building.keyValuePairs);
                       
