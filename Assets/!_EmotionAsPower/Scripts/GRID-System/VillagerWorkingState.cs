@@ -44,7 +44,10 @@ public class VillagerWorkingState : IState
     }
     public void ExitState()
     {
-        //villager.currentJob.buildingBase.
+        if(!villager.currentJob.JobType.Equals(JobType.Build)&&!villager.currentJob.JobType.Equals(JobType.Transport))
+        {
+            villager.currentJob.buildingBase.OnWorkerLeave(villager);
+        }   
         Debug.Log("Villager has finished working.");
         villager.completedGoToTarget -= OnWork;
         villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from collision events
