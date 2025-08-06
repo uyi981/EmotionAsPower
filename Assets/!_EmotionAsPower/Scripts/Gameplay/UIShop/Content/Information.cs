@@ -11,6 +11,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
         public Image image;
         public TextMeshProUGUI name;
         public TextMeshProUGUI description;
+        public GameObject resource;
         
 
         public Image Image
@@ -30,7 +31,17 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
             set => description = value;
         }
 
+        public GameObject Resource
+        {
+            get => resource;
+            set => resource = value;
+        }
 
-       
+        public void Start()
+        {
+            Instantiate(Resource, transform);
+        }
+
+
     }
 }
