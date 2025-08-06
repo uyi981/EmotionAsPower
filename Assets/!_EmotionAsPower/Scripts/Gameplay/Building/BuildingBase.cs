@@ -29,6 +29,8 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public int maxHP;
     [Tooltip("Máu hiện tại của công trình")]
     public int currentHP;
+    [Tooltip("Loại công trình")]
+    public BuildingType buildingType;
     [Tooltip("Danh sách các vật phẩm cần thiết để xây dựng công trình")]
     public SerializableDictionary<ItemSO, int> requiredItems = new SerializableDictionary<ItemSO, int>();
 
@@ -74,6 +76,11 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     public bool IsBuild => isBuild;
 
     public JobType JobType { get; set; }
+    public BuildingType BuildingType
+    {
+        get => buildingType;
+        set => buildingType = value;
+    }
 
     public Vector3Int BaseCell
     {
@@ -100,6 +107,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         maxHP = selectedBuilding.maxHP; // Lấy máu tối đa từ SO_Building
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
         buildTime = selectedBuilding.buildTime; // Lấy thời gian xây dựng từ SO_Building
+        buildingType = selectedBuilding.type; // Lấy loại công trình từ SO_Building
         Debug.Log($"Building {Name} started with build time: {buildTime} seconds");
 
         AssignJobToWorker(JobType.Build);

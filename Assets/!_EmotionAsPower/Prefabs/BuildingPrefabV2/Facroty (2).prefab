@@ -69,6 +69,7 @@ MonoBehaviour:
   workersAmount: 11
   maxHP: 100
   currentHP: 0
+  buildingType: 2
   requiredItems:
     pairs:
     - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
   isSelected: 0
   buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 4, y: 2, z: 1}
+  UIPosition: {x: 1.5, y: 1, z: 0}
 --- !u!1 &2981017431362517187
 GameObject:
   m_ObjectHideFlags: 0

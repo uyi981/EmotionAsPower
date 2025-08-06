@@ -178,7 +178,7 @@ MonoBehaviour:
       - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
         value: 10
     buildTime: 60
-    size: {x: 2, y: 2}
+    size: {x: 1, y: 1}
     maxHP: 1000
     damage: 0
     attackRange: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
     type: 0
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
-    buildingPrefab: {fileID: 7942805265075847101, guid: 322de27795bc9554a80fe02301c0a7ca, type: 3}
+    buildingPrefab: {fileID: 8881148771481265413, guid: 322de27795bc9554a80fe02301c0a7ca, type: 3}
     keyValuePairs:
       pairs:
       - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
@@ -284,7 +284,7 @@ MonoBehaviour:
     type: 2
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
-    buildingPrefab: {fileID: 2236321759163685813, guid: 4dd59b6bf9b12f84ca695f09fba734d4, type: 3}
+    buildingPrefab: {fileID: 5068722114887075134, guid: 4dd59b6bf9b12f84ca695f09fba734d4, type: 3}
     keyValuePairs:
       pairs:
       - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
