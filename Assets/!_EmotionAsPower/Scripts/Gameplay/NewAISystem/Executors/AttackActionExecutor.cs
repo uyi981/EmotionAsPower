@@ -1,34 +1,23 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack Action", menuName = "Scriptable Objects/AI/Actions/Attack")]
-public class AttackAction : NewAIAction
+public class AttackActionExecutor : AIActionExecutor
 {
-    [Header("Attack Settings")]
-    [SerializeField] private float attackRange = 2f;
-    [SerializeField] private float attackDamage = 25f;
-    [SerializeField] private float attackSpeed = 1f;
-    [SerializeField] private DetectableType[] targetTypes;
-
     private float lastAttackTime;
     private bool isMovingToTarget;
+    private AttackAction attackAction;
 
-    public override DetectableType[] TargetTypes()
+    public AttackActionExecutor(AIActionData data, AttackAction action) : base(data)
     {
-        return targetTypes;
+        attackAction = action;
     }
 
-    public override bool Interruptible()
-    {
-        return false;
-    }
-
-    public override void StartAction(AIActionData actionData)
+    public override void StartAction()
     {
         lastAttackTime = 0f;
         isMovingToTarget = false;
     }
 
-    public override ActionState UpdateAction(AIActionData actionData)
+    public override ActionState UpdateAction()
     {
         if (actionData.targetObject == null)
             return ActionState.Failed;
@@ -38,14 +27,14 @@ public class AttackAction : NewAIAction
             return ActionState.Success;
 
         float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, actionData.targetObject.transform.position);
-        if (distanceToTarget <= attackRange)
+        if (distanceToTarget <= attackAction.AttackRange)
         {
             isMovingToTarget = false;
             float timeSinceLastAttack = Time.time - lastAttackTime;
-            if (timeSinceLastAttack >= 1f / attackSpeed)
+            if (timeSinceLastAttack >= 1f / attackAction.AttackSpeed)
             {
                 Debug.LogWarning("Damaging");
-                targetHealth.TakeDamage(attackDamage);
+                targetHealth.TakeDamage(attackAction.AttackDamage);
                 lastAttackTime = Time.time;
             }
             return ActionState.Running;
@@ -71,7 +60,7 @@ public class AttackAction : NewAIAction
         }
     }
 
-    public override void StopAction(AIActionData actionData)
+    public override void StopAction()
     {
         UnitMover mover = actionData.ai.UnitMover;
         if (mover != null)
@@ -81,12 +70,12 @@ public class AttackAction : NewAIAction
         isMovingToTarget = false;
     }
 
-    public override void OnActionComplete(AIActionData actionData)
+    public override void OnActionComplete()
     {
         isMovingToTarget = false;
     }
 
-    public override void OnActionInterrupted(AIActionData actionData)
+    public override void OnActionInterrupted()
     {
         UnitMover mover = actionData.ai.UnitMover;
         if (mover != null)
@@ -96,11 +85,11 @@ public class AttackAction : NewAIAction
         isMovingToTarget = false;
     }
 
-    public override void Perform(AIActionData actionData)
+    public override void Perform()
     {
         if (actionData.state != ActionState.Running)
         {
-            StartAction(actionData);
+            StartAction();
             actionData.state = ActionState.Running;
         }
 
@@ -108,7 +97,7 @@ public class AttackAction : NewAIAction
         {
             Debug.LogWarning("Stopping action");
             actionData.state = ActionState.Failed;
-            StopAction(actionData);
+            StopAction();
             return;
         }
 
@@ -116,12 +105,12 @@ public class AttackAction : NewAIAction
         if (targetHealth == null || targetHealth.IsDead)
         {
             actionData.state = ActionState.Success;
-            OnActionComplete(actionData);
+            OnActionComplete();
             return;
         }
 
         float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, actionData.targetObject.transform.position);
-        if (distanceToTarget <= attackRange)
+        if (distanceToTarget <= attackAction.AttackRange)
         {
             // Stop moving if within range
             if (isMovingToTarget)
@@ -136,9 +125,9 @@ public class AttackAction : NewAIAction
 
             // Attack logic
             float timeSinceLastAttack = Time.time - lastAttackTime;
-            if (timeSinceLastAttack >= 1f / attackSpeed)
+            if (timeSinceLastAttack >= 1f / attackAction.AttackSpeed)
             {
-                targetHealth.TakeDamage(attackDamage);
+                targetHealth.TakeDamage(attackAction.AttackDamage);
                 lastAttackTime = Time.time;
             }
         }
@@ -160,7 +149,7 @@ public class AttackAction : NewAIAction
         if (targetHealth.IsDead)
         {
             actionData.state = ActionState.Success;
-            OnActionComplete(actionData);
+            OnActionComplete();
         }
         else
         {

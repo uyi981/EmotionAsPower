@@ -17,37 +17,36 @@ public class NewAIController : MonoBehaviour
 
     #region Getters
     public UnitMover UnitMover => unitMover;
-    public Detector Detector => detector;   
+    public Detector Detector => detector;
     #endregion
 
     [SerializeField]
     private AIActionData actionData = new AIActionData();
 
-
-
     private void Update()
     {
-        
-        if(actionData.state == ActionState.Success || actionData.state == ActionState.Failed)
+        if (actionData.state == ActionState.Success || actionData.state == ActionState.Failed)
         {
             ConsiderAndSetActionToPerform();
         }
 
-        if(currentAction != null)
+        // Use the executor instead of the action directly
+        if (actionData.currentExecutor != null)
         {
-            currentAction.Perform(actionData);
-        }      
+            actionData.currentExecutor.Perform();
+        }
     }
 
     private void OnDisable()
     {
         StopAllCoroutines();
 
-        if (currentAction != null)
+        if (actionData.currentExecutor != null)
         {
-            currentAction.StopAction(actionData);
-            currentAction = null;
+            actionData.currentExecutor.StopAction();
+            actionData.currentExecutor = null;
         }
+        currentAction = null;
     }
 
     public void Initialize(EnemySO enemySO)
@@ -104,19 +103,21 @@ public class NewAIController : MonoBehaviour
         }
 
         // Exit if there isn't performable action with current informations
-        if(highestPriorityActionIndex < 0)
+        if (highestPriorityActionIndex < 0)
         {
             // Cancel current action
             currentAction = null;
-            actionData.state =  ActionState.Failed;
+            actionData.currentExecutor = null;
+            actionData.state = ActionState.Failed;
             return;
         }
 
         // Update action data
         actionData.targetObject = GetNearestTarget(bestActionTargets);
 
-        // Set current action to perform (Perform handled in Update)
+        // Set current action and create new executor
         currentAction = availableActions[highestPriorityActionIndex];
+        actionData.currentExecutor = currentAction.CreateExecutor(actionData);
         actionData.state = ActionState.Running;
     }
 
@@ -158,5 +159,4 @@ public class NewAIController : MonoBehaviour
             ConsiderAndSetActionToPerform();
         }
     }
-
 }

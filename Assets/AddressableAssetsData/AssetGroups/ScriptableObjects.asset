@@ -75,6 +75,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6023621fa0961a44da077a4f9d3e099a
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - EnemySO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65d0c0ff07e78234ab06dc59a8f60be8
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
     m_ReadOnly: 0

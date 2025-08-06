@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92cadd1ed49739b49842d75dbda87fe5, type: 3}
+  m_Name: TNTCarrierSO
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySO
+  id: Enemy_TNTCarrier
+  icon: {fileID: 21300000, guid: 8134622c1768d844ea39026d9fbc33c5, type: 3}
+  displayName: TNTCarrier
+  description: 
+  defaultData:
+    maxHealth: 100
+    defense: 100
+    moveSpeed: 40
+    attackDamage: 40
+    attackSpeed: 1
+    existingTime: 40
+  prefab: {fileID: 3329578327918105278, guid: ad1a56bd6c12bd04992c56498d718af4, type: 3}
+  behaviour: {fileID: 0}
+  dropableItems:
+  - item: {fileID: 11400000, guid: 9c9918d4a2bb9e842bf8dbb93d1bb62b, type: 2}
+    amountChances:
+    - amount: 10
+      chance: 100

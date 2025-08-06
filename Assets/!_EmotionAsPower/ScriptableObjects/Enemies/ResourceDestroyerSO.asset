@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ResourceDestroyerSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
   id: Enemy_ResourceDestroyer
-  icon: {fileID: 21300000, guid: 0df4dbe6d7804724eaf47cc736807c58, type: 3}
+  icon: {fileID: 21300000, guid: 72902dab3a71363419c3db4cb7ddc587, type: 3}
   displayName: ResourceDestroyer
   description: It will break out all of resources
   defaultData:
