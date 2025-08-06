@@ -75,7 +75,7 @@ public class PlacementSystem : MonoBehaviour
 
         currentSize = database.buildings[selectedObjectIndex].size;
         Destroy(blueprintInstance.gameObject);
-        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
+        //blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
 
         selectedFrame.SetSize(currentSize);
         gridVisualization.SetActive(true);

@@ -7,11 +7,26 @@ namespace Assets.__EmotionAsPower.Scripts.UI.ProcessBar
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI health;
+        [SerializeField] private TextMeshProUGUI maxHealth;
 
-        public void SetHealth(int health)
+        public TextMeshProUGUI Health
+        {
+            get => health;
+            set => health = value;
+        }
+
+        public TextMeshProUGUI MaxHealth
+        {
+            get => maxHealth;
+            set => maxHealth = value;
+        }
+
+
+        public void Instantiate(int health, int maxhealth)
         {
             this.health.text = health.ToString();
-            Debug.Log("Health set to: " + health);
+            this.maxHealth.text = maxhealth.ToString();
         }
+
     }
 }

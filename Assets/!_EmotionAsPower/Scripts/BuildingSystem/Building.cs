@@ -28,7 +28,6 @@ public enum BuildingType
     Defense,
     Tower,
     Production,
-    Decoration,
-    Bed,
-    MainBase
+    Entertainment,
+    Housing,
 }
