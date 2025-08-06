@@ -130,7 +130,7 @@ MonoBehaviour:
   workersAmount: 0
   maxHP: 100
   currentHP: 0
-  buildingType: 0
+  buildingType: 3
   requiredItems:
     pairs:
     - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}

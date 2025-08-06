@@ -18,7 +18,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         private void Start()
         {
             buildingComponents = gameObject.GetComponentInChildren<BuildingBase>(true);
-            buildingUIInstance = Instantiate(buildingUI, transform.position + UIPosition, Quaternion.identity, transform);
+            buildingUIInstance = Instantiate(buildingUI, transform.position + UIPosition, buildingUI.transform.rotation, transform);
             buildingUIInstance.SetActive(false); // Ẩn UI ban đầu
         }
 

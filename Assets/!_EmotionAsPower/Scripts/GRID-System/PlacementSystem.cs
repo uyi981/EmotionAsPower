@@ -15,12 +15,13 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private GameObject prefabInstance;
     [SerializeField]
     private Vector2Int currentSize = Vector2Int.one;
-    // Offset để chuyển toạ độ lưới (có thể âm) sang chỉ số mảng >= 0
-    [SerializeField] private Vector2Int gridOffset = new Vector2Int(50, 50);
+    [Tooltip("Offset để chuyển toạ độ lưới (có thể âm) sang chỉ số mảng >= 0")]
+    [SerializeField] private Vector2Int gridOffset = new Vector2Int(50, 50);
     [SerializeField] private SelectedFrame selectedFrame;
 
     private Vector3Int baseCell;
     private Quaternion rotationBuilding;
+    public SpriteRenderer cellIndicatorRenderer;
 
     private void Update()
     {
@@ -33,9 +34,9 @@ public class PlacementSystem : MonoBehaviour
 
         // Base cell (bottom-left of footprint) so that the footprint is centred on the cursor
         Vector3Int baseCell = new Vector3Int(
-      cellUnderMouse.x - currentSize.x / 2,
-      cellUnderMouse.y,
-      cellUnderMouse.z - currentSize.y / 2);
+        cellUnderMouse.x - currentSize.x / 2,
+        cellUnderMouse.y,
+        cellUnderMouse.z - currentSize.y / 2);
 
         // Offset from baseCell to the footprint centre
         Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
@@ -46,21 +47,39 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.transform.position = worldPos;
         prefabInstance = database.buildings[selectedObjectIndex].buildingPrefab;
         // Blueprint preview
-        //if (blueprintInstance != null)
-        //{
-        //blueprintInstance.transform.position = worldPos;
-        if (Input.GetMouseButtonDown(1) && prefabInstance.GetComponent<BuildingBase>().BuildingType == BuildingType.Defense)
+        if (blueprintInstance != null)
         {
-            // Mỗi khi click là xoay 90 độ
-            rotationBuilding = Quaternion.Euler(0, rotationBuilding.eulerAngles.y + 90, 0);
-            Debug.Log("Rotating building by 90 degrees for defense type building.");
+            blueprintInstance.transform.position = worldPos;
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (prefabInstance.GetComponent<BuildingBase>().BuildingType == BuildingType.Defense)
+                {
+                    rotationBuilding = Quaternion.Euler(0, rotationBuilding.eulerAngles.y + 90, 0);
+                    blueprintInstance.transform.rotation = rotationBuilding;
+                    Debug.Log("Rotating building by 90 degrees for defense type building.");
+                }
+
+
+            }
+
+
         }
 
-        //}
+        if (!CanPlace(baseCell))
+        {
+            cellIndicatorRenderer.color = Color.red; // Set to red if cannot place
+            Debug.LogWarning("Cannot place structure at base cell: " + baseCell);
+        }
+        else
+        {
+            cellIndicatorRenderer.color = Color.white; // Set to green if can place
+            Debug.Log("Can place structure at base cell: " + baseCell);
+        }
     }
     private void Start()
     {
         StopPlacement();
+
         grid = Singleton<GridSystem>.Instance.grid;
         gridMap = Singleton<GridSystem>.Instance.gridMap;
 
@@ -80,10 +99,11 @@ public class PlacementSystem : MonoBehaviour
             Debug.LogError("Building with ID " + objectIndex + " not found in database.");
             return;
         }
+        rotationBuilding = Quaternion.Euler(0, 0, 0);
 
         currentSize = database.buildings[selectedObjectIndex].size;
         Destroy(blueprintInstance.gameObject);
-        //blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
+        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
 
         selectedFrame.SetSize(currentSize);
         gridVisualization.SetActive(true);
@@ -93,6 +113,8 @@ public class PlacementSystem : MonoBehaviour
         inputManager.CurrentState = State.Building;
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
+
+        cellIndicatorRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
     }
     public void PlaceStructure()
     {
