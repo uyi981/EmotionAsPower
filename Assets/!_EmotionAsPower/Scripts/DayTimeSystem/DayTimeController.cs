@@ -5,7 +5,7 @@ using UnityEngine;
 using System;
 using static DayTimeController;
 
-public class DayTimeController : Singleton<DayTimeController>
+public class DayTimeController : Singleton<DayTimeController>, IDataPersistence
 {
     [Header("Time Settings")]
     [Tooltip("Duration of a full day in real-time minutes. 10f => 10mins in real time")]
@@ -38,6 +38,7 @@ public class DayTimeController : Singleton<DayTimeController>
     public enum TimeStage { Dawn, Morning, Noon, Evening, Night }
     public TimeStage currentStage;
     private TimeStage previousStage;
+    private int previousDay;
     public Action<TimeStage> OnTimeStageChanged;
     public Action<StageOfDay> OnStageOfDayChanged;
 
@@ -52,7 +53,7 @@ public class DayTimeController : Singleton<DayTimeController>
             timeOfDay = (timeOfDay + delta) % 1f;
             UpdateLighting();
             CheckTimeStage();
-            UpdateDay();
+
         }
     }
     private void Start()
@@ -77,7 +78,7 @@ public class DayTimeController : Singleton<DayTimeController>
 
         moon.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
         moon.intensity = lightIntensityCurve.Evaluate(timeOfDay) * 0.5f;
-       GetCurrentTime();
+        GetCurrentTime();
         if (HourMinute.hour >=6&&HourMinute.hour<=17)
         {
             RenderSettings.skybox = skyboxMaterial;
@@ -128,13 +129,19 @@ public class DayTimeController : Singleton<DayTimeController>
     void CheckTimeStage()
     {
         previousStage = currentStage;
+        previousDay = day;
         TimeStage newStage = GetTimeStage();
         if (newStage != lastStage)
         {
             currentStage = newStage;
             lastStage = newStage;
+            UpdateDay();
             OnTimeStageChanged?.Invoke(newStage);
             OnStageOfDayChanged?.Invoke(new StageOfDay(GetCurrentDateTime()));
+            // Save game if day changed 
+            if (previousDay != day) {
+                DataPersistenceManager.Instance.SaveGame();
+            }
         }
     }
 
@@ -152,7 +159,9 @@ public class DayTimeController : Singleton<DayTimeController>
     {
         if (currentStage == TimeStage.Morning && previousStage == TimeStage.Night) {
             day++;
+            
         }
+
     }
 
     public float GetTimePercent() => timeOfDay;
@@ -167,8 +176,22 @@ public class DayTimeController : Singleton<DayTimeController>
         };
     }
 
+    public void LoadGame(GameData gameData)
+    {
+        SetDateTime(gameData.dateTime);
+    }
 
-    
+    public void SaveGame(ref GameData gameData)
+    {
+        gameData.dateTime = GetCurrentDateTime();
+    }
+
+    public void SetDateTime(GameDateTime dateTime)
+    {
+        this.timeOfDay = dateTime.timeOfDay;
+        this.currentStage = dateTime.timeStage;
+        this.day = dateTime.day;
+    }
 }
 
 [Serializable]

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1503699426, guid: 2fb5d37b4ac880d4d9f85749569c2894, type: 3}
+  m_Sprite: {fileID: 759393428, guid: e5d7c1e186c9dde4a9237eebd7255ade, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7071597984926566668}
   - component: {fileID: 466573011492243306}
-  - component: {fileID: 7780880505371654914}
   - component: {fileID: 580452027417302199}
   m_Layer: 0
   m_Name: Reproduction
@@ -171,21 +170,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.07, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &7780880505371654914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5068722114887075134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
-  isSelected: 0
-  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 1.5, y: 1, z: 0}
 --- !u!114 &580452027417302199
 MonoBehaviour:
   m_ObjectHideFlags: 0

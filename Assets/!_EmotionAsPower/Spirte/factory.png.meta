@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 706e11343d535a143ac1c48231408bac
+guid: f2f8179a82f837448964a25510c2b35e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,19 +106,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -138,8 +125,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07bc21a0b7f92f349bb7aed1c370c67e
-      internalID: 287616962
+      spriteID: 3e747ba23adbbbe41a48677453a33321
+      internalID: 1848400324
       vertices: []
       indices: 
       edges: []
@@ -160,8 +147,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24653a04cf5d4ba4aa202946b739f170
-      internalID: 1369655439
+      spriteID: 4c7dcb501f1690a49ac48e447873e2d5
+      internalID: 2021266639
       vertices: []
       indices: 
       edges: []
@@ -182,8 +169,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ac0254422237a448b904135cae9f6e2
-      internalID: -1505126612
+      spriteID: 2e11faf098fdf8347a5f79cf7eded7f0
+      internalID: 743423831
       vertices: []
       indices: 
       edges: []
@@ -192,7 +179,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 6bb53951179226b4fb7750d4eebe2ef3
+    spriteID: 5e2a39f2318653a42999857b5e34d28c
     internalID: 0
     vertices: []
     indices: 
@@ -204,9 +191,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      factory_0: 287616962
-      factory_1: 1369655439
-      factory_2: -1505126612
+      factory_0: 1848400324
+      factory_1: 2021266639
+      factory_2: 743423831
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

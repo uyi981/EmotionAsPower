@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1318164095100825579}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 2.3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.33, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7429332572593792860}
@@ -79,12 +79,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 72902dab3a71363419c3db4cb7ddc587, type: 3}
+  m_Sprite: {fileID: 3830241007737352496, guid: 9892b87d3367a644bb681791a5f3a6e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 20.48, y: 20.48}
+  m_Size: {x: 0.405, y: 0.735}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3583203535932230069}
   - component: {fileID: 1883475828387628006}
   - component: {fileID: 7525667754036179473}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LaserCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,9 +250,12 @@ MonoBehaviour:
   rotationSpeed: 10
   stopDistance: 0.1
   flipable: 1
-  baseFlip: 0
+  useBoneFlip: 0
+  baseFlip: 1
   enablePathSmoothing: 1
   smoothingRadius: 0.5
+  minDistanceForNewPath: 1
+  pathValidationDistance: 0.5
 --- !u!114 &1883475828387628006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754c26531c2a53f448d16899645334c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewAIController
-  behaviour: {fileID: 11400000, guid: 1a3206d249e47ec41829664115cef772, type: 2}
+  behaviour: {fileID: 11400000, guid: 174da5a3c6b506845beb3dba217f42b8, type: 2}
   currentAction: {fileID: 0}
   actionData:
     ai: {fileID: 0}

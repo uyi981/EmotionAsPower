@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemDestroyerSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
   id: Enemy_ItemDestroyer
-  icon: {fileID: 21300000, guid: 8b6d433bddb51564aa7d164945f4dc2a, type: 3}
+  icon: {fileID: -6350633377308761912, guid: 98578789405d2f84ea0ffd7c8fd5e05e, type: 3}
   displayName: ItemDestroyer
   description: Be careful with your item!!!
   defaultData:
@@ -22,7 +22,7 @@ MonoBehaviour:
     moveSpeed: 10
     attackDamage: 5
     attackSpeed: 5
-    existingTime: 30
+    existingTime: 50
   prefab: {fileID: 6170872781834844453, guid: a6e36effa3faccd4ebf11ac8c489d9a3, type: 3}
   behaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
   dropableItems:

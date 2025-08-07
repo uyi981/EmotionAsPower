@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild;
 using System.Xml.Serialization;
+using TMPro;
 
 namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 {
@@ -10,15 +11,29 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         [Tooltip("Reference to the BreedingBuilding component")]
 
         [SerializeField] private BreedingBuilding breedingBuilding;
-        [SerializeField] private BuildingBase buildingBase;
-
-
-        private void Start()
+        [SerializeField] public BuildingBase buildingBase;
+        BuildingBase buildingA;
+        public GameObject BreedingButton;
+        public TextMeshProUGUI hp;
+        public void UpdateUI(BuildingBase building)
         {
-            // Tìm tất cả các component BreedingBuilding trong các đối tượng con
-            breedingBuilding = GetComponentInParent<BreedingBuilding>(true);
-            buildingBase = GetComponentInParent<BuildingBase>(true);
-
+            if(building == null)
+            {
+                Debug.LogError("BuildingBase is null!");
+                return;
+            }
+            buildingBase = building;
+            buildingA = building;
+            Debug.Log("Updating UI for building: " + buildingBase.gameObject.name);
+            if (buildingBase.buildingType.Equals(BuildingType.Breeding))
+            {
+                BreedingButton.SetActive(true);
+            }
+            else
+            {
+                BreedingButton.SetActive(false);
+            }
+            SetInfo(buildingBase.Health, buildingBase.MaxHealth);
         }
 
         /// <summary>
@@ -57,17 +72,29 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             }
             buildingBase.OnBuildingDestroyed();
             Debug.Log("Đã kích hoạt chức năng phá hủy công trình!");
+            Singleton<DetailInfoController>.Instance.CloseUI();
         }
 
         public void MoveBuilding()
         {
-            if (buildingBase == null)
-            {
-                Debug.LogError("Không có BuildingBase nào được tìm thấy!");
-                return;
-            }
+            //if (buildingBase == null)
+            //{
+            //    Debug.LogError("Không có BuildingBase nào được tìm thấy!");
+            //    return;
+            //}
+            Debug.Log("buildingBase" + buildingBase.gameObject.name);
             buildingBase.MoveBuilding();
             Debug.Log("Đã kích hoạt chức năng di chuyển công trình!");
+        }
+
+        public void SetInfo(int currentHP, int maxHP)
+        {
+            if (hp == null)
+            {
+                Debug.LogError("Không có TextMeshProUGUI hp nào được tìm thấy!");
+                return;
+            }
+            hp.text = "HP: " + currentHP + "/" + maxHP;
         }
     }
 }

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class Item : MonoBehaviour, IInteractable
+public class Item : MonoBehaviour, IInteractable, IHealth
 {
     [Header("Item properties")]
     [SerializeField]
@@ -14,7 +14,8 @@ public class Item : MonoBehaviour, IInteractable
     [Header("Item material")]
     [SerializeField]
     private string textureProperty;
-    
+    private TextMeshProUGUI amountText;
+
     public void Initialize(ItemSO itemSO, int amount)
     {
         this.transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z);
@@ -29,7 +30,7 @@ public class Item : MonoBehaviour, IInteractable
         //ItemGroupHandler itemGroupHandler  = GetComponentInChildren<ItemGroupHandler>();
         //itemGroupHandler.SetItem(this);
 
-        TextMeshProUGUI amountText = GetComponentInChildren<TextMeshProUGUI>();
+        amountText = GetComponentInChildren<TextMeshProUGUI>();
         amountText.text = amount.ToString();
 
     }
@@ -49,5 +50,23 @@ public class Item : MonoBehaviour, IInteractable
     public void Clear()
     {
         Destroy(this.gameObject);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        this.amount--;
+        if (amountText != null)
+        {
+            amountText.text = amount.ToString();
+        }
+        if (this.amount <= 0)
+        {
+            Clear();
+        }
+    }
+
+    public bool IsDead()
+    {
+        return this.amount <= 0;
     }
 }

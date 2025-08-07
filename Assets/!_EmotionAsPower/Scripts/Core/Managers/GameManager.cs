@@ -19,6 +19,11 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float timeScaleBeforePause = 1f;
     [SerializeField] private float currentGameSpeed = 1f;
 
+    // FPS calculation fields
+    private float deltaTime = 0.0f;
+    private float currentFPS = 0.0f;
+    public float CurrentFPS => currentFPS; // Public property to access FPS
+
     public Action OnSetupFinished;
     public Action<bool> OnGamePaused;
     public Action<float> OnGameSpeedChanged;
@@ -31,16 +36,30 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
         PauseGame();
         StartCoroutine(SetupAll());
+        StartCoroutine(UpdateFPSCalculation()); // Start FPS calculation coroutine
     }
 
     private IEnumerator SetupAll()
     {
-        finishedSetup = false ;
+        finishedSetup = false;
         yield return ContentManager.Instance.SetupCoroutine();
         UIManager.Instance.Setup();
         ResumeGame();
         OnSetupFinished?.Invoke();
         finishedSetup = true;
+        PlayerBase.Instance.OnPlayerBaseDestroyed += LoseGame;
+        ExitDebug();
+    }
+
+    // Coroutine to calculate FPS
+    private IEnumerator UpdateFPSCalculation()
+    {
+        while (true)
+        {
+            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+            currentFPS = 1.0f / deltaTime;
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
     }
 
     public void TogglePause()
@@ -116,4 +135,14 @@ public class GameManager : Singleton<GameManager>
         OnGameSpeedChanged?.Invoke(currentGameSpeed);
     }
 
+    public void LoseGame()
+    {
+        UIManager.Instance.ToggleLoseGamePanel(true);
+    }
+
+    public void ExitGame()
+    {
+        Debug.LogWarning("Exited the game");
+        Application.Quit();
+    }
 }

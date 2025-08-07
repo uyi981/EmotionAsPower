@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8758797173547656610}
   - component: {fileID: 8161285923240151246}
-  - component: {fileID: 2252907511887963341}
   - component: {fileID: 8210080784411463793}
   m_Layer: 0
   m_Name: Entertainment (2)
@@ -81,21 +80,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5440397, y: 0.79876304}
   m_EdgeRadius: 0
---- !u!114 &2252907511887963341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279218985217429014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
-  isSelected: 0
-  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 1.5, y: 1, z: 1}
 --- !u!114 &8210080784411463793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +213,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -277300441, guid: 162e65e6013db0d42a5d57b5848eb9cd, type: 3}
+  m_Sprite: {fileID: 1456454517, guid: 7ce4650536bccb842b0e794cc2fdeba2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

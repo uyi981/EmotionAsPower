@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5553971110654202921}
   - component: {fileID: 1684512490101510313}
   - component: {fileID: 12411459552409112}
-  - component: {fileID: 1047583207350188736}
   m_Layer: 0
   m_Name: Tower (2)
   m_TagString: Untagged
@@ -134,21 +133,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.07, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1047583207350188736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 622358888786554861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
-  isSelected: 0
-  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 1.5, y: 1, z: 0}
 --- !u!1 &1317304987222099599
 GameObject:
   m_ObjectHideFlags: 0
