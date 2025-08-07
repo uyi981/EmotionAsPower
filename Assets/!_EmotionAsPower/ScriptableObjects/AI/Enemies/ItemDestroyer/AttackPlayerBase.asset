@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: AttackPlayerBase
   m_EditorClassIdentifier: Assembly-CSharp::AttackAction
   attackRange: 2
-  attackDamage: 25
+  attackDamage: 1
   attackSpeed: 1
   targetTypes: 05000000
+  useSmartPositioning: 1
+  positioningOffset: 1.5
+  attackEffect: {fileID: 0}
+  attackSound: {fileID: 0}
+  effectDuration: 0.5
+  attackAnimationTrigger: Attack
+  animationDuration: 1
+  damageDelayFromAnimStart: 0.3

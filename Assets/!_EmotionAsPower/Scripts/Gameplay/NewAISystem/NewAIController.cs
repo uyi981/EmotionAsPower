@@ -8,7 +8,7 @@ public class NewAIController : MonoBehaviour
     [SerializeField] private NewAIBehaviour behaviour;
 
     [Header("AI Settings")]
-    public static float considerationInterval = 0.2f;
+    public static float considerationInterval = 0.5f;
 
     [SerializeField] private NewAIAction currentAction;
 
@@ -23,7 +23,12 @@ public class NewAIController : MonoBehaviour
     [SerializeField]
     private AIActionData actionData = new AIActionData();
 
-    private void Update()
+    public void Update()
+    {
+        PerformAction();
+    }
+
+    public void PerformAction()
     {
         if (actionData.state == ActionState.Success || actionData.state == ActionState.Failed)
         {
@@ -122,26 +127,27 @@ public class NewAIController : MonoBehaviour
 
     public GameObject GetNearestTarget(GameObject[] targets)
     {
-        if (targets == null || targets.Length == 0)
-            return null;
+        return targets[targets.Length-1];
+        //if (targets == null || targets.Length == 0)
+        //    return null;
 
-        GameObject nearestTarget = null;
-        float nearestDistance = float.MaxValue;
+        //GameObject nearestTarget = null;
+        //float nearestDistance = float.MaxValue;
 
-        foreach (GameObject target in targets)
-        {
-            // Skip self
-            if (target == gameObject) continue;
+        //foreach (GameObject target in targets)
+        //{
+        //    // Skip self
+        //    if (target == gameObject) continue;
 
-            float distance = Vector3.Distance(transform.position, target.transform.position);
-            if (distance < nearestDistance)
-            {
-                nearestDistance = distance;
-                nearestTarget = target;
-            }
-        }
+        //    float distance = Vector3.Distance(transform.position, target.transform.position);
+        //    if (distance < nearestDistance)
+        //    {
+        //        nearestDistance = distance;
+        //        nearestTarget = target;
+        //    }
+        //}
 
-        return nearestTarget;
+        //return nearestTarget;
     }
 
 

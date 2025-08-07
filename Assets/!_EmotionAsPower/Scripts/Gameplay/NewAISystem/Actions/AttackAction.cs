@@ -11,7 +11,7 @@ public class AttackAction : NewAIAction
 
     [Header("Positioning")]
     [SerializeField] private bool useSmartPositioning = true;
-    [SerializeField] private float positioningOffset = 1.5f; // Distance to offset from target center
+    [SerializeField] private float positioningOffset = 1.5f;
 
     [Header("Visual Effects")]
     [SerializeField] private GameObject attackEffect;
@@ -21,7 +21,7 @@ public class AttackAction : NewAIAction
     [Header("Animation")]
     [SerializeField] private string attackAnimationTrigger = "Attack";
     [SerializeField] private float animationDuration = 1f;
-    [SerializeField] private float damageDelayFromAnimStart = 0.3f; // When in animation to apply damage
+    [SerializeField] private float damageDelayFromAnimStart = 0.3f;
 
     public float AttackRange => attackRange;
     public float AttackDamage => attackDamage;

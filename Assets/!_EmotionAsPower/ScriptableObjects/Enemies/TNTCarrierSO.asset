@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TNTCarrierSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
   id: Enemy_TNTCarrier
-  icon: {fileID: 21300000, guid: 8134622c1768d844ea39026d9fbc33c5, type: 3}
+  icon: {fileID: 3442481939964096427, guid: a65535d9c6726cf41b5612c14616159a, type: 3}
   displayName: TNTCarrier
   description: 
   defaultData:

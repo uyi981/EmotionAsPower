@@ -50,15 +50,33 @@ public class AttackActionExecutor : AIActionExecutor
             return ActionState.Failed;
 
         Health targetHealth = actionData.targetObject.GetComponent<Health>();
-        if (targetHealth == null || targetHealth.IsDead)
-            return ActionState.Success;
-
-        if (isPlayingAttackAnimation)
+        IHealth health = actionData.targetObject.GetComponent<IHealth>();
+        if (health == null)
         {
-            return HandleAttackAnimation(targetHealth);
+            Debug.LogWarning("Ihealth not found");
+            if ((targetHealth == null || targetHealth.IsDead))
+                return ActionState.Success;
+            if (isPlayingAttackAnimation)
+            {
+                return HandleAttackAnimation(targetHealth);
+            }
+        }
+        
+        else
+        {
+            Debug.LogWarning("Attacking ihealth");
+            if (health.IsDead())
+                return ActionState.Success;
+            if (isPlayingAttackAnimation)
+            {
+                return HandleAttackAnimationWithIHealth(health);
+            }
         }
 
-        Vector3 targetPos = actionData.targetObject.transform.position;
+
+
+
+            Vector3 targetPos = actionData.targetObject.transform.position;
         if (attackAction.UseSmartPositioning)
         {
             CalculateOptimalAttackPosition(targetPos);
@@ -84,8 +102,15 @@ public class AttackActionExecutor : AIActionExecutor
             float timeSinceLastAttack = Time.time - lastAttackTime;
             if (timeSinceLastAttack >= 1f / attackAction.AttackSpeed)
             {
-                StartAttackSequence(targetHealth);
-                lastAttackTime = Time.time;
+                if (health == null)
+                {
+                    StartAttackSequence(targetHealth);
+                }
+                else
+                {
+                    StartAttackSequenceWithIHealth(health);
+                }
+                    lastAttackTime = Time.time;
             }
             return ActionState.Running;
         }
@@ -133,22 +158,77 @@ public class AttackActionExecutor : AIActionExecutor
         }
     }
 
-    private ActionState HandleAttackAnimation(Health targetHealth)
+    private void StartAttackSequenceWithIHealth(IHealth targetHealth)
     {
-        float timeSinceAnimStart = Time.time - animationStartTime;
-        if (!hasDamageBeenApplied && timeSinceAnimStart >= attackAction.DamageDelayFromAnimStart)
+        isPlayingAttackAnimation = true;
+        animationStartTime = Time.time;
+        hasDamageBeenApplied = false;
+
+        if (animator != null && !string.IsNullOrEmpty(attackAction.AttackAnimationTrigger))
         {
-            ApplyDamageWithEffects(targetHealth);
-            hasDamageBeenApplied = true;
+            animator.SetTrigger(attackAction.AttackAnimationTrigger);
         }
 
-        if (timeSinceAnimStart >= attackAction.AnimationDuration)
+        if (audioSource != null && attackAction.AttackSound != null)
         {
-            isPlayingAttackAnimation = false;
-            if (targetHealth.IsDead)
-            {
-                return ActionState.Success;
-            }
+            audioSource.PlayOneShot(attackAction.AttackSound);
+        }
+    }
+
+    private ActionState HandleAttackAnimation(Health targetHealth)
+    {
+        
+        float timeSinceAnimStart = Time.time - animationStartTime;
+        //if (!hasDamageBeenApplied && timeSinceAnimStart >= attackAction.DamageDelayFromAnimStart)
+        //{
+        //    ApplyDamageWithEffects(targetHealth);
+        //    hasDamageBeenApplied = true;
+        //}
+
+        ApplyDamageWithEffects(targetHealth);
+        hasDamageBeenApplied = true;
+
+        //if (timeSinceAnimStart >= attackAction.AnimationDuration)
+        //{
+        //    isPlayingAttackAnimation = false;
+        //    if (targetHealth.IsDead)
+        //    {
+        //        return ActionState.Success;
+        //    }
+        //}
+
+        if (targetHealth.IsDead)
+        {
+            return ActionState.Success;
+        }
+
+        return ActionState.Running;
+    }
+
+    private ActionState HandleAttackAnimationWithIHealth(IHealth targetHealth)
+    {
+        float timeSinceAnimStart = Time.time - animationStartTime;
+        //if (!hasDamageBeenApplied && timeSinceAnimStart >= attackAction.DamageDelayFromAnimStart)
+        //{
+        //    ApplyDamageWithEffects(targetHealth);
+        //    hasDamageBeenApplied = true;
+        //}
+
+        ApplyDamageWithEffectOnIHealth(targetHealth);
+        hasDamageBeenApplied = true;
+
+        //if (timeSinceAnimStart >= attackAction.AnimationDuration)
+        //{
+        //    isPlayingAttackAnimation = false;
+        //    if (targetHealth.IsDead)
+        //    {
+        //        return ActionState.Success;
+        //    }
+        //}
+
+        if (targetHealth.IsDead())
+        {
+            return ActionState.Success;
         }
 
         return ActionState.Running;
@@ -166,7 +246,21 @@ public class AttackActionExecutor : AIActionExecutor
                 GameObject.Destroy(effect, attackAction.EffectDuration);
             }
         }
-        Debug.Log($"Applied {attackAction.AttackDamage} damage to {actionData.targetObject.name}");
+        //Debug.Log($"Applied {attackAction.AttackDamage} damage to {actionData.targetObject.name}");
+    }
+
+    private void ApplyDamageWithEffectOnIHealth(IHealth targetHealth)
+    {
+        targetHealth.TakeDamage(attackAction.AttackDamage);
+        if (attackAction.AttackEffect != null)
+        {
+            Vector3 effectPosition = actionData.targetObject.transform.position;
+            GameObject effect = GameObject.Instantiate(attackAction.AttackEffect, effectPosition, Quaternion.identity);
+            if (attackAction.EffectDuration > 0)
+            {
+                GameObject.Destroy(effect, attackAction.EffectDuration);
+            }
+        }
     }
 
     private void HandleMovementToTarget()
@@ -266,7 +360,16 @@ public class AttackActionExecutor : AIActionExecutor
         }
 
         Health targetHealth = actionData.targetObject.GetComponent<Health>();
-        if (targetHealth == null || targetHealth.IsDead)
+        IHealth health = actionData.targetObject.GetComponent<IHealth>();
+        if (health != null) {
+            if (health.IsDead())
+            {
+                actionData.state = ActionState.Success;
+                OnActionComplete();
+                return;
+            }
+        }
+        else if ((targetHealth == null || targetHealth.IsDead))
         {
             actionData.state = ActionState.Success;
             OnActionComplete();
@@ -275,7 +378,16 @@ public class AttackActionExecutor : AIActionExecutor
 
         if (isPlayingAttackAnimation)
         {
-            ActionState animResult = HandleAttackAnimation(targetHealth);
+            ActionState animResult;
+            if (health != null)
+            {
+                animResult = HandleAttackAnimationWithIHealth(health);
+            }
+            else
+            {
+                animResult = HandleAttackAnimation(targetHealth);
+
+            }
             actionData.state = animResult;
             if (animResult != ActionState.Running)
             {
@@ -321,8 +433,15 @@ public class AttackActionExecutor : AIActionExecutor
                 HandleMovementToTarget();
             }
         }
-
-        if (targetHealth.IsDead)
+        if(health != null)
+        {
+            if (health.IsDead())
+            {
+                actionData.state = ActionState.Success;
+                OnActionComplete();
+            }
+        }
+        else if (targetHealth.IsDead)
         {
             actionData.state = ActionState.Success;
             OnActionComplete();

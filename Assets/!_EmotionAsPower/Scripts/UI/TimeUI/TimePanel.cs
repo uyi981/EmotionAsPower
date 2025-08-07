@@ -112,6 +112,7 @@ public class TimePanel : MonoBehaviour
 
     private void SetText(StageOfDay stageOfDay)
     {
+        Debug.Log(stageOfDay.day.ToString());
         timeText.text = $"Day {stageOfDay.day,3}: {stageOfDay.stage,-10}";
     }
 }

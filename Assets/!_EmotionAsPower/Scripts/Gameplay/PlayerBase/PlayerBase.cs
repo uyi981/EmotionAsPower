@@ -2,18 +2,28 @@ using System;
 using LgTyUtils;
 using UnityEngine;
 
-public class PlayerBase : Singleton<PlayerBase>, IDataPersistence
+public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
 {
     private SerializableDictionary<int, PlayerBaseLevel> playerBaseLevelConfig;
 
     [SerializeField]
     private int level;
-    public int Level => level;
+
+    [SerializeField]
+    private float health = 100f;
+
+    private bool isDestroyed = false;
 
     [SerializeField]
     private LevelUnlockedContents unlockedContents;
 
     public Action<int> OnLevelUpdate;
+    public Action OnPlayerBaseDestroyed;
+
+    public int Level => level;
+    public float Health => health;
+    public bool IsDestroyed => isDestroyed;
+
 
     private void Start()
     {
@@ -89,4 +99,20 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence
     {
         SetLevel(Level + 1);
     }
+
+    public void TakeDamage(float damage)
+    {
+        this.health -= damage;
+        if (this.health <= 0) { 
+            isDestroyed = true;
+            OnPlayerBaseDestroyed?.Invoke();
+        }
+    }
+
+    public bool IsDead()
+    {
+        return isDestroyed;
+    }
+
+
 }

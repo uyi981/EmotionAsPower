@@ -472,7 +472,7 @@ public class UnitMover : MonoBehaviour
         if (boneTransform == null) return;
 
         Vector3 scale = boneTransform.localScale;
-        scale.z = flipState ? -Mathf.Abs(scale.z) : Mathf.Abs(scale.z);
+        scale.y = flipState ? -Mathf.Abs(scale.y) : Mathf.Abs(scale.y);
         boneTransform.localScale = scale;
     }
 

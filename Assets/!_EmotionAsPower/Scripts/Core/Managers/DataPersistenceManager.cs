@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
+using Application = UnityEngine.Application;
 public class DataPersistenceManager : Singleton<DataPersistenceManager>
 {
     [Header("File Storage Config")]
@@ -10,6 +11,8 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceList;
+
+    public Action OnGameSaved;
 
     private void Start()
     {
@@ -51,7 +54,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
         //Save using FileDataHandler
         fileDataHandler.Save(gameData);
-
+        OnGameSaved?.Invoke();
         Debug.Log("Saved");
     }
 
