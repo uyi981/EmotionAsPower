@@ -11,12 +11,18 @@ public class UnitMover : MonoBehaviour
 
     [Header("Flip Settings")]
     public bool flipable = true;
+    public bool useBoneFlip = false;
     public bool baseFlip;
     private SpriteRenderer sprite;
+    private Transform boneTransform;
 
     [Header("Path Smoothing")]
     public bool enablePathSmoothing = true;
     public float smoothingRadius = 0.5f;
+
+    [Header("Movement Debugging")]
+    public float minDistanceForNewPath = 1f;
+    public float pathValidationDistance = 0.5f;
 
     private APathFinding pathFinding;
     private Grid grid;
@@ -26,6 +32,7 @@ public class UnitMover : MonoBehaviour
     private int currentPathIndex;
     private bool isMoving;
     private Coroutine moveCoroutine;
+    private Vector3 currentTarget;
 
     public System.Action OnMovementStarted;
     public System.Action OnMovementCompleted;
@@ -36,17 +43,7 @@ public class UnitMover : MonoBehaviour
     {
         pathFinding = new APathFinding();
 
-        sprite = GetComponent<SpriteRenderer>();
-        if (sprite == null && flipable)
-        {
-            Debug.LogWarning($"No SpriteRenderer found on {gameObject.name}. Flipping disabled.");
-            flipable = false;
-        }
-
-        if (flipable && sprite != null)
-        {
-            sprite.flipX = baseFlip;
-        }
+        InitializeFlipComponents();
 
         if (GridSystem.Instance != null)
         {
@@ -59,6 +56,58 @@ public class UnitMover : MonoBehaviour
         }
     }
 
+    private void InitializeFlipComponents()
+    {
+        if (!flipable) return;
+
+        if (useBoneFlip)
+        {
+            boneTransform = FindBoneTransform();
+
+            if (boneTransform == null)
+            {
+                Debug.LogWarning($"No bone transform found on {gameObject.name} for bone flipping. Falling back to sprite flip.");
+                useBoneFlip = false;
+            }
+            else
+            {
+                SetBoneFlip(baseFlip);
+            }
+        }
+
+        if (!useBoneFlip)
+        {
+            sprite = GetComponentInChildren<SpriteRenderer>();
+            if (sprite == null)
+            {
+                Debug.LogWarning($"No SpriteRenderer found on {gameObject.name}. Flipping disabled.");
+                flipable = false;
+            }
+            else
+            {
+                sprite.flipX = baseFlip;
+            }
+        }
+    }
+
+    private Transform FindBoneTransform()
+    {
+        string[] boneNames = { "Body", "Bone", "Root", "Armature", "Model", "Character" };
+
+        foreach (string boneName in boneNames)
+        {
+            Transform found = transform.Find(boneName);
+            if (found != null) return found;
+        }
+
+        if (transform.childCount > 0)
+        {
+            return transform.GetChild(0);
+        }
+
+        return null;
+    }
+
     public void MoveToWorldPosition(Vector3 worldPosition)
     {
         if (grid == null || gridMap == null)
@@ -68,13 +117,23 @@ public class UnitMover : MonoBehaviour
             return;
         }
 
-        // Convert world positions to grid positions
+        if (isMoving && Vector3.Distance(currentTarget, worldPosition) < minDistanceForNewPath)
+        {
+            return;
+        }
+
         Vector3Int startGridPos = grid.WorldToCell(transform.position);
         Vector3Int targetGridPos = grid.WorldToCell(worldPosition);
 
         Vector2Int start = new Vector2Int(startGridPos.x, startGridPos.z);
         Vector2Int target = new Vector2Int(targetGridPos.x, targetGridPos.z);
 
+        if (Vector3.Distance(transform.position, worldPosition) <= stopDistance)
+        {
+            return;
+        }
+
+        currentTarget = worldPosition;
         Move(target);
     }
 
@@ -90,17 +149,14 @@ public class UnitMover : MonoBehaviour
         currentPath = null;
         smoothedPath = null;
         currentPathIndex = 0;
+        currentTarget = Vector3.zero;
 
-        // Revert to base flip when stopping
-        if (flipable && sprite != null)
-        {
-            sprite.flipX = baseFlip;
-        }
+        SetFlipState(baseFlip);
     }
 
     public bool IsMoving()
     {
-        return isMoving;
+        return isMoving && moveCoroutine != null;
     }
 
     public List<Vector2Int> GetCurrentPath()
@@ -122,7 +178,6 @@ public class UnitMover : MonoBehaviour
             return;
         }
 
-        // Stop any existing movement
         if (moveCoroutine != null)
         {
             StopCoroutine(moveCoroutine);
@@ -131,6 +186,11 @@ public class UnitMover : MonoBehaviour
 
         Vector3Int unitGridPos = grid.WorldToCell(transform.position);
         Vector2Int startPosition = new Vector2Int(unitGridPos.x, unitGridPos.z);
+
+        if (startPosition == targetPosition)
+        {
+            return;
+        }
 
         Debug.Log($"Moving from {startPosition} to {targetPosition}");
 
@@ -145,10 +205,8 @@ public class UnitMover : MonoBehaviour
         {
             currentPath = path;
 
-            // Convert path to world positions
             List<Vector3> worldPath = ConvertPathToWorldPositions(path);
 
-            // Apply path smoothing if enabled
             if (enablePathSmoothing)
             {
                 smoothedPath = SmoothPath(worldPath);
@@ -174,15 +232,82 @@ public class UnitMover : MonoBehaviour
     private List<Vector3> ConvertPathToWorldPositions(List<Vector2Int> gridPath)
     {
         List<Vector3> worldPath = new List<Vector3>();
+        Vector3 currentPos = transform.position;
 
+        List<Vector3> rawWorldPath = new List<Vector3>();
         for (int i = gridPath.Count - 1; i >= 0; i--)
         {
             Vector2Int normalPosition = VoHauMethod.InverseNormalizeGridPosition(gridPath[i], 100, 100);
             Vector3 worldPos = new Vector3(normalPosition.x, transform.position.y, normalPosition.y);
-            worldPath.Add(worldPos);
+            rawWorldPath.Add(worldPos);
+        }
+
+        if (rawWorldPath.Count == 0) return worldPath;
+
+        worldPath = OptimizePathStart(rawWorldPath, currentPos);
+
+        // Ensure the final point is exactly the target world position
+        if (worldPath.Count > 0 && currentTarget != Vector3.zero)
+        {
+            worldPath[worldPath.Count - 1] = new Vector3(currentTarget.x, transform.position.y, currentTarget.z);
         }
 
         return worldPath;
+    }
+
+    private List<Vector3> OptimizePathStart(List<Vector3> rawPath, Vector3 currentPosition)
+    {
+        List<Vector3> optimizedPath = new List<Vector3>();
+
+        if (rawPath.Count == 0) return optimizedPath;
+
+        int startIndex = 0;
+        float minBacktrackDistance = float.MaxValue;
+
+        for (int i = 0; i < Mathf.Min(3, rawPath.Count); i++)
+        {
+            Vector3 waypoint = rawPath[i];
+            Vector3 directionToCurrent = (currentPosition - waypoint).normalized;
+
+            if (i + 1 < rawPath.Count)
+            {
+                Vector3 directionToNext = (rawPath[i + 1] - waypoint).normalized;
+                float backtrackAmount = Vector3.Dot(directionToCurrent, directionToNext);
+
+                if (backtrackAmount < minBacktrackDistance)
+                {
+                    minBacktrackDistance = backtrackAmount;
+                    startIndex = i;
+                }
+            }
+
+            float distanceToWaypoint = Vector3.Distance(currentPosition, waypoint);
+            if (distanceToWaypoint < pathValidationDistance && i + 1 < rawPath.Count)
+            {
+                startIndex = i + 1;
+                break;
+            }
+        }
+
+        for (int i = startIndex; i < rawPath.Count; i++)
+        {
+            optimizedPath.Add(rawPath[i]);
+        }
+
+        if (startIndex > 0 && optimizedPath.Count > 0)
+        {
+            Vector3 firstWaypoint = optimizedPath[0];
+            Vector3 directionToFirst = (firstWaypoint - currentPosition).normalized;
+            float distanceToFirst = Vector3.Distance(currentPosition, firstWaypoint);
+
+            if (distanceToFirst > pathValidationDistance * 2)
+            {
+                Vector3 intermediatePoint = currentPosition + directionToFirst * (distanceToFirst * 0.5f);
+                optimizedPath.Insert(0, intermediatePoint);
+            }
+        }
+
+        return optimizedPath;
     }
 
     private List<Vector3> SmoothPath(List<Vector3> originalPath)
@@ -205,19 +330,25 @@ public class UnitMover : MonoBehaviour
             }
             else
             {
-                Vector3 smoothedPoint = SmoothCorner(prev, current, next);
-                smoothed.Add(smoothedPoint);
+                if (smoothed.Count == 0 || Vector3.Distance(smoothed[smoothed.Count - 1], current) > pathValidationDistance)
+                {
+                    Vector3 smoothedPoint = SmoothCorner(prev, current, next);
+                    smoothed.Add(smoothedPoint);
+                }
             }
         }
 
-        smoothed.Add(originalPath[originalPath.Count - 1]);
+        Vector3 lastPoint = originalPath[originalPath.Count - 1];
+        if (smoothed.Count == 0 || Vector3.Distance(smoothed[smoothed.Count - 1], lastPoint) > pathValidationDistance * 0.5f)
+        {
+            smoothed.Add(lastPoint);
+        }
 
         return smoothed;
     }
 
     private bool CanCreateDiagonalPath(Vector3 from, Vector3 to)
     {
-        // Check if the diagonal path is clear
         Vector3 direction = (to - from).normalized;
         float distance = Vector3.Distance(from, to);
 
@@ -245,19 +376,45 @@ public class UnitMover : MonoBehaviour
             currentPathIndex = i;
             Vector3 targetPosition = path[i];
 
-            // Determine flip direction based on movement and base flip
-            if (flipable && i > 0)
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+            if (distanceToTarget < pathValidationDistance)
             {
-                Vector3 movementDirection = targetPosition - previousPosition;
-                // If baseFlip is true (left-facing by default), flip logic is inverted
-                bool shouldFlip = baseFlip ? (movementDirection.x >= 0) : (movementDirection.x < 0);
-                ToggleFlip(shouldFlip);
+                continue;
+            }
+
+            if (flipable)
+            {
+                Vector3 movementDirection = targetPosition - transform.position;
+                if (Mathf.Abs(movementDirection.x) > 0.1f)
+                {
+                    bool shouldFlip = baseFlip ? (movementDirection.x >= 0) : (movementDirection.x < 0);
+                    SetFlipState(shouldFlip);
+                }
             }
 
             while (Vector3.Distance(transform.position, targetPosition) > stopDistance)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+                Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+                Vector3 directionToTarget = (targetPosition - transform.position).normalized;
+                Vector3 movementDirection = (newPosition - transform.position).normalized;
+
+                if (Vector3.Dot(directionToTarget, movementDirection) > 0.1f || Vector3.Distance(transform.position, targetPosition) > stopDistance * 2)
+                {
+                    transform.position = newPosition;
+                }
+                else
+                {
+                    transform.position = targetPosition;
+                    break;
+                }
+
                 yield return null;
+
+                if (!isMoving)
+                {
+                    yield break;
+                }
             }
 
             transform.position = targetPosition;
@@ -268,17 +425,19 @@ public class UnitMover : MonoBehaviour
             OnReachedWaypoint?.Invoke(gridPos2D);
         }
 
+        CompleteMovement();
+    }
+
+    private void CompleteMovement()
+    {
         isMoving = false;
         currentPath = null;
         smoothedPath = null;
         currentPathIndex = 0;
         moveCoroutine = null;
+        currentTarget = Vector3.zero;
 
-        // Revert to base flip when movement completes
-        if (flipable && sprite != null)
-        {
-            sprite.flipX = baseFlip;
-        }
+        SetFlipState(baseFlip);
 
         OnMovementCompleted?.Invoke();
     }
@@ -291,9 +450,55 @@ public class UnitMover : MonoBehaviour
 
     public void ToggleFlip(bool direction)
     {
-        if (flipable && sprite != null)
+        SetFlipState(direction);
+    }
+
+    private void SetFlipState(bool flipState)
+    {
+        if (!flipable) return;
+
+        if (useBoneFlip && boneTransform != null)
         {
-            sprite.flipX = direction;
+            SetBoneFlip(flipState);
+        }
+        else if (!useBoneFlip && sprite != null)
+        {
+            sprite.flipX = flipState;
+        }
+    }
+
+    private void SetBoneFlip(bool flipState)
+    {
+        if (boneTransform == null) return;
+
+        Vector3 scale = boneTransform.localScale;
+        scale.y = flipState ? -Mathf.Abs(scale.y) : Mathf.Abs(scale.y);
+        boneTransform.localScale = scale;
+    }
+
+    public bool ShouldRecalculatePath(Vector3 newTarget)
+    {
+        if (!isMoving) return true;
+        return Vector3.Distance(currentTarget, newTarget) > minDistanceForNewPath;
+    }
+
+    public void SetFlipMode(bool useBone)
+    {
+        if (useBone != useBoneFlip)
+        {
+            SetFlipState(baseFlip);
+
+            useBoneFlip = useBone;
+            InitializeFlipComponents();
+        }
+    }
+
+    public void SetBoneTransform(Transform bone)
+    {
+        boneTransform = bone;
+        if (useBoneFlip && boneTransform != null)
+        {
+            SetBoneFlip(baseFlip);
         }
     }
 
@@ -312,6 +517,12 @@ public class UnitMover : MonoBehaviour
             foreach (Vector3 point in smoothedPath)
             {
                 Gizmos.DrawSphere(point, 0.1f);
+            }
+
+            if (currentTarget != Vector3.zero)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireCube(currentTarget, Vector3.one * 0.5f);
             }
         }
 
