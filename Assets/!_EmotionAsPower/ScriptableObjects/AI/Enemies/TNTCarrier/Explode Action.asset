@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed21371d31bf42844bd3434073de2ca7, type: 3}
   m_Name: Explode Action
   m_EditorClassIdentifier: Assembly-CSharp::ExplodeAction
-  explosionRange: 3
+  explosionRange: 0.5
   explosionDamage: 50
   triggerRange: 1
-  targetTypes: 00000000
+  targetTypes: 010000000300000004000000
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

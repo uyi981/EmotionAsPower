@@ -7,6 +7,13 @@ public class ExplodeActionExecutor : AIActionExecutor
     private bool isExploding;
     private float explosionTimer;
     private ExplodeAction explodeAction;
+    private Vector3 lastTargetPosition;
+    private float pathRecalculationCooldown = 0.5f;
+    private float lastPathCalculationTime;
+    private float stuckCheckDistance = 0.1f;
+    private float stuckCheckTime = 2f;
+    private Vector3 lastPositionCheck;
+    private float lastPositionTime;
 
     public ExplodeActionExecutor(AIActionData data, ExplodeAction action) : base(data)
     {
@@ -19,6 +26,10 @@ public class ExplodeActionExecutor : AIActionExecutor
         hasExploded = false;
         isExploding = false;
         explosionTimer = 0f;
+        lastTargetPosition = Vector3.zero;
+        lastPathCalculationTime = 0f;
+        lastPositionCheck = actionData.ai.transform.position;
+        lastPositionTime = Time.time;
     }
 
     public override ActionState UpdateAction()
@@ -57,27 +68,59 @@ public class ExplodeActionExecutor : AIActionExecutor
         }
         else
         {
-            // Move towards the target
-            if (!isMovingToTarget)
-            {
-                UnitMover mover = actionData.ai.UnitMover;
-                if (mover != null)
-                {
-                    mover.MoveToWorldPosition(actionData.targetObject.transform.position);
-                    isMovingToTarget = true;
-                }
-            }
-
-            // Check if unit stopped moving and restart movement if needed
-            UnitMover unitMover = actionData.ai.UnitMover;
-            if (unitMover != null && !unitMover.IsMoving())
-            {
-                unitMover.MoveToWorldPosition(actionData.targetObject.transform.position);
-                isMovingToTarget = true;
-            }
-
+            // Handle movement to target with improved logic
+            HandleMovementToTarget();
             return ActionState.Running;
         }
+    }
+
+    private void HandleMovementToTarget()
+    {
+        UnitMover mover = actionData.ai.UnitMover;
+        if (mover == null) return;
+
+        Vector3 currentTargetPos = actionData.targetObject.transform.position;
+        bool targetMoved = Vector3.Distance(lastTargetPosition, currentTargetPos) > 0.5f;
+        bool canRecalculatePath = Time.time - lastPathCalculationTime > pathRecalculationCooldown;
+
+        bool isStuck = CheckIfStuck();
+
+        if (!isMovingToTarget || targetMoved || isStuck)
+        {
+            if (canRecalculatePath || !isMovingToTarget)
+            {
+                mover.MoveToWorldPosition(currentTargetPos);
+                isMovingToTarget = true;
+                lastTargetPosition = currentTargetPos;
+                lastPathCalculationTime = Time.time;
+                ResetStuckCheck();
+            }
+        }
+    }
+
+    private bool CheckIfStuck()
+    {
+        Vector3 currentPosition = actionData.ai.transform.position;
+        float timeDiff = Time.time - lastPositionTime;
+
+        if (timeDiff > stuckCheckTime)
+        {
+            float distanceMoved = Vector3.Distance(currentPosition, lastPositionCheck);
+            bool stuck = distanceMoved < stuckCheckDistance && isMovingToTarget;
+
+            lastPositionCheck = currentPosition;
+            lastPositionTime = Time.time;
+
+            return stuck;
+        }
+
+        return false;
+    }
+
+    private void ResetStuckCheck()
+    {
+        lastPositionCheck = actionData.ai.transform.position;
+        lastPositionTime = Time.time;
     }
 
     public override void StopAction()
@@ -89,7 +132,6 @@ public class ExplodeActionExecutor : AIActionExecutor
         }
         isMovingToTarget = false;
 
-        // If we're in the middle of exploding, complete the explosion
         if (isExploding && !hasExploded)
         {
             Explode();
@@ -110,7 +152,6 @@ public class ExplodeActionExecutor : AIActionExecutor
         }
         isMovingToTarget = false;
 
-        // Reset explosion state if interrupted before exploding
         if (!hasExploded)
         {
             isExploding = false;
@@ -134,7 +175,6 @@ public class ExplodeActionExecutor : AIActionExecutor
             return;
         }
 
-        // Check if target is still alive
         Health targetHealth = actionData.targetObject.GetComponent<Health>();
         if (targetHealth != null && targetHealth.IsDead)
         {
@@ -155,7 +195,6 @@ public class ExplodeActionExecutor : AIActionExecutor
 
         if (distanceToTarget <= explodeAction.TriggerRange)
         {
-            // Stop moving if within trigger range
             if (isMovingToTarget)
             {
                 UnitMover mover = actionData.ai.UnitMover;
@@ -166,13 +205,11 @@ public class ExplodeActionExecutor : AIActionExecutor
                 }
             }
 
-            // Start explosion sequence
             if (!isExploding)
             {
                 StartExploding();
             }
 
-            // Handle explosion timer
             explosionTimer += Time.deltaTime;
             if (explosionTimer >= explodeAction.ExplosionDelay)
             {
@@ -186,17 +223,7 @@ public class ExplodeActionExecutor : AIActionExecutor
         }
         else
         {
-            // Move towards the target
-            if (!isMovingToTarget)
-            {
-                UnitMover mover = actionData.ai.UnitMover;
-                if (mover != null)
-                {
-                    mover.MoveToWorldPosition(actionData.targetObject.transform.position);
-                    isMovingToTarget = true;
-                }
-            }
-
+            HandleMovementToTarget();
             actionData.state = ActionState.Running;
         }
     }
@@ -231,14 +258,13 @@ public class ExplodeActionExecutor : AIActionExecutor
 
         foreach (Collider hitCollider in hitColliders)
         {
-            // Don't damage self unless specified
             if (hitCollider.gameObject == actionData.ai.gameObject && !explodeAction.DestroySelfOnExplode)
                 continue;
 
             Health health = hitCollider.GetComponent<Health>();
             if (health != null)
             {
-                // Calculate damage based on distance (optional falloff)
+                // Calculate damage based on distance
                 float distance = Vector3.Distance(explosionPosition, hitCollider.transform.position);
                 float damageFalloff = Mathf.Clamp01(1 - (distance / explodeAction.ExplosionRange));
                 float finalDamage = explodeAction.ExplosionDamage * damageFalloff;

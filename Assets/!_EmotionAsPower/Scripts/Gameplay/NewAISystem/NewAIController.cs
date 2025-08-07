@@ -65,9 +65,7 @@ public class NewAIController : MonoBehaviour
         StartCoroutine(ConsiderationCoroutine(considerationInterval));
     }
 
-    /// <summary>
-    /// Evaluates all possible actions and set the action with the data to perform
-    /// </summary>
+
     public void ConsiderAndSetActionToPerform()
     {
         // Considering
@@ -121,9 +119,7 @@ public class NewAIController : MonoBehaviour
         actionData.state = ActionState.Running;
     }
 
-    /// <summary>
-    /// Finds the nearest target from the available targets array
-    /// </summary>
+
     public GameObject GetNearestTarget(GameObject[] targets)
     {
         if (targets == null || targets.Length == 0)
@@ -148,9 +144,7 @@ public class NewAIController : MonoBehaviour
         return nearestTarget;
     }
 
-    /// <summary>
-    /// Coroutine that periodically evaluates which action should be performed
-    /// </summary>
+
     private IEnumerator ConsiderationCoroutine(float interval)
     {
         while (true)
