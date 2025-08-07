@@ -166,11 +166,11 @@ public class PlacementSystem : MonoBehaviour
     // Di chuyển building đến vị trí mới
     private void MoveBuilding()
     {
-        if (inputManager.IsPointerOverUI())
-        {
-            Debug.Log("Pointer is over UI, cannot move structure.");
-            return;
-        }
+        //if (inputManager.IsPointerOverUI())
+        //{
+        //    Debug.Log("Pointer is over UI, cannot move structure.");
+        //    return;
+        //}
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int cellUnderMouse = grid.WorldToCell(mousePosition);

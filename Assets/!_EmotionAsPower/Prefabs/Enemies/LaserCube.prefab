@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 3583203535932230069}
   - component: {fileID: 1883475828387628006}
   - component: {fileID: 7525667754036179473}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LaserCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

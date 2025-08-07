@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 5463422091190837984}
   - component: {fileID: 8832116160180549335}
   - component: {fileID: 5391348557875203452}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ItemDestroyerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
