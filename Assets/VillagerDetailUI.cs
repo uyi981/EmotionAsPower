@@ -18,7 +18,7 @@ public class VillagerDetailUI : Singleton<VillagerDetailUI>
         villagerNameText.text = "NPC";
         villagerPersonalityText.text = "Personality: " + currentSelectedVillager.personality.name;
         villagerHungerText.text = "Hunger: " + (int)currentSelectedVillager.currentHunger + "/100";
-        villagerEmotion.text = "Emotion: " + currentSelectedVillager.currentEmotion.ToString();
+        villagerEmotion.text = "Emotion: " + currentSelectedVillager.currentEmotion.ToString() +" " + (int)currentSelectedVillager.emotion.GetEmotionMaxPoint() + "/100";
         villagerThirstText.text = "Thirst: " + "100/100";
         villagerStateText.text = "State: " + currentSelectedVillager.currentStateName;
         villagerPersonalityDescriptionText.text = currentSelectedVillager.personality.description;
