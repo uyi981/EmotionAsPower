@@ -15,8 +15,8 @@ MonoBehaviour:
   waves:
     pairs:
     - key:
-        stage: 3
-        day: 2
+        stage: 1
+        day: 1
       value: {fileID: 11400000, guid: 0fea3713ec51de747a0f5d777b2b6a55, type: 2}
     - key:
         stage: 3
