@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5448407976186818501}
   - component: {fileID: 8298549231032965451}
-  - component: {fileID: 8389315394564962216}
-  - component: {fileID: 53272644675344301}
+  - component: {fileID: 7339119424934777300}
   m_Layer: 0
   m_Name: Facroty
-  m_TagString: Untagged
+  m_TagString: Factory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,22 +85,18 @@ MonoBehaviour:
   productionTime: 10
   currentProductionTime: 0
   isProducing: 0
-  inputItems:
-  - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
+  inputItems: []
   outputItems:
   - {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
   productionAmount: 1
   requireEmotion: 3
---- !u!61 &8389315394564962216
-BoxCollider2D:
+--- !u!65 &7339119424934777300
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3176276359225916853}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -110,49 +105,12 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.02354598, y: 0.40569198}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.0020375, y: 1.0572145}
-  m_EdgeRadius: 0
---- !u!114 &53272644675344301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3176276359225916853}
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
-  isSelected: 0
-  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 1.5, y: 1, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.081439, z: 1}
+  m_Center: {x: 0, y: 0.47853172, z: 0}
 --- !u!1 &7547647661211379863
 GameObject:
   m_ObjectHideFlags: 0

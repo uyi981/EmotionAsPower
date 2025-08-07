@@ -65,9 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 1852215464, guid: 2a91061eb3ca4ce4bb1491fd766a6fb3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -207,10 +207,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.IconUI
   iconResourcePrefab: {fileID: 5431027937675881469, guid: 33e95f54b9b34914696ad4f5f4b8623c, type: 3}
+  buildingIcon: {fileID: 4380078023506622308}
   resource: {fileID: 7118263184569614320}
   information: {fileID: 7241178688810196231, guid: 7d5eb9fa49e06964d8ca79e4bb9d14b3, type: 3}
   buildingID: 0
-  buildingIcon: {fileID: 4380078023506622308}
   buildingName: 
   buildingDescription: 
 --- !u!1 &7118263184569614320

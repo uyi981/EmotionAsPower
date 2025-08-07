@@ -101,7 +101,6 @@ GameObject:
   - component: {fileID: 5016753019630550246}
   - component: {fileID: 1656984709436950946}
   - component: {fileID: 5849664820721515686}
-  - component: {fileID: 4502638628984432846}
   m_Layer: 0
   m_Name: Facroty (1)
   m_TagString: Untagged
@@ -176,10 +175,9 @@ MonoBehaviour:
   productionTime: 10
   currentProductionTime: 0
   isProducing: 0
-  inputItems:
-  - {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
+  inputItems: []
   outputItems:
-  - {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+  - {fileID: 11400000, guid: 5fe72cdec60b05e41811a08ef459deea, type: 2}
   productionAmount: 1
   requireEmotion: 3
 --- !u!61 &5849664820721515686
@@ -228,18 +226,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.98515844, y: 1.0450271}
   m_EdgeRadius: 0
---- !u!114 &4502638628984432846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6438594455533947798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
-  isSelected: 0
-  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 1.5, y: 1, z: 0}

@@ -61,17 +61,17 @@ public class PlacementSystem : MonoBehaviour
                 }
             }
         }
-
-        if (!CanPlace(baseCell))
+        if(Singleton<InputManagerForGrid>.Instance.CurrentState.Equals(State.Building))
         {
-            cellIndicatorRenderer.color = Color.red; // Set to red if cannot place
-            Debug.LogWarning("Cannot place structure at base cell: " + baseCell);
-        }
-        else
-        {
-            cellIndicatorRenderer.color = Color.white; // Set to green if can place
-            Debug.Log("Can place structure at base cell: " + baseCell);
-        }
+            if (!CanPlace(baseCell))
+            {
+                cellIndicatorRenderer.color = Color.red; // Set to red if cannot place
+            }
+            else
+            {
+                cellIndicatorRenderer.color = Color.green; // Set to green if can place
+            }
+        }      
     }
 
     private void Start()
@@ -148,7 +148,7 @@ public class PlacementSystem : MonoBehaviour
         // Hiển thị blueprint preview
         if (blueprintInstance != null)
             Destroy(blueprintInstance.gameObject);
-        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
+        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);   
         blueprintInstance.transform.rotation = rotationBuilding;
 
         selectedFrame.SetSize(currentSize);
@@ -211,11 +211,11 @@ public class PlacementSystem : MonoBehaviour
     {
         Debug.Log("Attempting to place structure: " + database.buildings[selectedObjectIndex].buildingName);
 
-        if (inputManager.IsPointerOverUI())
-        {
-            Debug.Log("Pointer is over UI, cannot place structure.");
-            return;
-        }
+        //if (inputManager.IsPointerOverUI())
+        //{
+        //    Debug.Log("Pointer is over UI, cannot place structure.");
+        //    return;
+        //}
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int cellUnderMouse = grid.WorldToCell(mousePosition);
@@ -335,10 +335,10 @@ public class PlacementSystem : MonoBehaviour
         var adjacent = new HashSet<Vector2Int>();
 
         // Phía trước (dưới building)
-        for (int dx = 0; dx < size.x; dx++)
-        {
-            adjacent.Add(new Vector2Int(origin.x + dx, origin.y - 1));
-        }
+        //for (int dx = 0; dx < size.x; dx++)
+        //{
+        //    adjacent.Add(new Vector2Int(origin.x + dx, origin.y - 1));
+        //}
 
         // Bên trái
         for (int dy = 0; dy < size.y; dy++)

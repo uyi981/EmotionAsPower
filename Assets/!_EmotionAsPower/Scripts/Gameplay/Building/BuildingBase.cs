@@ -227,6 +227,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     /// <param name="villager"></param>
     public void OnWorkerCome(Villager villager)
     {
+        Debug.Log("Worker Come"+villager.gameObject.name);
         workersAmount++;
         if (workers.Contains(villager))
         {
@@ -234,10 +235,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
         }
         workers.Add(villager);
     }
-
-    public void OnWorkerLeave(Villager villager)
+        
+    public virtual void  OnWorkerLeave(Villager villager)
     {
         workersAmount--;
+        if(workersAmount<0)
+        {
+            workersAmount = 0;
+        }
         if (workers.Contains(villager))
         {
             workers.Remove(villager);
@@ -345,7 +350,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
 
     public virtual void MoveBuilding()
     {
-        PlacementSystem placementSystem = FindFirstObjectByType<PlacementSystem>();
+        PlacementSystem placementSystem = Singleton<PlacementSystem>.Instance;
 
         placementSystem.StartMovingBuilding(gameObject);
 
@@ -383,6 +388,9 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     }
     //////////////////////////////////////
     ///
-
+    private void OnMouseDown()
+    {
+        Singleton<DetailInfoController>.Instance.OpenBuildingUI(this);
+    }
 
 }

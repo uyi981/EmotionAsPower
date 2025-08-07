@@ -167,6 +167,12 @@ MonoBehaviour:
   isStarving: 0
   animator: {fileID: 0}
   currentEmotion: 5
+  emotion:
+    AngerLevel: 0
+    JoyLevel: 0
+    SadnessLevel: 0
+    FearLevel: 0
+    ApatheticLevel: 0
   personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
   itemHandle: {fileID: 5513727919606256443}
   isChatting: 0
@@ -174,6 +180,7 @@ MonoBehaviour:
   currentHunger: 100
   currentThirst: 100
   playerEmotion: {fileID: 0}
+  Target: {fileID: 0}
 --- !u!54 &9021815274021938899
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -328,7 +335,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 182598840870546785, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1201453313515044112, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
@@ -336,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1284885548686664807, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0022
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: 1341993345461067082, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
@@ -344,7 +351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2683973481440249291, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2892912151713829985, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.x
@@ -392,11 +399,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4567901772417253382, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0022
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: 5010652316009881274, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5078203572173047256, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_IsActive
@@ -408,11 +415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5324890158996701980, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0022
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: 5912754093802089426, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0022
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: 6114188841787370068, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
@@ -424,7 +431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6918700015406052272, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0022
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: 7128725999972269608, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_Name
@@ -440,7 +447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7453875138712443800, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8271126335080776511, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_IsActive
@@ -452,15 +459,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8440933803719229164, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0022
+      value: 0.0052
       objectReference: {fileID: 0}
     - target: {fileID: 8663640306604422034, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8681709238000786185, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8853495850885859977, guid: a4d1e9c7edc4d824b84baf0d9abbf945, type: 3}
       propertyPath: m_IsActive

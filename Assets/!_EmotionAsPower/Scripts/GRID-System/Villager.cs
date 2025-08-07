@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.InferenceEngine;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -41,9 +42,12 @@ public class Villager : MonoBehaviour,IInteractable
     public event Action OnVillagerUpdate;
     public PlayerEmotion playerEmotion;
     public GameObject Target;
+    private bool isDragging = false;
+
     void OnMouseDown()
     {
-        if(Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
+        isDragging = true;
+        if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
         {
             return;
         }
@@ -65,7 +69,30 @@ public class Villager : MonoBehaviour,IInteractable
             isSelected = !isSelected;
             TransitionTo(villagerSelectedState);
         }
+   
+        gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
     }
+    void OnMouseUp()
+    {
+        isDragging = false;
+        SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.color = Color.white; // Reset color if already selected
+        Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
+        isSelected = !isSelected;
+        TransitionTo(villagerIdleState);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f); // Adjust the radius as needed
+        for (int i = colliders.Length - 1; i >= 0; i--)
+        {
+            if (colliders[i].gameObject.tag.Equals("Factory"))
+            {
+                ProductionBuilding productionBuilding = colliders[i].GetComponent<ProductionBuilding>();
+                if(productionBuilding!=null)
+                {
+                    productionBuilding.CheckIsHaveEmptyJob(this);
+                }
+            }
+        }
+    }    
     //public float GetEmotionPoint(Emotion emotion)
     //{
     //    switch (emotion)
@@ -114,6 +141,11 @@ public class Villager : MonoBehaviour,IInteractable
     }
     public void Update()
     {
+        if (isDragging)
+        {
+         
+            transform.position = Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
+        }
         currentStateName = GetCurrentStateName();
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -205,9 +237,12 @@ public class Villager : MonoBehaviour,IInteractable
         {
             return;
         }
-        CurrentState.ExitState();
-        CurrentState = nextState;
-        nextState.EnterState();
+        if(CurrentState!=null)
+        {
+            CurrentState.ExitState();
+            CurrentState = nextState;
+            nextState.EnterState();
+        }
     }
     public void UpdateState()
     {

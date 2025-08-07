@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 77c09f9cadd493d42bec0de14e288f22
+guid: 71963661071ddaa49b38c7565cfd85b5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 300
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -106,62 +106,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: homeAndTower_0
+      name: paper_0
       rect:
         serializedVersion: 2
-        x: 83
-        y: 386
-        width: 200
-        height: 204
+        x: 0
+        y: 0
+        width: 1038
+        height: 1900
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad0e79578bcf4c14da627676840e27e2
-      internalID: 1952208395
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: homeAndTower_1
-      rect:
-        serializedVersion: 2
-        x: 474
-        y: 328
-        width: 131
-        height: 371
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90999ffa4231dcf478255aee9c52674c
-      internalID: 992145435
+      spriteID: 278e0a9ed8bf05f41b616d0f310b5149
+      internalID: -917987663
       vertices: []
       indices: 
       edges: []
@@ -170,7 +135,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f1cdfe1fa3ef18e46823ac91afc47f5c
+    spriteID: ee03fc49679f4cd429f4a5e4300137aa
     internalID: 0
     vertices: []
     indices: 
@@ -182,10 +147,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      homeAndTower_0: 1952208395
-      homeAndTower_1: 992145435
-      homeAndTower_2: -1390570896
-      homeAndTower_3: -1397596241
+      paper_0: -917987663
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
