@@ -18,7 +18,7 @@ public class Villager : MonoBehaviour,IInteractable
     public Animator animator;
     public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
-    EmotionVector emotion = new EmotionVector();
+    public EmotionVector emotion = new EmotionVector();
     public VillagerWorkingState villagerWorkingState;
     public VillagerIdleState villagerIdleState;
     public villagerSelectedState villagerSelectedState;
@@ -66,6 +66,25 @@ public class Villager : MonoBehaviour,IInteractable
             TransitionTo(villagerSelectedState);
         }
     }
+    //public float GetEmotionPoint(Emotion emotion)
+    //{
+    //    switch (emotion)
+    //    {
+    //        case Emotion.Joy:
+    //            return this.emotion.JoyLevel;
+    //        case Emotion.Sad:
+    //            return this.emotion.SadnessLevel;
+    //        case Emotion.Anger:
+    //            return this.emotion.AngerLevel;
+    //        case Emotion.Fear:
+    //            return this.emotion.FearLevel;
+    //        case Emotion.Apethatic:
+    //            return this.emotion.ApatheticLevel;
+    //        case Emotion.Normal:
+    //        default:
+    //            return  0;
+    //    }
+    //}
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {
         if (timeStage == DayTimeController.TimeStage.Morning)

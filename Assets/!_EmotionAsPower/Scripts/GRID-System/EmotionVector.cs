@@ -22,7 +22,7 @@ public struct EmotionVector
     public Emotion CheckEmotion()
     {
         float max = Mathf.Max(AngerLevel, JoyLevel, SadnessLevel, FearLevel, ApatheticLevel);
-        if (max > 20)
+        if (max >= 20)
         {
             switch (max)
             {
@@ -41,6 +41,11 @@ public struct EmotionVector
             }
         }
         return Emotion.Normal;
+    }
+    public float GetEmotionMaxPoint()
+    {
+        float max = Mathf.Max(AngerLevel, JoyLevel, SadnessLevel, FearLevel, ApatheticLevel);
+        return max;
     }
     public static EmotionVector operator +(EmotionVector a, EmotionVector b)
     {
