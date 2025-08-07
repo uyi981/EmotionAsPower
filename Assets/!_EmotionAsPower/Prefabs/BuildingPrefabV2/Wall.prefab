@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8383808545280390813}
   - component: {fileID: 2595883981177312946}
   - component: {fileID: 1080862926003541702}
-  - component: {fileID: 6102451888192227658}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -128,21 +127,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8621807, y: 0.76376826}
   m_EdgeRadius: 0
---- !u!114 &6102451888192227658
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8881148771481265413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 886b4f76761c4084781c60cd359ecb4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.ShopUI
-  isSelected: 0
-  buildingUI: {fileID: 3221087871439616253, guid: 325c874b554b8dd45a5c03e5c7e4c4e5, type: 3}
-  UIPosition: {x: 1.5, y: 1, z: 0}
 --- !u!1001 &2409205011125960485
 PrefabInstance:
   m_ObjectHideFlags: 0

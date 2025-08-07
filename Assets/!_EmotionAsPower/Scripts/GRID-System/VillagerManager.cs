@@ -84,14 +84,7 @@ public class  VillagerManager : Singleton<VillagerManager>
             }
             if (villager.isWorking == false)
             {
-                //JobForWorker job = jobForWorkerPool.Peek();
-                //if(villager.currentEmotion.Equals((ProductionBuilding)job.buildingBase))
-                //{
-                   
-                //}
-
                 villager.currentJob = jobForWorkerPool.Pop();
-                villager.isWorking = true;
                 Debug.Log("Assigning job to villager: " + villager.name + " with job type: " + villager.currentJob.JobType);
                 villager.TransitionTo(villager.villagerWorkingState);
                 return;

@@ -22,29 +22,30 @@ public class PlacementSystem : MonoBehaviour
     private Vector3Int baseCell;
     private Quaternion rotationBuilding;
     public SpriteRenderer cellIndicatorRenderer;
+    private GameObject movingBuilding; // Building đang được di chuyển
 
     private void Update()
     {
         if (selectedObjectIndex == -1 || !gridVisualization.activeSelf)
         {
             return; // No object selected or grid visualization is not active
-        }
+        }
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int cellUnderMouse = grid.WorldToCell(mousePosition);
 
-        // Base cell (bottom-left of footprint) so that the footprint is centred on the cursor
-        Vector3Int baseCell = new Vector3Int(
-        cellUnderMouse.x - currentSize.x / 2,
-        cellUnderMouse.y,
-        cellUnderMouse.z - currentSize.y / 2);
+        // Base cell (bottom-left of footprint) so that the footprint is centred on the cursor
+        Vector3Int baseCell = new Vector3Int(
+            cellUnderMouse.x - currentSize.x / 2,
+            cellUnderMouse.y,
+            cellUnderMouse.z - currentSize.y / 2);
 
-        // Offset from baseCell to the footprint centre
-        Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
+        // Offset from baseCell to the footprint centre
+        Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
 
         Vector3 worldPos = grid.CellToWorld(baseCell) + offset;
 
-        // Preview cell indicator
-        cellIndicator.transform.position = worldPos;
+        // Preview cell indicator
+        cellIndicator.transform.position = worldPos;
         prefabInstance = database.buildings[selectedObjectIndex].buildingPrefab;
         // Blueprint preview
         if (blueprintInstance != null)
@@ -58,35 +59,31 @@ public class PlacementSystem : MonoBehaviour
                     blueprintInstance.transform.rotation = rotationBuilding;
                     Debug.Log("Rotating building by 90 degrees for defense type building.");
                 }
-
-
             }
-
-
         }
-
-        if (!CanPlace(baseCell))
+        if(Singleton<InputManagerForGrid>.Instance.CurrentState.Equals(State.Building))
         {
-            cellIndicatorRenderer.color = Color.red; // Set to red if cannot place
-            Debug.LogWarning("Cannot place structure at base cell: " + baseCell);
-        }
-        else
-        {
-            cellIndicatorRenderer.color = Color.white; // Set to green if can place
-            Debug.Log("Can place structure at base cell: " + baseCell);
-        }
+            if (!CanPlace(baseCell))
+            {
+                cellIndicatorRenderer.color = Color.red; // Set to red if cannot place
+            }
+            else
+            {
+                cellIndicatorRenderer.color = Color.green; // Set to green if can place
+            }
+        }      
     }
+
     private void Start()
     {
         StopPlacement();
 
         grid = Singleton<GridSystem>.Instance.grid;
         gridMap = Singleton<GridSystem>.Instance.gridMap;
-
     }
 
-    // Sự kiện sau khi click vào vật thể trong shop (UI)
-    public void StartPlacement(int objectIndex)
+    // Sự kiện sau khi click vào vật thể trong shop (UI)
+    public void StartPlacement(int objectIndex)
     {
         if (objectIndex < 0 || objectIndex >= database.buildings.Count)
         {
@@ -102,13 +99,13 @@ public class PlacementSystem : MonoBehaviour
         rotationBuilding = Quaternion.Euler(0, 0, 0);
 
         currentSize = database.buildings[selectedObjectIndex].size;
-        Destroy(blueprintInstance.gameObject);
+        if (blueprintInstance != null)
+            Destroy(blueprintInstance.gameObject);
         blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
 
         selectedFrame.SetSize(currentSize);
         gridVisualization.SetActive(true);
-        //  gridVisualization.transform.position = grid.CellToWorld(grid.WorldToCell(inputManager.GetSelectedMapPosition()))+new Vector3(0.5f,0,-0.5f);
-        mouseIndicator.SetActive(true);
+        mouseIndicator.SetActive(true);
         cellIndicator.SetActive(true);
         inputManager.CurrentState = State.Building;
         inputManager.OnClicked += PlaceStructure;
@@ -116,25 +113,118 @@ public class PlacementSystem : MonoBehaviour
 
         cellIndicatorRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
     }
-    public void PlaceStructure()
-    {
-        Debug.Log("Attempting to place structure: " + database.buildings[selectedObjectIndex].buildingName);
 
+    // Bắt đầu di chuyển một building đã đặt
+    public void StartMovingBuilding(GameObject building)
+    {
+        if (building == null)
+        {
+            Debug.LogError("No building provided for moving.");
+            return;
+        }
+
+        var buildingComponent = building.GetComponent<BuildingBase>();
+        if (buildingComponent == null)
+        {
+            Debug.LogError("Provided building does not have a BuildingBase component.");
+            return;
+        }
+
+        selectedObjectIndex = database.buildings.FindIndex(b => b.buildingID == buildingComponent.ID);
+        if (selectedObjectIndex == -1)
+        {
+            Debug.LogError("Building with ID " + buildingComponent.ID + " not found in database.");
+            return;
+        }
+
+        movingBuilding = building;
+        movingBuilding.SetActive(false); 
+        currentSize = database.buildings[selectedObjectIndex].size;
+        rotationBuilding = building.transform.rotation;
+
+        // Giải phóng các ô hiện tại của building trên gridMap
+        OccupyCells(buildingComponent.BaseCell, 0); // Đặt các ô về 0 (trống)
+
+        // Hiển thị blueprint preview
+        if (blueprintInstance != null)
+            Destroy(blueprintInstance.gameObject);
+        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);   
+        blueprintInstance.transform.rotation = rotationBuilding;
+
+        selectedFrame.SetSize(currentSize);
+        gridVisualization.SetActive(true);
+        mouseIndicator.SetActive(true);
+        cellIndicator.SetActive(true);
+        inputManager.CurrentState = State.Building;
+        inputManager.OnClicked += MoveBuilding;
+        inputManager.OnExit += StopPlacement;
+
+        cellIndicatorRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
+        Debug.Log("Started moving building: " + database.buildings[selectedObjectIndex].buildingName);
+    }
+
+    // Di chuyển building đến vị trí mới
+    private void MoveBuilding()
+    {
         if (inputManager.IsPointerOverUI())
         {
-            Debug.Log("Pointer is over UI, cannot place structure.");
+            Debug.Log("Pointer is over UI, cannot move structure.");
             return;
         }
 
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int cellUnderMouse = grid.WorldToCell(mousePosition);
         baseCell = new Vector3Int(
-          cellUnderMouse.x - currentSize.x / 2,
-          cellUnderMouse.y,
-          cellUnderMouse.z - currentSize.y / 2);
+            cellUnderMouse.x - currentSize.x / 2,
+            cellUnderMouse.y,
+            cellUnderMouse.z - currentSize.y / 2);
+
+        if (!CanPlace(baseCell))
+        {
+            Debug.LogWarning("Area is occupied or out of bounds, cannot move structure.");
+            return;
+        }
+
+        List<Vector2Int> workerPositions = MarkWorkerSpots(baseCell);
+
+        // Cập nhật vị trí và thông tin của building
+        Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
+        movingBuilding.transform.position = grid.CellToWorld(baseCell) + offset;
+        movingBuilding.transform.rotation = rotationBuilding;
+        movingBuilding.SetActive(true);
+
+        var building = movingBuilding.GetComponent<BuildingBase>();
+        if (building != null)
+        {
+            building.BaseCell = baseCell;
+            building.workerPositions = workerPositions;
+        }
+
+        OccupyCells(baseCell, 1);
+        Debug.Log("Moved structure: " + database.buildings[selectedObjectIndex].buildingName + " to base cell: " + baseCell);
+
+        // Kết thúc di chuyển
+        StopPlacement();
+    }
+
+    public void PlaceStructure()
+    {
+        Debug.Log("Attempting to place structure: " + database.buildings[selectedObjectIndex].buildingName);
+
+        //if (inputManager.IsPointerOverUI())
+        //{
+        //    Debug.Log("Pointer is over UI, cannot place structure.");
+        //    return;
+        //}
+
+        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        Vector3Int cellUnderMouse = grid.WorldToCell(mousePosition);
+        baseCell = new Vector3Int(
+            cellUnderMouse.x - currentSize.x / 2,
+            cellUnderMouse.y,
+            cellUnderMouse.z - currentSize.y / 2);
 
         Debug.Log("Base cell for placement: " + baseCell);
-
 
         if (!CanPlace(baseCell))
         {
@@ -149,37 +239,23 @@ public class PlacementSystem : MonoBehaviour
         gameObject.transform.position = baseWorld + offset;
         gameObject.transform.rotation = rotationBuilding;
 
-        //var buildingComponents = gameObject.GetComponentsInChildren<BuildingBase>(true);
-        //if (buildingComponents != null && buildingComponents.Length > 0)
-        //{
-        //    foreach (var building in buildingComponents)
-        //    {
-        //        // Gán selectedBuilding cho tất cả các component BuildingBase
-        //        building.selectedBuilding = database.buildings[selectedObjectIndex];
-        //        building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
-        //        building.TryConsumeRequiredItems(); // Tiêu thụ các vật phẩm cần thiết
-        //    }
-        //}
-
         var building = gameObject.GetComponent<BuildingBase>();
         if (building != null)
         {
             building.ID = database.buildings[selectedObjectIndex].buildingID;
             building.selectedBuilding = database.buildings[selectedObjectIndex];
-            building.workerPositions = workerPositions; // Gán vị trí công nhân cho công trình
-            building.BaseCell = baseCell; // Gán vị trí ô cơ sở
+            building.workerPositions = workerPositions;
+            building.BaseCell = baseCell;
             if (!building.IsBuild)
-                building.TryConsumeRequiredItems(); // Tiêu thụ các vật phẩm cần thiết
-
+                building.TryConsumeRequiredItems();
         }
 
         Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
         OccupyCells(baseCell, 1);
-
     }
 
-    // Kiểm tra một footprint kích thước currentSize có thể đặt tại basePos hay không
-    private bool CanPlace(Vector3Int basePos)
+    // Kiểm tra một footprint kích thước currentSize có thể đặt tại basePos hay không
+    private bool CanPlace(Vector3Int basePos)
     {
         for (int dx = 0; dx < currentSize.x; dx++)
             for (int dz = 0; dz < currentSize.y; dz++)
@@ -187,21 +263,20 @@ public class PlacementSystem : MonoBehaviour
                 int gx = basePos.x + dx + gridOffset.x;
                 int gz = basePos.z + dz + gridOffset.y;
 
-                // Ngoài biên ma trận
-                if (gx < 0 || gz < 0 || gx >= gridMap.GetLength(0) || gz >= gridMap.GetLength(1))
+                // Ngoài biên ma trận
+                if (gx < 0 || gz < 0 || gx >= gridMap.GetLength(0) || gz >= gridMap.GetLength(1))
                     return false;
 
-                // Ô đã bị chiếm
-                if (gridMap[gx, gz] != 0)
+                // Ô đã bị chiếm
+                if (gridMap[gx, gz] != 0)
                     return false;
             }
         return true;
     }
 
-    // Đánh dấu các ô đã chiếm
-    public void OccupyCells(Vector3Int basePos, int check)
+    // Đánh dấu các ô đã chiếm
+    public void OccupyCells(Vector3Int basePos, int check)
     {
-
         Debug.Log($"Occupying cells for object at base position: {basePos} with size {currentSize.x}");
         Debug.Log($"Occupying cells for object at base position: {basePos} with size {currentSize.y}");
         for (int dx = 0; dx < currentSize.x; dx++)
@@ -211,43 +286,28 @@ public class PlacementSystem : MonoBehaviour
             {
                 int gx = basePos.x + dx;
                 int gz = basePos.z + dz;
-                Debug.Log($"Occupying cell at: {gx}, {gz} with value 1");
+                Debug.Log($"Occupying cell at: {gx}, {gz} with value {check}");
                 gridMap[gx + gridOffset.x, gz + gridOffset.y] = check;
-
             }
         }
-
     }
+
     public void StopPlacement()
     {
         selectedObjectIndex = -1;
         gridVisualization.SetActive(false);
         mouseIndicator.SetActive(false);
         cellIndicator.SetActive(false);
-        // Reset scale về 1×1 để không làm ảnh hưởng lần đặt sau
-        cellIndicator.transform.localScale = Vector3.one;
+        cellIndicator.transform.localScale = Vector3.one;
         inputManager.OnClicked -= PlaceStructure;
+        inputManager.OnClicked -= MoveBuilding; // Hủy sự kiện MoveBuilding
         inputManager.OnExit -= StopPlacement;
         if (blueprintInstance != null)
             blueprintInstance.gameObject.SetActive(false);
+        movingBuilding = null; // Reset movingBuilding
         inputManager.CurrentState = State.Moving;
     }
-    //public void MarkWorkerSpots(Vector3Int baseCell)
-    //{
-    //    Vector3Int[] workerSpots = new Vector3Int[]
-    //    {
-    //        new Vector3Int(baseCell.x + 1, baseCell.y, baseCell.z),
-    //        new Vector3Int(baseCell.x - 1, baseCell.y, baseCell.z),
-    //        new Vector3Int(baseCell.x, baseCell.y, baseCell.z - 1)
-    //    };
 
-    //    foreach (var spot in workerSpots)
-    //    {
-    //        Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
-    //        Vector3 worldPos = grid.CellToWorld(spot) + offset; // căn giữa cube
-    //        Instantiate(workerSpotCubePrefab, worldPos, Quaternion.identity);
-    //    }
-    //}
     public List<Vector2Int> MarkWorkerSpots(Vector3Int baseCell)
     {
         Vector3 worldPos;
@@ -263,21 +323,22 @@ public class PlacementSystem : MonoBehaviour
         foreach (var spot in workerSpots)
         {
             Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
-            worldPos = grid.CellToWorld(spot) + offset; // Center the cube
+            worldPos = grid.CellToWorld(spot) + offset;
             workerSpotsResult.Add(new Vector2Int((int)worldPos.x, (int)worldPos.z));
         }
         Vector2Int baseVector2 = new Vector2Int(baseCell.x, baseCell.z);
         return GetAdjacentCells(baseVector2, database.buildings[selectedObjectIndex].size);
     }
+
     public static List<Vector2Int> GetAdjacentCells(Vector2Int origin, Vector2Int size)
     {
         var adjacent = new HashSet<Vector2Int>();
 
         // Phía trước (dưới building)
-        for (int dx = 0; dx < size.x; dx++)
-        {
-            adjacent.Add(new Vector2Int(origin.x + dx, origin.y - 1));
-        }
+        //for (int dx = 0; dx < size.x; dx++)
+        //{
+        //    adjacent.Add(new Vector2Int(origin.x + dx, origin.y - 1));
+        //}
 
         // Bên trái
         for (int dy = 0; dy < size.y; dy++)
@@ -293,5 +354,4 @@ public class PlacementSystem : MonoBehaviour
 
         return new List<Vector2Int>(adjacent);
     }
-
 }

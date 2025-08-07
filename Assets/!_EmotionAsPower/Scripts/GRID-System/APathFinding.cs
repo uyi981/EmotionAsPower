@@ -20,13 +20,13 @@ public class APathFinding
         openList = new List<ANode>();
         startNode=null;
         endNode= null;
-        if (CheckIsObstacle(start, heightMap) || CheckIsObstacle(end, heightMap))
-        {
-            //Debug.Log("Start or End is Obstacle");
-            //Debug.Log("Start: "+ heightMap[start.x,start.y]);
-            //Debug.Log("End: " + heightMap[end.x,end.y]);
-            return null;
-        }
+        //if ( CheckIsObstacle(end, heightMap))
+        //{
+        //    //Debug.Log("Start or End is Obstacle");
+        //    //Debug.Log("Start: "+ heightMap[start.x,start.y]);
+        //    //Debug.Log("End: " + heightMap[end.x,end.y]);
+        //    return null;
+        //}
 
         startNode = new ANode(null, start, Vector2Int.Distance(start, end), 0);
         endNode = new ANode(null, end, 0, Vector2Int.Distance(end, start));

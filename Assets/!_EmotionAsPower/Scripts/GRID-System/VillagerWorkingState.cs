@@ -14,6 +14,7 @@ public class VillagerWorkingState : IState
         villager.Move(villager.currentJob.Position, 1f);
         villager.completedGoToTarget += OnWork;
         villager.collisionTrigger += OnCollisionEnter; // Subscribe to collision events
+        villager.isWorking = true;
         // Implement logic for entering the working state
     }
     public void OnWork()
@@ -44,7 +45,8 @@ public class VillagerWorkingState : IState
     }
     public void ExitState()
     {
-        if(!villager.currentJob.JobType.Equals(JobType.Build)&&!villager.currentJob.JobType.Equals(JobType.Transport))
+        villager.isWorking = false; // Set working state to false
+        if (!villager.currentJob.JobType.Equals(JobType.Build)&&!villager.currentJob.JobType.Equals(JobType.Transport))
         {
             villager.currentJob.buildingBase.OnWorkerLeave(villager);
         }   

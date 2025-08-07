@@ -30,4 +30,6 @@ public enum BuildingType
     Production,
     Entertainment,
     Housing,
+    FoodFactory,
+    Breeding,
 }

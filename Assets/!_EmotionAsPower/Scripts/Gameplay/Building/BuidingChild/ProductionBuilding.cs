@@ -20,9 +20,9 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
     [SerializeField] private List<ItemSO> inputItems;
     [SerializeField] private List<ItemSO> outputItems;
     [SerializeField] private int productionAmount = 1;
+    public Queue<Vector2Int> empltyWokerSlot = new Queue<Vector2Int>();
 
 
-    
     [Tooltip("Emotion yêu cầu để sản xuất")]
     [SerializeField] public Emotion requireEmotion = Emotion.Normal;
 
@@ -55,11 +55,33 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         base.Start();
         StartProduction();
     }
+    public override void OnWorkerLeave(Villager villager)
+    {
+        Debug.Log($"Worker {villager.name} has left the building {Name}.");
+        workersAmount--;
+        if (workers.Contains(villager))
+        {
+            workers.Remove(villager);
+            empltyWokerSlot.Enqueue(villager.currentJob.Position);
+        }
+
+    }
 
 
-    
-
-
+    public bool CheckIsHaveEmptyJob(Villager villager)
+    {
+        if (empltyWokerSlot.Count > 0)
+        {
+            if (villager.isWorking == false)
+            {
+                villager.currentJob = new JobForWorker(empltyWokerSlot.Dequeue(), JobType.Produce, this);
+                Debug.Log("Assigning job to villager: " + villager.name + " with job type: " + villager.currentJob.JobType);
+                villager.TransitionTo(villager.villagerWorkingState);
+            }
+            return true;
+        }
+        return false;
+    }
     public void StartProduction()
     {
         productionBarInstance = Instantiate(productionBarPrefab, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
@@ -106,10 +128,14 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         base.OnBuildingComplete();
         isProducing = true;
         Debug.Log($" đã hoàn thành!");
+        StartCoroutine(Wait());
+    }
+    public IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
         base.AssignJobToWorker(JobType.Produce);
         StartCoroutine(ProduceItem());
     }
-
     private void CompleteProduction()
     {
         // Tiêu thụ nguyên liệu đầu vào
@@ -122,7 +148,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         if (itemDropper != null)
         {
             // Dùng ItemManager.Instance.SpawnItem spawn mang outputItems
-            ItemManager.Instance.SpawnItem(outputItems[0], productionAmount, transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
+            SpawnFoodFactoryOutputItems();
             Vector3Int vector3Int = Singleton<GridSystem>.Instance.grid.WorldToCell(transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
             Vector2Int vector2Int = new Vector2Int(vector3Int.x, vector3Int.z);
             Singleton<VillagerManager>.Instance.SendJobRequestToManager(new JobForWorker(vector2Int, JobType.Transport, this));
@@ -155,7 +181,38 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
         StopProduction();
     }
 
-   
 
-   
+    public void SpawnFoodFactoryOutputItems()
+    {
+        if (selectedBuilding != null && selectedBuilding.type == BuildingType.FoodFactory)
+        {
+            // Calculate base positions
+            Vector3 basePosition = transform.position + new Vector3(0, 0.5f, 0);
+
+            // Directions relative to building's forward
+            Vector3 forward = transform.forward;
+            Vector3 right = transform.right;
+
+            // Spawn positions: in front, left, right
+            Vector3[] spawnPositions = new Vector3[3];
+            spawnPositions[0] = basePosition + forward * (1 + selectedBuilding.size.y);      // In front
+            spawnPositions[1] = basePosition - right * (0.5f * selectedBuilding.size.x);      // Left
+            spawnPositions[2] = basePosition + right * (0.5f * selectedBuilding.size.x);      // Right
+
+            for (int i = 0; i < outputItems.Count && i < 3; i++)
+            {
+                ItemManager.Instance.SpawnItem(outputItems[i], productionAmount, spawnPositions[i]);
+            }
+            Debug.Log($"{Name} (FoodFactory) đã spawn {Mathf.Min(outputItems.Count, 3)} sản phẩm tại 3 vị trí!");
+        }
+        else
+        {
+            ItemManager.Instance.SpawnItem(outputItems[0], productionAmount, transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
+
+        }
+    }
+
+
+
+
 }

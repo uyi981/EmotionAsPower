@@ -16,6 +16,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         public List<GameObject> listTowerBuildings = new List<GameObject>();
         public List<GameObject> listDecorationBuildings = new List<GameObject>();
         public List<GameObject> listDefenseBuildings = new List<GameObject>();
+        public List<GameObject> listFoodFactoryBuildings = new List<GameObject>();
         public List<GameObject> listMainBaseBuildings = new List<GameObject>();
 
         [Header("References")]
@@ -38,6 +39,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         GameObject bedBuilding;
         GameObject decorationBuilding;
         GameObject defenseBuilding;
+        GameObject foodFactoryBuilding;
         GameObject infoInstance;
 
 
@@ -49,6 +51,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
              bedBuilding = Instantiate(buldingContentUI, contentManager.transform);
            decorationBuilding = Instantiate(buldingContentUI, contentManager.transform);
             defenseBuilding = Instantiate(buldingContentUI, contentManager.transform);
+            foodFactoryBuilding = Instantiate(buldingContentUI, contentManager.transform);
 
             infoInstance = Instantiate(info, transform);
             infoInstance.SetActive(false); 
@@ -66,6 +69,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             listTowerBuildings.Clear();
             listDecorationBuildings.Clear();
             listDefenseBuildings.Clear();
+            listFoodFactoryBuildings.Clear();
             listMainBaseBuildings.Clear();
 
             // Categorize each building from the ScriptableObject
@@ -80,6 +84,9 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                 ContentUI contentUIBedInstance = bedBuilding.GetComponent<ContentUI>();
                 ContentUI contentUIDecorationInstance = decorationBuilding.GetComponent<ContentUI>();
                 ContentUI contentUIDefenseInstance = defenseBuilding.GetComponent<ContentUI>();
+                ContentUI contentUIFoodFactoryInstance = foodFactoryBuilding.GetComponent<ContentUI>();
+
+
                 // Set the TextMeshProUGUI text based on building type
                 if (contentUIInstance != null && contentUIInstance.textMeshPro != null)
                 {
@@ -140,7 +147,16 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             contentUIDefenseInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listDefenseBuildings.Add(building.buildingPrefab);
                             break;
-                        
+                         case BuildingType.FoodFactory:
+                            contentUIFoodFactoryInstance.textMeshPro.text = building.type.ToString();
+                            contentUIFoodFactoryInstance.InstantiateIcon();
+                            contentUIFoodFactoryInstance.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
+                            contentUIFoodFactoryInstance.SetResource(building.keyValuePairs);
+                            contentUIFoodFactoryInstance.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                                building.buildingName, building.description);
+                            contentUIFoodFactoryInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
+                            listFoodFactoryBuildings.Add(building.buildingPrefab);
+                            break;
                     }
                 }
                 else
