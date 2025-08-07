@@ -66,8 +66,9 @@ public class HomeScreen : MonoBehaviour
 
     public void ContinueGame()
     {
+        DataPersistenceManager.Instance.LoadGame();
         aSyncLoader.LoadScene(gamePlaySceneName);
-        AudioManager.Instance.StopSound(backgroundMusic);
+        //AudioManager.Instance.StopSound(backgroundMusic);
         
     }
 
@@ -80,7 +81,8 @@ public class HomeScreen : MonoBehaviour
 
     public void StartNewGame()
     {
+        DataPersistenceManager.Instance.NewGame();
         aSyncLoader.LoadScene(gamePlaySceneName);
-        AudioManager.Instance.StopAllSounds();
+       // AudioManager.Instance.StopAllSounds();
     }
 }

@@ -102,7 +102,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                             contentUIInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
 
 
-                            Debug.Log($"Adding production buildinggggggggggggggggggggggg: " + building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite.name);
+                            //Debug.Log($"Adding production buildinggggggggggggggggggggggg: " + building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite.name);
                             listProductionBuildings.Add(building.buildingPrefab);
                             break;
                         case BuildingType.Housing:

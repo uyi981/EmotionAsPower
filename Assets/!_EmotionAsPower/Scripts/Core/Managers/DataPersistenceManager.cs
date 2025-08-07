@@ -8,6 +8,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     [Header("File Storage Config")]
     [SerializeField] private string fileName = "EmotionAsPowerSaveFile";
     private FileDataHandler fileDataHandler;
+    public GameDataView gameDataView;
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceList;
@@ -18,17 +19,28 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     {
         this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceList = FindAllDataPersistences();
-        this.gameData = new GameData();
+        if(gameDataView!= null )
+            this.gameData = gameDataView.gameData;
+        if (gameDataView.shouldLoad)
+        {
+            LoadGame(); // Load game data if shouldLoad is true
+        }
+         // Load game data at the start
+        //DontDestroyOnLoad(this.gameObject);
     }
     public void NewGame()
     {
         this.gameData = new GameData();
+        gameDataView.shouldLoad = false; // Set shouldLoad to false to indicate a new game
+        gameDataView.gameData = gameData; // Update the GameDataView with the new data
     }
 
     public void LoadGame()
     {
         Debug.Log("Loading");
         gameData = fileDataHandler.Load();
+        gameDataView.shouldLoad = true; // Set shouldLoad to true to indicate loading existing game data
+        gameDataView.gameData = gameData; // Update the GameDataView with the loaded data
 
         if (this.gameData == null)
         {
@@ -54,6 +66,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
         //Save using FileDataHandler
         fileDataHandler.Save(gameData);
+        gameDataView.gameData = gameData; // Update the GameDataView with the saved data
         OnGameSaved?.Invoke();
         Debug.Log("Saved");
     }

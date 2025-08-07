@@ -1,8 +1,5 @@
 using System.Linq;
-using LgTyUtils;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class ItemDebugPanel : MonoBehaviour
 {

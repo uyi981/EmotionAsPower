@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
+public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
 {
     [Header("Building Properties")]
     [Tooltip("Công trình đang được chọn để xây dựng")]
@@ -390,7 +390,18 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable
     ///
     private void OnMouseDown()
     {
-        Singleton<DetailInfoController>.Instance.OpenBuildingUI(this);
+        if(IsBuild)
+            Singleton<DetailInfoController>.Instance.OpenBuildingUI(this);
     }
 
+    public void TakeDamage(float damage)
+    {
+        currentHP -= (int)damage;
+        if (IsDead()) OnBuildingDestroyed();
+    }
+
+    public bool IsDead()
+    {
+        return currentHP <= 0;
+    }
 }
