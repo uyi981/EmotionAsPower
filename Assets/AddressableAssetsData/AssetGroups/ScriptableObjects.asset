@@ -57,6 +57,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46936347eafe61b408c5e38f0e73652f
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/CarrotSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 49d3e51099bf97b47a17778dd3320023
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/FactorySO.asset
     m_ReadOnly: 0
@@ -105,8 +111,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ece13ca5a635c846810a8b5a9d1faf1
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Foods/RainbowMushroomSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b92a9fe28c427c4b807d5a4d4123c34
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c0b55f50a6ae68438e276d841ba2f67
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/CherrySO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
@@ -119,6 +137,24 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5924222bf1c9d743a9209c9be05be04
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/TomatoSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a81898e0709b1524ea25a98be2af2980
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/WoodSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a90f1698f9a734a46832d31e0666f6d5
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/StoneSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9ac8bb737d0e5441bda479cc5928097
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/SteelSO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
@@ -150,6 +186,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f134000a9fdfc1c43a50369cb89676fb
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fcc4c3619bc1e5942a3767a611e5cd4a
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Foods/ChiliSO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
