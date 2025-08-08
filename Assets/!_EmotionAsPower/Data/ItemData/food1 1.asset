@@ -16,6 +16,7 @@ MonoBehaviour:
   icon: {fileID: 1403349418, guid: 8cc0149c99a0c974f9af16b11fe790bb, type: 3}
   displayName: 
   description: delicious food
+  category: 4
   useCases:
     pairs:
     - key: 0

@@ -104,4 +104,9 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
     {
         gameData.storagedItems = this.storagedItems;
     }
+
+    public void CallUpdateEvent()
+    {
+        OnStoragedItemsChange?.Invoke(storagedItems);
+    }
 }

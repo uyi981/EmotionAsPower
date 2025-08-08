@@ -11,11 +11,13 @@ public class ItemDebugPanel : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnSetupFinished += () => Initialize();
+        //GameManager.Instance.OnSetupFinished += () => Initialize();
+        Initialize();
     }
 
     public void Initialize()
     {
+        Debug.LogWarning("Initialized");
         foreach (Transform child in content)
         {
             Destroy(child.gameObject);
@@ -37,4 +39,5 @@ public class ItemDebugPanel : MonoBehaviour
         }
 
     }
+
 }

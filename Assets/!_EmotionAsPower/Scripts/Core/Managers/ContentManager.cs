@@ -62,28 +62,29 @@ public class ContentManager : Singleton<ContentManager>, ISetup
 
     public void Setup()
     {
-        StartCoroutine(SetupCoroutine());
+        //StartCoroutine(SetupCoroutine());
     }
     public IEnumerator SetupCoroutine()
     {
-        Debug.Log("ContentManager Setup Started");
+        //Debug.Log("ContentManager Setup Started");
 
-        // Initialize dictionaries
-        itemSOs = new SerializableDictionary<string, ItemSO>();
-        resourceSOs = new SerializableDictionary<string, ResourceSO>();
-        enemySOs = new SerializableDictionary<string, EnemySO>();
+        //// Initialize dictionaries
+        //itemSOs = new SerializableDictionary<string, ItemSO>();
+        //resourceSOs = new SerializableDictionary<string, ResourceSO>();
+        //enemySOs = new SerializableDictionary<string, EnemySO>();
 
-        Debug.Log("Starting to load content...");
+        //Debug.Log("Starting to load content...");
 
-        var loadItems = StartCoroutine(LoadAllContentsOfTypeCoroutine<ItemSO>(itemSOs, debugLoading));
-        var loadResources = StartCoroutine(LoadAllContentsOfTypeCoroutine<ResourceSO>(resourceSOs, debugLoading));
-        var loadEnemies = StartCoroutine(LoadAllContentsOfTypeCoroutine<EnemySO>(enemySOs, debugLoading));
+        //var loadItems = StartCoroutine(LoadAllContentsOfTypeCoroutine<ItemSO>(itemSOs, debugLoading));
+        //var loadResources = StartCoroutine(LoadAllContentsOfTypeCoroutine<ResourceSO>(resourceSOs, debugLoading));
+        //var loadEnemies = StartCoroutine(LoadAllContentsOfTypeCoroutine<EnemySO>(enemySOs, debugLoading));
 
-        yield return loadItems;
-        yield return loadResources;
-        yield return loadEnemies;
+        //yield return loadItems;
+        //yield return loadResources;
+        //yield return loadEnemies;
 
-        Debug.Log("ContentManager Setup Completed");
+        //Debug.Log("ContentManager Setup Completed");
+        yield return new WaitForSeconds(0.1f);
     }
 
     // TODO: Implement loading and unloading of a specific amount of content using pooling
