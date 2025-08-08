@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
 {
-    [SerializeField]
-    private GameObject enemyPrefab;
 
     [SerializeField]
     private  EnemySpawningConfig enemySpawningConfig;
@@ -22,45 +20,45 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
         DayTimeController.Instance.OnStageOfDayChanged += SpawnEnemyWave;
     }
 
-    public GameObject SpawnEnemy(EnemySO enemySO, Vector3 position)
+    public GameObject SpawnEnemy(GameObject enemyToSpawn, Vector3 position)
     {
-        if (enemyPrefab == null || enemySO == null)
+        if (enemyToSpawn == null)
         {
             Debug.LogError("Enemy prefab or EnemySO is null in EnemyManager!");
             return null;
         }
 
-        GameObject spawnedEnemy = Instantiate(enemySO.prefab, position, Quaternion.identity, this.transform);
+        GameObject spawnedEnemy = Instantiate(enemyToSpawn, position, Quaternion.identity, this.transform);
         Enemy enemy = spawnedEnemy.GetComponent<Enemy>();
-        enemy.Initialize(enemySO);
+        enemy.Initialize();
         return spawnedEnemy;
     }
 
-    public GameObject SpawnEnemyOnCircle(EnemySO enemySO)
+    public GameObject SpawnEnemyOnCircle(GameObject enemy)
     {
         Vector3 spawnPosition = GetRandomCirclePosition();
-        return SpawnEnemy(enemySO, spawnPosition);
+        return SpawnEnemy(enemy, spawnPosition);
     }
 
-    public GameObject SpawnEnemyOnCircle(EnemySO enemySO, float customRadius)
+    public GameObject SpawnEnemyOnCircle(GameObject enemy, float customRadius)
     {
         Vector3 spawnPosition = GetRandomCirclePosition(customRadius);
-        return SpawnEnemy(enemySO, spawnPosition);
+        return SpawnEnemy(enemy, spawnPosition);
     }
 
-    public GameObject[] SpawnMultipleEnemiesOnCircle(EnemySO enemySO, int count)
+    public GameObject[] SpawnMultipleEnemiesOnCircle(GameObject enemy, int count)
     {
         GameObject[] spawnedEnemies = new GameObject[count];
 
         for (int i = 0; i < count; i++)
         {
-            spawnedEnemies[i] = SpawnEnemyOnCircle(enemySO);
+            spawnedEnemies[i] = SpawnEnemyOnCircle(enemy);
         }
 
         return spawnedEnemies;
     }
 
-    public GameObject[] SpawnEnemiesInFormation(EnemySO enemySO, int count, float radius = -1f)
+    public GameObject[] SpawnEnemiesInFormation(GameObject enemy, int count, float radius = -1f)
     {
         if (radius < 0) radius = spawnRadius;
 
@@ -76,7 +74,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
                 Mathf.Sin(angle) * radius
             );
 
-            spawnedEnemies[i] = SpawnEnemy(enemySO, spawnPosition);
+            spawnedEnemies[i] = SpawnEnemy(enemy, spawnPosition);
         }
 
         return spawnedEnemies;
@@ -126,12 +124,12 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
 
     private void InitializeLoadedEnemies(EnemyRuntimeInstance[] enemyInstances)
     {
-        SerializableDictionary<string, EnemySO> enemySOs = ContentManager.Instance.EnemySOs;
+        SerializableDictionary<string, GameObject> enemies = ContentManager.Instance.Enemies;
         foreach (var instance in enemyInstances)
         {
-            if (enemySOs.TryGetValue(instance.id, out EnemySO enemySO))
+            if (enemies.TryGetValue(instance.id, out GameObject enemyToSpawn))
             {
-                GameObject spawnedEnemy = SpawnEnemy(enemySO, instance.position);
+                GameObject spawnedEnemy = SpawnEnemy(enemyToSpawn, instance.position);
                 Enemy enemy = spawnedEnemy.GetComponent<Enemy>();
                 enemy.Health.SetHealth(instance.currentHealth);
                 enemy.UpdateExistingTime(instance.remainExistingTime);
@@ -152,7 +150,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
             Enemy enemy = enemies[i];
             result[i] = new EnemyRuntimeInstance
             {
-                id = enemy.EnemySO.ID,
+                id = enemy.enemyDefaultData.id,
                 position = enemy.transform.position,
                 currentHealth = enemy.Health.CurrentHealth,
                 remainExistingTime = enemy.ExistingTimer

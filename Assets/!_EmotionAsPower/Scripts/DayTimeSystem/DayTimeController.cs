@@ -179,6 +179,7 @@ public class DayTimeController : Singleton<DayTimeController>, IDataPersistence
     public void LoadGame(GameData gameData)
     {
         SetDateTime(gameData.dateTime);
+        OnStageOfDayChanged?.Invoke(new StageOfDay(GetCurrentDateTime()));
     }
 
     public void SaveGame(ref GameData gameData)

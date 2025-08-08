@@ -54,7 +54,7 @@ public class NewAIController : MonoBehaviour
         currentAction = null;
     }
 
-    public void Initialize(EnemySO enemySO)
+    public void Initialize()
     {
         detector = GetComponent<Detector>();
         unitMover = GetComponent<UnitMover>();

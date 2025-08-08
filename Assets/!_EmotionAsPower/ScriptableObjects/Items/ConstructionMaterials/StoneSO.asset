@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Stone
   description: "Solid for building or bonking robots. \nPops might meditate with
     it, weirdly."
-  category: 2
+  category: 3
   useCases:
     pairs: []
