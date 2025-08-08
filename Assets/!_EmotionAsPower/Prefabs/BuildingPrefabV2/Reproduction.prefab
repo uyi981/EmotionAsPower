@@ -139,7 +139,7 @@ MonoBehaviour:
   selectedBuilding:
     buildingID: 0
     buildingName: 
-    type: 0
+    type: 6
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 0}

@@ -28,6 +28,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             if (buildingBase.buildingType.Equals(BuildingType.Breeding))
             {
                 BreedingButton.SetActive(true);
+                breedingBuilding = buildingBase as BreedingBuilding;
             }
             else
             {
@@ -48,7 +49,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             }
 
 
-                breedingBuilding.Breed();
+                breedingBuilding.OpenBreedingUI();
                 Debug.Log("Đã kích hoạt chức năng sinh sản!");
         }
 
