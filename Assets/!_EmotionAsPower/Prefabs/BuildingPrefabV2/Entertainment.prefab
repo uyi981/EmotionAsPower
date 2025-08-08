@@ -81,10 +81,10 @@ MonoBehaviour:
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
-  effectRange: 3
+  effectRange: 1
   effectCooldown: 1
   emotionType: 1
-  emotionAmount: 10
+  emotionAmount: 100
   targetLayer:
     serializedVersion: 2
     m_Bits: 256

@@ -26,6 +26,7 @@ public class Villager : MonoBehaviour,IInteractable
     public bool isWorking = false;
     public bool isSleeping = false;
     public bool isStarving = false;
+    public bool isPrisoner = false;
     public Animator animator;
     public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
@@ -38,6 +39,7 @@ public class Villager : MonoBehaviour,IInteractable
     public VillagerSleepState villagerSleepState;
     public VillagerStarvingState villagerStarvingState;
     public VillagerAttackEnermyState villagerAttackEnermyState;
+    public villagerPrisonState villagerPrisonState;
     public PersonalitySO personality;
     IState CurrentState;
     public Coroutine moveCoroutine;
@@ -96,9 +98,17 @@ public class Villager : MonoBehaviour,IInteractable
             if (colliders[i].gameObject.tag.Equals("Factory"))
             {
                 ProductionBuilding productionBuilding = colliders[i].GetComponent<ProductionBuilding>();
-                if(productionBuilding!=null)
+                if (productionBuilding != null)
                 {
                     productionBuilding.CheckIsHaveEmptyJob(this);
+                }
+            }
+            else if (colliders[i].gameObject.tag.Equals("PrisonBuilding"))
+            {
+                PrisonBuilding prisonBuilding = colliders[i].GetComponent<PrisonBuilding>();
+                if (prisonBuilding != null)
+                {
+                    prisonBuilding.SetPrison(this);
                 }
             }
         }
@@ -175,6 +185,7 @@ public class Villager : MonoBehaviour,IInteractable
         villagerSleepState = new VillagerSleepState(this);
         villagerStarvingState = new VillagerStarvingState(this);
         villagerAttackEnermyState = new VillagerAttackEnermyState(this);
+        villagerPrisonState = new villagerPrisonState(this);
         InvokeRepeating("UpdateState", 0f, 0.1f);
         currentHunger = 25f;
         Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
@@ -239,6 +250,10 @@ public class Villager : MonoBehaviour,IInteractable
         //{
         //    return; // No transition needed if the next state is the same as the current state
         //}
+        if(isPrisoner)
+        {
+            return;
+        }
         if (isSelected && !nextState.Equals(villagerSelectedState))
         {
             return;

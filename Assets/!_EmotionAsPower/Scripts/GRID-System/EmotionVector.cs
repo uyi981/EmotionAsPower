@@ -47,6 +47,29 @@ public struct EmotionVector
         float max = Mathf.Max(AngerLevel, JoyLevel, SadnessLevel, FearLevel, ApatheticLevel);
         return max;
     }
+    public float minusEmotion(Emotion emotion, float value)
+    {
+        switch (emotion)
+        {
+            case Emotion.Anger:
+                AngerLevel = Mathf.Max(0, AngerLevel - value);
+                return AngerLevel;
+            case Emotion.Joy:
+                JoyLevel = Mathf.Max(0, JoyLevel - value);
+                return JoyLevel;
+            case Emotion.Sad:
+                SadnessLevel = Mathf.Max(0, SadnessLevel - value);
+                return SadnessLevel;
+            case Emotion.Fear:
+                FearLevel = Mathf.Max(0, FearLevel - value);
+                return FearLevel;
+            case Emotion.Apethatic:
+                ApatheticLevel = Mathf.Max(0, ApatheticLevel - value);
+                return ApatheticLevel;
+            default:
+                return 0f;
+        }
+    }
     public static EmotionVector operator +(EmotionVector a, EmotionVector b)
     {
         return new EmotionVector(

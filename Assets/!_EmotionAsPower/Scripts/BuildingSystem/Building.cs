@@ -32,4 +32,5 @@ public enum BuildingType
     Housing,
     FoodFactory,
     Breeding,
+    Special,
 }

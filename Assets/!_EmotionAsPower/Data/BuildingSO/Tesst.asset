@@ -336,3 +336,22 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: This is the Tower 1
+  - buildingID: 17
+    buildingName: Tower 1
+    type: 7
+    blueprintPrefab: {fileID: 167690424386379601, guid: 65461e4c5880a9241a244d80375a1d55, type: 3}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 167690424386379601, guid: 8b01d842ab6e98441b3581bb8d295bca, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 15
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower 1
