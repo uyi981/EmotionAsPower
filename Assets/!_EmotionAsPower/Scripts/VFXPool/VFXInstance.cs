@@ -23,7 +23,9 @@ public class VFXInstance : MonoBehaviour
         yield return  new WaitForSeconds(time);
         ReturnToPool();
     }    
+
     //public Particl
+
 }
 public enum SkillType
 {
