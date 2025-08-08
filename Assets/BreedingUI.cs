@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class BreedingUI : MonoBehaviour
 {
-    string name = "";
     public BreedingBuilding breedingBuilding;
-    public TextMeshProUGUI nameInputField;
+    public TMP_InputField nameInputField;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void CreateVillage()
     {
@@ -15,7 +14,12 @@ public class BreedingUI : MonoBehaviour
             Debug.LogError("BreedingBuilding is null!");
             return;
         }
-      //  breedingBuilding.Breading();
+        breedingBuilding.Breeding(nameInputField.text);
+        gameObject.SetActive(false);
+    }
+    public void Start()
+    {
+        gameObject.SetActive(false);
     }
     public void SetBreedingBuilding(BreedingBuilding breedingBuilding)
     {

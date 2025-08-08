@@ -84,9 +84,12 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 5
   attackCooldown: 1
-  attackEffectPrefab: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+  vfxName: 
   poolDefaultCapacity: 3
   poolMaxSize: 5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!65 &9015429967313716044
 BoxCollider:
   m_ObjectHideFlags: 0
