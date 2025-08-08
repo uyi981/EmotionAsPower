@@ -172,7 +172,7 @@ MonoBehaviour:
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
   villagerManager: {fileID: 0}
-  villagerPrefab: {fileID: 1955632567045984396, guid: 323a33caf0b2211449da9d117a6174b9, type: 3}
+  villagerPrefab: {fileID: 1289892368652287868, guid: 323a33caf0b2211449da9d117a6174b9, type: 3}
 --- !u!65 &5322800939289134493
 BoxCollider:
   m_ObjectHideFlags: 0

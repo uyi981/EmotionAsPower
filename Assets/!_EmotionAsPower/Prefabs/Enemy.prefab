@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 6408929875982871075}
   - component: {fileID: 3583203535932230069}
   - component: {fileID: 7890787105668812900}
+  - component: {fileID: 1883475828387628006}
+  - component: {fileID: 7525667754036179473}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -249,8 +251,12 @@ MonoBehaviour:
   rotationSpeed: 10
   stopDistance: 0.1
   flipable: 1
+  useBoneFlip: 0
+  baseFlip: 0
   enablePathSmoothing: 1
   smoothingRadius: 0.5
+  minDistanceForNewPath: 1
+  pathValidationDistance: 0.5
 --- !u!114 &7890787105668812900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,3 +271,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AIController
   currentAction: {fileID: 0}
   actionCooldownTime: 5
+--- !u!114 &1883475828387628006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329578327918105278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 258699adbebcefa46bf6c1a6a4dd5c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Detector
+  radius: 10
+  filter:
+    targets: 
+  matchedCount: 0
+--- !u!114 &7525667754036179473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329578327918105278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 754c26531c2a53f448d16899645334c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewAIController
+  behaviour: {fileID: 0}
+  currentAction: {fileID: 0}
+  actionData:
+    ai: {fileID: 0}
+    targetObject: {fileID: 0}
+    state: 2
