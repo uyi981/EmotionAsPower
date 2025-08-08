@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Application = UnityEngine.Application;
-public class DataPersistenceManager : Singleton<DataPersistenceManager>
+public class DataPersistenceManager : Singleton<DataPersistenceManager>, ISetup
 {
     [Header("File Storage Config")]
     [SerializeField] private string fileName = "EmotionAsPowerSaveFile";
@@ -17,17 +17,11 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     private void Start()
     {
-        this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        this.dataPersistenceList = FindAllDataPersistences();
-        if(gameDataView!= null )
-            this.gameData = gameDataView.gameData;
-        if (gameDataView.shouldLoad)
-        {
-            LoadGame(); // Load game data if shouldLoad is true
-        }
+
          // Load game data at the start
         //DontDestroyOnLoad(this.gameObject);
     }
+
     public void NewGame()
     {
         this.gameData = new GameData();
@@ -75,6 +69,18 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     {
         IEnumerable<IDataPersistence> dataPersistences = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();
         return new List<IDataPersistence>(dataPersistences);
+    }
+
+    public void Setup()
+    {
+        this.fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        this.dataPersistenceList = FindAllDataPersistences();
+        if (gameDataView != null)
+            this.gameData = gameDataView.gameData;
+        if (gameDataView.shouldLoad)
+        {
+            LoadGame(); // Load game data if shouldLoad is true
+        }
     }
 }
 

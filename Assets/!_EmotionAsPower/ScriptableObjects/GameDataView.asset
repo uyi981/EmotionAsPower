@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b302b79d895bd06488a54f5c8e2b705b, type: 3}
   m_Name: GameDataView
   m_EditorClassIdentifier: Assembly-CSharp::GameDataView
+  shouldLoad: 0
   gameData:
     dateTime:
       timeOfDay: 0

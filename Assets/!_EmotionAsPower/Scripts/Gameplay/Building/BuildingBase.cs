@@ -31,8 +31,6 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     public int currentHP;
     [Tooltip("Loại công trình")]
     public BuildingType buildingType;
-    [Tooltip("Danh sách các vật phẩm cần thiết để xây dựng công trình")]
-    public SerializableDictionary<ItemSO, int> requiredItems = new SerializableDictionary<ItemSO, int>();
 
 
 
@@ -103,6 +101,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
 
     public virtual void Start()
     {
+        //requiredItems = selectedBuilding.keyValuePairs; // Lấy danh sách vật phẩm cần thiết từ SO_Building
         workersAmount = 0; // Khởi tạo số lượng công nhân tham gia xây dựng 
         maxHP = selectedBuilding.maxHP; // Lấy máu tối đa từ SO_Building
         currentHP = maxHP; // Khởi tạo máu hiện tại bằng máu tối đa
@@ -142,10 +141,9 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     /// <returns></returns>
     public bool TryConsumeRequiredItems()
     {
-
-
-        foreach (var pair in requiredItems)
+        foreach (var pair in selectedBuilding.keyValuePairs)
         {
+            Debug.Log($"Trying to consume {pair.Value} of {pair.Key.ID} for {Name}");
             ItemSO item = pair.Key;
             int amount = pair.Value;
             int checkAmount = Singleton<ItemStorage>.Instance.TryTakeItem(item, amount);
@@ -200,6 +198,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     {
         foreach (Villager worker in workers)
         {
+            Debug.Log($"Resetting worker: {worker.gameObject.name} for building {gameObject.name}");
             worker.TransitionTo(worker.villagerIdleState); // Trả công nhân về trạng thái nhàn rỗi
         }
         workers.Clear();
@@ -228,6 +227,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     public void OnWorkerCome(Villager villager)
     {
         Debug.Log("Worker Come"+villager.gameObject.name);
+        if(villager.currentJob.JobType.Equals(JobType.Build))
+        {
+            if(isBuild)
+            {
+                villager.TransitionTo(villager.villagerIdleState);
+                return;
+            }
+        }
         workersAmount++;
         if (workers.Contains(villager))
         {
@@ -364,9 +371,9 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
 
 
         // Spawn half of each required item if there are any
-        if (requiredItems != null && requiredItems.Count > 0)
+        if (selectedBuilding.keyValuePairs != null && selectedBuilding.keyValuePairs.Count > 0)
         {
-            foreach (var item in requiredItems)
+            foreach (var item in selectedBuilding.keyValuePairs)
             {
                 int halfAmount = Mathf.Max(1, item.Value / 2); // At least 1 item
                 ItemManager.Instance.SpawnItem(item.Key, halfAmount, transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y)));
@@ -384,6 +391,8 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     /// </summary>
     public virtual void OnBuildingComplete()
     {
+        GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject("buildingSpawn");
+        obj.transform.position = gameObject.transform.position;
         ResetWorkerList(); // Reset danh sách công nhân
     }
     //////////////////////////////////////

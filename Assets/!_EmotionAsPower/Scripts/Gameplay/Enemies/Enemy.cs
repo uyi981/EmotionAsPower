@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 public class Enemy : MonoBehaviour, IInteractable
 {
     [Header("Enemy Configuration")]
-    [SerializeField] private EnemySO enemySO;
-
+    public EnemyDefaultData enemyDefaultData;
     private NewAIController aiController;
     private Health health;
     private ItemDropper itemDropper;
@@ -16,8 +15,6 @@ public class Enemy : MonoBehaviour, IInteractable
     [SerializeField]
     private bool isInitialized = false;
     private EnemyState currentState = EnemyState.Spawning;
-
-    public EnemySO EnemySO => enemySO;
     public Health Health => health;
     public ItemDropper ItemDropper => itemDropper;
     public NewAIController AIController => aiController;
@@ -57,16 +54,13 @@ public class Enemy : MonoBehaviour, IInteractable
         UpdateLife();
     }
 
-    public void Initialize(EnemySO enemyData)
+    public void Initialize()
     {
-        if (enemyData == null)
+        if (enemyDefaultData == null)
         {
             Debug.LogError("Cannot initialize enemy with null EnemySO!");
             return;
         }
-
-        enemySO = enemyData;
-        itemDropper.Initialize(enemySO.dropableItems);
 
         // Initialize visual
         //GetComponentInChildren<SpriteRenderer>().sprite = enemySO.Icon;
@@ -74,15 +68,15 @@ public class Enemy : MonoBehaviour, IInteractable
         // Initialize health with enemy data
         if (health != null)
         {
-            health.SetMaxHealth(enemyData.defaultData.maxHealth, true);
-            health.SetHealth(enemyData.defaultData.maxHealth);
+            health.SetMaxHealth(enemyDefaultData.maxHealth, true);
+            health.SetHealth(enemyDefaultData.maxHealth);
             health.OnDeath.AddListener(Die);
         }
 
         // Set existing timer
-        existingTimer = enemyData.defaultData.existingTime;
+        existingTimer = enemyDefaultData.existingTime;
 
-        aiController.Initialize(enemyData);
+        aiController.Initialize();
 
         isInitialized = true;
     }

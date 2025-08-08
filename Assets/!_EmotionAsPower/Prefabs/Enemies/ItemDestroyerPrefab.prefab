@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 5463422091190837984}
   - component: {fileID: 8832116160180549335}
   - component: {fileID: 5391348557875203452}
+  - component: {fileID: -4396305617958388204}
   m_Layer: 7
   m_Name: ItemDestroyerPrefab
   m_TagString: Untagged
@@ -543,8 +544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342f3e0903eed8745a8a389a9d98f6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 30
+  currentHealth: 30
   canRegenerate: 0
   regenerationRate: 5
   regenerationDelay: 3
@@ -569,6 +570,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &1118189233881547189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDropper
   dropableItems: []
   dropForce: 5
-  dropRadius: 2
+  dropRadius: 0.5
   minDropAmount: 1
   maxDropAmount: 3
 --- !u!114 &3924171520756269616
@@ -598,7 +600,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ded271b3a4cb7947a9b034dd8095082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  enemySO: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
+  enemyDefaultData:
+    id: TheSawer
+    maxHealth: 30
+    moveSpeed: 3
+    existingTime: 50
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &6750320140384029178
@@ -693,8 +699,35 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!54 &-4396305617958388204
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170872781834844453}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &6311622736323207326
 GameObject:
   m_ObjectHideFlags: 0

@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 3583203535932230069}
   - component: {fileID: 1883475828387628006}
   - component: {fileID: 7525667754036179473}
+  - component: {fileID: -8364509710925976348}
   m_Layer: 7
   m_Name: LaserCube
   m_TagString: Untagged
@@ -188,6 +189,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &6519497538598916903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ded271b3a4cb7947a9b034dd8095082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  enemySO: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
+  enemyDefaultData:
+    id: LaseCube
+    maxHealth: 40
+    moveSpeed: 4
+    existingTime: 40
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &3583203535932230069
@@ -290,3 +296,30 @@ MonoBehaviour:
     ai: {fileID: 0}
     targetObject: {fileID: 0}
     state: 0
+--- !u!54 &-8364509710925976348
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3329578327918105278}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

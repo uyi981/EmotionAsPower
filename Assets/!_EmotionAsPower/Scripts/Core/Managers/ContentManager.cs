@@ -8,19 +8,19 @@ public class ContentManager : Singleton<ContentManager>, ISetup
 {
     public ItemCategoryIconConfig categoryIcons;
 
+    public ItemLibrarySO itemLibrary;
+    public EnemyLibrarySO enemyLibrary;
+
     [SerializeField]
     private bool debugLoading = true;   
-    [SerializeField]
     private SerializableDictionary<string, ItemSO> itemSOs;
     public SerializableDictionary<string, ItemSO> ItemSOs => itemSOs;
 
-    [SerializeField]
-    private SerializableDictionary<string, ResourceSO> resourceSOs;
-    public SerializableDictionary<string, ResourceSO> ResourceSOs => resourceSOs;
+    private SerializableDictionary<string, GameObject> resources;
+    public SerializableDictionary<string, GameObject> Resources => resources;
 
-    [SerializeField]
-    private SerializableDictionary<string, EnemySO> enemySOs;
-    public SerializableDictionary<string, EnemySO> EnemySOs => enemySOs;
+    private SerializableDictionary<string, GameObject> enemies;
+    public SerializableDictionary<string, GameObject> Enemies => enemies;
 
     public SerializableDictionary<int, PlayerBaseLevel> playerBaseLevelConfig;
 
@@ -62,28 +62,31 @@ public class ContentManager : Singleton<ContentManager>, ISetup
 
     public void Setup()
     {
-        StartCoroutine(SetupCoroutine());
+        //StartCoroutine(SetupCoroutine());
+        this.itemSOs = itemLibrary.itemSOs;
+        this.enemies = enemyLibrary.enemyPrefabs;
     }
     public IEnumerator SetupCoroutine()
     {
-        Debug.Log("ContentManager Setup Started");
+        //Debug.Log("ContentManager Setup Started");
 
-        // Initialize dictionaries
-        itemSOs = new SerializableDictionary<string, ItemSO>();
-        resourceSOs = new SerializableDictionary<string, ResourceSO>();
-        enemySOs = new SerializableDictionary<string, EnemySO>();
+        //// Initialize dictionaries
+        //itemSOs = new SerializableDictionary<string, ItemSO>();
+        //resourceSOs = new SerializableDictionary<string, ResourceSO>();
+        //enemySOs = new SerializableDictionary<string, EnemySO>();
 
-        Debug.Log("Starting to load content...");
+        //Debug.Log("Starting to load content...");
 
-        var loadItems = StartCoroutine(LoadAllContentsOfTypeCoroutine<ItemSO>(itemSOs, debugLoading));
-        var loadResources = StartCoroutine(LoadAllContentsOfTypeCoroutine<ResourceSO>(resourceSOs, debugLoading));
-        var loadEnemies = StartCoroutine(LoadAllContentsOfTypeCoroutine<EnemySO>(enemySOs, debugLoading));
+        //var loadItems = StartCoroutine(LoadAllContentsOfTypeCoroutine<ItemSO>(itemSOs, debugLoading));
+        //var loadResources = StartCoroutine(LoadAllContentsOfTypeCoroutine<ResourceSO>(resourceSOs, debugLoading));
+        //var loadEnemies = StartCoroutine(LoadAllContentsOfTypeCoroutine<EnemySO>(enemySOs, debugLoading));
 
-        yield return loadItems;
-        yield return loadResources;
-        yield return loadEnemies;
+        //yield return loadItems;
+        //yield return loadResources;
+        //yield return loadEnemies;
 
-        Debug.Log("ContentManager Setup Completed");
+        //Debug.Log("ContentManager Setup Completed");
+        yield return new WaitForSeconds(0.1f);
     }
 
     // TODO: Implement loading and unloading of a specific amount of content using pooling

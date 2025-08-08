@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5846905903390838951}
   - component: {fileID: 1341112854921241438}
-  - component: {fileID: 5409859332172969035}
-  m_Layer: 0
+  - component: {fileID: 7823947174705289856}
+  m_Layer: 9
   m_Name: Facroty (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,12 +69,6 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   buildingType: 2
-  requiredItems:
-    pairs:
-    - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-      value: 10
-    - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-      value: 10
   workerPositions: []
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
@@ -90,16 +84,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
   productionAmount: 1
   requireEmotion: 3
---- !u!61 &5409859332172969035
-BoxCollider2D:
+--- !u!65 &7823947174705289856
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844683087737877263}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -108,34 +99,12 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.02712667, y: 0.5193798}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.1546261, y: 1.2845899}
-  m_EdgeRadius: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.24, z: 0}
 --- !u!1 &2981017431362517187
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5210831237330100452}
   - component: {fileID: 2994883936078629056}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: factory_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -281,7 +281,7 @@ MonoBehaviour:
     description: This is the Tower 1
   - buildingID: 14
     buildingName: Tower 1
-    type: 2
+    type: 6
     blueprintPrefab: {fileID: 5068722114887075134, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 5068722114887075134, guid: 4dd59b6bf9b12f84ca695f09fba734d4, type: 3}
@@ -323,6 +323,25 @@ MonoBehaviour:
     blueprintPrefab: {fileID: 6804071097264351240, guid: b28b9360e5adf3648bc3f9c402107e65, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 6804071097264351240, guid: 4cc6682c827c0c54993bc09978c343e8, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+        value: 10
+    buildTime: 15
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: This is the Tower 1
+  - buildingID: 17
+    buildingName: Tower 1
+    type: 7
+    blueprintPrefab: {fileID: 167690424386379601, guid: 65461e4c5880a9241a244d80375a1d55, type: 3}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 167690424386379601, guid: 8b01d842ab6e98441b3581bb8d295bca, type: 3}
     keyValuePairs:
       pairs:
       - key: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}

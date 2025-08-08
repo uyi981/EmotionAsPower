@@ -6,7 +6,9 @@ public enum ItemCategory
 
     Wood = 1, 
     Stone = 2, 
-    Metal = 3, 
+    ConstructionMaterial = 3, 
     Food = 4,
+    Special = 5,
+
     Emotion = 100,
 }

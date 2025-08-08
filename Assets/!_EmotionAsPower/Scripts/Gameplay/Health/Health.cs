@@ -24,6 +24,7 @@ public class Health : MonoBehaviour, IInteractable
     public UnityEvent OnRevived;
     public UnityEvent OnMaxHealthReached;
 
+    [SerializeField]
     private bool isDead = false;
     private bool isRegenerating = false;
     private Coroutine regenerationCoroutine;

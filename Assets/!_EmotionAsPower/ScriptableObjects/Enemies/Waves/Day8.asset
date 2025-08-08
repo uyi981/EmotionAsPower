@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28d5edd156501874c97dfe599da17b47, type: 3}
+  m_Name: Day8
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
+  enemies:
+    pairs:
+    - key: {fileID: 6170872781834844453, guid: a6e36effa3faccd4ebf11ac8c489d9a3, type: 3}
+      value: 3
+    - key: {fileID: 3329578327918105278, guid: f916b8b79d82b3d46a5256c2f34e4364, type: 3}
+      value: 3
+    - key: {fileID: 3329578327918105278, guid: ad1a56bd6c12bd04992c56498d718af4, type: 3}
+      value: 3

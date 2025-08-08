@@ -1,3 +1,4 @@
+using Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,7 @@ public class UIManager : Singleton<UIManager>, ISetup
     public string homeScreenSceneName = "HomeScreen";
 
     public GameSavedNotification savedNotification;
+    public BreedingUI breedingUI;
     public bool ShowUI => showUI;
     public void Setup()
     {
@@ -29,6 +31,10 @@ public class UIManager : Singleton<UIManager>, ISetup
     {
         SceneManager.LoadSceneAsync(homeScreenSceneName);
     }
-
+    public void OpenBreedingUI(BreedingBuilding breedingBuilding)
+    {
+        breedingUI.gameObject.SetActive(true);
+        breedingUI.SetBreedingBuilding(breedingBuilding);
+    }
     
 }

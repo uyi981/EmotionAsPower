@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3617950330845260001}
   - component: {fileID: 670472530632508617}
-  - component: {fileID: 4826932097740444533}
-  m_Layer: 0
+  - component: {fileID: 9015429967313716044}
+  m_Layer: 9
   m_Name: Tower (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,12 +69,6 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   buildingType: 1
-  requiredItems:
-    pairs:
-    - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-      value: 10
-    - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-      value: 10
   workerPositions: []
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
@@ -84,19 +78,19 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 5
   attackCooldown: 1
-  attackEffectPrefab: {fileID: 2546635487864566274, guid: a6f8166e60b75d84d95b0232c91bbc64, type: 3}
+  vfxName: posion
   poolDefaultCapacity: 3
   poolMaxSize: 5
---- !u!61 &4826932097740444533
-BoxCollider2D:
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!65 &9015429967313716044
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3670662489938317494}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,34 +99,12 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.009493828, y: 0.76}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.07, y: 1.5}
-  m_EdgeRadius: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.63, z: 0}
 --- !u!1 &4397808784888807589
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5530681285331548300}
   - component: {fileID: 9105198124513212661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: tower_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

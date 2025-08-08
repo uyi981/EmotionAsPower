@@ -91,3 +91,25 @@ public class VillagerAttackEnermyState : IState
         // Logic for exiting the villager selected state
     }
 }
+public class villagerPrisonState :IState
+{
+    Villager villager;
+    public villagerPrisonState(Villager villager)
+    {
+        this.villager = villager;
+    }
+    public void EnterState()
+    {
+       villager.isPrisoner = true; // Set villager as a prisoner
+    }
+
+    public void ExitState()
+    {
+
+    }
+
+    public void UpdateState()
+    {
+       
+    }
+}

@@ -45,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a49fc751475edf4983aecb90c16b99b
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/ConstructionMaterials/FiberSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3cbcbe712591fc44d80408721b29c9ed
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/JoySO 1.asset
     m_ReadOnly: 0
@@ -53,6 +59,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ceb196301fac8c45be71e0641af5362
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/CarrotSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46936347eafe61b408c5e38f0e73652f
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/CarrotSO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
@@ -74,12 +86,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6023621fa0961a44da077a4f9d3e099a
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - EnemySO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65d0c0ff07e78234ab06dc59a8f60be8
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
@@ -105,8 +111,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7ece13ca5a635c846810a8b5a9d1faf1
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Foods/RainbowMushroomSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9b92a9fe28c427c4b807d5a4d4123c34
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9c0b55f50a6ae68438e276d841ba2f67
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/CherrySO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
@@ -123,12 +141,29 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c8f7838bad5ac604bbc7b82ed8ab5228
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/ItemDestroyerSO
-      1.asset
+  - m_GUID: a81898e0709b1524ea25a98be2af2980
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/WoodSO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - EnemySO
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a90f1698f9a734a46832d31e0666f6d5
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/StoneSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9ac8bb737d0e5441bda479cc5928097
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/SteelSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b20470fea2d23be44a1b7e70a9403474
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Specials/RainbowMushroomSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d5165a75b148a5842b337cd622d3a995
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/StoneSO.asset
@@ -142,14 +177,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: edc8abdd9c45d7a46a318675c6e08ffc
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - EnemySO
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f134000a9fdfc1c43a50369cb89676fb
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fcc4c3619bc1e5942a3767a611e5cd4a
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Foods/ChiliSO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO

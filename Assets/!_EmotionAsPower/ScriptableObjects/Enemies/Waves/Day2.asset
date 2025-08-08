@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
   enemies:
     pairs:
-    - key: {fileID: 11400000, guid: c8f7838bad5ac604bbc7b82ed8ab5228, type: 2}
+    - key: {fileID: 6170872781834844453, guid: a6e36effa3faccd4ebf11ac8c489d9a3, type: 3}
       value: 1
-    - key: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
-      value: 1
-    - key: {fileID: 11400000, guid: 6023621fa0961a44da077a4f9d3e099a, type: 2}
-      value: 1
+    - key: {fileID: 3329578327918105278, guid: f916b8b79d82b3d46a5256c2f34e4364, type: 3}
+      value: 0
+    - key: {fileID: 3329578327918105278, guid: ad1a56bd6c12bd04992c56498d718af4, type: 3}
+      value: 0
