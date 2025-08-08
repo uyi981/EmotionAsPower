@@ -8,12 +8,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.Events;
-
-namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
+using Assets.__EmotionAsPower.Scripts.Gameplay.UIShop;
+public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
-    {
-        [Header("Prefab Spawn")]
+    [Header("Prefab Spawn")]
         public GameObject iconResourcePrefab;
 
         [Header("Referece Gameobject")]
@@ -34,8 +32,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         private Button button;
         private PlacementSystem placementSystem;
 
-
-        public GameObject Information
+        List<IconResource> iconResources = new List<IconResource>();
+    public GameObject Information
         {
             get => information;
             set => information = value;
@@ -80,8 +78,12 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 
             if (placementSystem != null)
             {
+            Building building = Singleton<PlacementSystem>.Instance.database.buildings[buildingID];
+            if (Singleton<ItemStorage>.Instance.CheckListRequireItem(building.keyValuePairs))
+            {
                 placementSystem.StartPlacement(buildingID);
                 Singleton<ShopSystem>.Instance.CloseShop();
+            }    
             }
             else
             {
@@ -133,10 +135,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         {
             if (resourceData != null)
             {
-
-
-                // Set up new resources
-                foreach (var item in resourceData)
+            // Set up new resources
+            foreach (var item in resourceData)
                 {
                     Debug.Log($"Setting resource: {item.Key} with amount: {item.Value}");
                     iconResourcePrefabInstance = Instantiate(iconResourcePrefab, resource.transform);
@@ -144,14 +144,28 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                     if (itemIcon != null && item.Key != null)
                     {
                         itemIcon.Setup(item.Key, item.Value);
-                    }
+                        iconResources.Add(itemIcon);
+                }
                 }
             }
             else
             {
                 Debug.LogWarning("Cannot set resource: iconResourcePrefabInstance is null or resource data is invalid");
             }
-        }
+
+            SerializableDictionary<ItemSO, int> missingItem = Singleton<ItemStorage>.Instance.CheckListRequireItemAndReturnItemMissing(resourceData);
+            if (missingItem.Count > 0)
+            {
+            buildingIcon.color = Color.red; // Set building icon color to red if any item is missing
+            for (int k=0;k< iconResources.Count; k++)
+                {
+                    if(missingItem.ContainsKey(iconResources[k].item))
+                    {
+                        iconResources[k].image.color = Color.red; // Set color to red if the item is missing
+                    }
+                }
+            }
+    }
 
 
         public void SetInformation(int id, Sprite img, string name, string des)
@@ -177,4 +191,3 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
 
     }
 
-}

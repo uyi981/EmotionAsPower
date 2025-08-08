@@ -4,8 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
-{
     public class ContentUI : MonoBehaviour
     {
         [Header("IconPrefab Spawn")]
@@ -53,7 +51,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 
         public void SetResource(SerializableDictionary<ItemSO, int> resources)
         {
-            iconUIInstance.GetComponent<IconUI>().SetResource(resources);
+        // Set up new resources
+        iconUIInstance.GetComponent<IconUI>().SetResource(resources);
         }
 
         public void SetInfo(int id, Sprite img, string name, string des)
@@ -67,4 +66,3 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
 
 
     }
-}
