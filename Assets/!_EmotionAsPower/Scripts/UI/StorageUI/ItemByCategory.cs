@@ -46,8 +46,10 @@ public class ItemByCategory : MonoBehaviour
         bool hasItems = false;
         foreach (var itemPair in allItems.Pairs)
         {
+            
+            Debug.Log(itemPair.key.ToString());
             ItemSO itemSO = ContentManager.Instance.ItemSOs[itemPair.key];
-
+            
             if (itemSO.category == category)
             {
                 GameObject itemObj = Instantiate(itemInStoragePrefab, content);

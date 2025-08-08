@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1293901996, guid: 162e65e6013db0d42a5d57b5848eb9cd, type: 3}
+  m_Sprite: {fileID: -1548194391, guid: 7ce4650536bccb842b0e794cc2fdeba2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425443125771899968}
-  - component: {fileID: 2326110992999009799}
   - component: {fileID: 3518088046152193051}
+  - component: {fileID: 1135694433623637215}
   m_Layer: 0
   m_Name: Entertainment (5)
   m_TagString: Untagged
@@ -124,52 +124,6 @@ Transform:
   - {fileID: 5361500068482107772}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &2326110992999009799
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5715943784165529665}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.009544849, y: 0.28679377}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.5484228, y: 0.8194181}
-  m_EdgeRadius: 0
 --- !u!114 &3518088046152193051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,10 +171,32 @@ MonoBehaviour:
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
-  effectRange: 5
+  effectRange: 3
   effectCooldown: 1
   emotionType: 2
-  emotionAmount: 100
+  emotionAmount: 10
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  nameVFX: boring
+--- !u!65 &1135694433623637215
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5715943784165529665}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.24, z: 0}

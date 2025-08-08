@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1875289739278388547}
-  - component: {fileID: 8619141724233056712}
   - component: {fileID: 2650963199440928556}
+  - component: {fileID: 4432371698362580802}
   m_Layer: 0
   m_Name: Entertainment (3)
   m_TagString: Untagged
@@ -34,52 +34,6 @@ Transform:
   - {fileID: 910586525982127481}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8619141724233056712
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76506552556472127}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.030079842, y: 0.28326082}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.59163094, y: 0.81235194}
-  m_EdgeRadius: 0
 --- !u!114 &2650963199440928556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,13 +81,35 @@ MonoBehaviour:
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
-  effectRange: 5
+  effectRange: 3
   effectCooldown: 1
   emotionType: 4
-  emotionAmount: 100
+  emotionAmount: 10
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  nameVFX: fear
+--- !u!65 &4432371698362580802
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76506552556472127}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.24, z: 0}
 --- !u!1 &8984145137193632641
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +189,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1546704754, guid: 162e65e6013db0d42a5d57b5848eb9cd, type: 3}
+  m_Sprite: {fileID: 1102538463, guid: 7ce4650536bccb842b0e794cc2fdeba2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

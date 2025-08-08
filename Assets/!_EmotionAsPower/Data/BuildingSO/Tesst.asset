@@ -281,7 +281,7 @@ MonoBehaviour:
     description: This is the Tower 1
   - buildingID: 14
     buildingName: Tower 1
-    type: 2
+    type: 6
     blueprintPrefab: {fileID: 5068722114887075134, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 5068722114887075134, guid: 4dd59b6bf9b12f84ca695f09fba734d4, type: 3}

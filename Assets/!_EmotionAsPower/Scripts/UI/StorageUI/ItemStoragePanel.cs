@@ -13,8 +13,10 @@ public class ItemStoragePanel : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.OnSetupFinished += () => InitializeCategoryPanels();
+        //GameManager.Instance.OnSetupFinished += () => InitializeCategoryPanels();
+        InitializeCategoryPanels();
         ItemStorage.Instance.OnStoragedItemsChange += UpdateUI;
+        //ItemStorage.Instance.CallUpdateEvent();
     }
 
     private void InitializeCategoryPanels()

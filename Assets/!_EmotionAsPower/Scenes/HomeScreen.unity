@@ -3460,6 +3460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DataPersistenceManager
   fileName: EmotionAsPowerSaveFile
+  gameDataView: {fileID: 11400000, guid: f1c06e3e77dc655498fae553d06183e3, type: 2}
 --- !u!4 &1947452030
 Transform:
   m_ObjectHideFlags: 0

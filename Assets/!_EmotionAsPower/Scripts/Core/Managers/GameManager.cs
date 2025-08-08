@@ -35,20 +35,26 @@ public class GameManager : Singleton<GameManager>
     {
         base.Awake();
         PauseGame();
-        StartCoroutine(SetupAll());
+        StartCoroutine(DelayedSetup());
         StartCoroutine(UpdateFPSCalculation()); // Start FPS calculation coroutine
     }
 
-    private IEnumerator SetupAll()
+    private void SetupAll()
     {
         finishedSetup = false;
-        yield return ContentManager.Instance.SetupCoroutine();
+        ContentManager.Instance.Setup();
         UIManager.Instance.Setup();
         ResumeGame();
         OnSetupFinished?.Invoke();
         finishedSetup = true;
         PlayerBase.Instance.OnPlayerBaseDestroyed += LoseGame;
         ExitDebug();
+    }
+
+    private IEnumerator DelayedSetup()
+    {
+        yield return null; // Wait one frame to let other scripts initialize
+        SetupAll();
     }
 
     // Coroutine to calculate FPS
