@@ -12,6 +12,9 @@ TagManager:
   - PlayerBase
   - Food
   - Resource
+  - Factory
+  - Shop
+  - PrisonBuilding
   layers:
   - Default
   - TransparentFX

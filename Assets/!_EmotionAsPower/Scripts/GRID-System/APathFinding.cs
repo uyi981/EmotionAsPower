@@ -77,7 +77,10 @@ public class APathFinding
     public bool CheckIsObstacle(Vector2Int position, float[,] heightMap)
     {
 
-      
+        if(position.Equals(endNode.position))
+        {
+            return false; // End node is not an obstacle
+        }
         try
         {
             float value = heightMap[position.x, position.y];

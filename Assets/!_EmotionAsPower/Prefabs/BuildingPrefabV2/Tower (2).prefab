@@ -84,7 +84,7 @@ MonoBehaviour:
   attackDamage: 10
   attackRange: 5
   attackCooldown: 1
-  vfxName: 
+  vfxName: ball
   poolDefaultCapacity: 3
   poolMaxSize: 5
   enemyLayer:
