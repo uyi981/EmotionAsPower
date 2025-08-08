@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Assets.__EmotionAsPower.Scripts.Gameplay.ProcessBar
+namespace Assets.__EmotionAsPower.Scripts.UI.ProcessBar
 {
     public class ProcessBar : MonoBehaviour
     {
-       
-        void Update()
+
+        [SerializeField] private Image fillImage;
+
+        public void SetProcess(float normalized)
         {
-            // Luôn hướng healthBar về camera
-                transform.LookAt(Camera.main.transform);
+            if (fillImage != null)
+                fillImage.fillAmount = normalized;
         }
+        
     }
 }

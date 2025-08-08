@@ -13,13 +13,28 @@ MonoBehaviour:
   m_Name: ResourceDestroyerSO
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
   id: Enemy_ResourceDestroyer
-  icon: {fileID: 21300000, guid: 0df4dbe6d7804724eaf47cc736807c58, type: 3}
+  icon: {fileID: 3830241007737352496, guid: 9892b87d3367a644bb681791a5f3a6e1, type: 3}
   displayName: ResourceDestroyer
   description: It will break out all of resources
   defaultData:
     maxHealth: 100
     defense: 50
-    moveSpeed: 10
+    moveSpeed: 5
     attackDamage: 5
     attackSpeed: 5
-  behaviour: {fileID: 11400000, guid: 9dd1d6a3c0873514c9ed53e92068b2db, type: 2}
+    existingTime: 50
+  prefab: {fileID: 3329578327918105278, guid: f916b8b79d82b3d46a5256c2f34e4364, type: 3}
+  behaviour: {fileID: 11400000, guid: 452c11ecd53e1cc40bd514304dcb4820, type: 2}
+  dropableItems:
+  - item: {fileID: 11400000, guid: 9c9918d4a2bb9e842bf8dbb93d1bb62b, type: 2}
+    amountChances:
+    - amount: 1
+      chance: 80
+    - amount: 2
+      chance: 20
+  - item: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+    amountChances:
+    - amount: 4
+      chance: 60
+    - amount: 6
+      chance: 40

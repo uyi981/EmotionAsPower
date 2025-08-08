@@ -17,3 +17,6 @@ MonoBehaviour:
   displayName: Tomato
   description: "Juicy morale booster or robot-slipping splatter. \nPops may pen tomato
     love songs."
+  category: 4
+  useCases:
+    pairs: []

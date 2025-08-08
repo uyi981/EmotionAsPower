@@ -7,27 +7,17 @@ public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
     [SerializeField]
     private GameObject resourcePrefab;
 
-    /// <summary>
-    /// Loads resource data from the game data, clears existing resources, and spawns them with saved states.
-    /// </summary>
     public void LoadGame(GameData gameData)
     {
         ClearCurrentResources();
         InitializeLoadedResources(gameData.resources);
     }
 
-    /// <summary>
-    /// Saves the current state of all resources in the scene to the game data.
-    /// </summary>
     public void SaveGame(ref GameData gameData)
     {
         gameData.resources = FindAllResources();
     }
 
-    /// <summary>
-    /// Spawns a resource at the specified position with the given ResourceSO.
-    /// </summary>
-    /// <returns>The spawned resource GameObject.</returns>
     public GameObject SpawnResource(ResourceSO resourceSO, Vector3 position)
     {
         GameObject spawnedResource = Instantiate(resourcePrefab, position, resourcePrefab.transform.rotation, this.transform);
@@ -36,9 +26,6 @@ public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
         return spawnedResource;
     }
 
-    /// <summary>
-    /// Initializes resources from saved data, spawning them and setting their health.
-    /// </summary>
     private void InitializeLoadedResources(ResourceRuntimeInstance[] resourceInstances)
     {
         SerializableDictionary<string, ResourceSO> resourceSOs = ContentManager.Instance.ResourceSOs;
@@ -57,9 +44,6 @@ public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
         }
     }
 
-    /// <summary>
-    /// Finds all resources in the scene and collects their runtime data.
-    /// </summary>
     private ResourceRuntimeInstance[] FindAllResources()
     {
         var resources = GetComponentsInChildren<Resource>();
@@ -72,9 +56,6 @@ public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
         return result;
     }
 
-    /// <summary>
-    /// Destroys all resource GameObjects currently managed by this instance.
-    /// </summary>
     private void ClearCurrentResources()
     {
         foreach (Resource resource in GetComponentsInChildren<Resource>())

@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Canvas
+  - Skill
+  - Enermy
+  - Villager
+  - Item
+  - PlayerBase
+  - Food
+  - Resource
   layers:
   - Default
   - TransparentFX
@@ -12,8 +20,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - Enemy
+  - Villager
   - 
   - 
   - 

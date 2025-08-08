@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d7fe13b0681f9458a5cde40d2f3d5c, type: 3}
+  m_Name: Reactive
+  m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
+  name: Reactive
+  description: Reacts strongly to chats, but emotions fade fast.
+  rateSendChat: 0.7
+  rateAcceptChat: 0.7
+  emotionSendAffterChat:
+    AngerLevel: 5
+    JoyLevel: 10
+    SadnessLevel: 10
+    FearLevel: 10
+    ApatheticLevel: 10
+  emotionSensity:
+    AngerLevel: 0.3
+    JoyLevel: 0.3
+    SadnessLevel: 0.3
+    FearLevel: 0.3
+    ApatheticLevel: 0.3
+  hungerModifier: 0.5
+  thirstModifier: 1
+  tiredModifier: 1
+  moveSpeedModifier: 1.5

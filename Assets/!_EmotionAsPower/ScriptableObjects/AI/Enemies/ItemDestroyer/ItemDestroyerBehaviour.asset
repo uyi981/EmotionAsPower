@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3340e6ded72aeb49acda0b063152db3, type: 3}
+  m_Name: ItemDestroyerBehaviour
+  m_EditorClassIdentifier: Assembly-CSharp::NewAIBehaviour
+  actions:
+    pairs:
+    - key: {fileID: 11400000, guid: 78af020578b68a04f8fa430305538b2b, type: 2}
+      value: 20
+    - key: {fileID: 11400000, guid: b02f1910cc8d6264892d4714ceccb3a5, type: 2}
+      value: 30
+    - key: {fileID: 11400000, guid: 3e93cf0f9a5e13546b09723e35eec9b8, type: 2}
+      value: 50

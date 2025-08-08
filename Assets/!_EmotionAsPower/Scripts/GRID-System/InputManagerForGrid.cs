@@ -1,6 +1,9 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InputManagerForGrid : MonoBehaviour
 {
@@ -30,9 +33,38 @@ public class InputManagerForGrid : MonoBehaviour
             return lasPosition; // Return last valid position if no hit
         }
     }
+    [SerializeField] private GraphicRaycaster raycaster;
+    [SerializeField] private EventSystem eventSystem;
     public bool IsPointerOverUI()
     {
-        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        if (raycaster == null)
+            raycaster = FindFirstObjectByType<GraphicRaycaster>();
+
+        if (eventSystem == null)
+            eventSystem = EventSystem.current;
+
+        // Tạo danh sách kết quả raycast
+        PointerEventData pointerData = new PointerEventData(eventSystem)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        raycaster.Raycast(pointerData, results);
+
+        // Nếu có trúng UI
+        if (results.Count > 0)
+        {
+            Debug.Log("Pointer over UI:");
+            foreach (var result in results)
+            {
+                Debug.Log(result.gameObject.name); // Tên object UI
+            }
+
+            return true;
+        }
+
+        return false;
     }
     // Update is called once per frame
     void Update()

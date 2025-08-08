@@ -8,4 +8,6 @@ public class EnemyDefaultData
     public float moveSpeed;
     public float attackDamage;
     public float attackSpeed;
+
+    public float existingTime;
 }

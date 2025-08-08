@@ -6,7 +6,10 @@ using UnityEngine;
 [Serializable]
 public class GameData
 {
+    public GameDateTime dateTime;
+    public int playerBaseLevel;
     public SerializableDictionary<EmotionType, int> emotionEnergy;
+    public SerializableDictionary<string, int> storagedItems;
     public ItemRuntimeInstance[] items;
     public ResourceRuntimeInstance[] resources;
     public EnemyRuntimeInstance[] enemies;

@@ -16,13 +16,17 @@ public class APathFinding
     public List<Vector2Int> GetPathResult(Vector2Int start, Vector2Int end, float[,] heightMap,int size)
     {
 
-        if(CheckIsObstacle(start, heightMap)||CheckIsObstacle(end, heightMap))
-        {
-            //Debug.Log("Start or End is Obstacle");
-            //Debug.Log("Start: "+ heightMap[start.x,start.y]);
-            //Debug.Log("End: " + heightMap[end.x,end.y]);
-            return null;
-        }
+        closed = new HashSet<Vector2Int>();
+        openList = new List<ANode>();
+        startNode=null;
+        endNode= null;
+        //if ( CheckIsObstacle(end, heightMap))
+        //{
+        //    //Debug.Log("Start or End is Obstacle");
+        //    //Debug.Log("Start: "+ heightMap[start.x,start.y]);
+        //    //Debug.Log("End: " + heightMap[end.x,end.y]);
+        //    return null;
+        //}
 
         startNode = new ANode(null, start, Vector2Int.Distance(start, end), 0);
         endNode = new ANode(null, end, 0, Vector2Int.Distance(end, start));
@@ -42,7 +46,7 @@ public class APathFinding
             closed.Add(currentNode.position);
             if (currentNode.position == endNode.position)
             {
-                Debug.Log("Path Found!");
+                //Debug.Log("Path Found!");
                 return RevervePath(currentNode,heightMap,size);
             }
         }
@@ -72,11 +76,20 @@ public class APathFinding
     }
     public bool CheckIsObstacle(Vector2Int position, float[,] heightMap)
     {
-        Debug.Log("Checking position: " + position);
-        float value = heightMap[position.x, position.y];
-        if(value==1)
+
+      
+        try
         {
-            return true;
+            float value = heightMap[position.x, position.y];
+            if (value == 1)
+            {
+                return true;
+            }
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Debug.LogError("Index out of range: " + e.Message+position);
+            throw;
         }
         return false;
     }
@@ -125,6 +138,10 @@ public class APathFinding
         foreach (var direction in directions)
         {
             Vector2Int neighbourPos = node.position + direction;
+            if (neighbourPos.x < 0 || neighbourPos.y < 0)
+            {
+                continue; // Skip out of bounds positions
+            }
             neighbours.Add(neighbourPos);
         }
         return neighbours;

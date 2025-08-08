@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1630186357978606733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4121475730583013506}
+  - component: {fileID: 5589020933272672534}
+  m_Layer: 0
+  m_Name: ContentManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4121475730583013506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630186357978606733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5589020933272672534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630186357978606733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e11a924160c224caf07e9ca761c5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ContentManager
+  categoryIcons: {fileID: 11400000, guid: 8f67649daff9f44419156ebed17f7f27, type: 2}
+  debugLoading: 1
+  itemSOs:
+    pairs:
+    - key: Emotion_Joy
+      value: {fileID: 11400000, guid: 7d4b0da18b79856429f94ac7b6a59ccb, type: 2}
+    - key: Emotion_Sad
+      value: {fileID: 11400000, guid: 3cbcbe712591fc44d80408721b29c9ed, type: 2}
+    - key: Emotion_Apethatic
+      value: {fileID: 11400000, guid: 2ab91960f439a534e9e658f6c3b7f8cc, type: 2}
+    - key: Emotion_Anger
+      value: {fileID: 11400000, guid: 9b92a9fe28c427c4b807d5a4d4123c34, type: 2}
+    - key: Emotion_Fear
+      value: {fileID: 11400000, guid: 65d0c0ff07e78234ab06dc59a8f60be8, type: 2}
+    - key: Emotion_Normal
+      value: {fileID: 11400000, guid: f134000a9fdfc1c43a50369cb89676fb, type: 2}
+    - key: Item_Wood
+      value: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+    - key: Item_HardWood
+      value: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
+    - key: Item_Stone
+      value: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+    - key: Item_Pebble
+      value: {fileID: 11400000, guid: 9c9918d4a2bb9e842bf8dbb93d1bb62b, type: 2}
+    - key: Item_Steel
+      value: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+    - key: Item_GarbageSteel
+      value: {fileID: 11400000, guid: 19f75e1cafb6f724bab40ba6cf3bc831, type: 2}
+    - key: Item_Carrot
+      value: {fileID: 11400000, guid: 6b33d0f58ba06a24fbd129044bb865d1, type: 2}
+    - key: Item_Cherry
+      value: {fileID: 11400000, guid: 5fe72cdec60b05e41811a08ef459deea, type: 2}
+    - key: Item_Tomato
+      value: {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
+    - key: DEF
+      value: {fileID: 11400000, guid: e6cbc9019a9459d43bd0560013462dd7, type: 2}
+    - key: ABC
+      value: {fileID: 11400000, guid: 2b52fb6c29da6cc40b7cdd003c0ee273, type: 2}
+  resourceSOs:
+    pairs:
+    - key: Resource_Tree_1
+      value: {fileID: 11400000, guid: 784914357d51502499772318928f26c2, type: 2}
+  enemySOs:
+    pairs:
+    - key: Enemy_ItemDestroyer
+      value: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
+    - key: Enemy_ResourceDestroyer
+      value: {fileID: 11400000, guid: c8f7838bad5ac604bbc7b82ed8ab5228, type: 2}
+    - key: Enemy_TNTCarrier
+      value: {fileID: 11400000, guid: 6023621fa0961a44da077a4f9d3e099a, type: 2}
+  playerBaseLevelConfig:
+    pairs:
+    - key: 1
+      value: {fileID: 11400000, guid: f94f7546f0f735f49adc11d8282037e1, type: 2}
+    - key: 2
+      value: {fileID: 11400000, guid: 9b69f1dd3cb8a6841848f101ba622787, type: 2}
+    - key: 3
+      value: {fileID: 11400000, guid: ff0637b064fcfcb459c76fe188981aa8, type: 2}
+    - key: 4
+      value: {fileID: 11400000, guid: 1c6030e224c2a8248acdf787df5e5d75, type: 2}
+    - key: 5
+      value: {fileID: 11400000, guid: 3bd1b47d04ef5ae479cda950320bc0ea, type: 2}

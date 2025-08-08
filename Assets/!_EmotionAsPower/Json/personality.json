@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Optimist",
+    "description": "Loves chatting, always feels happy afterward.",
+    "rateSendChat": 0.8,
+    "rateAcceptChat": 0.9,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 20, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.5, "JoyLevel": 1.5, "SadnessLevel": 0.3, "FearLevel": 0.2, "ApatheticLevel": 0.2 },
+    "hungerModifier": 0.1,
+    "thirstModifier": 0.1,
+    "tiredModifier": 0.1
+  },
+  {
+    "name": "HotTempered",
+    "description": "Easily angered and quick to react negatively.",
+    "rateSendChat": 0.4,
+    "rateAcceptChat": 0.5,
+    "emotionSendAffterChat": { "AngerLevel": 10, "JoyLevel": 0, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 2.0, "JoyLevel": 0.5, "SadnessLevel": 0.5, "FearLevel": 0.5, "ApatheticLevel": 0.5 },
+    "hungerModifier": 0.3,
+    "thirstModifier": 0.3,
+    "tiredModifier": 0.4
+  },
+  {
+    "name": "Emotionless",
+    "description": "Barely feels anything. Conversations have no effect.",
+    "rateSendChat": 0.3,
+    "rateAcceptChat": 0.3,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 0, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.1, "JoyLevel": 0.1, "SadnessLevel": 0.1, "FearLevel": 0.1, "ApatheticLevel": 0.1 },
+    "hungerModifier": 0.0,
+    "thirstModifier": 0.0,
+    "tiredModifier": 0.0
+  },
+  {
+    "name": "OverSensitive",
+    "description": "Every little thing triggers emotional change.",
+    "rateSendChat": 0.6,
+    "rateAcceptChat": 0.7,
+    "emotionSendAffterChat": { "AngerLevel": 5, "JoyLevel": 5, "SadnessLevel": 5, "FearLevel": 5, "ApatheticLevel": 5 },
+    "emotionSensity":        { "AngerLevel": 2.0, "JoyLevel": 2.0, "SadnessLevel": 2.0, "FearLevel": 2.0, "ApatheticLevel": 2.0 },
+    "hungerModifier": 0.2,
+    "thirstModifier": 0.2,
+    "tiredModifier": 0.2
+  },
+  {
+    "name": "Melancholic",
+    "description": "Feels sad after interactions, tends to be gloomy.",
+    "rateSendChat": 0.3,
+    "rateAcceptChat": 0.4,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 0, "SadnessLevel": 15, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.5, "JoyLevel": 0.5, "SadnessLevel": 2.0, "FearLevel": 0.5, "ApatheticLevel": 0.5 },
+    "hungerModifier": 0.2,
+    "thirstModifier": 0.2,
+    "tiredModifier": 0.4
+  },
+  {
+    "name": "WarmIntrovert",
+    "description": "Quiet but appreciates meaningful interaction.",
+    "rateSendChat": 0.4,
+    "rateAcceptChat": 0.6,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 8, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.2, "JoyLevel": 1.0, "SadnessLevel": 0.2, "FearLevel": 0.2, "ApatheticLevel": 0.2 },
+    "hungerModifier": 0.1,
+    "thirstModifier": 0.1,
+    "tiredModifier": 0.2
+  },
+  {
+    "name": "Timid",
+    "description": "Scared easily, avoids risky interactions.",
+    "rateSendChat": 0.3,
+    "rateAcceptChat": 0.5,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 0, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.5, "JoyLevel": 0.5, "SadnessLevel": 0.5, "FearLevel": 2.0, "ApatheticLevel": 0.5 },
+    "hungerModifier": 0.3,
+    "thirstModifier": 0.3,
+    "tiredModifier": 0.3
+  },
+  {
+    "name": "Distant",
+    "description": "Hard to get close to. Dislikes conversation.",
+    "rateSendChat": 0.2,
+    "rateAcceptChat": 0.2,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 0, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.2, "JoyLevel": 0.2, "SadnessLevel": 0.2, "FearLevel": 0.2, "ApatheticLevel": 0.2 },
+    "hungerModifier": 0.1,
+    "thirstModifier": 0.1,
+    "tiredModifier": 0.1
+  },
+  {
+    "name": "Reactive",
+    "description": "Reacts strongly to chats, but emotions fade fast.",
+    "rateSendChat": 0.7,
+    "rateAcceptChat": 0.7,
+    "emotionSendAffterChat": { "AngerLevel": 10, "JoyLevel": 10, "SadnessLevel": 10, "FearLevel": 10, "ApatheticLevel": 10 },
+    "emotionSensity":        { "AngerLevel": 0.3, "JoyLevel": 0.3, "SadnessLevel": 0.3, "FearLevel": 0.3, "ApatheticLevel": 0.3 },
+    "hungerModifier": 0.2,
+    "thirstModifier": 0.2,
+    "tiredModifier": 0.2
+  },
+  {
+    "name": "Weary",
+    "description": "Gets tired easily from emotional change.",
+    "rateSendChat": 0.5,
+    "rateAcceptChat": 0.5,
+    "emotionSendAffterChat": { "AngerLevel": 0, "JoyLevel": 0, "SadnessLevel": 0, "FearLevel": 0, "ApatheticLevel": 0 },
+    "emotionSensity":        { "AngerLevel": 0.5, "JoyLevel": 0.5, "SadnessLevel": 0.5, "FearLevel": 0.5, "ApatheticLevel": 0.5 },
+    "hungerModifier": 0.2,
+    "thirstModifier": 0.2,
+    "tiredModifier": 1.5
+  }
+]

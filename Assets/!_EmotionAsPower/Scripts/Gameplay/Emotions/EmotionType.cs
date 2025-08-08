@@ -9,3 +9,7 @@ public enum EmotionType
     Angry = 4,
     Scared = 5,
 }
+public enum Emotions
+{
+    None,Joy,Sadness,Anger,Scare,Bored
+}
