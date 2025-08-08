@@ -44,6 +44,7 @@ public class GameManager : Singleton<GameManager>
         finishedSetup = false;
         ContentManager.Instance.Setup();
         UIManager.Instance.Setup();
+        DataPersistenceManager.Instance.Setup();
         ResumeGame();
         OnSetupFinished?.Invoke();
         finishedSetup = true;
@@ -143,6 +144,7 @@ public class GameManager : Singleton<GameManager>
 
     public void LoseGame()
     {
+        PauseGame();
         UIManager.Instance.ToggleLoseGamePanel(true);
     }
 

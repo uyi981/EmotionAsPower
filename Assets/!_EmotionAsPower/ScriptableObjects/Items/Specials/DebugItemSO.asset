@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ad7f6e85eb27d64dafddb5dace898f2, type: 3}
-  m_Name: FiberSO
+  m_Name: DebugItemSO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  id: Item_Fiber
-  icon: {fileID: -1533782549, guid: e717125a468016246855d280db35f1ca, type: 3}
-  displayName: Fiber
+  id: Item_DebugItem
+  icon: {fileID: 8877593655878799663, guid: 90f54530183c3224497faf4386e3b009, type: 3}
+  displayName: DebugItem
   description: 
-  category: 3
+  category: 4
   useCases:
     pairs: []

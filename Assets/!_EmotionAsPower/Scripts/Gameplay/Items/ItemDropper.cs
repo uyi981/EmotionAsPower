@@ -28,17 +28,17 @@ public class ItemDropper : MonoBehaviour
         ValidateDropChances();
     }
 
-    public void Initialize(ResourceSO resourceSO)
-    {
-        if (resourceSO != null && resourceSO.dropableItems != null)
-        {
-            Initialize(resourceSO.dropableItems);
-        }
-        else
-        {
-            Debug.LogWarning("ResourceSO is null or contains no dropable items!");
-        }
-    }
+    //public void Initialize(ResourceSO resourceSO)
+    //{
+    //    if (resourceSO != null && resourceSO.dropableItems != null)
+    //    {
+    //        Initialize(resourceSO.dropableItems);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("ResourceSO is null or contains no dropable items!");
+    //    }
+    //}
 
     public void DropFunction(Vector3 dropPosition, bool forceAllDrop = false)
     {

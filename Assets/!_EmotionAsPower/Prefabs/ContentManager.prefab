@@ -45,55 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ContentManager
   categoryIcons: {fileID: 11400000, guid: 8f67649daff9f44419156ebed17f7f27, type: 2}
-  debugLoading: 1
-  itemSOs:
-    pairs:
-    - key: Emotion_Joy
-      value: {fileID: 11400000, guid: 7d4b0da18b79856429f94ac7b6a59ccb, type: 2}
-    - key: Emotion_Sad
-      value: {fileID: 11400000, guid: 3cbcbe712591fc44d80408721b29c9ed, type: 2}
-    - key: Emotion_Apethatic
-      value: {fileID: 11400000, guid: 2ab91960f439a534e9e658f6c3b7f8cc, type: 2}
-    - key: Emotion_Anger
-      value: {fileID: 11400000, guid: 9b92a9fe28c427c4b807d5a4d4123c34, type: 2}
-    - key: Emotion_Fear
-      value: {fileID: 11400000, guid: 65d0c0ff07e78234ab06dc59a8f60be8, type: 2}
-    - key: Emotion_Normal
-      value: {fileID: 11400000, guid: f134000a9fdfc1c43a50369cb89676fb, type: 2}
-    - key: Item_Wood
-      value: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-    - key: Item_HardWood
-      value: {fileID: 11400000, guid: 303b48996972d0040b22ff1c21c13a4a, type: 2}
-    - key: Item_Stone
-      value: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-    - key: Item_Pebble
-      value: {fileID: 11400000, guid: 9c9918d4a2bb9e842bf8dbb93d1bb62b, type: 2}
-    - key: Item_Steel
-      value: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-    - key: Item_GarbageSteel
-      value: {fileID: 11400000, guid: 19f75e1cafb6f724bab40ba6cf3bc831, type: 2}
-    - key: Item_Carrot
-      value: {fileID: 11400000, guid: 6b33d0f58ba06a24fbd129044bb865d1, type: 2}
-    - key: Item_Cherry
-      value: {fileID: 11400000, guid: 5fe72cdec60b05e41811a08ef459deea, type: 2}
-    - key: Item_Tomato
-      value: {fileID: 11400000, guid: 3ceb196301fac8c45be71e0641af5362, type: 2}
-    - key: DEF
-      value: {fileID: 11400000, guid: e6cbc9019a9459d43bd0560013462dd7, type: 2}
-    - key: ABC
-      value: {fileID: 11400000, guid: 2b52fb6c29da6cc40b7cdd003c0ee273, type: 2}
-  resourceSOs:
-    pairs:
-    - key: Resource_Tree_1
-      value: {fileID: 11400000, guid: 784914357d51502499772318928f26c2, type: 2}
-  enemySOs:
-    pairs:
-    - key: Enemy_ItemDestroyer
-      value: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
-    - key: Enemy_ResourceDestroyer
-      value: {fileID: 11400000, guid: c8f7838bad5ac604bbc7b82ed8ab5228, type: 2}
-    - key: Enemy_TNTCarrier
-      value: {fileID: 11400000, guid: 6023621fa0961a44da077a4f9d3e099a, type: 2}
+  itemLibrary: {fileID: 11400000, guid: 7739753de50cc0e4ebc9337ad367ee30, type: 2}
+  enemyLibrary: {fileID: 11400000, guid: fd794ba82e56d7240a7b9367e9e76b6f, type: 2}
+  debugLoading: 0
   playerBaseLevelConfig:
     pairs:
     - key: 1

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949586240a0ddb648b01bae58b7bd9f2, type: 3}
   m_Name: AttackPlayerBase
   m_EditorClassIdentifier: Assembly-CSharp::AttackAction
-  attackRange: 0.5
+  attackRange: 0.3
   attackDamage: 1
   attackSpeed: 1
-  targetTypes: 03000000
+  targetTypes: 05000000
   useSmartPositioning: 1
   positioningOffset: 1.5
   attackEffect: {fileID: 0}

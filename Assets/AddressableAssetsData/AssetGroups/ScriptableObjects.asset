@@ -87,12 +87,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6023621fa0961a44da077a4f9d3e099a
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - EnemySO
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 65d0c0ff07e78234ab06dc59a8f60be8
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
     m_ReadOnly: 0
@@ -165,12 +159,11 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c8f7838bad5ac604bbc7b82ed8ab5228
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/ItemDestroyerSO
-      1.asset
+  - m_GUID: b20470fea2d23be44a1b7e70a9403474
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Specials/RainbowMushroomSO.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - EnemySO
+    - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d5165a75b148a5842b337cd622d3a995
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/StoneSO.asset
@@ -183,12 +176,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: edc8abdd9c45d7a46a318675c6e08ffc
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Enemies/EnemySO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - EnemySO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f134000a9fdfc1c43a50369cb89676fb
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/SadSO 1.asset
