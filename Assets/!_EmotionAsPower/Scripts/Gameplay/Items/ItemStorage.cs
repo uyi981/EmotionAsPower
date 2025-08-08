@@ -39,7 +39,29 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
         }
         OnStoragedItemsChange?.Invoke(storagedItems);
     }
-
+    public bool CheckListRequireItem(SerializableDictionary<ItemSO, int> itemList)
+    {
+        foreach (var item in itemList.Dictionary)
+        {
+            if (!storagedItems.ContainsKey(item.Key.ID) || storagedItems[item.Key.ID] < item.Value)
+            {
+                return false; // Not enough items
+            }
+        }
+        return true;
+    }
+    public SerializableDictionary<ItemSO, int> CheckListRequireItemAndReturnItemMissing(SerializableDictionary<ItemSO, int> itemList)
+    {
+        SerializableDictionary<ItemSO, int> missingItems = new SerializableDictionary<ItemSO, int>();
+        foreach (var item in itemList.Dictionary)
+        {
+            if (!storagedItems.ContainsKey(item.Key.ID) || storagedItems[item.Key.ID] < item.Value)
+            {
+                missingItems.Add(item.Key, item.Value - GetStoragedItemAmount(item.Key));
+            }
+        }
+        return missingItems;
+    }
     public int TryTakeItem(string id, int amount)
     {
         if (amount <= 0) return 0;

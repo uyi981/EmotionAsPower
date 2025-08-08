@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3248829262817487033}
   - component: {fileID: 3484237960244225089}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: housebreeding_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7071597984926566668}
   - component: {fileID: 580452027417302199}
   - component: {fileID: 5322800939289134493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reproduction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,12 +159,6 @@ MonoBehaviour:
   maxHP: 100
   currentHP: 0
   buildingType: 2
-  requiredItems:
-    pairs:
-    - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-      value: 10
-    - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-      value: 10
   workerPositions: []
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
