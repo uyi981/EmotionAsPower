@@ -6,7 +6,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
     public class BreedingBuilding : BuildingBase
     {
         public VillagerManager villagerManager;
-        public GameObject villagerPrefab;
+        public Villager villagerPrefab;
 
         private void Start()
         {
@@ -21,10 +21,16 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                 }
             }
         }
-        public void Breed()
+        public void OpenBreedingUI()
         {
-            // Instantiate 1 cube 
-            Instantiate(villagerPrefab, transform.position - Vector3.forward * 2f, Quaternion.identity, villagerManager.transform);
+           Singleton<UIManager>.Instance.OpenBreedingUI(this);
+        }
+        public  void Breeding(string name)
+        {
+            PersonalitySO personality = Singleton<PersonalitySystem>.Instance.Breeding();
+            villagerPrefab.personality = personality;
+            villagerPrefab.name = name;
+            Instantiate(villagerPrefab.gameObject, transform.position - Vector3.forward * 2f, Quaternion.identity, villagerManager.transform);
         }
     }
 }

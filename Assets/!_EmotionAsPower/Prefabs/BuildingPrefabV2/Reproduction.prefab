@@ -99,8 +99,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7071597984926566668}
-  - component: {fileID: 466573011492243306}
   - component: {fileID: 580452027417302199}
+  - component: {fileID: 5322800939289134493}
   m_Layer: 0
   m_Name: Reproduction
   m_TagString: Untagged
@@ -124,52 +124,6 @@ Transform:
   - {fileID: 3248829262817487033}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &466573011492243306
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5068722114887075134}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.021458864, y: 0.76}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.07, y: 1.5}
-  m_EdgeRadius: 0
 --- !u!114 &580452027417302199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +139,7 @@ MonoBehaviour:
   selectedBuilding:
     buildingID: 0
     buildingName: 
-    type: 0
+    type: 6
     blueprintPrefab: {fileID: 0}
     redprintPrefab: {fileID: 0}
     buildingPrefab: {fileID: 0}
@@ -219,3 +173,24 @@ MonoBehaviour:
   baseCell: {x: 0, y: 0, z: 0}
   villagerManager: {fileID: 0}
   villagerPrefab: {fileID: 1955632567045984396, guid: 323a33caf0b2211449da9d117a6174b9, type: 3}
+--- !u!65 &5322800939289134493
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5068722114887075134}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.63, z: 0}

@@ -40,6 +40,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         GameObject decorationBuilding;
         GameObject defenseBuilding;
         GameObject foodFactoryBuilding;
+        GameObject breedingBuilding;
         GameObject infoInstance;
 
 
@@ -52,7 +53,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
            decorationBuilding = Instantiate(buldingContentUI, contentManager.transform);
             defenseBuilding = Instantiate(buldingContentUI, contentManager.transform);
             foodFactoryBuilding = Instantiate(buldingContentUI, contentManager.transform);
-
+            breedingBuilding = Instantiate(buldingContentUI, contentManager.transform);
             infoInstance = Instantiate(info, transform);
             infoInstance.SetActive(false); 
 
@@ -70,6 +71,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             listDecorationBuildings.Clear();
             listDefenseBuildings.Clear();
             listFoodFactoryBuildings.Clear();
+
             listMainBaseBuildings.Clear();
 
             // Categorize each building from the ScriptableObject
@@ -85,6 +87,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                 ContentUI contentUIDecorationInstance = decorationBuilding.GetComponent<ContentUI>();
                 ContentUI contentUIDefenseInstance = defenseBuilding.GetComponent<ContentUI>();
                 ContentUI contentUIFoodFactoryInstance = foodFactoryBuilding.GetComponent<ContentUI>();
+                ContentUI contentUIInstanceBreeding = breedingBuilding.GetComponent<ContentUI>();
 
 
                 // Set the TextMeshProUGUI text based on building type
@@ -156,6 +159,17 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                                 building.buildingName, building.description);
                             contentUIFoodFactoryInstance.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
                             listFoodFactoryBuildings.Add(building.buildingPrefab);
+                            break;
+
+                        case BuildingType.Breeding:
+                            contentUIInstanceBreeding.textMeshPro.text = building.type.ToString();
+                            contentUIInstanceBreeding.InstantiateIcon();
+                            contentUIInstanceBreeding.SetImage(building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite);
+                            contentUIInstanceBreeding.SetResource(building.keyValuePairs);
+                            contentUIInstanceBreeding.SetInfo(building.buildingID, building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
+                                building.buildingName, building.description);
+                            contentUIInstanceBreeding.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
+                            //listMainBaseBuildings.Add(building.buildingPrefab);
                             break;
                     }
                 }
