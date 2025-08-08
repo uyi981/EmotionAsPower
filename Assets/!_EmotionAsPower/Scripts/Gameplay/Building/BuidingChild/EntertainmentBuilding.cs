@@ -17,10 +17,10 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         public int emotionAmount = 1;
         [Tooltip("Layer của đối tượng mục tiêu (ví dụ: Villager)")]
         public LayerMask targetLayer;
-
+        public string nameVFX;
 
         private Vector2Int gridPosition;
-        private const float CHECK_INTERVAL = 0.1f;
+        private const float CHECK_INTERVAL = 5f;
         private float lastEffectTime = 0f;
 
         public override void Start()
@@ -40,6 +40,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
 
         private void CheckForTargets()
         {
+            GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject(nameVFX);
+            obj.gameObject.transform.position = transform.position+Vector3.up*0.2f;
             if (!isBuild) return;
 
             if (Time.time - lastEffectTime >= effectCooldown)

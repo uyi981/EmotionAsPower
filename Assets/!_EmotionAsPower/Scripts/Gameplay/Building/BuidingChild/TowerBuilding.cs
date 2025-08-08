@@ -18,14 +18,14 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
 
         [Header("Visual Effects")]
         [Tooltip("Hiệu ứng tấn công (nếu có)")]
-        public GameObject attackEffectPrefab;
+        public string vfxName;
 
         [Header("Pool Settings")]
         [SerializeField] int poolDefaultCapacity = 5;
         [SerializeField] int poolMaxSize = 20;
 
         private Vector2Int gridPosition;
-        private LayerMask enemyLayer;
+        public LayerMask enemyLayer;
         private const float CHECK_INTERVAL = 0.1f;
         private float lastAttackTime = 0f;
 
@@ -40,9 +40,6 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         public override void Start()
         {
             base.Start();
-            enemyLayer = LayerMask.GetMask("Enemy");
-
-            InitializeObjectPool();
             Vector3 worldPos = transform.position;
             gridPosition = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.z));
 
@@ -54,45 +51,8 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             CancelInvoke(nameof(CheckForEnemies));
         }
 
-        private void InitializeObjectPool()
-        {
-            attackEffectPool = new Queue<GameObject>(poolDefaultCapacity);
-            for (int i = 0; i < poolDefaultCapacity; i++)
-            {
-                var obj = Instantiate(attackEffectPrefab);
-                obj.SetActive(false);
-                attackEffectPool.Enqueue(obj);
-                currentPoolSize++;
-            }
-        }
 
-        private GameObject GetAttackEffectFromPool()
-        {
-            if (attackEffectPool.Count > 0)
-            {
-                var obj = attackEffectPool.Dequeue();
-                obj.SetActive(true);
-                return obj;
-            }
-            else if (currentPoolSize < poolMaxSize)
-            {
-                var obj = Instantiate(attackEffectPrefab);
-                obj.SetActive(true);
-                currentPoolSize++;
-                return obj;
-            }
-            else
-            {
-                // Pool exhausted, optionally reuse oldest or return null
-                return null;
-            }
-        }
 
-        private void ReturnAttackEffectToPool(GameObject obj)
-        {
-            obj.SetActive(false);
-            attackEffectPool.Enqueue(obj);
-        }
 
         private void CheckForEnemies()
         {
@@ -150,28 +110,44 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             Vector3 startPos = GetAttackOrigin();
             Vector3 endPos = GetTargetCenter(target);
 
-            var attackEffect = GetAttackEffectFromPool();
-            if (attackEffect != null)
+            GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject(vfxName);
+            VFXInstance vFXInstance = obj.GetComponent<VFXInstance>();
+            if (vFXInstance.skillType == SkillType.Static)
             {
-                attackEffect.transform.position = endPos;
-                attackEffect.transform.rotation = Quaternion.identity;
-                VisualEffect vfx = attackEffect.GetComponent<VisualEffect>();
-                if (vfx != null)
-                {
-                    vfx.Play();
-                }
-                StartCoroutine(ReleaseEffectAfterTime(attackEffect, 0.5f));
+                // Skill đứng yên tại endPos
+                obj.transform.position = startPos;
+                obj.transform.rotation = Quaternion.LookRotation(endPos - startPos); // Không cần xoay nếu là static
+            }
+            else if (vFXInstance.skillType == SkillType.Projectile)
+            {
+                // Skill bắn từ start -> end
+                obj.transform.position = startPos;
+                obj.transform.rotation = Quaternion.LookRotation(endPos - startPos);
+                StartCoroutine(MoveVFXWithDelay(obj, startPos, endPos, 0.2f,0.2f));
+            }
+        }
+
+        private IEnumerator MoveVFXWithDelay(GameObject vfxObj, Vector3 start, Vector3 end, float delayBeforeMove, float travelTime)
+        {
+            // Đứng yên delayBeforeMove giây
+            yield return new WaitForSeconds(delayBeforeMove);
+
+            float elapsed = 0f;
+            while (elapsed < travelTime)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / travelTime;
+                vfxObj.transform.position = Vector3.Lerp(start, end, t);
+                yield return null;
             }
 
-            StartCoroutine(DrawAttackLine(startPos, endPos));
-        }
+            // Đảm bảo tới đúng vị trí cuối
+            vfxObj.transform.position = end;
 
-        private IEnumerator ReleaseEffectAfterTime(GameObject effect, float time)
-        {
-            yield return new WaitForSeconds(time);
-            ReturnAttackEffectToPool(effect);
+            // Play effect nổ/hit
+            var vfx = vfxObj.GetComponent<UnityEngine.VFX.VisualEffect>();
+            if (vfx != null) vfx.Play();
         }
-
         private Vector3 GetAttackOrigin()
         {
             if (TryGetComponent<Collider>(out var collider))
@@ -194,28 +170,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             return target.position;
         }
 
-        private IEnumerator DrawAttackLine(Vector3 start, Vector3 end)
-        {
-            LineRenderer line = GetComponent<LineRenderer>();
-            if (line == null)
-            {
-                line = gameObject.AddComponent<LineRenderer>();
-                line.startWidth = 0.1f;
-                line.endWidth = 0.1f;
-                line.material = new Material(Shader.Find("Sprites/Default"));
-                line.startColor = Color.red;
-                line.endColor = Color.yellow;
-                line.useWorldSpace = true;
-                line.positionCount = 2;
-            }
-
-            line.SetPosition(0, start);
-            line.SetPosition(1, end);
-            line.enabled = true;
-
-            yield return new WaitForSeconds(0.1f);
-            line.enabled = false;
-        }
+       
 
         private void OnDrawGizmosSelected()
         {
