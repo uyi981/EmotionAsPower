@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class VillagerDetailUI : Singleton<VillagerDetailUI>
+public class VillagerDetailUI :MonoBehaviour
 {
     public Villager currentSelectedVillager; // Reference to the Villager script
     // Start is called once before the first execution of Update after the MonoBehaviour is created
