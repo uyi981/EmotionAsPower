@@ -544,8 +544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342f3e0903eed8745a8a389a9d98f6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 30
+  currentHealth: 30
   canRegenerate: 0
   regenerationRate: 5
   regenerationDelay: 3
@@ -570,6 +570,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &1118189233881547189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,7 +585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDropper
   dropableItems: []
   dropForce: 5
-  dropRadius: 2
+  dropRadius: 0.5
   minDropAmount: 1
   maxDropAmount: 3
 --- !u!114 &3924171520756269616
@@ -599,7 +600,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ded271b3a4cb7947a9b034dd8095082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  enemySO: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
+  enemyDefaultData:
+    id: TheSawer
+    maxHealth: 30
+    moveSpeed: 3
+    existingTime: 50
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &6750320140384029178
@@ -694,8 +699,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!54 &-4396305617958388204
 Rigidbody:
   m_ObjectHideFlags: 0

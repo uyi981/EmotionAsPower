@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
 {
     [SerializeField]
-    private GameObject resourcePrefab;
+    //private GameObject resourcePrefab;
 
     public void LoadGame(GameData gameData)
     {
@@ -18,20 +18,20 @@ public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
         gameData.resources = FindAllResources();
     }
 
-    public GameObject SpawnResource(ResourceSO resourceSO, Vector3 position)
+    public GameObject SpawnResource(GameObject resourceToSpawn, Vector3 position)
     {
-        GameObject spawnedResource = Instantiate(resourcePrefab, position, resourcePrefab.transform.rotation, this.transform);
+        GameObject spawnedResource = Instantiate(resourceToSpawn, position, resourceToSpawn.transform.rotation, this.transform);
         Resource resource = spawnedResource.GetComponent<Resource>();
-        resource.Initialize(resourceSO);
+        resource.Initialize();
         return spawnedResource;
     }
 
     private void InitializeLoadedResources(ResourceRuntimeInstance[] resourceInstances)
     {
-        SerializableDictionary<string, ResourceSO> resourceSOs = ContentManager.Instance.ResourceSOs;
+        SerializableDictionary<string, GameObject> resources = ContentManager.Instance.Resources;
         foreach (var resourceInstance in resourceInstances)
         {
-            if (resourceSOs.TryGetValue(resourceInstance.id, out var resourceSO))
+            if (resources.TryGetValue(resourceInstance.id, out var resourceSO))
             {
                 GameObject spawnedResource = SpawnResource(resourceSO, resourceInstance.position);
                 Resource resource = spawnedResource.GetComponent<Resource>();
@@ -51,7 +51,7 @@ public class ResourceManager : Singleton<ResourceManager>, IDataPersistence
         for (int i = 0; i < resources.Length; i++)
         {
             var resource = resources[i];
-            result[i] = new ResourceRuntimeInstance(resource.ResourceSO.ID, resource.transform.position, resource.Health.CurrentHealth);
+            result[i] = new ResourceRuntimeInstance(resource.ID, resource.transform.position, resource.Health.CurrentHealth);
         }
         return result;
     }

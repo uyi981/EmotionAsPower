@@ -189,6 +189,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &6519497538598916903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ded271b3a4cb7947a9b034dd8095082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  enemySO: {fileID: 11400000, guid: edc8abdd9c45d7a46a318675c6e08ffc, type: 2}
+  enemyDefaultData:
+    id: LaseCube
+    maxHealth: 40
+    moveSpeed: 4
+    existingTime: 40
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &3583203535932230069

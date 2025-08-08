@@ -11,8 +11,8 @@ public class ItemDebugPanel : MonoBehaviour
 
     private void Start()
     {
-        //GameManager.Instance.OnSetupFinished += () => Initialize();
-        Initialize();
+        GameManager.Instance.OnSetupFinished += () => Initialize();
+        //Initialize();
     }
 
     public void Initialize()

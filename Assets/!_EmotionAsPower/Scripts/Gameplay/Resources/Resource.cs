@@ -8,13 +8,8 @@ public class Resource : MonoBehaviour, IInteractable
 {
     [Header("Resource Properties")]
     [SerializeField]
-    private ResourceSO resourceSO;
-    public ResourceSO ResourceSO => resourceSO;
-
-    [SerializeField]
-    private string displayName;
-    public string DisplayName => !string.IsNullOrEmpty(displayName) ? displayName : (resourceSO != null ? resourceSO.DisplayName : "Unknown Resource");
-
+    private string id;
+    public string ID;
     [Header("Resource Material")]
     [SerializeField]
     private string textureProperty = "_MainTexure";
@@ -60,9 +55,9 @@ public class Resource : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        if (resourceSO != null && !isInitialized)
+        if (!isInitialized)
         {
-            Initialize(resourceSO);
+            Initialize();
         }
     }
 
@@ -70,7 +65,6 @@ public class Resource : MonoBehaviour, IInteractable
     {
         if (health != null)
         {
-            health.OnHealthChanged.AddListener(OnHealthChanged);
             health.OnDeath.AddListener(OnResourceDepletedInternal);
             health.OnRevived.AddListener(OnResourceRespawnedInternal);
         }
@@ -80,44 +74,20 @@ public class Resource : MonoBehaviour, IInteractable
     {
         if (health != null)
         {
-            health.OnHealthChanged.RemoveListener(OnHealthChanged);
             health.OnDeath.RemoveListener(OnResourceDepletedInternal);
             health.OnRevived.RemoveListener(OnResourceRespawnedInternal);
         }
     }
 
-    public void Initialize(ResourceSO resourceSO)
+    public void Initialize()
     {
-        if (resourceSO == null)
-        {
-            Debug.LogWarning("Cannot initialize Resource with null ResourceSO!");
-            return;
-        }
 
-        this.resourceSO = resourceSO;
-        this.gameObject.name = resourceSO.DisplayName;
-
-        // Initialize health component
         if (health != null)
         {
-            health.SetMaxHealth(resourceSO.maxHealth, true);
-            health.SetHealth(resourceSO.maxHealth);
+            health.SetHealth(health.MaxHealth);
         }
-
-        // Initialize item dropper
-        if (itemDropper != null)
-        {
-            itemDropper.Initialize(resourceSO);
-        }
-
-        // Set material
-        SetMaterial();
-
-        // Update UI
-        UpdateHealthUI();
 
         isInitialized = true;
-        Debug.Log($"Resource '{DisplayName}' initialized successfully");
     }
 
     public void OnInteract()
@@ -126,44 +96,19 @@ public class Resource : MonoBehaviour, IInteractable
         {
             if (health.IsDead)
             {
-                Debug.Log($"Resource '{DisplayName}' is depleted and cannot be harvested.");
+                //Debug.Log($"Resource '{DisplayName}' is depleted and cannot be harvested.");
             }
             else if (Time.time < lastHarvestTime + harvestCooldown)
             {
-                Debug.Log($"Resource '{DisplayName}' is on cooldown. Wait {(lastHarvestTime + harvestCooldown - Time.time):F1} seconds.");
+                //Debug.Log($"Resource '{DisplayName}' is on cooldown. Wait {(lastHarvestTime + harvestCooldown - Time.time):F1} seconds.");
             }
             return;
         }
 
-        HarvestResource();
     }
 
     public InteractableType GetInteractableType() => InteractableType.Resource;
 
-    public void HarvestResource(float damageAmount = 1f)
-    {
-        if (!CanHarvest) return;
-
-        // Use resource's harvest damage or default
-        float damage = damageAmount > 0 ? damageAmount : (resourceSO != null ? resourceSO.harvestDamage : 10f);
-
-        // Deal damage to the resource
-        bool damageTaken = health.TakeDamage(damage);
-
-        if (damageTaken)
-        {
-            lastHarvestTime = Time.time;
-
-            // Drop items
-            if (itemDropper != null)
-            {
-                //itemDropper.DropFunction(transform.position, false);
-            }
-
-            OnResourceHarvested?.Invoke();
-            Debug.Log($"Harvested '{DisplayName}' - Health: {health.CurrentHealth}/{health.MaxHealth}");
-        }
-    }
 
     public void ForceDropAllItems()
     {
@@ -189,35 +134,9 @@ public class Resource : MonoBehaviour, IInteractable
         }
     }
 
-    private void SetMaterial()
-    {
-        this.GetComponentInChildren<SpriteRenderer>().sprite = resourceSO.Icon;
-    }
-
-    private void UpdateHealthUI()
-    {
-        if (healthText != null && showHealthUI)
-        {
-            if (health != null)
-            {
-                healthText.text = $"{health.CurrentHealth:F0}/{health.MaxHealth:F0}";
-                healthText.gameObject.SetActive(!health.IsDead);
-            }
-        }
-        else if (healthText != null && !showHealthUI)
-        {
-            healthText.gameObject.SetActive(false);
-        }
-    }
-
-    private void OnHealthChanged(float currentHealth)
-    {
-        UpdateHealthUI();
-    }
 
     private void OnResourceDepletedInternal()
     {
-        Debug.Log($"Resource '{DisplayName}' has been depleted!");
 
         itemDropper.DropItems();
 
@@ -232,8 +151,6 @@ public class Resource : MonoBehaviour, IInteractable
 
     private void OnResourceRespawnedInternal()
     {
-        Debug.Log($"Resource '{DisplayName}' has respawned!");
-        UpdateHealthUI();
         OnResourceRespawned?.Invoke();
     }
 
