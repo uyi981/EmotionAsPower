@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4454184469418805981}
   - component: {fileID: 5417440984654650671}
-  - component: {fileID: 6277129668572263409}
+  - component: {fileID: 4027037640517650916}
   m_Layer: 0
   m_Name: FoodFacroty
   m_TagString: Untagged
@@ -90,16 +90,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b52fb6c29da6cc40b7cdd003c0ee273, type: 2}
   productionAmount: 1
   requireEmotion: 3
---- !u!61 &6277129668572263409
-BoxCollider2D:
+--- !u!65 &4027037640517650916
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839637811253782123}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -108,34 +105,12 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.02354598, y: 0.40569198}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.0020375, y: 1.0572145}
-  m_EdgeRadius: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.51, z: 1}
+  m_Center: {x: 0, y: 0.24, z: 0}
 --- !u!1 &3739284711762458900
 GameObject:
   m_ObjectHideFlags: 0

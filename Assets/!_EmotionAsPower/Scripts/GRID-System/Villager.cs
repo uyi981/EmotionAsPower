@@ -9,6 +9,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
+public class VillagerRuntimeData
+{
+    public string personalityName;
+    public EmotionVector emotionVector;
+    public float hunger;
+    public float thirst;
+    Vector3 position;
+    public string name;
+
+}
 public class Villager : MonoBehaviour,IInteractable
 {
     APathFinding pathFinding = new APathFinding();
