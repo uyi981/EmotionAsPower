@@ -27,7 +27,8 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
 
     private void Start()
     {
-        GameManager.Instance.OnSetupFinished += Initialize;
+        //GameManager.Instance.OnSetupFinished += Initialize;
+        Initialize();
     }
 
     public void Initialize()
@@ -51,6 +52,10 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
 
     private bool ValidateLevel(int level)
     {
+        if(playerBaseLevelConfig == null)
+        {
+            playerBaseLevelConfig = ContentManager.Instance.playerBaseLevelConfig;
+        }
         if (playerBaseLevelConfig.ContainsKey(level))
         {
             return true;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3965937486408338288}
   - component: {fileID: 1345046799174947383}
   - component: {fileID: 454901128603726939}
+  - component: {fileID: 6854642578045206437}
   m_Layer: 0
   m_Name: UpgradePlayerBaseDebugBtn
   m_TagString: Untagged
@@ -121,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerBase, Assembly-CSharp
-        m_MethodName: Upgrade
+      - m_Target: {fileID: 6854642578045206437}
+        m_TargetAssemblyTypeName: PlayerBaseDebugPanel, Assembly-CSharp
+        m_MethodName: UpgradePlayerBase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -133,6 +134,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6854642578045206437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159049926900806884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa75f1b7bd30ef14487da0da3e6228b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBaseDebugPanel
 --- !u!1 &619175936565299130
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +295,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a8c3e9229bed8469f9142a782598b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildVersionDisplay
-  versionText: {fileID: 42579197911765495}
+  errorText: {fileID: 0}
+  logFilter: 0
+  maxLines: 10
+  errorColor: {r: 1, g: 0, b: 0, a: 1}
+  warningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  logColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &657928336437905305
 GameObject:
   m_ObjectHideFlags: 0
