@@ -116,6 +116,11 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
             processBarInstance = Instantiate(buildingBar, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
             processBarImg = processBarInstance.GetComponent<ProcessBar>();
             processBarImg.SetProcess(0f); // Đặt tiến độ ban đầu là 0
+            processBarInstance.SetActive(true);
+            if(isBuild)
+            {
+                processBarInstance.SetActive(false);
+            }    
         }
         if (healthBar != null)
         {
@@ -226,10 +231,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     /// <param name="villager"></param>
     public void OnWorkerCome(Villager villager)
     {
-        Debug.Log("Worker Come"+villager.gameObject.name);
-        if(villager.currentJob.JobType.Equals(JobType.Build))
+        Debug.Log("Worker Come" + villager.gameObject.name);
+        if (villager.currentJob.JobType.Equals(JobType.Build))
         {
-            if(isBuild)
+            if (isBuild)
             {
                 villager.TransitionTo(villager.villagerIdleState);
                 return;
@@ -242,11 +247,11 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         }
         workers.Add(villager);
     }
-        
-    public virtual void  OnWorkerLeave(Villager villager)
+
+    public virtual void OnWorkerLeave(Villager villager)
     {
         workersAmount--;
-        if(workersAmount<0)
+        if (workersAmount < 0)
         {
             workersAmount = 0;
         }
@@ -254,7 +259,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         {
             workers.Remove(villager);
         }
-        
+
     }
 
     ////////////////////////////
@@ -380,10 +385,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
                 Debug.Log($"Spawned {halfAmount} of {item.Key.ID} at position {transform.position + new Vector3(0, 0.5f, -(1 + selectedBuilding.size.y))}");
             }
         }
-
         isDestroyed = true; // Đánh dấu công trình đã bị phá hủy
         Destroy(gameObject);
         ResetWorkerList();
+        Singleton<BuildingManager>.Instance.UnregisterBuilding(this); // Hủy đăng ký công trình khỏi BuildingManager
     }
 
     /// <summary>
@@ -394,12 +399,13 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject("buildingSpawn");
         obj.transform.position = gameObject.transform.position;
         ResetWorkerList(); // Reset danh sách công nhân
+        Singleton<BuildingManager>.Instance.RegisterBuilding(this); // Đăng ký công trình vào BuildingManager
     }
     //////////////////////////////////////
     ///
     private void OnMouseDown()
     {
-        if(IsBuild)
+        if (IsBuild)
             Singleton<DetailInfoController>.Instance.OpenBuildingUI(this);
     }
 
@@ -413,4 +419,12 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     {
         return currentHP <= 0;
     }
+}
+[System.Serializable]
+public class BuildingRuntimeData
+{
+    public int buildingId;
+    public int currentHP;
+    public Vector2Int position;
+
 }

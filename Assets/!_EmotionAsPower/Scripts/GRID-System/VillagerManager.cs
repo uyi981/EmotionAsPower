@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class  VillagerManager : Singleton<VillagerManager>
+public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
 {
     public List<Villager> jobForWorkers = new List<Villager>();
+    public Villager prefab;
     Stack<JobForWorker> jobForWorkerPool = new Stack<JobForWorker>();
     public Stack<Vector2Int> bedPool = new Stack<Vector2Int>();
+    public List<VillagerRuntimeData> villagersRuntime = new List<VillagerRuntimeData>();
     public void SendJobInMorning()
     {
 
@@ -31,7 +33,52 @@ public class  VillagerManager : Singleton<VillagerManager>
         }
         return Vector2Int.zero; // Return a default value if no bed is available
     }    
-
+    public void AssginNewVillager(Villager villager)
+    {
+        if (villager == null)
+        {
+            Debug.LogWarning("Attempted to assign a null villager.");
+            return;
+        }
+        villager.transform.SetParent(transform);
+        jobForWorkers.Add(villager);
+        villagersRuntime.Add(new VillagerRuntimeData()
+        {
+            name = villager.name,
+            position = villager.transform.position,
+            personalityName = villager.personality.name,
+            id = villager.villagerId
+        });
+    }
+    public void LoadingAllVillagers()
+    {
+        foreach(var villager in villagersRuntime)
+        {
+            Villager newVillager = Instantiate(prefab, villager.position, Quaternion.identity);
+            newVillager.name = villager.name;
+            newVillager.villagerId = villager.id;
+            newVillager.personality = Singleton<PersonalitySystem>.Instance.GetPersonality(villager.personalityName);
+            if(newVillager.personality == null)
+            {
+                newVillager.personality = Singleton<PersonalitySystem>.Instance.Breeding();
+            }
+            newVillager.transform.SetParent(transform);
+        }    
+    }    
+    public void RemoveVillager(Villager villager)
+    {
+        if (jobForWorkers.Contains(villager))
+        {
+            jobForWorkers.Remove(villager);
+            Debug.Log("Removed villager: " + villager.name);
+        }
+        VillagerRuntimeData villagerData = villagersRuntime.Find(v => v.id == villager.villagerId);
+        if (villagerData != null)
+        {
+            villagersRuntime.Remove(villagerData);
+            Debug.Log("Removed villager runtime data for: " + villager.name);
+        }
+    }
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {
         if(timeStage == DayTimeController.TimeStage.Morning)
@@ -96,6 +143,39 @@ public class  VillagerManager : Singleton<VillagerManager>
         Debug.Log("Received job request for type: " + newJob.JobType+newJob.Position);
         jobForWorkerPool.Push(newJob);
         SendJobToVillager();
+    }
+
+    public void LoadGame(GameData gameData)
+    {
+      if(gameData.villagers!=null)
+        {
+            villagersRuntime = gameData.villagers;
+        }
+      LoadingAllVillagers();
+    }
+    public void UpdateVillagerPosition()
+    {
+        foreach (Villager villager in jobForWorkers)
+        {
+            if (villager != null)
+            {
+                VillagerRuntimeData villagerData = villagersRuntime.Find(v => v.id == villager.villagerId);
+                if (villagerData != null)
+                {
+                    villagerData.position = villager.transform.position;
+                }
+            }
+        }
+    }
+    public void SaveGame(ref GameData gameData)
+    {
+       if(villagersRuntime == null)
+        {
+            return;
+        }
+        UpdateVillagerPosition();
+        Debug.Log("Saving villagers runtime data, count: " + villagersRuntime.Count);
+        gameData.villagers = villagersRuntime;
     }
 }
 public class Bed :Building
