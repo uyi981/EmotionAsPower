@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
@@ -162,6 +163,55 @@ public class PlacementSystem : MonoBehaviour
         cellIndicatorRenderer = cellIndicator.GetComponentInChildren<SpriteRenderer>();
         Debug.Log("Started moving building: " + database.buildings[selectedObjectIndex].buildingName);
     }
+    public GameObject SpawnBuildingInstant(Vector3Int gridPos, int buildingID, Quaternion? rotation = null)
+    {
+        int index = database.buildings.FindIndex(b => b.buildingID == buildingID);
+        if (index == -1)
+        {
+            Debug.LogError("Building with ID " + buildingID + " not found in database.");
+            return null;
+        }
+
+        Vector2Int size = database.buildings[index].size;
+        Vector3Int baseCell = new Vector3Int(
+            gridPos.x - size.x / 2,
+            gridPos.y,
+            gridPos.z - size.y / 2);
+
+        currentSize = size;
+        if (!CanPlace(baseCell))
+        {
+            Debug.LogWarning("Cannot spawn building at " + baseCell);
+            return null;
+        }
+
+        GameObject go = Instantiate(database.buildings[index].buildingPrefab);
+        Vector3 offset = new Vector3((size.x - 1) * 0.5f, 0f, (size.y - 1) * 0.5f);
+        go.transform.position = grid.CellToWorld(baseCell) + offset;
+        go.transform.rotation = rotation ?? Quaternion.identity;
+
+        var building = go.GetComponent<BuildingBase>();
+        if (building != null)
+        {
+            building.ID = database.buildings[index].buildingID;
+            building.selectedBuilding = database.buildings[index];
+            building.workerPositions = MarkWorkerSpots(baseCell, index);
+            building.BaseCell = baseCell;
+            building.isBuild = true; // đánh dấu đã xây xong
+            building.buildProgress = 1f;
+
+            // Ẩn thanh tiến độ và hiện thanh máu
+            if (building.buildingBar != null)
+                building.buildingBar.SetActive(false);
+            if (building.healthBar != null)
+                building.healthBar.SetActive(true);
+        }
+        OccupyCells(baseCell, 1);
+        Debug.Log($"Spawned building instantly: {database.buildings[index].buildingName} at {baseCell}");
+        return go;
+    }
+
+
 
     // Di chuyển building đến vị trí mới
     private void MoveBuilding()
@@ -185,7 +235,7 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
 
-        List<Vector2Int> workerPositions = MarkWorkerSpots(baseCell);
+        List<Vector2Int> workerPositions = MarkWorkerSpots(baseCell,selectedObjectIndex);
 
         // Cập nhật vị trí và thông tin của building
         Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
@@ -231,7 +281,7 @@ public class PlacementSystem : MonoBehaviour
             Debug.LogWarning("Area is occupied or out of bounds, cannot place structure.");
             return;
         }
-        List<Vector2Int> workerPositions = MarkWorkerSpots(baseCell);
+        List<Vector2Int> workerPositions = MarkWorkerSpots(baseCell,selectedObjectIndex);
 
         GameObject gameObject = Instantiate(database.buildings[selectedObjectIndex].buildingPrefab);
         Vector3 baseWorld = grid.CellToWorld(baseCell);
@@ -308,26 +358,10 @@ public class PlacementSystem : MonoBehaviour
         inputManager.CurrentState = State.Moving;
     }
 
-    public List<Vector2Int> MarkWorkerSpots(Vector3Int baseCell)
+    public List<Vector2Int> MarkWorkerSpots(Vector3Int baseCell,int index)
     {
-        Vector3 worldPos;
-        Vector3Int[] workerSpots = new Vector3Int[]
-        {
-        new Vector3Int(baseCell.x + 1, baseCell.y, baseCell.z),
-        new Vector3Int(baseCell.x - 1, baseCell.y, baseCell.z),
-        new Vector3Int(baseCell.x, baseCell.y, baseCell.z - 1)
-        };
-
-        List<Vector2Int> workerSpotsResult = new List<Vector2Int>();
-
-        foreach (var spot in workerSpots)
-        {
-            Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
-            worldPos = grid.CellToWorld(spot) + offset;
-            workerSpotsResult.Add(new Vector2Int((int)worldPos.x, (int)worldPos.z));
-        }
         Vector2Int baseVector2 = new Vector2Int(baseCell.x, baseCell.z);
-        return GetAdjacentCells(baseVector2, database.buildings[selectedObjectIndex].size);
+        return GetAdjacentCells(baseVector2, database.buildings[index].size);
     }
 
     public static List<Vector2Int> GetAdjacentCells(Vector2Int origin, Vector2Int size)

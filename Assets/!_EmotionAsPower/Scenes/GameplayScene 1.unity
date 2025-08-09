@@ -9423,6 +9423,7 @@ GameObject:
   - component: {fileID: 1488546039}
   - component: {fileID: 1488546041}
   - component: {fileID: 1488546040}
+  - component: {fileID: 1488546042}
   m_Layer: 0
   m_Name: VillagerManager
   m_TagString: Untagged
@@ -9461,6 +9462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VillagerManager
   jobForWorkers: []
+  prefab: {fileID: 1289892368652287868, guid: 323a33caf0b2211449da9d117a6174b9, type: 3}
+  villagersRuntime: []
 --- !u!114 &1488546039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9515,6 +9518,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697a43162319b054395dbb7229f931c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VFXPoolManager
+--- !u!114 &1488546042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488546036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a621022ab3beba459b0cc57a63d348e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingManager
 --- !u!1 &1508845403
 GameObject:
   m_ObjectHideFlags: 0

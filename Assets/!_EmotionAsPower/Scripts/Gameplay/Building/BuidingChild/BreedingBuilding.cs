@@ -28,10 +28,10 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         public  void Breeding(string name)
         {
             PersonalitySO personality = Singleton<PersonalitySystem>.Instance.Breeding();
-            Debug.Log(personality);
-            villagerPrefab.personality = personality;
-            villagerPrefab.name = name;
-            Instantiate(villagerPrefab.gameObject, transform.position - Vector3.forward * 2f, Quaternion.identity, villagerManager.transform);
+            Villager villagerData = Instantiate(villagerPrefab, transform.position - Vector3.forward * 2f, Quaternion.identity, villagerManager.transform);
+            villagerData.personality = personality;
+            villagerData.name = name;
+            Singleton<VillagerManager>.Instance.AssginNewVillager(villagerData);
         }
     }
 }

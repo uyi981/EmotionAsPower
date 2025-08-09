@@ -14,11 +14,9 @@ public class PersonalitySystem : Singleton<PersonalitySystem>
     }
     public PersonalitySO GetPersonality(string name)
     {
-        if (personalitiesDic.TryGetValue(name, out var personality))
-        {
+        PersonalitySO personality = personalities.Find(p => p.name == name);
+        if(personality!=null)
             return personality;
-        }
-        Debug.LogError($"Personality with name {name} not found.");
         return null;
     }
     public PersonalitySO Breeding()

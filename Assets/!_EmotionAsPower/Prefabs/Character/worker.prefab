@@ -264,10 +264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd24bad30518eed418ee1f1a7ebdd761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Villager
+  villagerId: 279a492d-7166-4272-9a33-170aabca43af
   isSelected: 0
   isWorking: 0
   isSleeping: 0
   isStarving: 0
+  isPrisoner: 0
   animator: {fileID: 0}
   currentEmotion: 5
   emotion:
@@ -276,7 +278,7 @@ MonoBehaviour:
     SadnessLevel: 0
     FearLevel: 0
     ApatheticLevel: 0
-  personality: {fileID: 11400000, guid: 0e4aeff273869714db306fd6ced614b9, type: 2}
+  personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   itemHandle: {fileID: 5513727919606256443}
   isChatting: 0
   currentStateName: 

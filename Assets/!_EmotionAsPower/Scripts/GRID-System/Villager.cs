@@ -9,18 +9,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
+[System.Serializable]
 public class VillagerRuntimeData
 {
     public string personalityName;
     public EmotionVector emotionVector;
     public float hunger;
     public float thirst;
-    Vector3 position;
+    public Vector3 position;
     public string name;
+    public string id;
 
 }
 public class Villager : MonoBehaviour,IInteractable
 {
+    public string villagerId = Guid.NewGuid().ToString();
     APathFinding pathFinding = new APathFinding();
     public bool isSelected = false;
     public bool isWorking = false;
@@ -55,7 +58,6 @@ public class Villager : MonoBehaviour,IInteractable
     public PlayerEmotion playerEmotion;
     public GameObject Target;
     private bool isDragging = false;
-
     void OnMouseDown()
     {
         isDragging = true;
@@ -113,25 +115,6 @@ public class Villager : MonoBehaviour,IInteractable
             }
         }
     }    
-    //public float GetEmotionPoint(Emotion emotion)
-    //{
-    //    switch (emotion)
-    //    {
-    //        case Emotion.Joy:
-    //            return this.emotion.JoyLevel;
-    //        case Emotion.Sad:
-    //            return this.emotion.SadnessLevel;
-    //        case Emotion.Anger:
-    //            return this.emotion.AngerLevel;
-    //        case Emotion.Fear:
-    //            return this.emotion.FearLevel;
-    //        case Emotion.Apethatic:
-    //            return this.emotion.ApatheticLevel;
-    //        case Emotion.Normal:
-    //        default:
-    //            return  0;
-    //    }
-    //}
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {
         if (timeStage == DayTimeController.TimeStage.Morning)
@@ -282,7 +265,14 @@ public class Villager : MonoBehaviour,IInteractable
             //currentThirst -= 0.1f * personality.thirstModifier;
             if (currentHunger <= 20f)
             {
-                TransitionTo(villagerStarvingState);
+                if(emotion.JoyLevel >= 80)
+                {
+                    return;
+                }
+                else
+                {
+                  TransitionTo(villagerStarvingState);
+                }
             }
             OnVillagerUpdate?.Invoke();
         }
