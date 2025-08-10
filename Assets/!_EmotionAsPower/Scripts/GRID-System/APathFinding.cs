@@ -91,8 +91,7 @@ public class APathFinding
         }
         catch (IndexOutOfRangeException e)
         {
-            Debug.LogError("Index out of range: " + e.Message+position);
-            throw;
+            return true;
         }
         return false;
     }
