@@ -74,6 +74,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &6385677469790898534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2b1b5b6d1247d48a1a7c378f82ad73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Resource
-  resourceSO: {fileID: 11400000, guid: 784914357d51502499772318928f26c2, type: 2}
-  displayName: Tree
+  id: 
+  ID: 
   textureProperty: _MainTexture
   canBeHarvested: 1
   harvestCooldown: 1
