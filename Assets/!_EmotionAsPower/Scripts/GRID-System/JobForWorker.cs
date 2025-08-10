@@ -22,4 +22,5 @@ public enum JobType
     Transport,
     Produce,
     Sleep,
+    Defend, // Added for combat-related jobs
 }

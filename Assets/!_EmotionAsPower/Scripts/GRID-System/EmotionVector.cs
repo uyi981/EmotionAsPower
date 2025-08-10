@@ -19,6 +19,14 @@ public struct EmotionVector
         FearLevel = fear;
         ApatheticLevel = apathetic;
     }
+    public EmotionVector(Emotion emotion, float value)
+    {
+        AngerLevel = emotion == Emotion.Anger ? value : 0f;
+        JoyLevel = emotion == Emotion.Joy ? value : 0f;
+        SadnessLevel = emotion == Emotion.Sad ? value : 0f;
+        FearLevel = emotion == Emotion.Fear ? value : 0f;
+        ApatheticLevel = emotion == Emotion.Apethatic ? value : 0f;
+    }
     public Emotion CheckEmotion()
     {
         float max = Mathf.Max(AngerLevel, JoyLevel, SadnessLevel, FearLevel, ApatheticLevel);
@@ -29,7 +37,7 @@ public struct EmotionVector
                 case float m when m == AngerLevel:
                     return Emotion.Anger;
                 case float m when m == JoyLevel:
-                    return  Emotion.Joy;
+                    return Emotion.Joy;
                 case float m when m == SadnessLevel:
                     return Emotion.Sad;
                 case float m when m == FearLevel:
@@ -69,35 +77,36 @@ public struct EmotionVector
             default:
                 return 0f;
         }
+      
     }
     public static EmotionVector operator +(EmotionVector a, EmotionVector b)
     {
         return new EmotionVector(
-            a.AngerLevel + b.AngerLevel,
-            a.JoyLevel + b.JoyLevel,
-            a.SadnessLevel + b.SadnessLevel,
-            a.FearLevel + b.FearLevel,
-            a.ApatheticLevel + b.ApatheticLevel
+            Mathf.Clamp(a.AngerLevel + b.AngerLevel, 0, 100),
+            Mathf.Clamp(a.JoyLevel + b.JoyLevel, 0, 100),
+            Mathf.Clamp(a.SadnessLevel + b.SadnessLevel, 0, 100),
+            Mathf.Clamp(a.FearLevel + b.FearLevel, 0, 100),
+            Mathf.Clamp(a.ApatheticLevel + b.ApatheticLevel, 0, 100)
         );
     }
     public static EmotionVector operator *(EmotionVector a, int multiplier)
     {
         return new EmotionVector(
-            a.AngerLevel * multiplier,
-            a.JoyLevel * multiplier,
-            a.SadnessLevel * multiplier,
-            a.FearLevel * multiplier,
-            a.ApatheticLevel * multiplier
+            Mathf.Clamp(a.AngerLevel * multiplier, 0, 100),
+            Mathf.Clamp(a.JoyLevel * multiplier, 0, 100),
+            Mathf.Clamp(a.SadnessLevel * multiplier, 0, 100),
+            Mathf.Clamp(a.FearLevel * multiplier, 0, 100),
+            Mathf.Clamp(a.ApatheticLevel * multiplier, 0, 100)
         );
     }
     public static EmotionVector operator *(EmotionVector a, EmotionVector b)
     {
         return new EmotionVector(
-           a.AngerLevel * b.AngerLevel,
-            a.JoyLevel * b.JoyLevel,
-            a.SadnessLevel * b.SadnessLevel,
-            a.FearLevel * b.FearLevel,
-            a.ApatheticLevel * b.ApatheticLevel
+            Mathf.Clamp(a.AngerLevel * b.AngerLevel, 0, 100),
+            Mathf.Clamp(a.JoyLevel * b.JoyLevel, 0, 100),
+            Mathf.Clamp(a.SadnessLevel * b.SadnessLevel, 0, 100),
+            Mathf.Clamp(a.FearLevel * b.FearLevel, 0, 100),
+            Mathf.Clamp(a.ApatheticLevel * b.ApatheticLevel, 0, 100)
         );
     }
 

@@ -11,9 +11,12 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
         [Tooltip("Reference to the BreedingBuilding component")]
 
         [SerializeField] private BreedingBuilding breedingBuilding;
+        [SerializeField] private PrisonBuilding prisonBuilding;
+
         [SerializeField] public BuildingBase buildingBase;
         BuildingBase buildingA;
         public GameObject BreedingButton;
+        public GameObject releaseButton;
         public TextMeshProUGUI hp;
         public void UpdateUI(BuildingBase building)
         {
@@ -34,6 +37,15 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
             {
                 BreedingButton.SetActive(false);
             }
+            if(buildingBase.gameObject.CompareTag("PrisonBuilding"))
+            {
+                releaseButton.SetActive(true);
+                prisonBuilding = buildingBase as PrisonBuilding;
+            }
+            else
+            {
+                releaseButton.SetActive(false);
+            }
             SetInfo(buildingBase.Health, buildingBase.MaxHealth);
         }
 
@@ -52,7 +64,16 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop
                 breedingBuilding.OpenBreedingUI();
                 Debug.Log("Đã kích hoạt chức năng sinh sản!");
         }
-
+        public void ReleaseButtonClicked()
+        {
+            if (prisonBuilding == null)
+            {
+                Debug.LogError("Không có PrisonBuilding nào được tìm thấy!");
+                return;
+            }
+            prisonBuilding.ReleasePrison();
+            Debug.Log("Đã kích hoạt chức năng thả tù nhân!");
+        }
         public void RepairBuilding()
         {
             if (buildingBase == null)
