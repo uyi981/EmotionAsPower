@@ -30,8 +30,8 @@ public class Item : MonoBehaviour, IInteractable, IHealth
         //ItemGroupHandler itemGroupHandler  = GetComponentInChildren<ItemGroupHandler>();
         //itemGroupHandler.SetItem(this);
 
-        amountText = GetComponentInChildren<TextMeshProUGUI>();
-        amountText.text = amount.ToString();
+        //amountText = GetComponentInChildren<TextMeshProUGUI>();
+        //amountText.text = amount.ToString();
 
     }
 

@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 5566514709291163359}
   - component: {fileID: 2636817447324834212}
   - component: {fileID: 4145811426391490510}
+  - component: {fileID: 8452204568900939094}
   m_Layer: 0
   m_Name: ChiliTree
   m_TagString: Resource
@@ -256,6 +257,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &5566514709291163359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,8 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2b1b5b6d1247d48a1a7c378f82ad73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Resource
-  resourceSO: {fileID: 11400000, guid: 784914357d51502499772318928f26c2, type: 2}
-  displayName: Tree
+  id: ChiliTree
+  ID: 
   textureProperty: _MainTexture
   canBeHarvested: 1
   harvestCooldown: 1
@@ -332,6 +334,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0.25, z: 0}
+--- !u!114 &8452204568900939094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3307818150024788784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cc57bf51a250b449dc5878999d0357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShakeEffect
+  shakeDuration: 0.1
+  shakeIntensity: 2
+  shakeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  shakeOnlyX: 1
+  autoConnectToHealth: 1
 --- !u!1 &5010126391323950597
 GameObject:
   m_ObjectHideFlags: 0

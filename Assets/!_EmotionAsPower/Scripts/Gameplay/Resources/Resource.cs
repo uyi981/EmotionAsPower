@@ -4,12 +4,13 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(ItemDropper))]
+[RequireComponent(typeof(ShakeEffect))]
 public class Resource : MonoBehaviour, IInteractable
 {
     [Header("Resource Properties")]
     [SerializeField]
     private string id;
-    public string ID;
+    public string ID => id;
     [Header("Resource Material")]
     [SerializeField]
     private string textureProperty = "_MainTexure";
@@ -32,6 +33,7 @@ public class Resource : MonoBehaviour, IInteractable
     // Components
     private Health health;
     private ItemDropper itemDropper;
+    private ShakeEffect shakeEffect;
     private TextMeshProUGUI healthText;
     private bool isInitialized = false;
     private float lastHarvestTime = 0f;
@@ -39,6 +41,7 @@ public class Resource : MonoBehaviour, IInteractable
     // Properties
     public Health Health => health;
     public ItemDropper ItemDropper => itemDropper;
+    public ShakeEffect ShakeEffect => shakeEffect;
     public bool CanHarvest => canBeHarvested && !health.IsDead && Time.time >= lastHarvestTime + harvestCooldown;
     public bool IsDepleted => health != null && health.IsDead;
 
@@ -46,8 +49,8 @@ public class Resource : MonoBehaviour, IInteractable
     {
         // Get or add required components
         health = GetComponent<Health>();
-
         itemDropper = GetComponent<ItemDropper>();
+        shakeEffect = GetComponent<ShakeEffect>();
 
         // Find health text component
         healthText = GetComponentInChildren<TextMeshProUGUI>();
@@ -68,6 +71,12 @@ public class Resource : MonoBehaviour, IInteractable
             health.OnDeath.AddListener(OnResourceDepletedInternal);
             health.OnRevived.AddListener(OnResourceRespawnedInternal);
         }
+
+        // Connect shake effect to health component
+        if (shakeEffect != null && health != null)
+        {
+            shakeEffect.ConnectToHealth(health);
+        }
     }
 
     private void OnDisable()
@@ -77,11 +86,16 @@ public class Resource : MonoBehaviour, IInteractable
             health.OnDeath.RemoveListener(OnResourceDepletedInternal);
             health.OnRevived.RemoveListener(OnResourceRespawnedInternal);
         }
+
+        // Disconnect shake effect
+        if (shakeEffect != null)
+        {
+            shakeEffect.DisconnectFromHealth();
+        }
     }
 
     public void Initialize()
     {
-
         if (health != null)
         {
             health.SetHealth(health.MaxHealth);
@@ -109,7 +123,6 @@ public class Resource : MonoBehaviour, IInteractable
 
     public InteractableType GetInteractableType() => InteractableType.Resource;
 
-
     public void ForceDropAllItems()
     {
         if (itemDropper != null)
@@ -134,12 +147,18 @@ public class Resource : MonoBehaviour, IInteractable
         }
     }
 
+    // Method to manually trigger shake (useful for testing or special effects)
+    public void TriggerShake()
+    {
+        if (shakeEffect != null)
+        {
+            shakeEffect.StartShake();
+        }
+    }
 
     private void OnResourceDepletedInternal()
     {
-
         itemDropper.DropItems();
-
         OnResourceDepleted?.Invoke();
 
         if (destroyWhenDepleted)

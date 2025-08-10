@@ -28,6 +28,18 @@ public class ItemDropper : MonoBehaviour
         ValidateDropChances();
     }
 
+    //public void Initialize(ResourceSO resourceSO)
+    //{
+    //    if (resourceSO != null && resourceSO.dropableItems != null)
+    //    {
+    //        Initialize(resourceSO.dropableItems);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning("ResourceSO is null or contains no dropable items!");
+    //    }
+    //}
+
     public void DropFunction(Vector3 dropPosition, bool forceAllDrop = false)
     {
         if (!isInitialized || dropableItems == null || dropableItems.Length == 0)
@@ -143,14 +155,14 @@ public class ItemDropper : MonoBehaviour
     {
         if (amount <= 0) return;
 
-        // Spawn individual items with amount = 1
+        // Drop each item separately with amount = 1
         for (int i = 0; i < amount; i++)
         {
-            // Calculate random position within drop radius for each item
+            // Calculate random position within drop radius for each individual item
             Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * dropRadius;
             Vector3 finalDropPosition = dropPosition + new Vector3(randomCircle.x, 0, randomCircle.y);
 
-            // Spawn the item using ItemManager with amount = 1
+            // Spawn individual item with amount = 1
             GameObject droppedItem = ItemManager.Instance.SpawnItem(itemSO, 1, finalDropPosition);
 
             // Add some physics force if the item has a Rigidbody
@@ -186,7 +198,7 @@ public class ItemDropper : MonoBehaviour
                 continue;
             }
 
-            foreach (AmountChance amountChance in dropableItems.amountChances)
+            foreach (AmountChance amountChance in dropableItem.amountChances)
             {
                 if (amountChance.chance < 0f || amountChance.chance > 100f)
                 {
