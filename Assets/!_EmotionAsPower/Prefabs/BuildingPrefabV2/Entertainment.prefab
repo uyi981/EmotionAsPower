@@ -73,7 +73,7 @@ MonoBehaviour:
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
-  healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
+  healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
   effectRange: 1
   effectCooldown: 1
