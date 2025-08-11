@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: AngerSO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   id: Emotion_Anger
-  icon: {fileID: 21300000, guid: 8a93e7d1f99659348a7ea3f471c89a79, type: 3}
+  icon: {fileID: 2098651162, guid: 8a48364fe3aebfa4fb6993b35044e9e5, type: 3}
   displayName: Anger
   description: 
-  category: 100
+  category: 1
   useCases:
     pairs: []

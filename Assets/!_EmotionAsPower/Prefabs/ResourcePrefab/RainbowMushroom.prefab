@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 3952792307069598025}
   - component: {fileID: 4479982947001722715}
   - component: {fileID: 3700019263385182807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RainbowMushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,9 +183,7 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 7ece13ca5a635c846810a8b5a9d1faf1, type: 2}
     amountChances:
     - amount: 1
-      chance: 80
-    - amount: 2
-      chance: 20
+      chance: 100
   dropForce: 5
   dropRadius: 0.2
   minDropAmount: 1

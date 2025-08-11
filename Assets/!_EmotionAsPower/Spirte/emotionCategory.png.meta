@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a48364fe3aebfa4fb6993b35044e9e5
+guid: d2411deaf8fc6c14ca9ba789dae32e56
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,133 +123,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: emotion 1_0
+      name: emotionCategory_0
       rect:
         serializedVersion: 2
-        x: 216
-        y: 451
-        width: 221
-        height: 225
+        x: 217
+        y: 218
+        width: 581
+        height: 550
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fac950f307fff8d49ae30e9dc5b91ece
-      internalID: 2098651162
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: emotion 1_1
-      rect:
-        serializedVersion: 2
-        x: 518
-        y: 451
-        width: 218
-        height: 225
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 20ab1bc2c9f37de45b9fc408ad4b6c1d
-      internalID: -310267291
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: emotion 1_2
-      rect:
-        serializedVersion: 2
-        x: 818
-        y: 450
-        width: 222
-        height: 226
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8016e5313acdffc40bba1a98a9f2d384
-      internalID: 1725668201
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: emotion 1_3
-      rect:
-        serializedVersion: 2
-        x: 360
-        y: 175
-        width: 218
-        height: 222
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d250b73ca47b8374bb51b4acb4b4a766
-      internalID: 2080399783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: emotion 1_4
-      rect:
-        serializedVersion: 2
-        x: 667
-        y: 175
-        width: 220
-        height: 223
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2e56320058458cc4cb6f19c5f08a2b00
-      internalID: -61819636
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: emotion 1_5
-      rect:
-        serializedVersion: 2
-        x: 979
-        y: 177
-        width: 220
-        height: 223
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bba7e380c419f7644a73229d614f6ab2
-      internalID: -561794303
+      spriteID: edbc3c4ee5f3c704cb434a6d13d5c8b2
+      internalID: -960234363
       vertices: []
       indices: 
       edges: []
@@ -258,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9a7aaf99f6a48c84d8f0fc238b390657
+    spriteID: 102cfb3175565db4e83767e3243ad15a
     internalID: 0
     vertices: []
     indices: 
@@ -270,12 +160,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      emotion 1_0: 2098651162
-      emotion 1_1: -310267291
-      emotion 1_2: 1725668201
-      emotion 1_3: 2080399783
-      emotion 1_4: -61819636
-      emotion 1_5: -561794303
+      emotionCategory_0: -960234363
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

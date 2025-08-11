@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 285036470951649177}
   - component: {fileID: 6913822142839380951}
   - component: {fileID: 8207921279474647729}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,16 +92,8 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
     amountChances:
-    - amount: 1
-      chance: 20
-    - amount: 2
-      chance: 20
-    - amount: 3
-      chance: 20
-    - amount: 4
-      chance: 20
     - amount: 5
-      chance: 20
+      chance: 100
   dropForce: 5
   dropRadius: 0.5
   minDropAmount: 1

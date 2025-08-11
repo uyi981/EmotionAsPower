@@ -13,7 +13,10 @@ public class ResourceInfoPanel : MonoBehaviour
     [SerializeField] private Button unsetHarvestBtn;
     [SerializeField] private Button cancelBtn;
 
+    [SerializeField]
+    [Tooltip("The resource this panel will display information for.")]
     private Resource resource;
+    public Resource Resource => resource;  
 
     private void Awake()
     {
