@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Item_Fiber
   icon: {fileID: -1533782549, guid: e717125a468016246855d280db35f1ca, type: 3}
   displayName: Fiber
-  description: 
+  description: Can be found from Bushes
   category: 3
   useCases:
     pairs: []

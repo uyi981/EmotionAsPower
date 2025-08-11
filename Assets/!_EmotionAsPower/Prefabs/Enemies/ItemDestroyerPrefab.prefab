@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 754c26531c2a53f448d16899645334c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewAIController
-  behaviour: {fileID: 11400000, guid: 1a3206d249e47ec41829664115cef772, type: 2}
+  behaviour: {fileID: 11400000, guid: 174da5a3c6b506845beb3dba217f42b8, type: 2}
   currentAction: {fileID: 0}
   actionData:
     ai: {fileID: 0}

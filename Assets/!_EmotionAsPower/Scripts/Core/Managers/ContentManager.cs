@@ -10,6 +10,7 @@ public class ContentManager : Singleton<ContentManager>, ISetup
 
     public ItemLibrarySO itemLibrary;
     public EnemyLibrarySO enemyLibrary;
+    public ResourceLibrarySO resourceLibrary;
 
     [SerializeField]
     private bool debugLoading = true;   
@@ -65,6 +66,7 @@ public class ContentManager : Singleton<ContentManager>, ISetup
         //StartCoroutine(SetupCoroutine());
         this.itemSOs = itemLibrary.itemSOs;
         this.enemies = enemyLibrary.enemyPrefabs;
+        this.resources = resourceLibrary.resourcePrefabs;
     }
     public IEnumerator SetupCoroutine()
     {

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace LgTyUtils
 {
     [Serializable]
-    public class SerializablMultiDictionary<K, V>
+    public class SerializableMultiDictionary<K, V>
     {
         [Serializable]
         public struct KeyValuePair

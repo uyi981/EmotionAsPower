@@ -15,15 +15,7 @@ MonoBehaviour:
   id: Item_Chili
   icon: {fileID: -1662147592, guid: e717125a468016246855d280db35f1ca, type: 3}
   displayName: Chili
-  description: 
+  description: Very spicy, careful!
   category: 4
-  consumptionEffect:
-    hungryChange: 0
-    emotionChange:
-      AngerLevel: 0
-      JoyLevel: 0
-      SadnessLevel: 0
-      FearLevel: 0
-      ApatheticLevel: 0
   useCases:
     pairs: []

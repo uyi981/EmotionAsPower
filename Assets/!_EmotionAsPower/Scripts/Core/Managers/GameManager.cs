@@ -37,6 +37,8 @@ public class GameManager : Singleton<GameManager>
         PauseGame();
         StartCoroutine(DelayedSetup());
         StartCoroutine(UpdateFPSCalculation()); // Start FPS calculation coroutine
+        ResumeGame();
+        SetGameSpeed(1);
     }
 
     private void SetupAll()

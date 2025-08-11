@@ -10,9 +10,11 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     private int level;
 
     [SerializeField]
+    private float maxHealth = 100f;
     private float health = 100f;
 
     private bool isDestroyed = false;
+    private NewHealthBar healthBar;
 
     [SerializeField]
     private LevelUnlockedContents unlockedContents;
@@ -27,8 +29,14 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
 
     private void Start()
     {
+        health = maxHealth;
         //GameManager.Instance.OnSetupFinished += Initialize;
         Initialize();
+        healthBar = GetComponentInChildren<NewHealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.SetProcess(health / maxHealth);
+        }
     }
 
     public void Initialize()
@@ -108,6 +116,10 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     public void TakeDamage(float damage)
     {
         this.health -= damage;
+        if (healthBar != null)
+        {
+            healthBar.SetProcess(health / maxHealth);
+        }
         if (this.health <= 0) { 
             isDestroyed = true;
             OnPlayerBaseDestroyed?.Invoke();

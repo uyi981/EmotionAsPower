@@ -15,8 +15,7 @@ MonoBehaviour:
   id: Item_Wood
   icon: {fileID: 269033852, guid: ea8f81f11395c624c8c452e45a28d2b9, type: 3}
   displayName: Wood
-  description: "Builds cozy cabins, calms pops. \nSome name their planks. \nGreat
-    for anti-robot bonfires."
+  description: Important for buildings
   category: 3
   useCases:
     pairs: []

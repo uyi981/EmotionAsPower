@@ -155,26 +155,31 @@ public class ItemDropper : MonoBehaviour
     {
         if (amount <= 0) return;
 
-        // Calculate random position within drop radius
-        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * dropRadius;
-        Vector3 finalDropPosition = dropPosition + new Vector3(randomCircle.x, 0, randomCircle.y);
-
-        // Spawn the item using ItemManager
-        GameObject droppedItem = ItemManager.Instance.SpawnItem(itemSO, amount, finalDropPosition);
-
-        // Add some physics force if the item has a Rigidbody
-        Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
-        if (rb != null)
+        // Drop each item separately with amount = 1
+        for (int i = 0; i < amount; i++)
         {
-            Vector3 randomForce = new Vector3(
-                UnityEngine.Random.Range(-1f, 1f),
-                UnityEngine.Random.Range(0.5f, 1f),
-                UnityEngine.Random.Range(-1f, 1f)
-            ).normalized * dropForce;
+            // Calculate random position within drop radius for each individual item
+            Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * dropRadius;
+            Vector3 finalDropPosition = dropPosition + new Vector3(randomCircle.x, 0, randomCircle.y);
 
-            rb.AddForce(randomForce, ForceMode.Impulse);
+            // Spawn individual item with amount = 1
+            GameObject droppedItem = ItemManager.Instance.SpawnItem(itemSO, 1, finalDropPosition);
+
+            // Add some physics force if the item has a Rigidbody
+            Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 randomForce = new Vector3(
+                    UnityEngine.Random.Range(-1f, 1f),
+                    UnityEngine.Random.Range(0.5f, 1f),
+                    UnityEngine.Random.Range(-1f, 1f)
+                ).normalized * dropForce;
+
+                rb.AddForce(randomForce, ForceMode.Impulse);
+            }
         }
     }
+
     private void ValidateDropChances()
     {
         if (dropableItems == null) return;
