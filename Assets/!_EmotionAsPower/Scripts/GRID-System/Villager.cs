@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.InferenceEngine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -50,6 +51,7 @@ public class Villager : MonoBehaviour,IInteractable
     public event Action completedGoToTarget;
     public event Action<Collision> collisionTrigger;
     public event Action<Villager> receiveChat;
+    public event Action changeEmotion;
     public bool isChatting;
     public string currentStateName;
     public float currentHunger = 100f;
@@ -58,6 +60,10 @@ public class Villager : MonoBehaviour,IInteractable
     public PlayerEmotion playerEmotion;
     public GameObject Target;
     private bool isDragging = false;
+    public IState oldState;
+    private float itemHeight = 0.15f; // Chiều cao 1 item
+    private int currentCarryCount = 0;
+    private int maxCarryCount = 6;   // Giới hạn số item có thể cầm
     void OnMouseDown()
     {
         isDragging = true;
@@ -66,19 +72,15 @@ public class Villager : MonoBehaviour,IInteractable
             return;
         }
         Debug.Log("Villager clicked: " + gameObject.name);
-        SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.color = Color.red; // Change color to indicate selection
         // Handle villager click logic here
         if (isSelected)
         {
-            spriteRenderer.color = Color.white; // Reset color if already selected
             Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
             isSelected = !isSelected;
             TransitionTo(villagerIdleState);
         }
         else
         {
-            spriteRenderer.color = Color.green; // Change color to indicate selection
             Singleton<PlayerController>.Instance.AddVillagerToList(this);
             isSelected = !isSelected;
             TransitionTo(villagerSelectedState);
@@ -88,13 +90,15 @@ public class Villager : MonoBehaviour,IInteractable
     }
     void OnMouseUp()
     {
+        isSleeping = false;
         isDragging = false;
+        ReceiveEmotion(new EmotionVector(Emotion.Anger,5));
         SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.color = Color.white; // Reset color if already selected
         Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
         isSelected = !isSelected;
         TransitionTo(villagerIdleState);
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 5f); // Adjust the radius as needed
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Adjust the radius as needed
         for (int i = colliders.Length - 1; i >= 0; i--)
         {
             if (colliders[i].gameObject.tag.Equals("Factory"))
@@ -107,6 +111,10 @@ public class Villager : MonoBehaviour,IInteractable
             }
             else if (colliders[i].gameObject.tag.Equals("PrisonBuilding"))
             {
+                if(currentEmotion.Equals(Emotion.Normal))
+                {
+                    continue;
+                }
                 PrisonBuilding prisonBuilding = colliders[i].GetComponent<PrisonBuilding>();
                 if (prisonBuilding != null)
                 {
@@ -114,7 +122,7 @@ public class Villager : MonoBehaviour,IInteractable
                 }
             }
         }
-    }    
+    }
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)
     {
         if (timeStage == DayTimeController.TimeStage.Morning)
@@ -127,7 +135,71 @@ public class Villager : MonoBehaviour,IInteractable
             currentJob.JobType = JobType.None;
         }
     }
+    public bool CheckItemsPicked()
+    {
+      if(currentCarryCount>=maxCarryCount)
+        {
+            return true;
+        }
+      else        
+        {
+            return false;
+        }
+    }
+    public void PickupItem(GameObject itemObj)
+    {
+        if (currentCarryCount >= maxCarryCount)
+        {
+            Debug.Log("Đã đầy túi, không thể nhặt thêm.");
+            // Nếu muốn villager về, gọi TransitionTo hoặc set flag ở đây
+            TransitionTo(villagerBackToHomeState);
+            return;
+        }
 
+        itemObj.transform.SetParent(itemHandle.transform);
+
+        float offsetY = currentCarryCount * itemHeight;
+        itemObj.transform.localPosition = new Vector3(0, offsetY, 0);
+        itemObj.transform.localRotation = Quaternion.identity;
+
+        // Tắt physics để cố định
+        var rb = itemObj.GetComponent<Rigidbody>();
+        if (rb != null) rb.isKinematic = true;
+
+        var col = itemObj.GetComponent<Collider>();
+        if (col != null) col.enabled = false;
+
+        currentCarryCount++;
+
+        // Nếu đạt max thì trigger hành động về
+        if (currentCarryCount >= maxCarryCount)
+        {
+            Debug.Log("Đã nhặt đủ " + maxCarryCount + " item, quay về.");
+            TransitionTo(villagerBackToHomeState);
+            return;
+        }
+        TransitionTo(villagerIdleState); // Chuyển sang trạng thái làm việc nếu chưa đầy túi
+    }
+
+    public void DropAllItems()
+    {
+        for (int i = itemHandle.transform.childCount - 1; i >= 0; i--)
+        {
+            Transform child = itemHandle.transform.GetChild(i);
+            child.SetParent(null);
+            Item item = child.GetComponent<Item>();
+            if (item != null)
+            {
+                Singleton<ItemStorage>.Instance.AddItem(item.ItemSO, 1); // Assuming you want to add the item to a storage system
+            }
+            Destroy(child.gameObject);
+        }
+        currentCarryCount = 0;
+    }
+    public void BackOldState()
+    {
+
+    }    
     public void Hunger()
     {
 
@@ -140,6 +212,10 @@ public class Villager : MonoBehaviour,IInteractable
         if (CurrentState == villagerBackToHomeState) return "BackToHome";
         if (CurrentState == villagerChattingState) return "Chatting";
         if (CurrentState == villagerSleepState) return "Sleeping";
+        if (CurrentState == villagerStarvingState) return "Starving";
+        if (CurrentState == villagerAttackEnermyState) return "Attacking";
+        if (CurrentState == villagerPrisonState) return "Prison";
+        // Add more states as needed                                                                                                                                                                      
         return "Unknown";
     }
     public void Update()
@@ -174,9 +250,10 @@ public class Villager : MonoBehaviour,IInteractable
         Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
         TransitionTo(villagerIdleState); // Start with idle state
         playerEmotion =GetComponent<PlayerEmotion>();
+        changeEmotion?.Invoke(); // Notify subscribers that the emotion has changed
         // Initialize the villager state to idle
     }
-    void HandleEmotion(Emotion currentEmotion)
+    public void HandleEmotion(Emotion currentEmotion)
     {
         SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
         switch (currentEmotion)
@@ -213,6 +290,7 @@ public class Villager : MonoBehaviour,IInteractable
                 playerEmotion.SetEmotion(Emotion.Normal, Color.white);
                 break;
         }
+        changeEmotion?.Invoke(); // Notify subscribers that the emotion has changed
     }
     public void ReceiveEmotion(EmotionVector emotion)
     {

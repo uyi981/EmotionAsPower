@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
 {
     public List<Villager> jobForWorkers = new List<Villager>();
+    public VillagerManagerUI villagerManagerUI;
     public Villager prefab;
     Stack<JobForWorker> jobForWorkerPool = new Stack<JobForWorker>();
     public Stack<Vector2Int> bedPool = new Stack<Vector2Int>();
@@ -110,6 +111,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     private void Start()
     {
         SetUp();
+        villagerManagerUI.UpdateVillagerSlots(jobForWorkers);
         InvokeRepeating("SendJobToVillager", 5f,1);
     }
     public void VillagersGoToSleep()

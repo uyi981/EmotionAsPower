@@ -15,25 +15,16 @@ public class VillagerBackToHomeState : IState
     }
     public void DropItem()
     {
-        if (villager.itemHandle.transform.childCount == 0)
-        {
-            Debug.LogWarning("No items to drop.");
-            return;
-        }
-        Item item = villager.itemHandle.transform.GetChild(0).gameObject.GetComponent<Item>();
-        if (item == null)
-        {
-            Debug.LogWarning("No item found in the item handle.");
-            return;
-        }
-        Singleton<ItemStorage>.Instance.AddItem(item.ItemSO, 1); // Add item to storage
-        villager.itemHandle.transform.DetachChildren(); // Detach all children from the item handle
-        GameObject.Destroy(item.gameObject); // Destroy the item game object
-        villager.TransitionTo(villager.villagerIdleState);
+        villager.DropAllItems();
     }
     public void UpdateState()
     {
         // Logic for updating the villager selected state
+        if (villager.itemHandle.transform.childCount == 0)
+        {
+            villager.TransitionTo(villager.villagerIdleState);
+            return;
+        }
     }
     public void ExitState()
     {

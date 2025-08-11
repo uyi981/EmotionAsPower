@@ -38,17 +38,24 @@ public class PrisonBuilding : BuildingBase
         float value = currentPrison.emotion.GetEmotionMaxPoint();
         if(emotion == Emotion.Normal)
         {
+            ReleasePrison();//release prison
             //release prison
         }
         if (value < 20)
         {
-            //release prison
+            currentPrison.HandleEmotion(Emotion.Normal);
+            ReleasePrison();//release prison
+            return;
         }
-        TakeEmotion(emotion,10);
-        currentPrison.emotion.minusEmotion(emotion, 10);
+        currentPrison.emotion.minusEmotion(emotion,10);
+        currentPrison.HandleEmotion(emotion);
     }
     public void SetPrison(Villager villager)
     {
+        if (villager.emotion.Equals(Emotion.Normal))
+        {
+            return;
+        }
         if (currentPrison != null)
         {
             Debug.LogWarning("Prison is already set. Please release the current villager before setting a new one.");
@@ -60,7 +67,7 @@ public class PrisonBuilding : BuildingBase
             {
                 return;
             }
-           currentPrison = villager;
+            currentPrison = villager;
             villager.transform.position =position.position;
         }
         currentPrison.TransitionTo(currentPrison.villagerPrisonState);

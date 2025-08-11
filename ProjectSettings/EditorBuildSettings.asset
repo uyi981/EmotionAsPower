@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/!_EmotionAsPower/Scenes/GameplayScene 1.unity
     guid: 3e88f40694d1b054abe3d7a5f29fa45c
-  - enabled: 1
+  - enabled: 0
     path: Assets/!_EmotionAsPower/Scenes/Luong_GameplayScene.unity
     guid: 7e00747cbd5430c4db266d3ea1b0e98f
   m_configObjects:

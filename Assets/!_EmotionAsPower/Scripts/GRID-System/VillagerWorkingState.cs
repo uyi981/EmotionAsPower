@@ -30,13 +30,10 @@ public class VillagerWorkingState : IState
         }
     }
     public void OnCollisionEnter(Collision collision)
-    {
-         if (collision.gameObject.CompareTag("Item"))
+    { 
+        if (collision.gameObject.CompareTag("Item"))
         {
-            collision.transform.SetParent(villager.itemHandle.transform); // Set the collided object as a child of the villager
-            collision.transform.localPosition = Vector3.zero; // Reset position to the villager's position
-            collision.collider.enabled = false; // Disable the collider to prevent further collisions
-            collision.rigidbody.useGravity = false; // Disable gravity for the collided object
+          villager.PickupItem(collision.gameObject);
         }
     }
     public void UpdateState()
@@ -58,8 +55,10 @@ public class VillagerWorkingState : IState
             villager.StopCoroutine(villager.moveCoroutine);
             villager.moveCoroutine = null;
         }
+        villager.currentJob.JobType = JobType.None; // Reset the job type after exiting the working state
         // Implement logic for exiting the working state
     }
+
 }
 public class VillagerAttackState
 {
