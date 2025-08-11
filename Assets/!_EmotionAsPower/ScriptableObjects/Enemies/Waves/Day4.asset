@@ -24,5 +24,5 @@ MonoBehaviour:
         spawnAngle: 0
     - key: {fileID: 3329578327918105278, guid: ad1a56bd6c12bd04992c56498d718af4, type: 3}
       value:
-        count: 1
+        count: 10
         spawnAngle: 0

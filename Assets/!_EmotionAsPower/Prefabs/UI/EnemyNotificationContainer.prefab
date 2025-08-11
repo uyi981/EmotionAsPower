@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWaveNotification
   notificationObject: {fileID: 8520669304503546029}
-  warningTimeSeconds: 10
+  warningTimeSeconds: 30
 --- !u!1 &8520669304503546029
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 6244940675012522553}
   - component: {fileID: 2234748895313616256}
   - component: {fileID: 3932168332578418962}
+  - component: {fileID: 5811491370502787884}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -263,3 +264,24 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5811491370502787884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778333305112225911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61483d26d0568bf4ca11e1fff1806f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextAlertEffect
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0, b: 0, a: 1}
+  colorFlashSpeed: 2
+  minScale: 0.9
+  maxScale: 1.1
+  breathSpeed: 0.75
+  minBrightness: 1
+  maxBrightness: 1.5
+  brightnessSpeed: 1.5

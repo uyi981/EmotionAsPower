@@ -253,39 +253,21 @@ public class ExplodeActionExecutor : AIActionExecutor
 
         Debug.Log($"{actionData.ai.name} exploding at {explosionPosition}!");
 
-        // Find all colliders within explosion range
-        Collider[] hitColliders = Physics.OverlapSphere(explosionPosition, explodeAction.ExplosionRange, explodeAction.DamageLayerMask);
-
-        foreach (Collider hitCollider in hitColliders)
+        // Spawn the explosive object and configure it
+        if (explodeAction.ExplosiveObjectPrefab != null)
         {
-            if (hitCollider.gameObject == actionData.ai.gameObject && !explodeAction.DestroySelfOnExplode)
-                continue;
+            GameObject explosiveGO = Object.Instantiate(explodeAction.ExplosiveObjectPrefab, explosionPosition, Quaternion.identity);
+            Explosive explosive = explosiveGO.GetComponent<Explosive>();
 
-            Health health = hitCollider.GetComponent<Health>();
-            if (health != null)
+            if (explosive != null)
             {
-                // Calculate damage based on distance
-                float distance = Vector3.Distance(explosionPosition, hitCollider.transform.position);
-                float damageFalloff = Mathf.Clamp01(1 - (distance / explodeAction.ExplosionRange));
-                float finalDamage = explodeAction.ExplosionDamage * damageFalloff;
-
-                health.TakeDamage(finalDamage);
-                Debug.Log($"Explosion damaged {hitCollider.name} for {finalDamage} damage");
+                explosive.explosionRange = explodeAction.ExplosionRange;
+                explosive.explosionDamage = explodeAction.ExplosionDamage;
+                explosive.damageLayerMask = explodeAction.DamageLayerMask;
+                explosive.explosionPrefab = explodeAction.ExplosionPrefab;
+                explosive.explosionSound = explodeAction.ExplosionSound;
+                explosive.TriggerExplosion(0f);
             }
-        }
-
-        // Spawn explosion effect
-        if (explodeAction.ExplosionPrefab != null)
-        {
-            GameObject explosion = Object.Instantiate(explodeAction.ExplosionPrefab, explosionPosition, Quaternion.identity);
-            // Auto-destroy explosion effect after some time
-            Object.Destroy(explosion, 5f);
-        }
-
-        // Play explosion sound
-        if (explodeAction.ExplosionSound != null)
-        {
-            AudioSource.PlayClipAtPoint(explodeAction.ExplosionSound, explosionPosition);
         }
 
         // Destroy self if specified
