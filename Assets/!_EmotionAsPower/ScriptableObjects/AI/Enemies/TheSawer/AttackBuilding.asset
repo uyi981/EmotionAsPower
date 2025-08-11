@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 949586240a0ddb648b01bae58b7bd9f2, type: 3}
-  m_Name: AttackResource
+  m_Name: AttackBuilding
   m_EditorClassIdentifier: Assembly-CSharp::AttackAction
   attackRange: 0.5
   attackDamage: 7

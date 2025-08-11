@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
 {
-
     [SerializeField]
-    private  EnemySpawningConfig enemySpawningConfig;
+    private EnemySpawningConfig enemySpawningConfig;
+
+    public EnemySpawningConfig SpawningConfig => enemySpawningConfig;
 
     [Header("Spawn Settings")]
     [SerializeField]
@@ -84,10 +85,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     {
         if (radius < 0) radius = spawnRadius;
 
-        // Generate random angle
         float angle = Random.Range(0f, 2f * Mathf.PI);
-
-        // Calculate position on circle circumference
         Vector3 position = spawnCenter + new Vector3(
             Mathf.Cos(angle) * radius,
             0f,
@@ -154,21 +152,16 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
                 position = enemy.transform.position,
                 currentHealth = enemy.Health.CurrentHealth,
                 remainExistingTime = enemy.ExistingTimer
-
             };
         }
         return result;
     }
 
-
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        // Draw spawn circle in scene view
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(spawnCenter, spawnRadius);
-
-        // Draw center point
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(spawnCenter, 0.2f);
     }
@@ -176,20 +169,28 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
 
     public void SpawnEnemyWave(StageOfDay stageOfDayCondition)
     {
-        // If there is no wave on this stage of the day then return
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
 
-        var enemies = enemyWave.enemies;
-        foreach (var enemy in enemies)
+        foreach (var kvp in enemyWave.enemies.GetAllPairs())
         {
-            int spawnedAmount = 0;
-            while (spawnedAmount < enemy.Value)
+            GameObject enemyPrefab = kvp.Key;
+            EnemyWave.EnemySpawnData data = kvp.Value;
+            for (int spawnedAmount = 0; spawnedAmount < data.count; spawnedAmount++)
             {
-                SpawnEnemyOnCircle(enemy.Key, spawnRadius);
-                spawnedAmount++;
+                float angleDeg = data.spawnAngle;
+                if (data.count > 1)
+                {
+                    angleDeg += Random.Range(-20f, 20f);
+                }
+                float angleRad = angleDeg * Mathf.Deg2Rad;
+                Vector3 spawnPosition = spawnCenter + new Vector3(
+                    Mathf.Cos(angleRad) * spawnRadius,
+                    0f,
+                    Mathf.Sin(angleRad) * spawnRadius
+                );
+                SpawnEnemy(enemyPrefab, spawnPosition);
             }
-
         }
     }
 }

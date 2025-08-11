@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Item_Steel
   icon: {fileID: 775446, guid: ea8f81f11395c624c8c452e45a28d2b9, type: 3}
   displayName: Steel
-  description: 'It is rare
+  description: 'Dropped from robots
 
 '
   category: 3

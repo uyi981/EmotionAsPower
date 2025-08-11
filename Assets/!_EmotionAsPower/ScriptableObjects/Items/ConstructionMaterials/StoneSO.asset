@@ -15,8 +15,7 @@ MonoBehaviour:
   id: Item_Stone
   icon: {fileID: -614349844, guid: ea8f81f11395c624c8c452e45a28d2b9, type: 3}
   displayName: Stone
-  description: "Solid for building or bonking robots. \nPops might meditate with
-    it, weirdly."
+  description: 'Solid for building or bonking robots. '
   category: 3
   useCases:
     pairs: []

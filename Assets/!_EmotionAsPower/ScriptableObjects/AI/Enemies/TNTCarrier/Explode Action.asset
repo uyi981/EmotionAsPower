@@ -15,11 +15,12 @@ MonoBehaviour:
   explosionRange: 0.5
   explosionDamage: 50
   triggerRange: 1
-  targetTypes: 010000000300000004000000
+  targetTypes: 0300000005000000
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   destroySelfOnExplode: 1
   explosionDelay: 0.5
-  explosionPrefab: {fileID: 0}
+  explosiveObjectPrefab: {fileID: 8169177151157882191, guid: 95c971762c2d5494591fb8ba3cebeb9c, type: 3}
+  explosionPrefab: {fileID: 7368916598454246299, guid: 3e6b3fa5be05d0849afb6f20f23be380, type: 3}
   explosionSound: {fileID: 0}

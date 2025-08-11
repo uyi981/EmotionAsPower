@@ -25,7 +25,7 @@ public class PlacementSystem : MonoBehaviour
     private Quaternion rotationBuilding;
     public SpriteRenderer cellIndicatorRenderer;
     private GameObject movingBuilding; // Building đang được di chuyển
-
+    public Vector2Int CurrentSize => currentSize;
     private void Update()
     {
         if (selectedObjectIndex == -1 || !gridVisualization.activeSelf)
@@ -394,5 +394,51 @@ public class PlacementSystem : MonoBehaviour
         }
 
         return new List<Vector2Int>(adjacent);
+    }
+
+    public Vector3Int GetRandomCellAndOccupy()
+    {
+        List<Vector3Int> unoccupiedCells = new List<Vector3Int>();
+
+        // Collect all unoccupied cells within grid bounds
+        for (int x = 0; x < gridMap.GetLength(0); x++)
+        {
+            for (int z = 0; z < gridMap.GetLength(1); z++)
+            {
+                if (gridMap[x, z] == 0)
+                {
+                    int worldX = x - gridOffset.x;
+                    int worldZ = z - gridOffset.y;
+                    unoccupiedCells.Add(new Vector3Int(worldX, 0, worldZ));
+                }
+            }
+        }
+
+        // If no unoccupied cells, return invalid position
+        if (unoccupiedCells.Count == 0)
+        {
+            Debug.LogWarning("No unoccupied cells available.");
+            return new Vector3Int(int.MinValue, int.MinValue, int.MinValue);
+        }
+
+        // Select random cell
+        int randomIndex = Random.Range(0, unoccupiedCells.Count);
+        Vector3Int selectedCell = unoccupiedCells[randomIndex];
+
+        // Mark as occupied
+        gridMap[selectedCell.x + gridOffset.x, selectedCell.z + gridOffset.y] = 1;
+        Debug.Log($"Occupied cell at: {selectedCell.x}, {selectedCell.z}");
+
+        return selectedCell;
+    }
+
+    public Vector3 CellToWorldPosition(Vector3Int cell)
+    {
+        // Convert grid cell to world position using the grid's CellToWorld method
+        Vector3 worldPos = grid.CellToWorld(cell);
+
+        // Apply offset to center the position (consistent with your existing logic)
+        Vector3 offset = new Vector3((currentSize.x - 1) * 0.5f, 0f, (currentSize.y - 1) * 0.5f);
+        return worldPos + offset;
     }
 }

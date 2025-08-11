@@ -20,6 +20,10 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>, ISetup
 
          // Load game data at the start
         //DontDestroyOnLoad(this.gameObject);
+        if(fileDataHandler == null)
+        {
+            fileDataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        }
     }
 
     public void NewGame()
@@ -32,6 +36,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>, ISetup
     public void LoadGame()
     {
         Debug.Log("Loading");
+        
         gameData = fileDataHandler.Load();
         gameDataView.shouldLoad = true; // Set shouldLoad to true to indicate loading existing game data
         gameDataView.gameData = gameData; // Update the GameDataView with the loaded data
@@ -81,6 +86,11 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>, ISetup
         {
             LoadGame(); // Load game data if shouldLoad is true
         }
+    }
+
+    public void SetShouldLoad()
+    {
+        this.gameDataView.shouldLoad = true;
     }
 }
 
