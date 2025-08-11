@@ -117,14 +117,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
             processBarImg = processBarInstance.GetComponent<ProcessBar>();
             processBarImg.SetProcess(0f); // Đặt tiến độ ban đầu là 0
             processBarInstance.SetActive(true);
-            if(isBuild)
+            if (isBuild)
             {
                 processBarInstance.SetActive(false);
-            }    
+            }
         }
         if (healthBar != null)
         {
-            healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
+            healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 1.2f, Quaternion.identity, transform);
             healthBarImg = healthBarInstance.GetComponent<HealthBar>();
             Debug.Log(healthBarImg.name);
             Debug.Log($"Building {Name} started with max HP: {maxHP} and current HP: {currentHP}");
@@ -167,10 +167,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     {
         if (timeStage == DayTimeController.TimeStage.Morning)
         {
-            if(jobType==JobType.None)
+            if (jobType == JobType.None)
             {
                 return;
-            }    
+            }
             AssignJobToWorker(jobType);
         }
     }
@@ -192,7 +192,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         buildProgress = 1f; // Hoàn thành xây dựng
         isBuild = true;
         processBarInstance.SetActive(false);
-        healthBarInstance.SetActive(true); // Hiển thị thanh máu khi công trình đã hoàn thành
+        //healthBarInstance.SetActive(true); // Hiển thị thanh máu khi công trình đã hoàn thành
         workersAmount = 0;
         OnBuildingComplete();
         isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
@@ -220,6 +220,8 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
             healthBarImg.Health.text = currentHP.ToString();
         }
     }
+
+    
 
     private void InstantiateHealthBar(int health, int maxhealth)
     {
@@ -319,20 +321,20 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
 
     // Interface methods for IBuilding
     ////////////////////////////////////
-    public virtual void TakeDamage(int damage)
-    {
-        if (!isBuildingComplete) return;
+    //public virtual void TakeDamage(int damage)
+    //{
+    //    if (!isBuildingComplete) return;
 
-        currentHP -= damage;
-        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+    //    currentHP -= damage;
+    //    currentHP = Mathf.Clamp(currentHP, 0, maxHP);
 
-        UpdateHealthBar();
+    //    UpdateHealthBar();
 
-        //if (currentHP <= 0)
-        //{
-        //    OnBuildingDestroyed();
-        //}
-    }
+    //    //if (currentHP <= 0)
+    //    //{
+    //    //    OnBuildingDestroyed();
+    //    //}
+    //}
     public virtual void RepairBuilding(int amount)
     {
         AssignJobToWorker(JobType.Build);
@@ -413,9 +415,28 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
             Singleton<DetailInfoController>.Instance.OpenBuildingUI(this);
     }
 
+    private IEnumerator ShowHealthBarTemporarily()
+    {
+        if (healthBarInstance != null)
+        {
+            healthBarInstance.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            if (!isDestroyed) // Only hide if building is not destroyed
+            {
+                healthBarInstance.SetActive(false);
+            }
+        }
+    }
+
+
     public void TakeDamage(float damage)
     {
         currentHP -= (int)damage;
+        UpdateHealthBar();
+
+        // Show health bar when taking damage
+        StopCoroutine(nameof(ShowHealthBarTemporarily)); // Stop any existing coroutine
+        StartCoroutine(nameof(ShowHealthBarTemporarily));
         if (IsDead()) OnBuildingDestroyed();
     }
 

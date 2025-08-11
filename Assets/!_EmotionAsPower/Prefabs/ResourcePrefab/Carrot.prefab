@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7695136447843529238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.055, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -74,6 +74,7 @@ MonoBehaviour:
   OnMaxHealthReached:
     m_PersistentCalls:
       m_Calls: []
+  isDead: 0
 --- !u!114 &6385677469790898534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2b1b5b6d1247d48a1a7c378f82ad73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Resource
-  resourceSO: {fileID: 11400000, guid: 784914357d51502499772318928f26c2, type: 2}
-  displayName: Tree
+  id: 
+  ID: 
   textureProperty: _MainTexture
   canBeHarvested: 1
   harvestCooldown: 1

@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static MapData;
 
 public class PlacementSystem : MonoBehaviour
 {
     [SerializeField] GameObject mouseIndicator, cellIndicator;
     [SerializeField] private InputManagerForGrid inputManager;
     [SerializeField] private Grid grid;
-    public float[,] gridMap;
+    public float[,] gridMap = new float[100,100];
     [SerializeField] public ObjectsDatabaseSO database;
     [SerializeField] public int selectedObjectIndex = -1;
     [SerializeField] private GameObject gridVisualization;
-
+    public MapData mapData; // Dữ liệu bản đồ để lưu trữ các đối tượng đã đặt
     [SerializeField] private GameObject blueprintInstance;
     [SerializeField] private GameObject prefabInstance;
     [SerializeField]
@@ -62,7 +63,7 @@ public class PlacementSystem : MonoBehaviour
                 }
             }
         }
-        if(Singleton<InputManagerForGrid>.Instance.CurrentState.Equals(State.Building))
+        if (Singleton<InputManagerForGrid>.Instance.CurrentState.Equals(State.Building))
         {
             if (!CanPlace(baseCell))
             {
@@ -72,7 +73,7 @@ public class PlacementSystem : MonoBehaviour
             {
                 cellIndicatorRenderer.color = Color.green; // Set to green if can place
             }
-        }      
+        }
     }
 
     private void Start()
@@ -102,7 +103,7 @@ public class PlacementSystem : MonoBehaviour
         currentSize = database.buildings[selectedObjectIndex].size;
         if (blueprintInstance != null)
             Destroy(blueprintInstance.gameObject);
-        blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
+       // blueprintInstance = Instantiate(database.buildings[selectedObjectIndex].blueprintPrefab);
 
         selectedFrame.SetSize(currentSize);
         gridVisualization.SetActive(true);
@@ -302,6 +303,12 @@ public class PlacementSystem : MonoBehaviour
 
         Debug.Log("Placed structure: " + database.buildings[selectedObjectIndex].buildingName + " at base cell: " + baseCell);
         OccupyCells(baseCell, 1);
+        mapData.placedObjects.Add(new PlacedObjectData
+        {
+            position = baseCell,
+            id = database.buildings[selectedObjectIndex].buildingID,
+            rotation = rotationBuilding
+        });
     }
 
     // Kiểm tra một footprint kích thước currentSize có thể đặt tại basePos hay không
