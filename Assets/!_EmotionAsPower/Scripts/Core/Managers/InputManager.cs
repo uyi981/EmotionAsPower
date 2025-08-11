@@ -15,7 +15,7 @@ public class InputManager : Singleton<InputManager>
     public InputAction mouseLeftClick, mouseRightClick, mousePos, mouseScroll;
 
     // New Input Actions for game controls
-    private InputAction pauseToggle, setSpeed1x, setSpeed2x, setSpeed4x;
+    private InputAction setSpeed1x, setSpeed2x, setSpeed4x;
 
     // Timing variables for pause-resistant input
     private float lastInputUpdateTime;
@@ -76,7 +76,7 @@ public class InputManager : Singleton<InputManager>
         mouseScroll = new InputAction("MouseScroll", InputActionType.Value, "<Mouse>/scroll");
 
         // New game control actions
-        pauseToggle = new InputAction("PauseToggle", InputActionType.Button, "<Keyboard>/space");
+        //pauseToggle = new InputAction("PauseToggle", InputActionType.Button, "<Keyboard>/space");
         setSpeed1x = new InputAction("SetSpeed1x", InputActionType.Button, "<Keyboard>/1");
         setSpeed2x = new InputAction("SetSpeed2x", InputActionType.Button, "<Keyboard>/2");
         setSpeed4x = new InputAction("SetSpeed4x", InputActionType.Button, "<Keyboard>/3");
@@ -84,7 +84,7 @@ public class InputManager : Singleton<InputManager>
         // Subscribe to events
         mouseLeftClick.performed += MouseLeftClick_performed;
         mouseRightClick.performed += MouseRightClick_performed;
-        pauseToggle.performed += PauseToggle_performed;
+        //pauseToggle.performed += PauseToggle_performed;
         setSpeed1x.performed += SetSpeed1x_performed;
         setSpeed2x.performed += SetSpeed2x_performed;
         setSpeed4x.performed += SetSpeed4x_performed;
@@ -105,11 +105,11 @@ public class InputManager : Singleton<InputManager>
             mouseRightClick.Dispose();
         }
 
-        if (pauseToggle != null)
-        {
-            pauseToggle.performed -= PauseToggle_performed;
-            pauseToggle.Dispose();
-        }
+        //if (pauseToggle != null)
+        //{
+        //    pauseToggle.performed -= PauseToggle_performed;
+        //    pauseToggle.Dispose();
+        //}
 
         if (setSpeed1x != null)
         {
@@ -200,7 +200,7 @@ public class InputManager : Singleton<InputManager>
         mouseScroll.Enable();
 
         // Enable game control actions
-        pauseToggle.Enable();
+        //pauseToggle.Enable();
         setSpeed1x.Enable();
         setSpeed2x.Enable();
         setSpeed4x.Enable();
@@ -223,7 +223,7 @@ public class InputManager : Singleton<InputManager>
         mouseScroll.Disable();
 
         // Disable game control actions
-        pauseToggle.Disable();
+        //pauseToggle.Disable();
         setSpeed1x.Disable();
         setSpeed2x.Disable();
         setSpeed4x.Disable();
