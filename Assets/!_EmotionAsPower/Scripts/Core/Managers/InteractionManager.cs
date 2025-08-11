@@ -64,8 +64,8 @@ public class InteractionManager : Singleton<InteractionManager>
                     if (resource != null && UIManager.Instance != null)
                     {
                         // Hide item info panel if showing
-                        UIManager.Instance.HideItemInfoPanel();
-                        UIManager.Instance.ShowResourceInfoPanel(resource, clickPosition);
+                        //UIManager.Instance.HideItemInfoPanel();
+                        //UIManager.Instance.ShowResourceInfoPanel(resource, clickPosition);
                         return; // Don't call OnInteract for resources on left click
                     }
                 }

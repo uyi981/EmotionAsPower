@@ -25,9 +25,9 @@ public class ItemStoragePanel : MonoBehaviour
 
         foreach (ItemCategory category in categories)
         {
-            if (category == ItemCategory.Emotion) { 
-                continue;
-            }
+            //if (category == ItemCategory.Emotion) { 
+            //    continue;
+            //}
             GameObject categoryObj = Instantiate(itemByCategoryPrefab, content);
             ItemByCategory itemByCategory = categoryObj.GetComponent<ItemByCategory>();
 

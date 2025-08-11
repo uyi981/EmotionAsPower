@@ -104,9 +104,9 @@ GameObject:
   - component: {fileID: 3952792307069598025}
   - component: {fileID: 4479982947001722715}
   - component: {fileID: 3700019263385182807}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree
-  m_TagString: Resource
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,16 +182,8 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
     amountChances:
-    - amount: 1
-      chance: 20
-    - amount: 2
-      chance: 20
-    - amount: 3
-      chance: 20
     - amount: 4
-      chance: 20
-    - amount: 5
-      chance: 20
+      chance: 100
   dropForce: 5
   dropRadius: 0.5
   minDropAmount: 1

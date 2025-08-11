@@ -59,6 +59,7 @@ public class VillagerAttackEnermyState : IState
         if (health == null)
         {
             Debug.LogWarning("No health component found on the target.");
+            villager.TransitionTo(villager.villagerIdleState);
         }
         villager.StartCoroutine(Attack(health)); // Start attacking the target
     }

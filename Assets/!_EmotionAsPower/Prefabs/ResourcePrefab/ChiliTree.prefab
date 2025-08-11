@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 2636817447324834212}
   - component: {fileID: 4145811426391490510}
   - component: {fileID: 8452204568900939094}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChiliTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,14 +364,12 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: fcc4c3619bc1e5942a3767a611e5cd4a, type: 2}
     amountChances:
-    - amount: 2
-      chance: 25
     - amount: 3
-      chance: 25
-    - amount: 4
-      chance: 25
-    - amount: 5
-      chance: 25
+      chance: 100
+  - item: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+    amountChances:
+    - amount: 2
+      chance: 100
   dropForce: 5
   dropRadius: 0.5
   minDropAmount: 1
@@ -397,7 +395,7 @@ MonoBehaviour:
   showHealthUI: 1
   harvestMarker: {fileID: 2561827747868184295}
   enableRegularDrops: 0
-  regularDropInterval: 30
+  regularDropInterval: 3000
   regularDropItems: []
   dropOnlyWhenAlive: 1
   OnResourceHarvested:

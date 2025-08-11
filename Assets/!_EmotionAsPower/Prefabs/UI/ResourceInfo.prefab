@@ -315,8 +315,9 @@ MonoBehaviour:
   healthLabel: {fileID: 0}
   statusLabel: {fileID: 0}
   setHarvestBtn: {fileID: 7356251957750263684}
-  unsetHarvestBtn: {fileID: 0}
+  unsetHarvestBtn: {fileID: 2214296248426233526}
   cancelBtn: {fileID: 2214296248426233526}
+  resource: {fileID: 0}
 --- !u!1 &2637629328483780400
 GameObject:
   m_ObjectHideFlags: 0

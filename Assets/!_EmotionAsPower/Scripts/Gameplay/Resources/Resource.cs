@@ -358,6 +358,10 @@ public class Resource : MonoBehaviour, IInteractable
 
     private void DestroyResource()
     {
+        if(UIManager.Instance.resourceInfoPanel.Resource == this)
+        {
+            UIManager.Instance.resourceInfoPanel.Hide();
+        }
         Destroy(gameObject);
     }
 
@@ -411,6 +415,7 @@ public class Resource : MonoBehaviour, IInteractable
 
     public void OnMouseDown()
     {
+        Debug.Log("Clicked on resource");
         //If over UI
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FearSO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   id: Emotion_Fear
-  icon: {fileID: 21300000, guid: 2fc2160758af60c45af559f7bae4a492, type: 3}
+  icon: {fileID: 2080399783, guid: 8a48364fe3aebfa4fb6993b35044e9e5, type: 3}
   displayName: Fear
   description: 
-  category: 100
+  category: 1
   useCases:
     pairs: []

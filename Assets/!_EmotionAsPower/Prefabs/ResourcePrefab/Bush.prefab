@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 5527157346371368528}
   - component: {fileID: 7018957089948020539}
   - component: {fileID: 1053673858300953751}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,16 +343,8 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
     amountChances:
-    - amount: 1
-      chance: 20
     - amount: 2
-      chance: 20
-    - amount: 3
-      chance: 20
-    - amount: 4
-      chance: 20
-    - amount: 5
-      chance: 20
+      chance: 100
   dropForce: 5
   dropRadius: 0.5
   minDropAmount: 1
