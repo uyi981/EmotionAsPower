@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Item_Cherry
   icon: {fileID: 1958034417, guid: 2a91061eb3ca4ce4bb1491fd766a6fb3, type: 3}
   displayName: Cherry
-  description: Cherry
+  description: Can be used for cooking meals
   category: 4
   useCases:
     pairs: []

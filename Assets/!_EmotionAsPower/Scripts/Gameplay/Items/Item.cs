@@ -1,5 +1,7 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Item : MonoBehaviour, IInteractable, IHealth
 {
@@ -68,5 +70,17 @@ public class Item : MonoBehaviour, IInteractable, IHealth
     public bool IsDead()
     {
         return this.amount <= 0;
+    }
+
+    public void OnMouseDown()
+    {
+        //If over UI
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        Vector2 mousePosition = InputManager.Instance.mousePos.ReadValue<Vector2>();
+
+        UIManager.Instance.ShowItemInfoPanel(this, mousePosition);
     }
 }

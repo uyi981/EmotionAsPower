@@ -15,11 +15,7 @@ MonoBehaviour:
   id: Item_Carrot
   icon: {fileID: 1703610812, guid: e717125a468016246855d280db35f1ca, type: 3}
   displayName: Carrot
-  description: "This crunchy orange stick isn\u2019t just a snack.\nIt\u2019s a mood-lifter
-    for your pops! \nFeed it to a sulky pop to spark a burst of \nveggie-fueled optimism,
-    \nor chuck it at a robot to \nbriefly confuse its circuits with organic goodness.
-    \nWarning: Overzealous pops may start \na carrot fan club, leading to endless
-    \"carrot karaoke\" nights."
+  description: "This crunchy orange stick isn\u2019t just a snack.\nSpawn randomly"
   category: 4
   useCases:
     pairs:

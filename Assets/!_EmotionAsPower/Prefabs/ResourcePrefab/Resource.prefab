@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8452204568900939094}
   m_Layer: 0
   m_Name: Resource
-  m_TagString: Resource
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,12 +110,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Resource
   id: 
-  ID: 
   textureProperty: _MainTexture
   canBeHarvested: 1
   harvestCooldown: 1
   destroyWhenDepleted: 1
   showHealthUI: 1
+  harvestMarker: {fileID: 0}
+  enableRegularDrops: 0
+  regularDropInterval: 30
+  regularDropItems: []
+  dropOnlyWhenAlive: 1
   OnResourceHarvested:
     m_PersistentCalls:
       m_Calls: []
@@ -123,6 +127,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnResourceRespawned:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRegularDrop:
     m_PersistentCalls:
       m_Calls: []
 --- !u!65 &4145811426391490510

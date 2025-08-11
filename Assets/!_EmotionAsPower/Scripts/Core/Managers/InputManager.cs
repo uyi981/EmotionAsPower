@@ -12,7 +12,7 @@ public class InputManager : Singleton<InputManager>
     private InputAction moveForward, moveBackward, moveLeft, moveRight, moveUp, moveDown;
 
     // Mouse Input Actions
-    private InputAction mouseLeftClick, mouseRightClick, mousePos, mouseScroll;
+    public InputAction mouseLeftClick, mouseRightClick, mousePos, mouseScroll;
 
     // New Input Actions for game controls
     private InputAction pauseToggle, setSpeed1x, setSpeed2x, setSpeed4x;

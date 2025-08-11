@@ -69,12 +69,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 49d3e51099bf97b47a17778dd3320023
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/FactorySO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ResourceSO
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5737c859d55700c41a37d31f14b4f929
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/WoodSO 1.asset
     m_ReadOnly: 0
@@ -98,12 +92,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 784914357d51502499772318928f26c2
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/TreeSO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ResourceSO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d4b0da18b79856429f94ac7b6a59ccb
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/ItemSO.asset
@@ -164,12 +152,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d5165a75b148a5842b337cd622d3a995
-    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Resources/StoneSO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - ResourceSO
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e6cbc9019a9459d43bd0560013462dd7
     m_Address: Assets/!_EmotionAsPower/Data/ItemData/food1.asset

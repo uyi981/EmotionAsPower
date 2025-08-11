@@ -66,7 +66,8 @@ public class HomeScreen : MonoBehaviour
 
     public void ContinueGame()
     {
-        DataPersistenceManager.Instance.LoadGame();
+        //DataPersistenceManager.Instance.LoadGame();
+        DataPersistenceManager.Instance.SetShouldLoad();
         aSyncLoader.LoadScene(gamePlaySceneName);
         //AudioManager.Instance.StopSound(backgroundMusic);
         

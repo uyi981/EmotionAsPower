@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(ItemDropper))]
@@ -11,6 +13,11 @@ public class Resource : MonoBehaviour, IInteractable
     [SerializeField]
     private string id;
     public string ID => id;
+
+    [SerializeField]
+    private string displayName;
+    public string DisplayName => displayName;
+
     [Header("Resource Material")]
     [SerializeField]
     private string textureProperty = "_MainTexure";
@@ -25,10 +32,25 @@ public class Resource : MonoBehaviour, IInteractable
     [SerializeField]
     private bool showHealthUI = true;
 
+    [Header("Harvest Marker")]
+    [SerializeField]
+    private GameObject harvestMarker;
+
+    [Header("Regular Drop Settings")]
+    [SerializeField]
+    private bool enableRegularDrops = false;
+    [SerializeField]
+    private float regularDropInterval = 30f; 
+    [SerializeField]
+    private DropableItem[] regularDropItems;
+    [SerializeField]
+    private bool dropOnlyWhenAlive = true; 
+
     [Header("Events")]
     public UnityEvent OnResourceHarvested;
     public UnityEvent OnResourceDepleted;
     public UnityEvent OnResourceRespawned;
+    public UnityEvent OnRegularDrop;
 
     // Components
     private Health health;
@@ -37,6 +59,8 @@ public class Resource : MonoBehaviour, IInteractable
     private TextMeshProUGUI healthText;
     private bool isInitialized = false;
     private float lastHarvestTime = 0f;
+    private float lastRegularDropTime = 0f;
+    private bool isForHarvest = false;
 
     // Properties
     public Health Health => health;
@@ -44,15 +68,15 @@ public class Resource : MonoBehaviour, IInteractable
     public ShakeEffect ShakeEffect => shakeEffect;
     public bool CanHarvest => canBeHarvested && !health.IsDead && Time.time >= lastHarvestTime + harvestCooldown;
     public bool IsDepleted => health != null && health.IsDead;
+    public float LastRegularDropTime => lastRegularDropTime;
+    public bool IsForHarvest => isForHarvest;
 
     private void Awake()
     {
-        // Get or add required components
         health = GetComponent<Health>();
         itemDropper = GetComponent<ItemDropper>();
         shakeEffect = GetComponent<ShakeEffect>();
 
-        // Find health text component
         healthText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -61,6 +85,15 @@ public class Resource : MonoBehaviour, IInteractable
         if (!isInitialized)
         {
             Initialize();
+        }
+    }
+
+    private void Update()
+    {
+        // Handle regular drops
+        if (enableRegularDrops && ShouldDropRegularItems())
+        {
+            DropRegularItems();
         }
     }
 
@@ -101,25 +134,43 @@ public class Resource : MonoBehaviour, IInteractable
             health.SetHealth(health.MaxHealth);
         }
 
+        lastRegularDropTime = Time.time;
+
+        UpdateHarvestMarkerVisibility();
+
+        isInitialized = true;
+    }
+
+    public void InitializeWithSaveData(float savedHealth, float savedLastDropTime, bool savedIsForHarvest = false)
+    {
+        if (health != null)
+        {
+            health.SetHealth(savedHealth);
+        }
+
+        lastRegularDropTime = savedLastDropTime;
+        isForHarvest = savedIsForHarvest;
+
+        UpdateHarvestMarkerVisibility();
+        UpdateResourceTag();
+
         isInitialized = true;
     }
 
     public void OnInteract()
     {
-        if (!CanHarvest)
+        // Get current mouse position from InputManager
+        Vector2 mousePosition = InputManager.Instance.mousePos.ReadValue<Vector2>();
+
+        // Show the resource info panel at mouse position
+        if (UIManager.Instance != null)
         {
-            if (health.IsDead)
-            {
-                //Debug.Log($"Resource '{DisplayName}' is depleted and cannot be harvested.");
-            }
-            else if (Time.time < lastHarvestTime + harvestCooldown)
-            {
-                //Debug.Log($"Resource '{DisplayName}' is on cooldown. Wait {(lastHarvestTime + harvestCooldown - Time.time):F1} seconds.");
-            }
+            UIManager.Instance.ShowResourceInfoPanel(this, mousePosition);
             return;
         }
-
+        Debug.Log("Clicked on Resource");
     }
+
 
     public InteractableType GetInteractableType() => InteractableType.Resource;
 
@@ -147,13 +198,143 @@ public class Resource : MonoBehaviour, IInteractable
         }
     }
 
-    // Method to manually trigger shake (useful for testing or special effects)
     public void TriggerShake()
     {
         if (shakeEffect != null)
         {
             shakeEffect.StartShake();
         }
+    }
+
+    private bool ShouldDropRegularItems()
+    {
+        if (!enableRegularDrops || regularDropItems == null || regularDropItems.Length == 0)
+            return false;
+
+        if (dropOnlyWhenAlive && health.IsDead)
+            return false;
+
+        return Time.time >= lastRegularDropTime + regularDropInterval;
+    }
+
+    private void DropRegularItems()
+    {
+        lastRegularDropTime = Time.time;
+
+        foreach (var dropableItem in regularDropItems)
+        {
+            if (dropableItem.item == null || dropableItem.amountChances == null)
+                continue;
+
+            int amountToDrop = DetermineDropAmount(dropableItem.amountChances);
+            if (amountToDrop > 0)
+            {
+                DropSingleRegularItem(dropableItem.item, amountToDrop);
+            }
+        }
+
+        OnRegularDrop?.Invoke();
+    }
+
+    private int DetermineDropAmount(AmountChance[] amountChances)
+    {
+        if (amountChances == null || amountChances.Length == 0)
+            return 0;
+
+        // Check each amount chance in order
+        foreach (AmountChance amountChance in amountChances)
+        {
+            if (UnityEngine.Random.Range(0f, 100f) <= amountChance.chance)
+            {
+                return amountChance.amount;
+            }
+        }
+
+        return 0; // Nothing drops
+    }
+
+    private void DropSingleRegularItem(ItemSO itemSO, int amount)
+    {
+        if (amount <= 0 || itemSO == null)
+            return;
+
+        float dropRadius = 1f; 
+        float dropForce = 3f; 
+
+        for (int i = 0; i < amount; i++)
+        {
+            Vector2 randomCircle = UnityEngine.Random.insideUnitCircle * dropRadius;
+            Vector3 finalDropPosition = transform.position + new Vector3(randomCircle.x, 0, randomCircle.y);
+
+            GameObject droppedItem = ItemManager.Instance.SpawnItem(itemSO, 1, finalDropPosition);
+
+            Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 randomForce = new Vector3(
+                    UnityEngine.Random.Range(-1f, 1f),
+                    UnityEngine.Random.Range(0.5f, 1f),
+                    UnityEngine.Random.Range(-1f, 1f)
+                ).normalized * dropForce;
+
+                rb.AddForce(randomForce, ForceMode.Impulse);
+            }
+        }
+    }
+
+    public void EnableRegularDrops(bool enable)
+    {
+        enableRegularDrops = enable;
+        if (enable)
+        {
+            lastRegularDropTime = Time.time; // Reset timer when enabling
+        }
+    }
+
+    public void SetRegularDropInterval(float interval)
+    {
+        regularDropInterval = Mathf.Max(1f, interval);
+    }
+
+    public void ForceRegularDrop()
+    {
+        if (regularDropItems != null && regularDropItems.Length > 0)
+        {
+            DropRegularItems();
+        }
+    }
+
+    public float GetTimeUntilNextRegularDrop()
+    {
+        if (!enableRegularDrops) return -1f;
+        return Mathf.Max(0f, lastRegularDropTime + regularDropInterval - Time.time);
+    }
+
+    public void SetForHarvest()
+    {
+        isForHarvest = true;
+        UpdateHarvestMarkerVisibility();
+        UpdateResourceTag();
+    }
+
+    public void UnsetForHarvest()
+    {
+        isForHarvest = false;
+        UpdateHarvestMarkerVisibility();
+        UpdateResourceTag();
+    }
+
+    private void UpdateHarvestMarkerVisibility()
+    {
+        if (harvestMarker != null)
+        {
+            harvestMarker.SetActive(isForHarvest);
+        }
+    }
+
+    private void UpdateResourceTag()
+    {
+        gameObject.tag = isForHarvest ? "Resource" : "Untagged";
     }
 
     private void OnResourceDepletedInternal()
@@ -170,6 +351,8 @@ public class Resource : MonoBehaviour, IInteractable
 
     private void OnResourceRespawnedInternal()
     {
+        // Reset regular drop timer when respawning
+        lastRegularDropTime = Time.time;
         OnResourceRespawned?.Invoke();
     }
 
@@ -178,7 +361,6 @@ public class Resource : MonoBehaviour, IInteractable
         Destroy(gameObject);
     }
 
-    // Utility methods
     public void SetHarvestCooldown(float cooldown)
     {
         harvestCooldown = Mathf.Max(0f, cooldown);
@@ -202,6 +384,7 @@ public class Resource : MonoBehaviour, IInteractable
     private void OnValidate()
     {
         harvestCooldown = Mathf.Max(0f, harvestCooldown);
+        regularDropInterval = Mathf.Max(1f, regularDropInterval);
 
         if (!string.IsNullOrEmpty(textureProperty) && !textureProperty.StartsWith("_"))
         {
@@ -217,5 +400,24 @@ public class Resource : MonoBehaviour, IInteractable
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, 1f);
         }
+
+        // Show regular drop indicator
+        if (enableRegularDrops)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(transform.position + Vector3.up * 2f, Vector3.one * 0.5f);
+        }
+    }
+
+    public void OnMouseDown()
+    {
+        //If over UI
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+        Vector2 mousePosition = InputManager.Instance.mousePos.ReadValue<Vector2>();
+
+        UIManager.Instance.ShowResourceInfoPanel(this, mousePosition);
     }
 }
