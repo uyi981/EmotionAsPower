@@ -21,11 +21,7 @@ public class VillagerIdleState : IState
             Collider collider = colliders[i];
             if (collider.CompareTag("Item"))
             {
-                collider.transform.SetParent(villager.itemHandle.transform); // Set the collided object as a child of the villager
-                collider.transform.localPosition = Vector3.zero; // Reset position to the villager's position
-                collider.GetComponent<Collider>().enabled = false; // Disable the collider to prevent further collisions
-                collider.GetComponent<Rigidbody>().useGravity = false; // Disable gravity for the collided object
-                BackToHome();
+                villager.PickupItem(collider.gameObject);
                 return;
 
             }
@@ -88,11 +84,7 @@ public class VillagerIdleState : IState
         }
         else if(collision.gameObject.CompareTag("Item"))
         {
-            collision.transform.SetParent(villager.itemHandle.transform); // Set the collided object as a child of the villager
-            collision.transform.localPosition = Vector3.zero; // Reset position to the villager's position
-            collision.collider.enabled = false; // Disable the collider to prevent further collisions
-            collision.rigidbody.useGravity = false; // Disable gravity for the collided object
-            BackToHome();
+          villager.PickupItem(collision.gameObject);
         }     
     }
     public void CheckIsChatable(Villager otherVillager)
@@ -152,20 +144,18 @@ public class VillagerIdleState : IState
             yield return new WaitForSeconds(0.5f);
         }
     }
-    public void BackToHome()
-    {
-        villager.TransitionTo(villager.villagerBackToHomeState); // Transition to working state when item is taken
-    }
     public void EnterState()
     {
+
         moveCoroutine = villager.StartCoroutine(MoveToRandomPointRoutine());
         checkForTargetCoroutine = villager.StartCoroutine(CheckForTarget()); // Start checking for items
         villager.completedGoToTarget+= OnComeTarget; // Subscribe to the event when the villager reaches the target
         villager.isWorking = false; // Set working state to false
         villager.collisionTrigger += OnCollisionEnter; // Subscribe to the collision event
-        if(villager.itemHandle.transform.childCount > 0)
+        if (villager.CheckItemsPicked())
         {
-            BackToHome();
+            villager.TransitionTo(villager.villagerBackToHomeState); // Transition to working state if items are picked
+            return;
         }
     }
     public void UpdateState()

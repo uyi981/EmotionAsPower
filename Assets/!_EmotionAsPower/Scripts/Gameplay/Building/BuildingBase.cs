@@ -167,6 +167,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     {
         if (timeStage == DayTimeController.TimeStage.Morning)
         {
+            if(jobType==JobType.None)
+            {
+                return;
+            }    
             AssignJobToWorker(jobType);
         }
     }
@@ -374,7 +378,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     public virtual void OnBuildingDestroyed()
     {
 
-
+        Singleton<DayTimeController>.Instance.OnTimeStageChanged -= OnDayStageChange; // Hủy đăng ký sự kiện khi công trình bị phá hủy
         // Spawn half of each required item if there are any
         if (selectedBuilding.keyValuePairs != null && selectedBuilding.keyValuePairs.Count > 0)
         {

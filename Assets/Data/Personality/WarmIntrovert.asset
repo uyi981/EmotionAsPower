@@ -23,12 +23,12 @@ MonoBehaviour:
     FearLevel: 0
     ApatheticLevel: 0
   emotionSensity:
-    AngerLevel: 0.2
+    AngerLevel: 1
     JoyLevel: 1
-    SadnessLevel: 0.2
-    FearLevel: 0.2
-    ApatheticLevel: 0.2
-  hungerModifier: 0.5
+    SadnessLevel: 1
+    FearLevel: 1
+    ApatheticLevel: 1
+  hungerModifier: 0
   thirstModifier: 1
   tiredModifier: 1
   moveSpeedModifier: 2

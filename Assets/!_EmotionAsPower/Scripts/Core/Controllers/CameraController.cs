@@ -12,19 +12,21 @@ public class CameraController : MonoBehaviour
 
     [Header("Pause Behavior")]
     [SerializeField] private bool allowMovementWhenPaused = true;
-
+    public Vector3 offset;
     public Camera mainCamera { get; private set; }
 
     private void Awake()
     {
         mainCamera = GetComponentInChildren<Camera>();
     }
-
     private void OnEnable()
     {
         Singleton<InputManager>.Instance.OnCameraMovement += Instance_OnCameraMovement;
     }
-
+    public void FocusMode(Vector3 position)
+    {
+        mainCamera.transform.position = position + offset;
+    }    
     private void OnDisable()
     {
         if (Singleton<InputManager>.Instance == null)
@@ -33,7 +35,6 @@ public class CameraController : MonoBehaviour
         }
         Singleton<InputManager>.Instance.OnCameraMovement -= Instance_OnCameraMovement;
     }
-
     private void Instance_OnCameraMovement(Vector3 moveDir)
     {
         float height = transform.position.y;
