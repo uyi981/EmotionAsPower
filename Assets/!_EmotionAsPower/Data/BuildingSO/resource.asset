@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa0117a00a27ad6438f9272295fc6c72, type: 3}
+  m_Name: resource
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectsDatabaseSO
+  buildings:
+  - buildingID: 0
+    buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 6285125319329163840, guid: a8d7c8fbb0da3a44ba2165b10cf849b5, type: 3}
+    keyValuePairs:
+      pairs: []
+    buildTime: 0
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  - buildingID: 1
+    buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 7695136447843529238, guid: 357a784f456a4384685fc98bd5e3e68b, type: 3}
+    keyValuePairs:
+      pairs: []
+    buildTime: 0
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  - buildingID: 2
+    buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 3307818150024788784, guid: d5d1e9def00862d408e676a6a0ad8f44, type: 3}
+    keyValuePairs:
+      pairs: []
+    buildTime: 0
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  - buildingID: 3
+    buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 3307818150024788784, guid: 651f59d174736dd4a884a5ff0fa45100, type: 3}
+    keyValuePairs:
+      pairs: []
+    buildTime: 0
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  - buildingID: 4
+    buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 360123691760884693, guid: ebb72616988639a42ae1469f5fc988dd, type: 3}
+    keyValuePairs:
+      pairs: []
+    buildTime: 0
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 
+  - buildingID: 5
+    buildingName: 
+    type: 0
+    blueprintPrefab: {fileID: 0}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 7695136447843529238, guid: caafedb82a86e174c82fb47eacb14fcc, type: 3}
+    keyValuePairs:
+      pairs: []
+    buildTime: 0
+    size: {x: 1, y: 1}
+    maxHP: 0
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: 

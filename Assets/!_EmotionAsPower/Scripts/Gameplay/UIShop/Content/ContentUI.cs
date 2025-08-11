@@ -58,7 +58,7 @@ using UnityEngine.UI;
         public void SetInfo(int id, Sprite img, string name, string des)
         {
             var iconUI = iconUIInstance.GetComponent<IconUI>();
-            iconUI.SetInformation(id, img, name, des);
+            iconUI.SetIconData(id, img, name, des);
         }
 
 
