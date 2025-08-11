@@ -47,6 +47,7 @@ MonoBehaviour:
   categoryIcons: {fileID: 11400000, guid: 8f67649daff9f44419156ebed17f7f27, type: 2}
   itemLibrary: {fileID: 11400000, guid: 7739753de50cc0e4ebc9337ad367ee30, type: 2}
   enemyLibrary: {fileID: 11400000, guid: fd794ba82e56d7240a7b9367e9e76b6f, type: 2}
+  resourceLibrary: {fileID: 11400000, guid: 2767a5bcac1050843be429c65adb3bec, type: 2}
   debugLoading: 0
   playerBaseLevelConfig:
     pairs:

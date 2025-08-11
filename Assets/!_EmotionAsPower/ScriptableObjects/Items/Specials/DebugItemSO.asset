@@ -15,7 +15,7 @@ MonoBehaviour:
   id: Item_DebugItem
   icon: {fileID: 8877593655878799663, guid: 90f54530183c3224497faf4386e3b009, type: 3}
   displayName: DebugItem
-  description: 
-  category: 4
+  description: What the h... is this ?
+  category: 5
   useCases:
     pairs: []

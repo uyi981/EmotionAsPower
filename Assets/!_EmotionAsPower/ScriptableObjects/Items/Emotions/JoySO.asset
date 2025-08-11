@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: JoySO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   id: Emotion_Joy
-  icon: {fileID: 21300000, guid: 44c771833e1f4a94f8e6bcbf31d32ff0, type: 3}
+  icon: {fileID: 1725668201, guid: 8a48364fe3aebfa4fb6993b35044e9e5, type: 3}
   displayName: Joy
   description: 
-  category: 100
+  category: 1
   useCases:
     pairs: []

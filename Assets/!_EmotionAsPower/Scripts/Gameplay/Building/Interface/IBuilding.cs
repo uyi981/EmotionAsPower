@@ -13,7 +13,7 @@ public interface IBuilding
     IEnumerator Building();
 
 
-    void TakeDamage(int damage); 
+    //void TakeDamage(float damage); 
     void RepairBuilding(int amount);
     void MoveBuilding();
     void OnBuildingDestroyed();

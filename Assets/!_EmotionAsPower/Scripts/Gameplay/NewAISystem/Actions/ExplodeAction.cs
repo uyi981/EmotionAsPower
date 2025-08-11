@@ -14,6 +14,9 @@ public class ExplodeAction : NewAIAction
     [SerializeField] private bool destroySelfOnExplode = true;
     [SerializeField] private float explosionDelay = 0.5f;
 
+    [Header("Explosive Object")]
+    [SerializeField] private GameObject explosiveObjectPrefab;
+
     [Header("Visual Effects (Optional)")]
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private AudioClip explosionSound;
@@ -24,6 +27,7 @@ public class ExplodeAction : NewAIAction
     public LayerMask DamageLayerMask => damageLayerMask;
     public bool DestroySelfOnExplode => destroySelfOnExplode;
     public float ExplosionDelay => explosionDelay;
+    public GameObject ExplosiveObjectPrefab => explosiveObjectPrefab;
     public GameObject ExplosionPrefab => explosionPrefab;
     public AudioClip ExplosionSound => explosionSound;
 
@@ -34,7 +38,7 @@ public class ExplodeAction : NewAIAction
 
     public override bool Interruptible()
     {
-        return true; 
+        return true;
     }
 
     public override AIActionExecutor CreateExecutor(AIActionData actionData)

@@ -15,14 +15,24 @@ MonoBehaviour:
   shouldLoad: 0
   gameData:
     dateTime:
-      timeOfDay: 0
-      timeStage: 0
-      day: 0
+      timeOfDay: 0.25003844
+      timeStage: 1
+      day: 51
     playerBaseLevel: 0
     emotionEnergy:
       pairs: []
     storagedItems:
-      pairs: []
+      pairs:
+      - key: Item_Wood
+        value: 8
+      - key: Item_Steel
+        value: 37
+      - key: Item_Stone
+        value: 54
+      - key: Item_Fiber
+        value: 402
     items: []
     resources: []
     enemies: []
+    buildings: []
+    villagers: []

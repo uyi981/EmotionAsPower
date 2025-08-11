@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using LgTyUtils;
 using UnityEngine;
 
@@ -10,12 +11,19 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     private int level;
 
     [SerializeField]
+    private float maxHealth = 100f;
     private float health = 100f;
 
     private bool isDestroyed = false;
+    private NewHealthBar healthBar;
 
     [SerializeField]
     private LevelUnlockedContents unlockedContents;
+
+    [Header("Health Recovery")]
+    [SerializeField] private float recoveryAmount = 5f;       // HP recovered each interval
+    [SerializeField] private float recoveryInterval = 2f;     // Seconds between recovery ticks
+    private Coroutine recoveryCoroutine;
 
     public Action<int> OnLevelUpdate;
     public Action OnPlayerBaseDestroyed;
@@ -24,26 +32,33 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     public float Health => health;
     public bool IsDestroyed => isDestroyed;
 
-
     private void Start()
     {
-        //GameManager.Instance.OnSetupFinished += Initialize;
+        health = maxHealth;
         Initialize();
+
+        healthBar = GetComponentInChildren<NewHealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.SetProcess(health / maxHealth);
+        }
+
+        // Start recovery loop
+        recoveryCoroutine = StartCoroutine(HealthRecoveryLoop());
     }
 
     public void Initialize()
     {
         playerBaseLevelConfig = ContentManager.Instance.playerBaseLevelConfig;
-
         ValidateLevelConfig();
         OnLevelUpdate?.Invoke(level);
     }
 
     private void ValidateLevelConfig()
     {
-        foreach(var level in playerBaseLevelConfig)
+        foreach (var level in playerBaseLevelConfig)
         {
-            if(level.Key != level.Value.level)
+            if (level.Key != level.Value.level)
             {
                 Debug.LogWarning("The player base level config looks like having problem of level matching");
             }
@@ -52,32 +67,27 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
 
     private bool ValidateLevel(int level)
     {
-        if(playerBaseLevelConfig == null)
+        if (playerBaseLevelConfig == null)
         {
             playerBaseLevelConfig = ContentManager.Instance.playerBaseLevelConfig;
         }
-        if (playerBaseLevelConfig.ContainsKey(level))
-        {
-            return true;
-        }
-        return false;
+        return playerBaseLevelConfig.ContainsKey(level);
     }
 
     public void SetLevel(int level)
     {
-        if(!ValidateLevel(level)) { return; }
+        if (!ValidateLevel(level)) { return; }
         this.level = level;
         unlockedContents.AddUnlockedContents(playerBaseLevelConfig[level].unlockedContents);
         OnLevelUpdate?.Invoke(level);
     }
 
-    public bool HasEnoughLevel(int level)
-    {
-        return this.level >= level;
-    }
+    public bool HasEnoughLevel(int level) => this.level >= level;
 
-    public PlayerBaseLevel GetNextLevel(){
-        if (!playerBaseLevelConfig.ContainsKey(level + 1)) {
+    public PlayerBaseLevel GetNextLevel()
+    {
+        if (!playerBaseLevelConfig.ContainsKey(level + 1))
+        {
             Debug.LogWarning("Player has reached the maximum level");
             return null;
         }
@@ -87,7 +97,7 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     public void LoadGame(GameData gameData)
     {
         this.level = 0;
-        while(level < gameData.playerBaseLevel)
+        while (level < gameData.playerBaseLevel)
         {
             SetLevel(++level);
         }
@@ -98,8 +108,6 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
         gameData.playerBaseLevel = this.Level;
     }
 
-    // TODO: add check unlocked contents contain a content
-
     public void Upgrade()
     {
         SetLevel(Level + 1);
@@ -108,16 +116,42 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     public void TakeDamage(float damage)
     {
         this.health -= damage;
-        if (this.health <= 0) { 
+        if (healthBar != null)
+        {
+            healthBar.SetProcess(health / maxHealth);
+        }
+
+        if (this.health <= 0)
+        {
             isDestroyed = true;
             OnPlayerBaseDestroyed?.Invoke();
+
+            // Stop recovery if destroyed
+            if (recoveryCoroutine != null)
+            {
+                StopCoroutine(recoveryCoroutine);
+            }
         }
     }
 
-    public bool IsDead()
+    public bool IsDead() => isDestroyed;
+
+    private IEnumerator HealthRecoveryLoop()
     {
-        return isDestroyed;
+        while (true)
+        {
+            yield return new WaitForSeconds(recoveryInterval);
+
+            if (!isDestroyed && health < maxHealth)
+            {
+                health += recoveryAmount;
+                if (health > maxHealth) health = maxHealth;
+
+                if (healthBar != null)
+                {
+                    healthBar.SetProcess(health / maxHealth);
+                }
+            }
+        }
     }
-
-
 }
