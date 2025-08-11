@@ -12,7 +12,9 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
         public TextMeshProUGUI name;
         public TextMeshProUGUI description;
         public GameObject resource;
-        
+
+
+        private GameObject resourceInstance;
 
         public Image Image
         {
@@ -37,9 +39,14 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
             set => resource = value;
         }
 
-        public void Start()
+        public void OnEnable()
         {
-            Instantiate(Resource, transform);
+            //if(resourceInstance != null)
+            //{
+            //    Destroy(resourceInstance);
+            //}
+            resourceInstance = Instantiate(Resource, transform);
+            Debug.Log("Resource instantiated in Information component.");
         }
 
 
