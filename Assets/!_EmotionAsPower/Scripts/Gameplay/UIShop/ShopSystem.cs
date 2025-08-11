@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild;
-using Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content;
 using LgTyUtils;
 using TMPro;
 using UnityEngine;
@@ -15,20 +14,14 @@ public class ShopSystem : Singleton<ShopSystem>
 
     [Header("Prefabs")]
     public GameObject buldingContentUI;
-    public GameObject info;
+    public Information info;
     public GameObject tab;
-
-    private GameObject infoInstance;
-
     // Dictionary lưu ContentUI và danh sách building theo loại
     private Dictionary<BuildingType, ContentUI> contentUIs = new Dictionary<BuildingType, ContentUI>();
     private Dictionary<BuildingType, List<GameObject>> buildingLists = new Dictionary<BuildingType, List<GameObject>>();
 
     private void Start()
     {
-        infoInstance = Instantiate(info, transform);
-        infoInstance.SetActive(false);
-
         CategorizeBuildings();
     }
 
@@ -66,7 +59,6 @@ public class ShopSystem : Singleton<ShopSystem>
             targetContentUI.SetInfo(building.buildingID,
                 building.buildingPrefab.GetComponentInChildren<SpriteRenderer>().sprite,
                 building.buildingName, building.description);
-            targetContentUI.IconUIInstance.GetComponent<IconUI>().Information = infoInstance;
 
             // Thêm prefab vào list
             buildingLists[building.type].Add(building.buildingPrefab);
@@ -101,6 +93,7 @@ public class ShopSystem : Singleton<ShopSystem>
         // Hiện content được chọn
         if (contentUIs.ContainsKey(type))
             contentUIs[type].gameObject.SetActive(true);
+        info.ResetInformationData();
     }
 
     public void CloseShop()

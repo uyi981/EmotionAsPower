@@ -3,8 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
-{
+
     public class IconResource : MonoBehaviour
     {
         [Header("UI References Object")]
@@ -32,4 +31,3 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.UIShop.Content
             }
         }
     }
-}
