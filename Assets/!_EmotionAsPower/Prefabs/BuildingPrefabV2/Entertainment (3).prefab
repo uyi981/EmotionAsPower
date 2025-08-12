@@ -78,7 +78,7 @@ MonoBehaviour:
   effectRange: 1
   effectCooldown: 1
   emotionType: 4
-  emotionAmount: 10
+  emotionAmount: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 256

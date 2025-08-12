@@ -16,12 +16,12 @@ public class ColliderAttack : MonoBehaviour
            health?.TakeDamage(1f); // Assuming the enemy has a Health component
            Debug.Log("Attacked enemy: -10" + other.name);
         }
-        if(other.CompareTag("Building"))
-        {
-           BuildingBase building = other.GetComponent<BuildingBase>();
-           building?.TakeDamage(1f); // Assuming the building has a BuildingBase component
-           Debug.Log("Attacked building: -10" + other.name);
-        }
+        //if(other.CompareTag("Building"))
+        //{
+        //   BuildingBase building = other.GetComponent<BuildingBase>();
+        //   building?.TakeDamage(1f); // Assuming the building has a BuildingBase component
+        //   Debug.Log("Attacked building: -10" + other.name);
+        //}
     }
     private void Start()
     {

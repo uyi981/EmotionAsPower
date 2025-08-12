@@ -21,17 +21,15 @@ MonoBehaviour:
     buildingPrefab: {fileID: 8501337020369230570, guid: aaf8dd65cea75a8419c45a8eb37b8fba, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-        value: 35
-      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-        value: 20
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
+        value: 5
     buildTime: 1
     size: {x: 1, y: 1}
     maxHP: 200
     damage: 0
     attackRange: 0
     attackSpeed: 0
-    description: A temporary shelter, basic and inexpensive, for new residents.
+    description: increase max villager count.
   - buildingID: 2
     buildingName: Entertaiment Joy
     type: 3
@@ -40,9 +38,9 @@ MonoBehaviour:
     buildingPrefab: {fileID: 1773861809528477264, guid: bccdc11d3b2fc1d46afd1f43a6577dd5, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      - key: {fileID: 11400000, guid: 7d4b0da18b79856429f94ac7b6a59ccb, type: 2}
         value: 30
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
         value: 15
     buildTime: 1
     size: {x: 1, y: 1}
@@ -60,8 +58,8 @@ MonoBehaviour:
     buildingPrefab: {fileID: 279218985217429014, guid: 58ba305986709614ea2c21eda66f1dfd, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-        value: 20
+      - key: {fileID: 11400000, guid: 3cbcbe712591fc44d80408721b29c9ed, type: 2}
+        value: 30
       - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
         value: 10
       - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
@@ -82,10 +80,10 @@ MonoBehaviour:
     buildingPrefab: {fileID: 76506552556472127, guid: b801401cc647e2948b56c8c9e3590293, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-        value: 20
+      - key: {fileID: 11400000, guid: 65d0c0ff07e78234ab06dc59a8f60be8, type: 2}
+        value: 30
       - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-        value: 20
+        value: 10
     buildTime: 15
     size: {x: 1, y: 1}
     maxHP: 1000
@@ -102,9 +100,9 @@ MonoBehaviour:
     buildingPrefab: {fileID: 4094005548699814757, guid: 161a813cb791c0b449a88b1848b9587d, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
-        value: 10
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      - key: {fileID: 11400000, guid: 9b92a9fe28c427c4b807d5a4d4123c34, type: 2}
+        value: 30
+      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
@@ -122,10 +120,10 @@ MonoBehaviour:
     buildingPrefab: {fileID: 5715943784165529665, guid: e15a2280668c69c4fb89e39938c902ee, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      - key: {fileID: 11400000, guid: 2ab91960f439a534e9e658f6c3b7f8cc, type: 2}
+        value: 30
+      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
         value: 10
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-        value: 15
     buildTime: 15
     size: {x: 1, y: 1}
     maxHP: 2000
@@ -142,12 +140,10 @@ MonoBehaviour:
     buildingPrefab: {fileID: 3176276359225916853, guid: c9f8cadaa09847a43a1b8889fefb8f0c, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-        value: 10
       - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
         value: 10
       - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-        value: 10
+        value: 20
     buildTime: 15
     size: {x: 1, y: 1}
     maxHP: 500
@@ -165,7 +161,7 @@ MonoBehaviour:
       pairs:
       - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
         value: 10
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      - key: {fileID: 11400000, guid: 5fe72cdec60b05e41811a08ef459deea, type: 2}
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
@@ -182,10 +178,10 @@ MonoBehaviour:
     buildingPrefab: {fileID: 844683087737877263, guid: 82b0d30904d135f46bbb53701c3476b0, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
         value: 10
       - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-        value: 10
+        value: 15
     buildTime: 15
     size: {x: 1, y: 1}
     maxHP: 1000
@@ -198,13 +194,15 @@ MonoBehaviour:
     type: 1
     blueprintPrefab: {fileID: 4156817599570265274, guid: fc0703bb5b423ea45ac6083ed4ef7652, type: 3}
     redprintPrefab: {fileID: 0}
-    buildingPrefab: {fileID: 4156817599570265274, guid: 418ac1b2e7f68954eaf32691ea8a32a0, type: 3}
+    buildingPrefab: {fileID: 3670662489938317494, guid: fd8159a4705d8334aa9bfa01cde36151, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
         value: 10
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      - key: {fileID: 11400000, guid: 9b92a9fe28c427c4b807d5a4d4123c34, type: 2}
         value: 10
+      - key: {fileID: 11400000, guid: fcc4c3619bc1e5942a3767a611e5cd4a, type: 2}
+        value: 5
     buildTime: 15
     size: {x: 1, y: 1}
     maxHP: 1000
@@ -217,12 +215,14 @@ MonoBehaviour:
     type: 1
     blueprintPrefab: {fileID: 3670662489938317494, guid: 8fdf9b2b23846dd41a96fbc1e72e4cc8, type: 3}
     redprintPrefab: {fileID: 0}
-    buildingPrefab: {fileID: 3670662489938317494, guid: fd8159a4705d8334aa9bfa01cde36151, type: 3}
+    buildingPrefab: {fileID: 4156817599570265274, guid: 418ac1b2e7f68954eaf32691ea8a32a0, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
         value: 10
-      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+      - key: {fileID: 11400000, guid: 3cbcbe712591fc44d80408721b29c9ed, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 5fe72cdec60b05e41811a08ef459deea, type: 2}
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
@@ -239,9 +239,11 @@ MonoBehaviour:
     buildingPrefab: {fileID: 622358888786554861, guid: e1dc381e2009edd4086c2452223df727, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
         value: 10
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      - key: {fileID: 11400000, guid: 9c0b55f50a6ae68438e276d841ba2f67, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 7d4b0da18b79856429f94ac7b6a59ccb, type: 2}
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
@@ -259,8 +261,6 @@ MonoBehaviour:
     keyValuePairs:
       pairs:
       - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-        value: 10
-      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
         value: 10
     buildTime: 1
     size: {x: 1, y: 1}
@@ -280,6 +280,8 @@ MonoBehaviour:
       - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
         value: 10
       - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
@@ -337,11 +339,11 @@ MonoBehaviour:
     buildingPrefab: {fileID: 167690424386379601, guid: 8b01d842ab6e98441b3581bb8d295bca, type: 3}
     keyValuePairs:
       pairs:
-      - key: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
         value: 10
-      - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-        value: 10
-    buildTime: 15
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
+        value: 5
+    buildTime: 3
     size: {x: 1, y: 1}
     maxHP: 1000
     damage: 0
