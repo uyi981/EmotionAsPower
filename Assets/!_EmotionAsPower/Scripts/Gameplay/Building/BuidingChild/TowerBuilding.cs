@@ -111,12 +111,15 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             Vector3 endPos = GetTargetCenter(target);
 
             GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject(vfxName);
+            
+            obj.transform.SetParent(transform);
             VFXInstance vFXInstance = obj.GetComponent<VFXInstance>();
             if (vFXInstance.skillType == SkillType.Static)
             {
                 // Skill đứng yên tại endPos
                 obj.transform.position = startPos;
                 obj.transform.rotation = Quaternion.LookRotation(endPos - startPos); // Không cần xoay nếu là static
+                obj.transform.rotation *= Quaternion.Euler(0, 260, 0); // Xoay để nhìn xuống dưới
             }
             else if (vFXInstance.skillType == SkillType.Projectile)
             {
@@ -124,6 +127,21 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                 obj.transform.position = startPos;
                 obj.transform.rotation = Quaternion.LookRotation(endPos - startPos);
                 StartCoroutine(MoveVFXWithDelay(obj, startPos, endPos, 0.2f,0.2f));
+            }
+            else if (vFXInstance.skillType == SkillType.InstantSpawn)
+            {
+                GameObject effect = Singleton<VFXPoolManager>.Instance.PopSKillObject("attack6");
+                effect.transform.SetParent(transform);
+
+                effect.transform.position = startPos;
+                obj.transform.position = endPos;
+                obj.transform.rotation = Quaternion.LookRotation(endPos - startPos);
+            }
+            var enemy = target.GetComponent<Health>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(attackDamage); // Replace with actual damage value
+                Debug.Log($"Tower {name} attacked {target.name} for {attackDamage} damage.");
             }
         }
 

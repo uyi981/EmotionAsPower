@@ -29,6 +29,7 @@ public class VFXInstance : MonoBehaviour
 }
 public enum SkillType
 {
-    Static,     // Đứng yên
-    Projectile  // Bay tới mục tiêu
+    Static,       // Đứng yên
+    Projectile,   // Bay tới mục tiêu
+    InstantSpawn  // Xuất hiện ngay tại mục tiêu
 }

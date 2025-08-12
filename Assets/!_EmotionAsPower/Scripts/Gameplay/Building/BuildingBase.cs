@@ -400,8 +400,9 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     /// </summary>
     public virtual void OnBuildingComplete()
     {
-        GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject("buildingSpawn");
-        obj.transform.position = gameObject.transform.position;
+        GameObject obj = Singleton<VFXPoolManager>.Instance.PopSKillObject("placebuilding");
+        Debug.Log("VFX place " + obj.name);
+        obj.transform.position = gameObject.transform.position + Vector3.up * 0.2f;
         ResetWorkerList(); // Reset danh sách công nhân
         Singleton<BuildingManager>.Instance.RegisterBuilding(this); // Đăng ký công trình vào BuildingManager
     }

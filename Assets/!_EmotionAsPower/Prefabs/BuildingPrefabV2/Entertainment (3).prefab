@@ -75,14 +75,14 @@ MonoBehaviour:
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
-  effectRange: 1
+  effectRange: 3
   effectCooldown: 1
   emotionType: 4
   emotionAmount: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
-  nameVFX: fear
+  nameVFX: Fear
 --- !u!65 &4432371698362580802
 BoxCollider:
   m_ObjectHideFlags: 0
