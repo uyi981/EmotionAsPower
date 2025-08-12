@@ -61,3 +61,11 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: 1c6030e224c2a8248acdf787df5e5d75, type: 2}
     - key: 5
       value: {fileID: 11400000, guid: 3bd1b47d04ef5ae479cda950320bc0ea, type: 2}
+  Explosives:
+    pairs:
+    - key: Explode1
+      value: {fileID: 8169177151157882191, guid: 95c971762c2d5494591fb8ba3cebeb9c, type: 3}
+  Bullets:
+    pairs:
+    - key: Bullet1
+      value: {fileID: 4192761048226033285, guid: 5c3539e960623d3438ac074efc6faca5, type: 3}

@@ -8,6 +8,14 @@ namespace Assets.__EmotionAsPower.Scripts.UI.ProcessBar
     {
         [SerializeField] private TextMeshProUGUI health;
         [SerializeField] private TextMeshProUGUI maxHealth;
+        [SerializeField] private Image fillImage;
+
+        public void SetProcess(float normalized)
+        {
+            if (fillImage != null)
+                fillImage.fillAmount = normalized;
+        }
+
 
         public TextMeshProUGUI Health
         {

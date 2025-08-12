@@ -25,6 +25,8 @@ public class ContentManager : Singleton<ContentManager>, ISetup
 
     public SerializableDictionary<int, PlayerBaseLevel> playerBaseLevelConfig;
 
+    public SerializableDictionary<string, GameObject> Explosives;
+    public SerializableDictionary<string, GameObject> Bullets;
     public IEnumerator LoadAllContentsOfTypeCoroutine<T>(SerializableDictionary<string, T> dictionary, bool debug) where T : BaseScriptableObject
     {
         string label = typeof(T).Name;

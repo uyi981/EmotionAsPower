@@ -17,24 +17,29 @@ public class ItemByCategory : MonoBehaviour
     public ItemCategory Category => category;
 
     public void Initialize(ItemCategory itemCategory, SerializableDictionary<string, int> allItems)
-    {   
+    {
         category = itemCategory;
 
         Button button = GetComponentInChildren<Button>();
-        Image buttonImage = button.GetComponent<Image>();
-        if (buttonImage != null) {
-            //if (ContentManager.Instance.categoryIcons.itemCategoryIcons == null)
-            //{
-            //    Debug.Log("Missing config");
-            //}
-            if (!ContentManager.Instance.categoryIcons.itemCategoryIcons.ContainsKey(category))
+        Image buttonImage = button?.GetComponent<Image>();  // Add null check for safety
+
+        if (buttonImage != null)
+        {
+            var iconsDict = ContentManager.Instance?.categoryIcons?.itemCategoryIcons;
+            if (iconsDict == null)
             {
-                Debug.Log("Category not found");
+                Debug.LogError($"Category icons dictionary is null for {category}");
             }
-            buttonImage.sprite = ContentManager.Instance.categoryIcons.itemCategoryIcons[category];
-
+            else if (iconsDict.ContainsKey(category))
+            {
+                buttonImage.sprite = iconsDict[category];
+            }
+            else
+            {
+                Debug.LogWarning($"Category icon not found for {category}. Using default or skipping.");
+                // Optionally set a default sprite here: buttonImage.sprite = someDefaultSprite;
+            }
         }
-
 
         if (categoryTitle != null)
         {
@@ -44,21 +49,35 @@ public class ItemByCategory : MonoBehaviour
         ClearItems();
 
         bool hasItems = false;
+        var itemSODict = ContentManager.Instance?.ItemSOs;
+        if (itemSODict == null)
+        {
+            Debug.LogError("ItemSOs dictionary is null.");
+            gameObject.SetActive(false);
+            return;
+        }
+
         foreach (var itemPair in allItems.Pairs)
         {
-            
             Debug.Log(itemPair.key.ToString());
-            ItemSO itemSO = ContentManager.Instance.ItemSOs[itemPair.key];
-            
-            if (itemSO.category == category)
+
+            if (itemSODict.ContainsKey(itemPair.key))
             {
-                GameObject itemObj = Instantiate(itemInStoragePrefab, content);
-                ItemInStorage itemInStorage = itemObj.GetComponent<ItemInStorage>();
-                if (itemInStorage != null)
+                ItemSO itemSO = itemSODict[itemPair.key];
+                if (itemSO.category == category)
                 {
-                    itemInStorage.SetData(itemSO, itemPair.value);
+                    GameObject itemObj = Instantiate(itemInStoragePrefab, content);
+                    ItemInStorage itemInStorage = itemObj.GetComponent<ItemInStorage>();
+                    if (itemInStorage != null)
+                    {
+                        itemInStorage.SetData(itemSO, itemPair.value);
+                    }
+                    hasItems = true;
                 }
-                hasItems = true;
+            }
+            else
+            {
+                Debug.LogWarning($"ItemSO not found for key: {itemPair.key}. Skipping.");
             }
         }
 

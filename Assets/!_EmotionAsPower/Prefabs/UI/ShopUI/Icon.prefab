@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7757720353340612849}
   - component: {fileID: 6029008158867420879}
   - component: {fileID: -7619743461146484179}
+  - component: {fileID: 2084140379992805482}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -209,10 +210,40 @@ MonoBehaviour:
   iconResourcePrefab: {fileID: 5431027937675881469, guid: 33e95f54b9b34914696ad4f5f4b8623c, type: 3}
   buildingIcon: {fileID: 4380078023506622308}
   resource: {fileID: 7118263184569614320}
-  information: {fileID: 7241178688810196231, guid: 7d5eb9fa49e06964d8ca79e4bb9d14b3, type: 3}
+  shopSystem: {fileID: 0}
   buildingID: 0
   buildingName: 
   buildingDescription: 
+--- !u!114 &2084140379992805482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4861966066752616040}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 1, b: 0.019044876, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 422db117ecb8674469479367dd43a17c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7118263184569614320
 GameObject:
   m_ObjectHideFlags: 0
