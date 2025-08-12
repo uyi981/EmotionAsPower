@@ -195,7 +195,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
 
             // Spawn positions: in front, left, right
             Vector3[] spawnPositions = new Vector3[3];
-            spawnPositions[0] = basePosition + forward * (1 + selectedBuilding.size.y);      // In front
+            spawnPositions[0] = basePosition - forward * (1 + selectedBuilding.size.y);      // In front
             spawnPositions[1] = basePosition - right * (0.5f * selectedBuilding.size.x);      // Left
             spawnPositions[2] = basePosition + right * (0.5f * selectedBuilding.size.x);      // Right
 
