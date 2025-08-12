@@ -53,7 +53,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
 
         private void TryAffectTargets()
         {
-            Vector3 boxSize = new Vector3(effectRange * 2 + 1, 10f, effectRange * 2 + 1);
+            Vector3 boxSize = new Vector3(effectRange , 10f, effectRange * 2 + 1);
 
             Collider[] hitColliders = Physics.OverlapBox(
                 transform.position,
