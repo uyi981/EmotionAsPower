@@ -117,23 +117,18 @@ public class VillagerIdleState : IState
     }
     public void OnCollisionEnter(Collision collision)
     {
-        //if(!collision.gameObject.CompareTag("Item")||!collision.gameObject.CompareTag("Villager"))
-        //{
-        //    return;
-        //}
-        if(collision.gameObject.CompareTag("Villager"))
-        {
-            Debug.Log("Collided with Villager: " + collision.gameObject.name);
-            CheckIsChatable(collision.gameObject.GetComponent<Villager>());
-            return;
-        }
-        else if(collision.gameObject.CompareTag("Item"))
+         if(collision.gameObject.CompareTag("Item"))
         {
           villager.PickupItem(collision.gameObject);
         }
     }
-    public void CheckIsChatable(Villager otherVillager)
+    public void CheckIsChatable(Collider other)
     {
+        Villager otherVillager = other.GetComponent<Villager>();
+        if(otherVillager == null || otherVillager == villager)
+        {
+            return; // Ignore if the collider is not a Villager or is the same Villager
+        }
         Debug.Log("Checking if villagers can chat: " + villager.name +villager.isChatting + " and " + otherVillager.name + otherVillager.isChatting);
         if (otherVillager.isChatting)
         {
@@ -196,6 +191,7 @@ public class VillagerIdleState : IState
         villager.completedGoToTarget+= OnComeTarget; // Subscribe to the event when the villager reaches the target
         villager.isWorking = false; // Set working state to false
         villager.collisionTrigger += OnCollisionEnter; // Subscribe to the collision event
+        villager.chatTrigger += CheckIsChatable; // Subscribe to the chat trigger event
         if (villager.CheckItemsPicked())
         {
             villager.TransitionTo(villager.villagerBackToHomeState); // Transition to working state if items are picked
@@ -210,6 +206,7 @@ public class VillagerIdleState : IState
     {
         villager.completedGoToTarget -= OnComeTarget; // Subscribe to the event when the villager reaches the target
         villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from the collision event
+        villager.chatTrigger -= CheckIsChatable; // Unsubscribe from the chat trigger event
         if (moveCoroutine != null)
             villager.StopCoroutine(moveCoroutine);
         if (checkForTargetCoroutine != null)

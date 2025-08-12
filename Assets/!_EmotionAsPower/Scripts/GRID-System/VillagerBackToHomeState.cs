@@ -88,7 +88,7 @@ public class VillagerAttackEnermyState : IState
     }
     public IEnumerator Attack(Health health)
     {
-        while(health.CurrentHealth>0)
+        while(health !=null||health.CurrentHealth>0)
         {
             villager.animator.Play("Attack");
             health.TakeDamage(1f);
@@ -103,7 +103,6 @@ public class VillagerAttackEnermyState : IState
     public void ExitState()
     {
         villager.completedGoToTarget -= DropItem;
-        villager.StopAllCoroutines(); // Stop all coroutines related to this state
         villager.Target = null; // Clear the target
         villager.animator.Play("idle");
         if(attack != null)

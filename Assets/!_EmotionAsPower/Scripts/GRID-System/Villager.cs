@@ -53,10 +53,9 @@ public class Villager : MonoBehaviour,IInteractable
     public event Action<Collision> collisionTrigger;
     public event Action<Villager> receiveChat;
     public event Action changeEmotion;
+    public event Action<Collider> chatTrigger;
     public bool isChatting;
     public string currentStateName;
-    public float currentHunger = 100f;
-    public float currentThirst = 100f;
     public event Action OnVillagerUpdate;
     public PlayerEmotion playerEmotion;
     public GameObject Target;
@@ -92,6 +91,13 @@ public class Villager : MonoBehaviour,IInteractable
         }
    
         gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Villager"))
+        {
+            chatTrigger?.Invoke(other); // Notify subscribers that a villager has entered the trigger area
+        }
     }
     void OnMouseUp()
     {
@@ -231,11 +237,6 @@ public class Villager : MonoBehaviour,IInteractable
             transform.position = Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
         }
         currentStateName = GetCurrentStateName();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-            TransitionTo(villagerBackToHomeState);
-        }
     }
     private void Start()
     {
@@ -250,7 +251,6 @@ public class Villager : MonoBehaviour,IInteractable
         villagerAttackEnermyState = new VillagerAttackEnermyState(this);
         villagerPrisonState = new villagerPrisonState(this);
         InvokeRepeating("UpdateState", 0f, 0.1f);
-        currentHunger = 25f;
         Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
         TransitionTo(villagerIdleState); // Start with idle state
         playerEmotion =GetComponent<PlayerEmotion>();
@@ -349,24 +349,24 @@ public class Villager : MonoBehaviour,IInteractable
         {
             return;
         }
-        if (CurrentState != null)
-        {
-            CurrentState.UpdateState();
-            currentHunger = Mathf.Clamp(currentHunger - 0.1f * personality.hungerModifier,0,100);
-            //currentThirst -= 0.1f * personality.thirstModifier;
-            if (currentHunger <= 20f)
-            {
-                if(emotion.JoyLevel >= 80)
-                {
-                    return;
-                }
-                else
-                {
-                  TransitionTo(villagerStarvingState);
-                }
-            }
-            OnVillagerUpdate?.Invoke();
-        }
+        //if (CurrentState != null)
+        //{
+        //    CurrentState.UpdateState();
+        //    currentHunger = Mathf.Clamp(currentHunger - 0.1f * personality.hungerModifier,0,100);
+        //    //currentThirst -= 0.1f * personality.thirstModifier;
+        //    if (currentHunger <= 20f)
+        //    {
+        //        if(emotion.JoyLevel >= 80)
+        //        {
+        //            return;
+        //        }
+        //        else
+        //        {
+        //          TransitionTo(villagerStarvingState);
+        //        }
+        //    }
+        //    OnVillagerUpdate?.Invoke();
+        //}
     }
     public void Move(Vector2Int targetPosition, float speed)
     {

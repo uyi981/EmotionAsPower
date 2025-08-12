@@ -28,6 +28,7 @@ MonoBehaviour:
     SadnessLevel: 1
     FearLevel: 1
     ApatheticLevel: 1
-  hungerModifier: 0
+  hungerModifier: 1
   moveSpeedModifier: 1.5
   worKSpeedModifier: 3
+  maxCarryModifier: 0

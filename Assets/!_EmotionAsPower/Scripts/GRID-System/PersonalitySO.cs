@@ -13,4 +13,5 @@ public class PersonalitySO :ScriptableObject
     public int hungerModifier; // how much hunger will be affected by emotion
     public float moveSpeedModifier; // how much movement speed will be affected by emotion
     public float worKSpeedModifier; // how much work speed will be affected by emotion
+    public float maxCarryModifier;
 }
