@@ -16,10 +16,32 @@ public class ShopSystem : Singleton<ShopSystem>
     public GameObject buldingContentUI;
     public Information info;
     public GameObject tab;
+    public Sprite gridFrame;
+
     // Dictionary lưu ContentUI và danh sách building theo loại
     private Dictionary<BuildingType, ContentUI> contentUIs = new Dictionary<BuildingType, ContentUI>();
     private Dictionary<BuildingType, List<GameObject>> buildingLists = new Dictionary<BuildingType, List<GameObject>>();
+    private Image currentImage;
 
+    public void SetGridFrame(Image isBuildingSelected)
+    {
+        if (currentImage != null)
+        {
+            currentImage.enabled = false;
+        }
+        isBuildingSelected.enabled = true;
+        currentImage = isBuildingSelected;
+
+
+    }
+
+    public void ResetGridFrame()
+    {
+        if (currentImage != null)
+        {
+            currentImage.enabled = false;
+        }
+    }
     private void Start()
     {
         CategorizeBuildings();
@@ -94,6 +116,7 @@ public class ShopSystem : Singleton<ShopSystem>
         if (contentUIs.ContainsKey(type))
             contentUIs[type].gameObject.SetActive(true);
         info.ResetInformationData();
+        ResetGridFrame();
     }
 
     public void CloseShop()

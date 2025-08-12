@@ -124,11 +124,11 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         }
         if (healthBar != null)
         {
-            healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 1.2f, Quaternion.identity, transform);
+            healthBarInstance = Instantiate(healthBar, transform.position + Vector3.up * 1f, Quaternion.identity, transform);
+            //healthBarImg = healthBarInstance.GetComponent<HealthBar>();
             healthBarImg = healthBarInstance.GetComponent<HealthBar>();
             Debug.Log(healthBarImg.name);
             Debug.Log($"Building {Name} started with max HP: {maxHP} and current HP: {currentHP}");
-            InstantiateHealthBar(currentHP, maxHP);
 
             healthBarInstance.SetActive(false); // Ẩn thanh máu ban đầu
         }
@@ -217,16 +217,14 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     {
         if (healthBarImg != null)
         {
-            healthBarImg.Health.text = currentHP.ToString();
+            healthBarImg.SetProcess((float)currentHP/(float)maxHP);
+            Debug.Log($"Updated health bar for {gameObject.name}: Current HP = {currentHP}/{maxHP}");
         }
     }
 
     
 
-    private void InstantiateHealthBar(int health, int maxhealth)
-    {
-        healthBarImg.Instantiate(health, maxhealth);
-    }
+    
 
 
 
