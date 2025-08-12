@@ -15,6 +15,7 @@ TagManager:
   - Factory
   - Shop
   - PrisonBuilding
+  - Building
   layers:
   - Default
   - TransparentFX

@@ -21,6 +21,10 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         }
         SendJobToVillager();
     }   
+    public void WakeUpVillagerWhenRaidCome()
+    {
+     
+    }
     public Vector2Int GetBed()
     {
         if (bedPool.Count > 0)
@@ -88,7 +92,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         }
         else if (timeStage == DayTimeController.TimeStage.Evening)
         {
-          VillagersGoToSleep();
+          //VillagersGoToSleep();
         }
     }
     public void AssignFreeBed(Vector2Int bed)
