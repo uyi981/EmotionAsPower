@@ -27,8 +27,8 @@ public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     private PlacementSystem placementSystem;
 
     List<IconResource> iconResources = new List<IconResource>();
-
-
+    public bool isMissing;
+    SerializableDictionary<ItemSO, int> resourceData;
     private void Start()
     {
         placementSystem = Singleton<PlacementSystem>.Instance;
@@ -65,6 +65,9 @@ public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     }
     public void Place()
     {
+        if(isMissing)
+        { return;
+        }    
         if (placementSystem != null)
         {
             Building building = Singleton<PlacementSystem>.Instance.database.buildings[buildingID];
@@ -79,6 +82,18 @@ public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
             Debug.LogWarning("PlacementSystem not found in the scene!");
         }
     }
+    public void OnEnable()
+    {
+        if(resourceData==null)
+        {
+            return;
+        }
+        else
+        {
+            ResetResource();
+            SetResource(resourceData); // Ensure resource data is set when the icon is enabled
+        }
+    }
 
 
 
@@ -86,10 +101,17 @@ public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 
 
 
-
-
+    public void ResetResource()
+    { 
+        foreach(IconResource iconResource in iconResources)
+        {
+            Destroy(iconResource.gameObject);
+        }
+        iconResources.Clear();
+    }
     public void SetResource(SerializableDictionary<ItemSO, int> resourceData)
     {
+        this.resourceData = resourceData;
         if (resourceData != null)
         {
             // Set up new resources
@@ -113,15 +135,19 @@ public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
         SerializableDictionary<ItemSO, int> missingItem = Singleton<ItemStorage>.Instance.CheckListRequireItemAndReturnItemMissing(resourceData);
         if (missingItem.Count > 0)
         {
-            buildingIcon.color = Color.red; // Set building icon color to red if any item is missing
+            buildingIcon.color = Color.white; // Set building icon color to red if any item is missing
             for (int k = 0; k < iconResources.Count; k++)
             {
                 if (missingItem.ContainsKey(iconResources[k].item))
                 {
-                    iconResources[k].image.color = Color.red; // Set color to red if the item is missing
+                    iconResources[k].image.color = new Color(1, 1, 1, 0.5f);
+                    iconResources[k].amountText.color = Color.red; // Set amount text color to red for missing items
                 }
             }
+            isMissing = true;
+            return;
         }
+        isMissing = false;
     }
 
 
