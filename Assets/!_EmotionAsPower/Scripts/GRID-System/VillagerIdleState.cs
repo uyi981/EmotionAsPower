@@ -32,7 +32,7 @@ public class VillagerIdleState : IState
                 return;
 
             }
-            else if (collider.CompareTag("Enermy"))
+            else if (collider.CompareTag("Enermy") || collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 villager.Target = collider.gameObject; // Set the target to the resource
                 villager.TransitionTo(villager.villagerAttackEnermyState);
@@ -48,27 +48,35 @@ public class VillagerIdleState : IState
         if(moveCoroutine==null)
         moveCoroutine = villager.StartCoroutine(MoveToRandomPointRoutine()); // Restart moving to random points if no item found
     }
+    public void ResetMovingRandom()
+    {
+        if (moveCoroutine != null)
+            villager.StopCoroutine(moveCoroutine); // Stop any existing movement coroutine\
+        moveCoroutine = null;
+    }
     public IEnumerator CheckForTarget()
     {
-        bool hasItem = false;
+        Debug.Log("Starting CheckForTarget for Villager: " + villager.gameObject.name);
+        hasItem = false;
         while (!hasItem)
         {
+            Debug.Log("Villager: " + villager.gameObject.name + " is checking for items or resources.");
             //Debug.Log("Checking for items or resources...");
             yield return new WaitForSeconds(0.2f); // Check every 0.5 seconds
             Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 5f); // Adjust the radius as needed
             for(int i = colliders.Length - 1; i >= 0; i--)
             {
                 Collider collider = colliders[i];
-                if(villager.isOverControlled)
+                if(villager.isOverControlled&&villager.currentEmotion.Equals(Emotion.Anger))
                 {
                     if (collider.CompareTag("Building"))
                     {
                         Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
-                        if (moveCoroutine != null)
-                            villager.StopCoroutine(moveCoroutine); // Stop any existing movement coroutine\
+                        ResetMovingRandom();
                         villager.Move(villagerPosition, villager.personality.moveSpeedModifier);
                         hasItem = true;
+                        break;
                     }
                 }
                 else
@@ -77,30 +85,29 @@ public class VillagerIdleState : IState
                     {
                         Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
-                        if (moveCoroutine != null)
-                            villager.StopCoroutine(moveCoroutine); // Stop any existing movement coroutine\
+                        ResetMovingRandom();
                         villager.Move(villagerPosition, villager.personality.moveSpeedModifier);
                         hasItem = true;
+                        break;
                     }
                     else if (collider.CompareTag("Resource"))
                     {
-                        Debug.Log("Found Resource: " + collider.gameObject.name);
                         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
-                        if (moveCoroutine != null)
-                            villager.StopCoroutine(moveCoroutine); // Stop any existing movement coroutine
+                        ResetMovingRandom();
                         villager.Move(targetPosition, villager.personality.moveSpeedModifier);
                         hasItem = true;
+                        break;
                     }
-                    else if (collider.CompareTag("Enermy"))
+                    else if (collider.CompareTag("Enermy")||collider.gameObject.layer==LayerMask.NameToLayer("Enemy"))
                     {
-                        Debug.Log("Found Resource: " + collider.gameObject.name);
+                        Debug.Log("Found Enermy: " + collider.gameObject.name);
                         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
-                        if (moveCoroutine != null)
-                            villager.StopCoroutine(moveCoroutine); // Stop any existing movement coroutine
+                        ResetMovingRandom();
                         villager.Move(targetPosition, villager.personality.moveSpeedModifier);
                         hasItem = true;
+                        break;
                     }
                 }
            
@@ -159,7 +166,6 @@ public class VillagerIdleState : IState
     {
         while (true)
         {
-            Debug.Log(villager.gameObject.name+ " is moving to a random point.");
             // Chọn vị trí ngẫu nhiên trong không gian 3D
             targetPosition = new Vector3(
                 Random.Range(-5, 5),
@@ -177,13 +183,13 @@ public class VillagerIdleState : IState
                 );
                 yield return null;
             }
-
             // Dừng 2s trước khi chọn điểm tiếp theo
             yield return new WaitForSeconds(0.5f);
         }
     }
     public void EnterState()
     {
+        Debug.Log("Enter Idle State for Villager: " + villager.gameObject.name);
 
         moveCoroutine = villager.StartCoroutine(MoveToRandomPointRoutine());
         checkForTargetCoroutine = villager.StartCoroutine(CheckForTarget()); // Start checking for items

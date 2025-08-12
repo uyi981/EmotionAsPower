@@ -270,6 +270,7 @@ MonoBehaviour:
   isSleeping: 0
   isStarving: 0
   isPrisoner: 0
+  isOverControlled: 0
   animator: {fileID: 0}
   currentEmotion: 5
   emotion:
@@ -587,13 +588,13 @@ GameObject:
   - component: {fileID: 3738873457422504337}
   - component: {fileID: 1593596924448183994}
   - component: {fileID: 8038000504611110611}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: colliderForAttack
   m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3738873457422504337
 Transform:
   m_ObjectHideFlags: 0

@@ -227,15 +227,14 @@ public class Villager : MonoBehaviour,IInteractable
     {
         if (isDragging)
         {
-         
+
             transform.position = Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
         }
         currentStateName = GetCurrentStateName();
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
 
-                Debug.Log("Villager " + gameObject.name + " is attacking!");
-                animator.Play("Attack");
+            TransitionTo(villagerBackToHomeState);
         }
     }
     private void Start()

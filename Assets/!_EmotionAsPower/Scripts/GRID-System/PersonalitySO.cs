@@ -10,8 +10,7 @@ public class PersonalitySO :ScriptableObject
     public float rateAcceptChat;
     public EmotionVector emotionSendAffterChat; // will send emotion after chat
     public EmotionVector emotionSensity; //will analyze emotionSendAffterChat from other NPC
-    public float hungerModifier; // how much hunger will be affected by emotion
-    public float thirstModifier; // how much thirst will be affected by emotion
-    public float tiredModifier; // how much tiredness will be affected by emotion
+    public int hungerModifier; // how much hunger will be affected by emotion
     public float moveSpeedModifier; // how much movement speed will be affected by emotion
+    public float worKSpeedModifier; // how much work speed will be affected by emotion
 }
