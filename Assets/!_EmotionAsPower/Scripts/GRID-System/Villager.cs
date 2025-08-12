@@ -31,6 +31,7 @@ public class Villager : MonoBehaviour,IInteractable
     public bool isSleeping = false;
     public bool isStarving = false;
     public bool isPrisoner = false;
+    public bool isOverControlled = false; // Flag to indicate if the villager is being controlled by the player
     public Animator animator;
     public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
@@ -66,6 +67,10 @@ public class Villager : MonoBehaviour,IInteractable
     private int maxCarryCount = 6;   // Giới hạn số item có thể cầm
     void OnMouseDown()
     {
+        if(isOverControlled)
+        {
+            return; // Prevent interaction if the villager is over-controlled
+        }
         isDragging = true;
         if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
         {
@@ -298,6 +303,15 @@ public class Villager : MonoBehaviour,IInteractable
         Emotion emo = this.emotion.CheckEmotion();
         currentEmotion = emo;
         HandleEmotion(emo);
+        if(this.emotion.GetEmotionMaxPoint()>=80)
+        {
+            Debug.Log("Villager " + gameObject.name + " is over-controlled due to high emotion: " + emo);
+            isOverControlled = true; // Set the villager as over-controlled if any emotion exceeds 80
+        }
+        else
+        {
+            isOverControlled = false; // Reset the over-controlled flag if no emotion exceeds 80
+        }
     }
  
     public void Initialize(IState startingState)
