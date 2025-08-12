@@ -76,9 +76,9 @@ MonoBehaviour:
   healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
   attackDamage: 10
-  attackRange: 5
+  attackRange: 3
   attackCooldown: 1
-  vfxName: lightning
+  vfxName: attack1
   poolDefaultCapacity: 5
   poolMaxSize: 20
   enemyLayer:
