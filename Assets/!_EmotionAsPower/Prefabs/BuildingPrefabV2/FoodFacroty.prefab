@@ -81,7 +81,7 @@ MonoBehaviour:
   isProducing: 0
   inputItems: []
   outputItems:
-  - {fileID: 11400000, guid: 2b52fb6c29da6cc40b7cdd003c0ee273, type: 2}
+  - {fileID: 11400000, guid: 72bae683e5472e449ade7367fa84bcfb, type: 2}
   productionAmount: 1
   requireEmotion: 3
 --- !u!65 &4027037640517650916

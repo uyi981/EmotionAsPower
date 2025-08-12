@@ -18,4 +18,6 @@ MonoBehaviour:
   description: Very spicy, careful!
   category: 4
   useCases:
-    pairs: []
+    pairs:
+    - key: 0
+      value: 1

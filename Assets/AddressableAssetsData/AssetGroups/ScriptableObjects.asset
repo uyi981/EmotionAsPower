@@ -93,6 +93,13 @@ MonoBehaviour:
     m_SerializedLabels:
     - ItemSO
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72bae683e5472e449ade7367fa84bcfb
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Foods/Rainbow mushroomSO
+      1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7d4b0da18b79856429f94ac7b6a59ccb
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Emotions/ItemSO.asset
     m_ReadOnly: 0
@@ -149,6 +156,13 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b20470fea2d23be44a1b7e70a9403474
     m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Specials/RainbowMushroomSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - ItemSO
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7ff62e9261037446ba02ab4bedcb876
+    m_Address: Assets/!_EmotionAsPower/ScriptableObjects/Items/Foods/Rainbow mushroomSO
+      1.asset
     m_ReadOnly: 0
     m_SerializedLabels:
     - ItemSO

@@ -65,22 +65,18 @@ public class IconUI : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     }
     public void Place()
     {
-        if(isMissing)
-        { return;
-        }    
-        if (placementSystem != null)
+        if (isMissing)
         {
+            return;
+        }
+        Debug.Log($"Placing building with ID: {buildingID}, Name: {buildingName}");
+
             Building building = Singleton<PlacementSystem>.Instance.database.buildings[buildingID];
-            if (Singleton<ItemStorage>.Instance.CheckListRequireItem(building.keyValuePairs))
-            {
+            //if (Singleton<ItemStorage>.Instance.CheckListRequireItem(building.keyValuePairs))
+            //{
                 placementSystem.StartPlacement(buildingID);
                 Singleton<ShopSystem>.Instance.CloseShop();
-            }
-        }
-        else
-        {
-            Debug.LogWarning("PlacementSystem not found in the scene!");
-        }
+            //}
     }
     public void OnEnable()
     {

@@ -15,6 +15,13 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
     {
         GameManager.Instance.OnSetupFinished += () => OnStoragedItemsChange?.Invoke(StoragedItems);
     }
+    //public SerializableDictionary<string, int> GetFoodItemsList()
+    //{
+    //    foreach (var item in storagedItems.Dictionary)
+    //    {
+    //        ItemManager.
+    //    }
+    //}
     public void AddItem(Item item)
     {
         this.AddItem(item.ItemSO.ID, item.Amount);

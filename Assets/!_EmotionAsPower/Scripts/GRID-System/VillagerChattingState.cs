@@ -151,7 +151,7 @@ public class VillagerStarvingState : IState
             ItemSO itemSO = collision.gameObject.GetComponent<Item>().ItemSO;
             if (itemSO.useCases.Pairs[0].key.Equals(UseCaseType.Eat))
             {
-              villager.currentHunger = Mathf.Clamp(villager.currentHunger+itemSO.useCases.Pairs[0].value, 0, 100); // Ensure hunger does not exceed 100
+              //villager.currentHunger = Mathf.Clamp(villager.currentHunger+itemSO.useCases.Pairs[0].value, 0, 100); // Ensure hunger does not exceed 100
                 GameObject.Destroy(collision.gameObject); // Destroy the food item
             }
             else
@@ -202,10 +202,10 @@ public class VillagerStarvingState : IState
     }
     public void UpdateState()
     {
-      if(villager.currentHunger>=50)
-        {
-            villager.TransitionTo(villager.villagerIdleState); // Transition to idle state if hunger is above 50
-        }
+      //if(villager.currentHunger>=50)
+      //  {
+      //      villager.TransitionTo(villager.villagerIdleState); // Transition to idle state if hunger is above 50
+      //  }
         // Logic for updating the villager starving state
     }
     public void ExitState()

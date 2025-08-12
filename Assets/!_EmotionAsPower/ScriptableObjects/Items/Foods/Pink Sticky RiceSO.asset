@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ad7f6e85eb27d64dafddb5dace898f2, type: 3}
-  m_Name: CarrotSO
+  m_Name: Pink Sticky RiceSO
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  id: Item_Carrot
-  icon: {fileID: 1703610812, guid: e717125a468016246855d280db35f1ca, type: 3}
-  displayName: Carrot
-  description: "This crunchy orange stick isn\u2019t just a snack.\nSpawn randomly"
+  id: Item_PinkStickyRice
+  icon: {fileID: 1403349418, guid: 8cc0149c99a0c974f9af16b11fe790bb, type: 3}
+  displayName: Pink Sticky Rice
+  description: Ohh...This thing is amazing!
   category: 4
   useCases:
     pairs:
     - key: 0
-      value: 1
-    - key: 1
-      value: 50
+      value: 5
