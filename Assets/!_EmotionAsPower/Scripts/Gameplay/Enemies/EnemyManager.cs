@@ -172,26 +172,35 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
 
-        // GetAllPairs() already returns all entries including duplicates - this should work correctly
-        foreach (var kvp in enemyWave.enemies.GetAllPairs())
+        // Iterate through each enemy type and their spawn data arrays
+        foreach (var enemyEntry in enemyWave.enemies.Dictionary)
         {
-            GameObject enemyPrefab = kvp.Key;
-            EnemyWave.EnemySpawnData data = kvp.Value;
+            GameObject enemyPrefab = enemyEntry.Key;
+            EnemyWave.EnemySpawnData[] spawnDataArray = enemyEntry.Value;
 
-            for (int spawnedAmount = 0; spawnedAmount < data.count; spawnedAmount++)
+            // Process each spawn data configuration for this enemy type
+            foreach (EnemyWave.EnemySpawnData spawnData in spawnDataArray)
             {
-                float angleDeg = data.spawnAngle;
-                if (data.count > 1)
+                // Spawn the specified count of enemies for this configuration
+                for (int spawnedAmount = 0; spawnedAmount < spawnData.count; spawnedAmount++)
                 {
-                    angleDeg += Random.Range(-20f, 20f);
+                    float angleDeg = spawnData.spawnAngle;
+
+                    // Add random variation if spawning multiple enemies
+                    if (spawnData.count > 1)
+                    {
+                        angleDeg += Random.Range(-20f, 20f);
+                    }
+
+                    float angleRad = angleDeg * Mathf.Deg2Rad;
+                    Vector3 spawnPosition = spawnCenter + new Vector3(
+                        Mathf.Cos(angleRad) * spawnRadius,
+                        0f,
+                        Mathf.Sin(angleRad) * spawnRadius
+                    );
+
+                    SpawnEnemy(enemyPrefab, spawnPosition);
                 }
-                float angleRad = angleDeg * Mathf.Deg2Rad;
-                Vector3 spawnPosition = spawnCenter + new Vector3(
-                    Mathf.Cos(angleRad) * spawnRadius,
-                    0f,
-                    Mathf.Sin(angleRad) * spawnRadius
-                );
-                SpawnEnemy(enemyPrefab, spawnPosition);
             }
         }
     }

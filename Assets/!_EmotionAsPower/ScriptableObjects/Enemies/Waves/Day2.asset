@@ -16,13 +16,15 @@ MonoBehaviour:
     pairs:
     - key: {fileID: 6170872781834844453, guid: a6e36effa3faccd4ebf11ac8c489d9a3, type: 3}
       value:
-        count: 0
-        spawnAngle: 90
+      - count: 1
+        spawnAngle: 0
+      - count: 2
+        spawnAngle: 135
     - key: {fileID: 3329578327918105278, guid: f916b8b79d82b3d46a5256c2f34e4364, type: 3}
       value:
-        count: 0
+      - count: 0
         spawnAngle: 0
     - key: {fileID: 3329578327918105278, guid: ad1a56bd6c12bd04992c56498d718af4, type: 3}
       value:
-        count: 0
-        spawnAngle: 90
+      - count: 0
+        spawnAngle: 0

@@ -15,42 +15,10 @@ MonoBehaviour:
   waves:
     pairs:
     - key:
-        stage: 3
+        stage: 4
         day: 2
       value: {fileID: 11400000, guid: 0fea3713ec51de747a0f5d777b2b6a55, type: 2}
     - key:
-        stage: 3
+        stage: 4
         day: 4
       value: {fileID: 11400000, guid: 5e0cc77baf8bdea46aebc490b2d36806, type: 2}
-    - key:
-        stage: 3
-        day: 6
-      value: {fileID: 11400000, guid: 73290a0b7a17bfc43add5080f8753145, type: 2}
-    - key:
-        stage: 3
-        day: 8
-      value: {fileID: 11400000, guid: 45eccd2590b4fb444bc102938d678d9c, type: 2}
-    - key:
-        stage: 3
-        day: 10
-      value: {fileID: 11400000, guid: d2c0110feca08c045b20aba9c02dcf08, type: 2}
-    - key:
-        stage: 3
-        day: 12
-      value: {fileID: 11400000, guid: 256d6c9fa6dc96548be51a896a46a911, type: 2}
-    - key:
-        stage: 3
-        day: 14
-      value: {fileID: 11400000, guid: 3964b7e0b11dcab47891838df7af20fc, type: 2}
-    - key:
-        stage: 3
-        day: 16
-      value: {fileID: 11400000, guid: e953bc1e03d39124ebdd34e4ab4e9428, type: 2}
-    - key:
-        stage: 3
-        day: 18
-      value: {fileID: 11400000, guid: e7ac01755c3a1ab4fbf52839bc685a18, type: 2}
-    - key:
-        stage: 3
-        day: 20
-      value: {fileID: 11400000, guid: bfc16941c88a9684ebecf37fa50b504b, type: 2}
