@@ -253,7 +253,7 @@ public class ExplodeActionExecutor : AIActionExecutor
 
         Debug.Log($"{actionData.ai.name} exploding at {explosionPosition}!");
 
-        // Spawn the explosive object and configure it
+        // Spawn the explosive object and configure it with enhanced scaling
         if (explodeAction.ExplosiveObjectPrefab != null)
         {
             GameObject explosiveGO = Object.Instantiate(explodeAction.ExplosiveObjectPrefab, explosionPosition, Quaternion.identity, EnemyManager.Instance.explosivesParent);
@@ -261,11 +261,35 @@ public class ExplodeActionExecutor : AIActionExecutor
 
             if (explosive != null)
             {
+                // Configure basic explosion properties
                 explosive.explosionRange = explodeAction.ExplosionRange;
                 explosive.explosionDamage = explodeAction.ExplosionDamage;
                 explosive.damageLayerMask = explodeAction.DamageLayerMask;
                 explosive.explosionPrefab = explodeAction.ExplosionPrefab;
                 explosive.explosionSound = explodeAction.ExplosionSound;
+
+                // Enhanced scaling configuration
+                explosive.scaleWithDistance = true;
+
+                // Create a realistic damage falloff curve
+                AnimationCurve damageCurve = new AnimationCurve();
+                damageCurve.AddKey(0f, 1f);    // Full damage at center
+                damageCurve.AddKey(0.3f, 0.8f); // 80% damage at 30% range
+                damageCurve.AddKey(0.6f, 0.5f); // 50% damage at 60% range
+                damageCurve.AddKey(1f, 0.1f);   // 10% damage at edge
+
+                // Smooth the curve
+                for (int i = 0; i < damageCurve.keys.Length; i++)
+                {
+                    damageCurve.SmoothTangents(i, 0.5f);
+                }
+
+                explosive.damageFalloffCurve = damageCurve;
+
+                // Enable physics force for more realistic explosions
+                explosive.usePhysicsForce = true;
+                explosive.explosionForce = explodeAction.ExplosionDamage * 10f; // Scale force with damage
+
                 explosive.TriggerExplosion(0f);
             }
         }

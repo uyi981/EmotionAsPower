@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4687632464939993975}
   - component: {fileID: 8879346523668037477}
   - component: {fileID: 8894697138278743553}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBase
   level: 0
   maxHealth: 100
-  recoveryAmount: 5
+  recoveryAmount: 0
   recoveryInterval: 2
 --- !u!65 &8894697138278743553
 BoxCollider:

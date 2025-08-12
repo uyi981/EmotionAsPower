@@ -15,24 +15,405 @@ MonoBehaviour:
   shouldLoad: 0
   gameData:
     dateTime:
-      timeOfDay: 0.25003844
+      timeOfDay: 0.25046867
       timeStage: 1
-      day: 51
+      day: 11
     playerBaseLevel: 0
+    playerBaseHealth: 20
     emotionEnergy:
       pairs: []
     storagedItems:
       pairs:
-      - key: Item_Wood
-        value: 8
-      - key: Item_Steel
-        value: 37
       - key: Item_Stone
-        value: 54
-      - key: Item_Fiber
-        value: 402
+        value: 1006
+      - key: Item_Steel
+        value: 1003
+      - key: Item_Wood
+        value: 1000
+      - key: Item_Cherry
+        value: 1000
     items: []
-    resources: []
-    enemies: []
+    resources:
+    - id: Carrot
+      position: {x: -1, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 0, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 1, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 2, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 3, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 4, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: ChiliTree
+      position: {x: 5, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: ChiliTree
+      position: {x: 6, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: ChiliTree
+      position: {x: 7, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -2, y: 0, z: 5}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 3, y: 0, z: 6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 5, y: 0, z: 1}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -1, y: 0, z: 8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 1, y: 0, z: 9}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 13, y: 0, z: -3}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 5, y: 0, z: -5}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -4, y: 0, z: -2}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -5, y: 0, z: 0}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -5, y: 0, z: -7}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -1, y: 0, z: -6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 0, y: 0, z: -7}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -6, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -5, y: 0, z: -5}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 7, y: 0, z: 1}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 7, y: 0, z: -6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 8, y: 0, z: 3}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 7, y: 0, z: 7}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -2, y: 0, z: 11}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: -5, y: 0, z: 7}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Bush
+      position: {x: 0, y: 0, z: -11}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 2, y: 0, z: -6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 4, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 6, y: 0, z: -3}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 5, y: 0, z: -2}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 6, y: 0, z: 1}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 2, y: 0, z: 6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -3, y: 0, z: 8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -4, y: 0, z: 3}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -2, y: 0, z: 8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -4, y: 0, z: -6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -4, y: 0, z: -7}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -5, y: 0, z: -4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: -2, y: 0, z: -10}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 0, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 3, y: 0, z: -9}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 8, y: 0, z: -3}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 8, y: 0, z: 2}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Carrot
+      position: {x: 2, y: 0, z: -11}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 6, y: 0, z: -6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 8, y: 0, z: 0}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 4, y: 0, z: 2}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 4, y: 0, z: 6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: -4, y: 0, z: 10}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: -6, y: 0, z: 3}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: -5, y: 0, z: -1}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: -4, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: -3, y: 0, z: -9}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 0, y: 0, z: -10}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: -1, y: 0, z: -10}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 4, y: 0, z: -12}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 6, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 9, y: 0, z: -6}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 4, y: 0, z: -11}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: CherryTree
+      position: {x: 2, y: 0, z: -13}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: 5, y: 0, z: -9}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: 7, y: 0, z: -2}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: 10, y: 0, z: 1}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: 5, y: 0, z: 4}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: 0, y: 0, z: 8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: -3, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: -2, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: -4, y: 0, z: -5}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: -6, y: 0, z: -1}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    - id: Stone
+      position: {x: 8, y: 0, z: -8}
+      health: 10
+      lastRegularDropTime: 0
+      isForHarvest: 0
+    enemies:
+    - id: TNTCarrier
+      position: {x: 3.9476273, y: 0, z: 2}
+      currentHealth: 20
+      remainExistingTime: 8.773486
+    - id: TNTCarrier
+      position: {x: 4.3154616, y: 0, z: 3.5962198}
+      currentHealth: 20
+      remainExistingTime: 8.773486
+    explosives: []
+    bullets: []
     buildings: []
     villagers: []

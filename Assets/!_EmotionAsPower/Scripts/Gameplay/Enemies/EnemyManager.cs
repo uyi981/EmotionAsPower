@@ -241,7 +241,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
 
                 if (bullet != null)
                 {
-                    bullet.Initialize(instance.direction, instance.damage, instance.speed, instance.damageLayerMask);
+                    bullet.Initialize(instance.direction, instance.damage, instance.speed, instance.remainingLifetime, instance.damageLayerMask);
                     bullet.currentLifetime = bullet.lifetime - instance.remainingLifetime;
                 }
             }
