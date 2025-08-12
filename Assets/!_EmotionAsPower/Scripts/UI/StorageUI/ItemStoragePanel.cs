@@ -54,6 +54,13 @@ public class ItemStoragePanel : MonoBehaviour
 
         ItemCategory[] categories = System.Enum.GetValues(typeof(ItemCategory)) as ItemCategory[];
 
+        // Ensure panels match categories (in case instantiation failed)
+        if (categoryPanels.Count != categories.Length)
+        {
+            Debug.LogWarning($"Mismatch: {categoryPanels.Count} panels vs {categories.Length} categories. Reinitializing.");
+            // Optionally reinitialize here if needed
+        }
+
         for (int i = 0; i < categories.Length && i < categoryPanels.Count; i++)
         {
             categoryPanels[i].Initialize(categories[i], items);

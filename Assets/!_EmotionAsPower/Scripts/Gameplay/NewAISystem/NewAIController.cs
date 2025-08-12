@@ -14,6 +14,7 @@ public class NewAIController : MonoBehaviour
 
     private Detector detector;
     private UnitMover unitMover;
+    private float lastConsiderationTime;
 
     #region Getters
     public UnitMover UnitMover => unitMover;
@@ -30,9 +31,15 @@ public class NewAIController : MonoBehaviour
 
     public void PerformAction()
     {
-        if (actionData.state == ActionState.Success || actionData.state == ActionState.Failed)
+        // Always allow reconsideration if enough time has passed
+        bool shouldReconsider = actionData.state == ActionState.Success ||
+                               actionData.state == ActionState.Failed ||
+                               Time.time - lastConsiderationTime >= considerationInterval;
+
+        if (shouldReconsider)
         {
             ConsiderAndSetActionToPerform();
+            lastConsiderationTime = Time.time;
         }
 
         // Use the executor instead of the action directly
@@ -66,10 +73,11 @@ public class NewAIController : MonoBehaviour
         }
 
         actionData.ai = this;
+        lastConsiderationTime = 0f;
 
-        StartCoroutine(ConsiderationCoroutine(considerationInterval));
+        // Remove the coroutine since we're handling consideration in Update now
+        // StartCoroutine(ConsiderationCoroutine(considerationInterval));
     }
-
 
     public void ConsiderAndSetActionToPerform()
     {
@@ -109,54 +117,72 @@ public class NewAIController : MonoBehaviour
         if (highestPriorityActionIndex < 0)
         {
             // Cancel current action
+            if (actionData.currentExecutor != null)
+            {
+                actionData.currentExecutor.StopAction();
+            }
             currentAction = null;
             actionData.currentExecutor = null;
+            actionData.targetObject = null;
             actionData.state = ActionState.Failed;
             return;
         }
 
-        // Update action data
-        actionData.targetObject = GetNearestTarget(bestActionTargets);
+        NewAIAction newAction = availableActions[highestPriorityActionIndex];
+        GameObject newTarget = GetNearestTarget(bestActionTargets);
 
-        // Set current action and create new executor
-        currentAction = availableActions[highestPriorityActionIndex];
-        actionData.currentExecutor = currentAction.CreateExecutor(actionData);
-        actionData.state = ActionState.Running;
+        // Check if we need to change action or target
+        bool needsNewAction = currentAction != newAction;
+        bool needsNewTarget = actionData.targetObject != newTarget;
+        bool currentActionComplete = actionData.state == ActionState.Success || actionData.state == ActionState.Failed;
+
+        if (needsNewAction || needsNewTarget || currentActionComplete)
+        {
+            // Stop current action if it exists
+            if (actionData.currentExecutor != null && (needsNewAction || currentActionComplete))
+            {
+                actionData.currentExecutor.StopAction();
+                actionData.currentExecutor = null;
+            }
+
+            // Update action data
+            actionData.targetObject = newTarget;
+
+            // Set current action and create new executor if needed
+            if (needsNewAction || actionData.currentExecutor == null)
+            {
+                currentAction = newAction;
+                actionData.currentExecutor = currentAction.CreateExecutor(actionData);
+            }
+
+            actionData.state = ActionState.Running;
+        }
     }
-
 
     public GameObject GetNearestTarget(GameObject[] targets)
     {
-        return targets[targets.Length-1];
-        //if (targets == null || targets.Length == 0)
-        //    return null;
+        if (targets == null || targets.Length == 0)
+            return null;
 
-        //GameObject nearestTarget = null;
-        //float nearestDistance = float.MaxValue;
+        GameObject nearestTarget = null;
+        float nearestDistance = float.MaxValue;
 
-        //foreach (GameObject target in targets)
-        //{
-        //    // Skip self
-        //    if (target == gameObject) continue;
-
-        //    float distance = Vector3.Distance(transform.position, target.transform.position);
-        //    if (distance < nearestDistance)
-        //    {
-        //        nearestDistance = distance;
-        //        nearestTarget = target;
-        //    }
-        //}
-
-        //return nearestTarget;
-    }
-
-
-    private IEnumerator ConsiderationCoroutine(float interval)
-    {
-        while (true)
+        foreach (GameObject target in targets)
         {
-            yield return new WaitForSeconds(interval);
-            ConsiderAndSetActionToPerform();
+            // Skip self
+            if (target == gameObject) continue;
+
+            float distance = Vector3.Distance(transform.position, target.transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestTarget = target;
+            }
         }
+
+        return nearestTarget;
     }
+
+    // Remove the coroutine method since we're not using it anymore
+    // private IEnumerator ConsiderationCoroutine(float interval) { ... }
 }

@@ -8,6 +8,13 @@ public class InputManager : Singleton<InputManager>
 {
     [SerializeField]
     private float cameraScrollMultiplier = 10f;
+
+    [SerializeField]
+    private float scrollSensitivity = 5f;
+
+    [SerializeField]
+    private float scrollDamping = 10f; // How quickly scroll momentum dies down
+
     // Camera Input Actions
     private InputAction moveForward, moveBackward, moveLeft, moveRight, moveUp, moveDown;
 
@@ -21,15 +28,25 @@ public class InputManager : Singleton<InputManager>
     private float lastInputUpdateTime;
     private const float INPUT_UPDATE_INTERVAL = 0.016f; // ~60fps
 
+    // Smooth scrolling variables
+    private float currentScrollVelocity = 0f;
+    private float lastScrollTime;
+
     public event Action<Vector3> OnCameraMovement;
     public event Action<Vector2> OnMouseLeftClick;
     public event Action<Vector2> OnMouseRightClick;
+    public event Action<float> OnCameraScroll; // New event specifically for smooth scrolling
+
+    // UI hover camera movement
+    private bool isUIHoverActive = false;
+    private Vector3 currentUIDirection = Vector3.zero;
 
     protected override void Awake()
     {
         base.Awake();
         InitializeInputActions();
         lastInputUpdateTime = Time.realtimeSinceStartup;
+        lastScrollTime = Time.realtimeSinceStartup;
     }
 
     protected override void OnDestroy()
@@ -55,6 +72,7 @@ public class InputManager : Singleton<InputManager>
         if (currentTime - lastInputUpdateTime >= INPUT_UPDATE_INTERVAL)
         {
             HandleCameraInput();
+            HandleScrollInput();
             lastInputUpdateTime = currentTime;
         }
     }
@@ -76,7 +94,6 @@ public class InputManager : Singleton<InputManager>
         mouseScroll = new InputAction("MouseScroll", InputActionType.Value, "<Mouse>/scroll");
 
         // New game control actions
-        //pauseToggle = new InputAction("PauseToggle", InputActionType.Button, "<Keyboard>/space");
         setSpeed1x = new InputAction("SetSpeed1x", InputActionType.Button, "<Keyboard>/1");
         setSpeed2x = new InputAction("SetSpeed2x", InputActionType.Button, "<Keyboard>/2");
         setSpeed4x = new InputAction("SetSpeed4x", InputActionType.Button, "<Keyboard>/3");
@@ -84,7 +101,7 @@ public class InputManager : Singleton<InputManager>
         // Subscribe to events
         mouseLeftClick.performed += MouseLeftClick_performed;
         mouseRightClick.performed += MouseRightClick_performed;
-        //pauseToggle.performed += PauseToggle_performed;
+        mouseScroll.performed += MouseScroll_performed; // Add scroll event handler
         setSpeed1x.performed += SetSpeed1x_performed;
         setSpeed2x.performed += SetSpeed2x_performed;
         setSpeed4x.performed += SetSpeed4x_performed;
@@ -105,11 +122,11 @@ public class InputManager : Singleton<InputManager>
             mouseRightClick.Dispose();
         }
 
-        //if (pauseToggle != null)
-        //{
-        //    pauseToggle.performed -= PauseToggle_performed;
-        //    pauseToggle.Dispose();
-        //}
+        if (mouseScroll != null)
+        {
+            mouseScroll.performed -= MouseScroll_performed;
+            mouseScroll.Dispose();
+        }
 
         if (setSpeed1x != null)
         {
@@ -137,7 +154,6 @@ public class InputManager : Singleton<InputManager>
         moveUp?.Dispose();
         moveDown?.Dispose();
         mousePos?.Dispose();
-        mouseScroll?.Dispose();
     }
 
     private void MouseRightClick_performed(InputAction.CallbackContext obj)
@@ -148,6 +164,20 @@ public class InputManager : Singleton<InputManager>
             return;
         }
         OnMouseRightClick?.Invoke(screenPos);
+    }
+
+    private void MouseScroll_performed(InputAction.CallbackContext obj)
+    {
+        Vector2 screenPos = mousePos.ReadValue<Vector2>();
+        if (IsPointerOverUI(screenPos))
+        {
+            return;
+        }
+
+        Vector2 scrollValue = obj.ReadValue<Vector2>();
+        // Add scroll input to velocity for smooth scrolling
+        currentScrollVelocity += scrollValue.y * scrollSensitivity;
+        lastScrollTime = Time.realtimeSinceStartup;
     }
 
     private void PauseToggle_performed(InputAction.CallbackContext obj)
@@ -200,7 +230,6 @@ public class InputManager : Singleton<InputManager>
         mouseScroll.Enable();
 
         // Enable game control actions
-        //pauseToggle.Enable();
         setSpeed1x.Enable();
         setSpeed2x.Enable();
         setSpeed4x.Enable();
@@ -223,7 +252,6 @@ public class InputManager : Singleton<InputManager>
         mouseScroll.Disable();
 
         // Disable game control actions
-        //pauseToggle.Disable();
         setSpeed1x.Disable();
         setSpeed2x.Disable();
         setSpeed4x.Disable();
@@ -233,21 +261,45 @@ public class InputManager : Singleton<InputManager>
     {
         var dir = Vector3.zero;
 
-        if (moveForward.ReadValue<float>() > 0) dir += Vector3.forward;
-        if (moveBackward.ReadValue<float>() > 0) dir += Vector3.back;
-        if (moveRight.ReadValue<float>() > 0) dir += Vector3.right;
-        if (moveLeft.ReadValue<float>() > 0) dir += Vector3.left;
-        if (moveUp.ReadValue<float>() > 0) dir += Vector3.up;
-        if (moveDown.ReadValue<float>() > 0) dir += Vector3.down;
-
-        // Handle mouse scroll for vertical movement
-        Vector2 scrollValue = mouseScroll.ReadValue<Vector2>();
-        if (scrollValue.y > 0) dir += Vector3.up * cameraScrollMultiplier;  
-        if (scrollValue.y < 0) dir += Vector3.down * cameraScrollMultiplier;  
+        // Handle UI hover input first (takes priority)
+        if (isUIHoverActive)
+        {
+            dir = currentUIDirection;
+        }
+        else
+        {
+            // Only handle keyboard movement when UI hover is not active
+            if (moveForward.ReadValue<float>() > 0) dir += Vector3.forward;
+            if (moveBackward.ReadValue<float>() > 0) dir += Vector3.back;
+            if (moveRight.ReadValue<float>() > 0) dir += Vector3.right;
+            if (moveLeft.ReadValue<float>() > 0) dir += Vector3.left;
+            if (moveUp.ReadValue<float>() > 0) dir += Vector3.up;
+            if (moveDown.ReadValue<float>() > 0) dir += Vector3.down;
+        }
 
         if (dir != Vector3.zero)
         {
             OnCameraMovement?.Invoke(dir.normalized);
+        }
+    }
+
+    private void HandleScrollInput()
+    {
+        float currentTime = Time.realtimeSinceStartup;
+        float deltaTime = currentTime - lastInputUpdateTime;
+
+        // Apply damping to scroll velocity
+        if (Mathf.Abs(currentScrollVelocity) > 0.01f)
+        {
+            // Trigger the scroll event with current velocity
+            OnCameraScroll?.Invoke(currentScrollVelocity);
+
+            // Apply damping
+            currentScrollVelocity = Mathf.Lerp(currentScrollVelocity, 0f, scrollDamping * deltaTime);
+        }
+        else
+        {
+            currentScrollVelocity = 0f;
         }
     }
 
@@ -286,4 +338,55 @@ public class InputManager : Singleton<InputManager>
         }
         return false;
     }
+
+    #region UI Hover Camera Movement Methods
+
+    /// <summary>
+    /// Call this method from UI Event Triggers on Pointer Enter
+    /// </summary>
+    public void StartUICameraMovement(int direction)
+    {
+        isUIHoverActive = true;
+        currentUIDirection = GetDirectionVector(direction);
+    }
+
+    /// <summary>
+    /// Call this method from UI Event Triggers on Pointer Exit
+    /// </summary>
+    public void StopUICameraMovement()
+    {
+        isUIHoverActive = false;
+        currentUIDirection = Vector3.zero;
+    }
+
+    /// <summary>
+    /// Get direction vector based on 8-directional movement
+    /// 0=Forward, 1=ForwardRight, 2=Right, 3=BackwardRight, 4=Backward, 5=BackwardLeft, 6=Left, 7=ForwardLeft
+    /// </summary>
+    private Vector3 GetDirectionVector(int direction)
+    {
+        switch (direction)
+        {
+            case 0: // Forward
+                return Vector3.forward;
+            case 1: // Forward-Right
+                return (Vector3.forward + Vector3.right).normalized;
+            case 2: // Right
+                return Vector3.right;
+            case 3: // Backward-Right
+                return (Vector3.back + Vector3.right).normalized;
+            case 4: // Backward
+                return Vector3.back;
+            case 5: // Backward-Left
+                return (Vector3.back + Vector3.left).normalized;
+            case 6: // Left
+                return Vector3.left;
+            case 7: // Forward-Left
+                return (Vector3.forward + Vector3.left).normalized;
+            default:
+                return Vector3.zero;
+        }
+    }
+
+    #endregion
 }

@@ -42,37 +42,50 @@ public class AttackActionExecutor : AIActionExecutor
         lastPositionTime = Time.time;
         isPlayingAttackAnimation = false;
         hasDamageBeenApplied = false;
+
+        Debug.Log($"AttackAction started for {actionData.ai.name}");
     }
 
     public override ActionState UpdateAction()
     {
         if (actionData.targetObject == null)
+        {
+            Debug.Log("Attack failed: No target object");
             return ActionState.Failed;
+        }
 
         Health targetHealth = actionData.targetObject.GetComponent<Health>();
         IHealth health = actionData.targetObject.GetComponent<IHealth>();
-        if (health == null)
-        {
-            Debug.LogWarning("Ihealth not found");
-            if ((targetHealth == null || targetHealth.IsDead))
-                return ActionState.Success;
-            if (isPlayingAttackAnimation)
-            {
-                return HandleAttackAnimation(targetHealth);
-            }
-        }
 
+        // Check if target is dead
+        bool targetIsDead = false;
+        if (health != null)
+        {
+            targetIsDead = health.IsDead();
+        }
+        else if (targetHealth != null)
+        {
+            targetIsDead = targetHealth.IsDead;
+        }
         else
         {
-            Debug.LogWarning("Attacking ihealth");
-            if (health.IsDead())
-                return ActionState.Success;
-            if (isPlayingAttackAnimation)
-            {
-                return HandleAttackAnimationWithIHealth(health);
-            }
+            Debug.LogWarning("Target has no Health or IHealth component!");
+            return ActionState.Failed;
         }
 
+        if (targetIsDead)
+        {
+            Debug.Log("Attack succeeded: Target is dead");
+            return ActionState.Success;
+        }
+
+        // Handle ongoing attack animation
+        if (isPlayingAttackAnimation)
+        {
+            return HandleAttackAnimation(targetHealth, health);
+        }
+
+        // Calculate attack position - try to find a good position around the target
         Vector3 targetPos = actionData.targetObject.transform.position;
         if (attackAction.UseSmartPositioning)
         {
@@ -83,10 +96,15 @@ public class AttackActionExecutor : AIActionExecutor
             targetAttackPosition = targetPos;
         }
 
+        float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetPos);
         float distanceToAttackPosition = Vector3.Distance(actionData.ai.transform.position, targetAttackPosition);
-        if (distanceToAttackPosition <= attackAction.AttackRange)
+
+        Debug.Log($"Distance to target: {distanceToTarget}, Distance to attack position: {distanceToAttackPosition}, Attack range: {attackAction.AttackRange}");
+
+        // Check if we can attack from current position (direct distance to target)
+        if (distanceToTarget <= attackAction.AttackRange)
         {
-            // FIXED: Stop movement and stay in attack range
+            // Stop movement when in range
             if (isMovingToTarget)
             {
                 UnitMover mover = actionData.ai.UnitMover;
@@ -95,161 +113,186 @@ public class AttackActionExecutor : AIActionExecutor
                     mover.StopMovement();
                 }
                 isMovingToTarget = false;
+                Debug.Log("Stopped movement - in attack range of target");
             }
 
+            // Check if we can attack (cooldown check)
             float timeSinceLastAttack = Time.time - lastAttackTime;
-            if (timeSinceLastAttack >= 1f / attackAction.AttackSpeed)
+            float attackCooldown = 1f / attackAction.AttackSpeed;
+
+            Debug.Log($"Time since last attack: {timeSinceLastAttack}, Cooldown: {attackCooldown}");
+
+            if (timeSinceLastAttack >= attackCooldown && !isPlayingAttackAnimation)
             {
-                if (health == null)
-                {
-                    StartAttackSequence(targetHealth);
-                }
-                else
-                {
-                    StartAttackSequenceWithIHealth(health);
-                }
+                Debug.Log("Starting attack sequence");
+                StartAttackSequence(targetHealth, health);
                 lastAttackTime = Time.time;
             }
-            return ActionState.Running;
+            return ActionState.Running; // Keep running to continue attacking
         }
         else
         {
-            // FIXED: Only move if not in attack range
+            // Move to a good attack position
+            Debug.Log("Moving to attack position");
             HandleMovementToTarget();
             return ActionState.Running;
+        }
+    }
+
+    private void StartAttackSequence(Health targetHealth, IHealth health)
+    {
+        Debug.Log($"Attack sequence started on {actionData.targetObject.name}");
+
+        // Face the target before attacking
+        FaceTarget();
+
+        isPlayingAttackAnimation = true;
+        animationStartTime = Time.time;
+        hasDamageBeenApplied = false;
+
+        // Play animation
+        if (animator != null && !string.IsNullOrEmpty(attackAction.AttackAnimationTrigger))
+        {
+            Debug.Log($"Playing attack animation: {attackAction.AttackAnimationTrigger}");
+            animator.SetTrigger(attackAction.AttackAnimationTrigger);
+        }
+        else
+        {
+            Debug.LogWarning("No animator or animation trigger set!");
+        }
+
+        // Play sound
+        if (audioSource != null && attackAction.AttackSound != null)
+        {
+            audioSource.PlayOneShot(attackAction.AttackSound);
+        }
+    }
+
+    private ActionState HandleAttackAnimation(Health targetHealth, IHealth health)
+    {
+        float timeSinceAnimStart = Time.time - animationStartTime;
+
+        // Apply damage at the correct time during animation
+        if (!hasDamageBeenApplied && timeSinceAnimStart >= attackAction.DamageDelayFromAnimStart)
+        {
+            Debug.Log($"Applying damage: {attackAction.AttackDamage}");
+            ApplyDamageWithEffects(targetHealth, health);
+            hasDamageBeenApplied = true;
+        }
+
+        // Check if target died after damage
+        bool targetIsDead = false;
+        if (health != null)
+        {
+            targetIsDead = health.IsDead();
+        }
+        else if (targetHealth != null)
+        {
+            targetIsDead = targetHealth.IsDead;
+        }
+
+        if (targetIsDead)
+        {
+            Debug.Log("Target died during attack animation");
+            isPlayingAttackAnimation = false;
+            return ActionState.Success;
+        }
+
+        // Check if animation is complete - if so, reset for next attack cycle
+        if (timeSinceAnimStart >= attackAction.AnimationDuration)
+        {
+            Debug.Log("Attack animation complete - ready for next attack");
+            isPlayingAttackAnimation = false;
+            // Continue running to allow for next attack cycle
+        }
+
+        return ActionState.Running;
+    }
+
+    private void ApplyDamageWithEffects(Health targetHealth, IHealth health)
+    {
+        Debug.Log($"Applying {attackAction.AttackDamage} damage to {actionData.targetObject.name}");
+
+        // Apply damage to the appropriate component
+        if (health != null)
+        {
+            health.TakeDamage(attackAction.AttackDamage);
+        }
+        else if (targetHealth != null)
+        {
+            targetHealth.TakeDamage(attackAction.AttackDamage);
+        }
+
+        // Spawn visual effect
+        if (attackAction.AttackEffect != null)
+        {
+            Vector3 effectPosition = actionData.targetObject.transform.position;
+            GameObject effect = GameObject.Instantiate(attackAction.AttackEffect, effectPosition, Quaternion.identity);
+            if (attackAction.EffectDuration > 0)
+            {
+                GameObject.Destroy(effect, attackAction.EffectDuration);
+            }
+            Debug.Log("Attack effect spawned");
         }
     }
 
     private void CalculateOptimalAttackPosition(Vector3 targetPosition)
     {
         Vector3 aiPosition = actionData.ai.transform.position;
-        Vector3 rightPosition = new Vector3(targetPosition.x + attackAction.PositioningOffset, targetPosition.y, targetPosition.z);
-        Vector3 leftPosition = new Vector3(targetPosition.x - attackAction.PositioningOffset, targetPosition.y, targetPosition.z);
-        float distanceToRight = Vector3.Distance(aiPosition, rightPosition);
-        float distanceToLeft = Vector3.Distance(aiPosition, leftPosition);
+
+        // Try multiple positions around the target
+        Vector3[] potentialPositions = {
+            new Vector3(targetPosition.x + attackAction.PositioningOffset, targetPosition.y, targetPosition.z), // Right
+            new Vector3(targetPosition.x - attackAction.PositioningOffset, targetPosition.y, targetPosition.z), // Left
+            new Vector3(targetPosition.x, targetPosition.y, targetPosition.z + attackAction.PositioningOffset), // Forward
+            new Vector3(targetPosition.x, targetPosition.y, targetPosition.z - attackAction.PositioningOffset), // Back
+        };
+
         bool needsRecalculation = targetAttackPosition == Vector3.zero || Vector3.Distance(lastTargetPosition, targetPosition) > 0.5f;
 
         if (needsRecalculation)
         {
-            targetAttackPosition = distanceToLeft < distanceToRight ? leftPosition : rightPosition;
-            Vector3 directionToAttackPos = (targetAttackPosition - targetPosition).normalized;
-            if (Physics.Raycast(targetPosition, directionToAttackPos, out RaycastHit hit, attackAction.PositioningOffset))
+            Vector3 bestPosition = targetPosition; // Fallback to target position
+            float bestDistance = float.MaxValue;
+
+            foreach (Vector3 pos in potentialPositions)
             {
-                targetAttackPosition = distanceToLeft < distanceToRight ? rightPosition : leftPosition;
+                // Check if the position is walkable on the grid
+                if (IsPositionWalkable(pos))
+                {
+                    float distance = Vector3.Distance(aiPosition, pos);
+                    if (distance < bestDistance)
+                    {
+                        bestDistance = distance;
+                        bestPosition = pos;
+                    }
+                }
             }
+
+            targetAttackPosition = bestPosition;
+            lastTargetPosition = targetPosition;
         }
     }
 
-    private void StartAttackSequence(Health targetHealth)
+    private bool IsPositionWalkable(Vector3 worldPosition)
     {
-        // Face the target before attacking
-        FaceTarget();
+        if (GridSystem.Instance == null) return true;
 
-        isPlayingAttackAnimation = true;
-        animationStartTime = Time.time;
-        hasDamageBeenApplied = false;
+        Grid grid = GridSystem.Instance.grid;
+        float[,] gridMap = GridSystem.Instance.gridMap;
 
-        if (animator != null && !string.IsNullOrEmpty(attackAction.AttackAnimationTrigger))
-        {
-            animator.SetTrigger(attackAction.AttackAnimationTrigger);
-        }
+        Vector3Int gridPos = grid.WorldToCell(worldPosition);
 
-        if (audioSource != null && attackAction.AttackSound != null)
-        {
-            audioSource.PlayOneShot(attackAction.AttackSound);
-        }
-    }
+        // Apply grid offset (assuming 50,50 like in PlacementSystem)
+        int gridX = gridPos.x + 50;
+        int gridZ = gridPos.z + 50;
 
-    private void StartAttackSequenceWithIHealth(IHealth targetHealth)
-    {
-        // Face the target before attacking
-        FaceTarget();
+        // Check bounds
+        if (gridX < 0 || gridZ < 0 || gridX >= gridMap.GetLength(0) || gridZ >= gridMap.GetLength(1))
+            return false;
 
-        isPlayingAttackAnimation = true;
-        animationStartTime = Time.time;
-        hasDamageBeenApplied = false;
-
-        if (animator != null && !string.IsNullOrEmpty(attackAction.AttackAnimationTrigger))
-        {
-            animator.SetTrigger(attackAction.AttackAnimationTrigger);
-        }
-
-        if (audioSource != null && attackAction.AttackSound != null)
-        {
-            audioSource.PlayOneShot(attackAction.AttackSound);
-        }
-    }
-
-    private ActionState HandleAttackAnimation(Health targetHealth)
-    {
-        float timeSinceAnimStart = Time.time - animationStartTime;
-
-        ApplyDamageWithEffects(targetHealth);
-        hasDamageBeenApplied = true;
-
-        if (targetHealth.IsDead)
-        {
-            isPlayingAttackAnimation = false; // Reset animation state
-            return ActionState.Success;
-        }
-
-        // Reset animation state after animation completes to allow new attacks
-        if (timeSinceAnimStart >= attackAction.AnimationDuration)
-        {
-            isPlayingAttackAnimation = false;
-        }
-
-        return ActionState.Running;
-    }
-
-    private ActionState HandleAttackAnimationWithIHealth(IHealth targetHealth)
-    {
-        float timeSinceAnimStart = Time.time - animationStartTime;
-
-        ApplyDamageWithEffectOnIHealth(targetHealth);
-        hasDamageBeenApplied = true;
-
-        if (targetHealth.IsDead())
-        {
-            isPlayingAttackAnimation = false; // Reset animation state
-            return ActionState.Success;
-        }
-
-        // Reset animation state after animation completes to allow new attacks
-        if (timeSinceAnimStart >= attackAction.AnimationDuration)
-        {
-            isPlayingAttackAnimation = false;
-        }
-
-        return ActionState.Running;
-    }
-
-    private void ApplyDamageWithEffects(Health targetHealth)
-    {
-        targetHealth.TakeDamage(attackAction.AttackDamage);
-        if (attackAction.AttackEffect != null)
-        {
-            Vector3 effectPosition = actionData.targetObject.transform.position;
-            GameObject effect = GameObject.Instantiate(attackAction.AttackEffect, effectPosition, Quaternion.identity);
-            if (attackAction.EffectDuration > 0)
-            {
-                GameObject.Destroy(effect, attackAction.EffectDuration);
-            }
-        }
-    }
-
-    private void ApplyDamageWithEffectOnIHealth(IHealth targetHealth)
-    {
-        targetHealth.TakeDamage(attackAction.AttackDamage);
-        if (attackAction.AttackEffect != null)
-        {
-            Vector3 effectPosition = actionData.targetObject.transform.position;
-            GameObject effect = GameObject.Instantiate(attackAction.AttackEffect, effectPosition, Quaternion.identity);
-            if (attackAction.EffectDuration > 0)
-            {
-                GameObject.Destroy(effect, attackAction.EffectDuration);
-            }
-        }
+        // Check if cell is walkable (0 = walkable, 1 = occupied)
+        return gridMap[gridX, gridZ] == 0;
     }
 
     private void HandleMovementToTarget()
@@ -259,15 +302,16 @@ public class AttackActionExecutor : AIActionExecutor
 
         Vector3 currentTargetPos = actionData.targetObject.transform.position;
 
-        // FIXED: Check if we're already in attack range before recalculating
+        // Check if we're already in attack range of the actual target before recalculating
         float currentDistanceToTarget = Vector3.Distance(actionData.ai.transform.position, currentTargetPos);
         if (currentDistanceToTarget <= attackAction.AttackRange)
         {
-            // We're in range, stop moving
+            // We're in range of target, stop moving
             if (isMovingToTarget)
             {
                 mover.StopMovement();
                 isMovingToTarget = false;
+                Debug.Log("In range of target, stopping movement");
             }
             return;
         }
@@ -280,15 +324,19 @@ public class AttackActionExecutor : AIActionExecutor
         {
             if (canRecalculatePath || !isMovingToTarget)
             {
+                Vector3 moveTarget;
                 if (attackAction.UseSmartPositioning)
                 {
                     CalculateOptimalAttackPosition(currentTargetPos);
-                    mover.MoveToWorldPosition(targetAttackPosition);
+                    moveTarget = targetAttackPosition;
                 }
                 else
                 {
-                    mover.MoveToWorldPosition(currentTargetPos);
+                    moveTarget = currentTargetPos;
                 }
+
+                Debug.Log($"Moving to position: {moveTarget}");
+                mover.MoveToWorldPosition(moveTarget);
                 isMovingToTarget = true;
                 lastTargetPosition = currentTargetPos;
                 lastPathCalculationTime = Time.time;
@@ -327,12 +375,14 @@ public class AttackActionExecutor : AIActionExecutor
         }
         isMovingToTarget = false;
         isPlayingAttackAnimation = false;
+        Debug.Log("Attack action stopped");
     }
 
     public override void OnActionComplete()
     {
         isMovingToTarget = false;
         isPlayingAttackAnimation = false;
+        Debug.Log("Attack action completed");
     }
 
     public override void OnActionInterrupted()
@@ -344,124 +394,22 @@ public class AttackActionExecutor : AIActionExecutor
         }
         isMovingToTarget = false;
         isPlayingAttackAnimation = false;
+        Debug.Log("Attack action interrupted");
     }
 
     public override void Perform()
     {
-        if (actionData.state != ActionState.Running)
-        {
-            StartAction();
-            actionData.state = ActionState.Running;
-        }
+        // Always call UpdateAction, don't check if state is running
+        ActionState result = UpdateAction();
+        actionData.state = result;
 
-        if (actionData.targetObject == null)
+        if (result == ActionState.Success)
         {
-            Debug.LogWarning("Stopping action - no target");
-            actionData.state = ActionState.Failed;
+            OnActionComplete();
+        }
+        else if (result == ActionState.Failed)
+        {
             StopAction();
-            return;
-        }
-
-        Health targetHealth = actionData.targetObject.GetComponent<Health>();
-        IHealth health = actionData.targetObject.GetComponent<IHealth>();
-        if (health != null)
-        {
-            if (health.IsDead())
-            {
-                actionData.state = ActionState.Success;
-                OnActionComplete();
-                return;
-            }
-        }
-        else if ((targetHealth == null || targetHealth.IsDead))
-        {
-            actionData.state = ActionState.Success;
-            OnActionComplete();
-            return;
-        }
-
-        if (isPlayingAttackAnimation)
-        {
-            ActionState animResult;
-            if (health != null)
-            {
-                animResult = HandleAttackAnimationWithIHealth(health);
-            }
-            else
-            {
-                animResult = HandleAttackAnimation(targetHealth);
-            }
-            actionData.state = animResult;
-            if (animResult != ActionState.Running)
-            {
-                if (animResult == ActionState.Success)
-                    OnActionComplete();
-                return;
-            }
-        }
-        else
-        {
-            Vector3 targetPos = actionData.targetObject.transform.position;
-            if (attackAction.UseSmartPositioning)
-            {
-                CalculateOptimalAttackPosition(targetPos);
-            }
-            else
-            {
-                targetAttackPosition = targetPos;
-            }
-
-            float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetAttackPosition);
-            if (distanceToTarget <= attackAction.AttackRange)
-            {
-                // FIXED: Stop movement when in range
-                if (isMovingToTarget)
-                {
-                    UnitMover mover = actionData.ai.UnitMover;
-                    if (mover != null)
-                    {
-                        mover.StopMovement();
-                        isMovingToTarget = false;
-                    }
-                }
-
-                float timeSinceLastAttack = Time.time - lastAttackTime;
-                if (timeSinceLastAttack >= 1f / attackAction.AttackSpeed && !isPlayingAttackAnimation)
-                {
-                    if (health == null)
-                    {
-                        StartAttackSequence(targetHealth);
-                    }
-                    else
-                    {
-                        StartAttackSequenceWithIHealth(health);
-                    }
-                    lastAttackTime = Time.time;
-                }
-            }
-            else
-            {
-                // FIXED: Only handle movement if not in range
-                HandleMovementToTarget();
-            }
-        }
-
-        if (health != null)
-        {
-            if (health.IsDead())
-            {
-                actionData.state = ActionState.Success;
-                OnActionComplete();
-            }
-        }
-        else if (targetHealth.IsDead)
-        {
-            actionData.state = ActionState.Success;
-            OnActionComplete();
-        }
-        else
-        {
-            actionData.state = ActionState.Running;
         }
     }
 
@@ -485,5 +433,4 @@ public class AttackActionExecutor : AIActionExecutor
             }
         }
     }
-
 }
