@@ -256,7 +256,7 @@ public class ExplodeActionExecutor : AIActionExecutor
         // Spawn the explosive object and configure it
         if (explodeAction.ExplosiveObjectPrefab != null)
         {
-            GameObject explosiveGO = Object.Instantiate(explodeAction.ExplosiveObjectPrefab, explosionPosition, Quaternion.identity);
+            GameObject explosiveGO = Object.Instantiate(explodeAction.ExplosiveObjectPrefab, explosionPosition, Quaternion.identity, EnemyManager.Instance.explosivesParent);
             Explosive explosive = explosiveGO.GetComponent<Explosive>();
 
             if (explosive != null)

@@ -21,4 +21,16 @@ MonoBehaviour:
     - key:
         stage: 4
         day: 4
-      value: {fileID: 11400000, guid: 5e0cc77baf8bdea46aebc490b2d36806, type: 2}
+      value: {fileID: 11400000, guid: 0fea3713ec51de747a0f5d777b2b6a55, type: 2}
+    - key:
+        stage: 4
+        day: 6
+      value: {fileID: 11400000, guid: 0fea3713ec51de747a0f5d777b2b6a55, type: 2}
+    - key:
+        stage: 4
+        day: 8
+      value: {fileID: 11400000, guid: 0fea3713ec51de747a0f5d777b2b6a55, type: 2}
+    - key:
+        stage: 4
+        day: 10
+      value: {fileID: 11400000, guid: 0fea3713ec51de747a0f5d777b2b6a55, type: 2}

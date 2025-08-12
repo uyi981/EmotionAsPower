@@ -8,6 +8,8 @@ public class Explosive : MonoBehaviour
     public GameObject explosionPrefab; // Visual effect prefab
     public AudioClip explosionSound;
 
+    public float currentTimer { get; set; } = 0f;
+
     public void TriggerExplosion(float delay = 0f)
     {
         if (delay <= 0f)
@@ -16,7 +18,19 @@ public class Explosive : MonoBehaviour
         }
         else
         {
-            Invoke(nameof(Explode), delay);
+            currentTimer = delay;
+        }
+    }
+
+    private void Update()
+    {
+        if (currentTimer > 0f)
+        {
+            currentTimer -= Time.deltaTime;
+            if (currentTimer <= 0f)
+            {
+                Explode();
+            }
         }
     }
 

@@ -13,6 +13,8 @@ public class GameData
     public ItemRuntimeInstance[] items;
     public ResourceRuntimeInstance[] resources;
     public EnemyRuntimeInstance[] enemies;
+    public ExplosiveRuntimeInstance[] explosives;
+    public BulletRuntimeInstance[] bullets;
     public List<BuildingRuntimeData> buildings;
     public List<VillagerRuntimeData> villagers;
 }
