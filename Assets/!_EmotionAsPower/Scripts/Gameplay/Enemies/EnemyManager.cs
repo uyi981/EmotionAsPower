@@ -172,10 +172,12 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
 
+        // GetAllPairs() already returns all entries including duplicates - this should work correctly
         foreach (var kvp in enemyWave.enemies.GetAllPairs())
         {
             GameObject enemyPrefab = kvp.Key;
             EnemyWave.EnemySpawnData data = kvp.Value;
+
             for (int spawnedAmount = 0; spawnedAmount < data.count; spawnedAmount++)
             {
                 float angleDeg = data.spawnAngle;
