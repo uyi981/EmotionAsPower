@@ -24,6 +24,9 @@ public class UnitMover : MonoBehaviour
     public float minDistanceForNewPath = 1f;
     public float pathValidationDistance = 0.5f;
 
+    [Header("Grid Settings")]
+    public Vector2Int gridOffset = new Vector2Int(50, 50); // Same as PlacementSystem
+
     private APathFinding pathFinding;
     private Grid grid;
     private float[,] gridMap;
@@ -133,8 +136,59 @@ public class UnitMover : MonoBehaviour
             return;
         }
 
+        // Find nearest walkable position if target is occupied
+        if (!IsGridPositionWalkable(target))
+        {
+            Vector2Int nearestWalkable = FindNearestWalkablePosition(target);
+            if (nearestWalkable.x != -999) // Valid position found
+            {
+                target = nearestWalkable;
+                worldPosition = grid.CellToWorld(new Vector3Int(target.x, 0, target.y));
+            }
+            else
+            {
+                Debug.LogWarning($"No walkable position found near target for {gameObject.name}");
+                OnMovementFailed?.Invoke();
+                return;
+            }
+        }
+
         currentTarget = worldPosition;
         Move(target);
+    }
+
+    private bool IsGridPositionWalkable(Vector2Int gridPos)
+    {
+        int gridX = gridPos.x + gridOffset.x;
+        int gridZ = gridPos.y + gridOffset.y;
+
+        if (gridX < 0 || gridZ < 0 || gridX >= gridMap.GetLength(0) || gridZ >= gridMap.GetLength(1))
+            return false;
+
+        return gridMap[gridX, gridZ] == 0; // 0 = walkable, 1 = occupied
+    }
+
+    private Vector2Int FindNearestWalkablePosition(Vector2Int target)
+    {
+        // Search in expanding squares around the target
+        for (int radius = 1; radius <= 5; radius++)
+        {
+            for (int dx = -radius; dx <= radius; dx++)
+            {
+                for (int dy = -radius; dy <= radius; dy++)
+                {
+                    // Only check the border of the current square
+                    if (Mathf.Abs(dx) != radius && Mathf.Abs(dy) != radius) continue;
+
+                    Vector2Int candidate = new Vector2Int(target.x + dx, target.y + dy);
+                    if (IsGridPositionWalkable(candidate))
+                    {
+                        return candidate;
+                    }
+                }
+            }
+        }
+        return new Vector2Int(-999, -999); // Not found marker
     }
 
     public void StopMovement()

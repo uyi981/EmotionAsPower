@@ -12,5 +12,5 @@ public class EnemyWave : ScriptableObject
         public float spawnAngle; // Angle in degrees (0-360) for spawning direction
     }
 
-    public SerializableMultiDictionary<GameObject, EnemySpawnData> enemies;
+    public SerializableDictionary<GameObject, EnemySpawnData[]> enemies;
 }

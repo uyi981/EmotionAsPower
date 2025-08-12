@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1875289739278388547}
   - component: {fileID: 2650963199440928556}
   - component: {fileID: 4432371698362580802}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Entertainment (3)
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -73,12 +73,12 @@ MonoBehaviour:
   jobType: 0
   itemDropper: {fileID: 9089359162078223486, guid: 3f229275c70da9f4f9d91b141ab77b40, type: 3}
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
-  healthBar: {fileID: 8392199525925716247, guid: 2195c2a3eb06985468a6e52308f98e84, type: 3}
+  healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
   effectRange: 1
   effectCooldown: 1
   emotionType: 4
-  emotionAmount: 10
+  emotionAmount: 5
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -114,7 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910586525982127481}
   - component: {fileID: 9118292235920772321}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: states_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

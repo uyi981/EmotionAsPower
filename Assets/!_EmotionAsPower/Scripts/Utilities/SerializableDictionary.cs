@@ -174,5 +174,12 @@ namespace LgTyUtils
         {
             return new Dictionary<K, V>(dictionary);
         }
+
+        public IEnumerable<KeyValuePair> GetAllPairs()
+        {
+            EnsureArraySynced();
+            return pairs;
+        }
+
     }
 }
