@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7176305719577685023}
   - component: {fileID: 320889887749029985}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: homeAndTower_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 8438243634751309475}
   - component: {fileID: 4435275975919588584}
   - component: {fileID: 1451200142466288768}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Tent 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

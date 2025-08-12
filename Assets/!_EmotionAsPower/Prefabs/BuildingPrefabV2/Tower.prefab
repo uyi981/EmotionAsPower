@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6326003570331607049}
   - component: {fileID: 5711340453321573159}
   - component: {fileID: 5912564916186804987}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Tower
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158391772816770231}
   - component: {fileID: 5311723047474073758}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: tower_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
