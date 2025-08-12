@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3248829262817487033}
   - component: {fileID: 3484237960244225089}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: housebreeding_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7071597984926566668}
   - component: {fileID: 580452027417302199}
   - component: {fileID: 5322800939289134493}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Reproduction
   m_TagString: Building
   m_Icon: {fileID: 0}

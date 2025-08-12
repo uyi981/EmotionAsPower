@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2829254945578521500}
   - component: {fileID: 4471964777641638849}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: factory_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 5016753019630550246}
   - component: {fileID: 1656984709436950946}
   - component: {fileID: 1625983856142540708}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Facroty (1)
   m_TagString: Factory
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9113615883337499332}
   - component: {fileID: 7378476752257605399}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: foodBuilding_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 1921951876484040273}
   - component: {fileID: 4628350121213256206}
   - component: {fileID: 440689550022868342}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Food Facroty (1)
   m_TagString: Building
   m_Icon: {fileID: 0}
