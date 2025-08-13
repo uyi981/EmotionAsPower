@@ -396,4 +396,42 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
             }
         }
     }
+
+    public void ClearAllThreats()
+    {
+        // Clear all enemies
+        foreach (Enemy enemy in GetComponentsInChildren<Enemy>())
+        {
+            Destroy(enemy.gameObject);
+        }
+
+        // Clear all explosives
+        if (explosivesParent != null)
+        {
+            foreach (Transform child in explosivesParent)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Clear all bullets
+        if (bulletsParent != null)
+        {
+            foreach (Transform child in bulletsParent)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Ensure any stray explosives or bullets are cleared
+        foreach (Explosive explosive in GetComponentsInChildren<Explosive>())
+        {
+            Destroy(explosive.gameObject);
+        }
+
+        foreach (Bullet bullet in GetComponentsInChildren<Bullet>())
+        {
+            Destroy(bullet.gameObject);
+        }
+    }
 }

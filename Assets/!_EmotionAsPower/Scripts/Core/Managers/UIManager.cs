@@ -10,6 +10,7 @@ public class UIManager : Singleton<UIManager>, ISetup
     public GameObject loseGamePanel;
     public ResourceInfoPanel resourceInfoPanel;
     public ItemInfoPanel itemInfoPanel;
+    public TutorialContainer tutorialPanel;
 
     [Header("Settings")]
     public string homeScreenSceneName = "HomeScreen";
@@ -22,6 +23,27 @@ public class UIManager : Singleton<UIManager>, ISetup
 
     public bool ShowUI => showUI;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        if(resourceInfoPanel == null)
+        {
+            resourceInfoPanel = GetComponentInChildren<ResourceInfoPanel>();
+        }
+        if(itemInfoPanel == null)
+        {
+            itemInfoPanel = GetComponentInChildren<ItemInfoPanel>();
+        }
+        if(tutorialPanel == null)
+        {
+            tutorialPanel = GetComponentInChildren<TutorialContainer>();
+        }
+    }
+    private void Start()
+    {
+        
+        GameManager.Instance.OnSetupFinished += NewGameInit;
+    }
     // Update your Setup() method to include:
     public void Setup()
     {
@@ -194,6 +216,19 @@ public class UIManager : Singleton<UIManager>, ISetup
         if (itemInfoPanel != null)
         {
             itemInfoPanel.Hide();
+        }
+    }
+
+    public void NewGameInit()
+    {
+        //NOt load = new game
+        if (!DataPersistenceManager.Instance.gameDataView.shouldLoad)
+        {
+            tutorialPanel.ShowTutorial();
+        }
+        else
+        {
+            tutorialPanel.SkipTutorial();
         }
     }
 }
