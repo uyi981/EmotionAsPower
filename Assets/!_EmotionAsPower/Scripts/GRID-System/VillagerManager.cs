@@ -34,7 +34,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         int quantity = 0;
         foreach (Villager villager in jobForWorkers)
         {
-            quantity += villager.personality.hungerModifier;
+            quantity += Mathf.RoundToInt(villager.hungerModifier);
         }
         return quantity;
     }
@@ -137,6 +137,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         if(timeStage == DayTimeController.TimeStage.Morning)
         {
           SendJobInMorning();
+          VillagerEating(QuantityOfFoodConsumedPerDay);
         }
         else if (timeStage == DayTimeController.TimeStage.Evening)
         {
