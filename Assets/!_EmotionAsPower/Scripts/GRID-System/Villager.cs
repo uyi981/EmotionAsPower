@@ -67,7 +67,7 @@ public class Villager : MonoBehaviour,IInteractable
     private int currentCarryCount = 0;
 
     public float speed { get { return personality.moveSpeedModifier * emotionSO.moveSpeedModifier; } }
-    public float workSpeed { get { return personality.worKSpeedModifier * emotionSO.worKSpeedModifier; } }
+    public float workSpeed { get { return personality.workSpeedModifier * emotionSO.worKSpeedModifier; } }
     public float hungerModifier { get { return Mathf.RoundToInt(personality.hungerModifier*emotionSO.hungerModifier); } }
     public int maxCarryCount { get { return Mathf.RoundToInt(personality.maxCarryModifier * emotionSO.maxCarryModifier)*2; } }
     public void SetPersonality(PersonalitySO personality)
@@ -105,8 +105,10 @@ public class Villager : MonoBehaviour,IInteractable
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name + "trigeer ne");
         if(other.CompareTag("Villager"))
         {
+            Debug.Log("Villager " + gameObject.name + " has entered the trigger area of another villager: " + other.gameObject.name);
             chatTrigger?.Invoke(other); // Notify subscribers that a villager has entered the trigger area
         }
     }
@@ -337,11 +339,11 @@ public class Villager : MonoBehaviour,IInteractable
     }
     public void TransitionTo(IState nextState)
     {
-        //if(CurrentState.Equals(nextState))
+        //if (CurrentState.Equals(nextState))
         //{
         //    return; // No transition needed if the next state is the same as the current state
         //}
-        if(isPrisoner)
+        if (isPrisoner)
         {
             return;
         }
@@ -385,7 +387,15 @@ public class Villager : MonoBehaviour,IInteractable
         //    OnVillagerUpdate?.Invoke();
         //}
     }
-    public void Move(Vector2Int targetPosition, float speed)
+    public void ResetCoroutine(Coroutine coroutine)
+    {
+        if(coroutine!=null)
+        {
+            StopCoroutine(coroutine); // Stop the coroutine if it is running
+            coroutine = null; // Reset the coroutine reference
+        }
+    }
+    public void Move(Vector2Int targetPosition, float speed,Coroutine moveCoroutine)
     {
         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(transform.position);
         //Debug.Log(villagerPosition);
@@ -418,6 +428,7 @@ public class Villager : MonoBehaviour,IInteractable
     }
     public IEnumerator Moving(List<Vector2Int> path, float speed)
     {
+        float timeOut = 1;
         for (int i = path.Count - 1; i >= 0; i--)
         {
 
@@ -426,6 +437,12 @@ public class Villager : MonoBehaviour,IInteractable
             while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition,personality.moveSpeedModifier * Time.deltaTime);
+                //timeOut-=Time.deltaTime;
+                //if(timeOut <= 0)
+                //{
+                //    Debug.LogWarning("Villager " + gameObject.name + " movement timed out at position: " + targetPosition);
+                //    yield break; // Exit the coroutine if movement takes too long
+                //}
                 yield return null;
             }          
         }

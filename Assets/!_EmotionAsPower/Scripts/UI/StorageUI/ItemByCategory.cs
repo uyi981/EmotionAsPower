@@ -59,8 +59,6 @@ public class ItemByCategory : MonoBehaviour
 
         foreach (var itemPair in allItems.Pairs)
         {
-            Debug.Log(itemPair.key.ToString());
-
             if (itemSODict.ContainsKey(itemPair.key))
             {
                 ItemSO itemSO = itemSODict[itemPair.key];

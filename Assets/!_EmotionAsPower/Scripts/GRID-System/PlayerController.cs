@@ -33,37 +33,37 @@ public class PlayerController : Singleton<PlayerController>
     public void Moving()
     {
 
-        if(inputManager.IsPointerOverUI())
-        {
-            Debug.Log("Pointer is over UI, skipping movement.");
-            return;
-        }
-        if(inputManager.CurrentState != State.Moving)
-        {
-            Debug.Log("Current state is not Moving, skipping movement.");
-            return;
-        }
-        if(selectedVillagers.Count == 0)
-        {
-            Debug.LogWarning("No villagers selected to move.");
-            return;
-        }
-        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+        //if(inputManager.IsPointerOverUI())
+        //{
+        //    Debug.Log("Pointer is over UI, skipping movement.");
+        //    return;
+        //}
+        //if(inputManager.CurrentState != State.Moving)
+        //{
+        //    Debug.Log("Current state is not Moving, skipping movement.");
+        //    return;
+        //}
+        //if(selectedVillagers.Count == 0)
+        //{
+        //    Debug.LogWarning("No villagers selected to move.");
+        //    return;
+        //}
+        //Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        //Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-        foreach (Villager villager in selectedVillagers)
-        {
-            if (villager != null)
-            {
-                Vector2Int targetPosition = new Vector2Int(gridPosition.x, gridPosition.z);
-                villager.Move(targetPosition, 1f); // Assuming Move takes a Vector2Int position and speed
+        //foreach (Villager villager in selectedVillagers)
+        //{
+        //    if (villager != null)
+        //    {
+        //        Vector2Int targetPosition = new Vector2Int(gridPosition.x, gridPosition.z);
+        //        villager.Move(targetPosition, 1f); // Assuming Move takes a Vector2Int position and speed
 
-            }
-            else
-            {
-                Debug.LogWarning("Villager is null, cannot move.");
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("Villager is null, cannot move.");
+        //    }
+        //}
     }
     Vector2Int NormalizeGridPosition(Vector2Int pos, int gridWidth, int gridHeight)
     {

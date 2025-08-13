@@ -21,13 +21,13 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     public void SendJobInMorning()
     {
 
-        foreach (Villager villager in jobForWorkers)
-        {
-            villager.isWorking = false;
-            villager.isSleeping = false;
-            villager.TransitionTo(villager.villagerIdleState);
-        }
-        SendJobToVillager();
+        //foreach (Villager villager in jobForWorkers)
+        //{
+        //    villager.isWorking = false;
+        //    villager.isSleeping = false;
+        //    villager.TransitionTo(villager.villagerIdleState);
+        //}
+        //SendJobToVillager();
     }   
     public int caculateQuantityOfFoodConsumedPerDay()
     {

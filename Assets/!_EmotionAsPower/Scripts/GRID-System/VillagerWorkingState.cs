@@ -4,6 +4,7 @@ using UnityEngine;
 public class VillagerWorkingState : IState
 {
     private Villager villager;
+    private Coroutine moveCoroutine;
     public VillagerWorkingState(Villager villager)
     {
         this.villager = villager;
@@ -11,7 +12,7 @@ public class VillagerWorkingState : IState
     public void EnterState()
     {
         Debug.Log("Villager is now working.");
-        villager.Move(villager.currentJob.Position, 1f);
+        villager.Move(villager.currentJob.Position,villager.speed,moveCoroutine);
         villager.completedGoToTarget += OnWork;
         villager.collisionTrigger += OnCollisionEnter; // Subscribe to collision events
         villager.isWorking = true;
