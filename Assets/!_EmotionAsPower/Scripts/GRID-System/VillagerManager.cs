@@ -14,6 +14,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     public List<VillagerRuntimeData> villagersRuntime = new List<VillagerRuntimeData>();
     public TextMeshProUGUI villagerCountText;
     public TextMeshProUGUI foodConsumeText;
+    public bool isUnableToSendJob;
     public int QuantityOfFoodConsumedPerDay
     {
         get { return caculateQuantityOfFoodConsumedPerDay(); }
@@ -29,6 +30,10 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         //}
         //SendJobToVillager();
     }   
+    public void OnEnermySpawn()
+    {
+        isUnableToSendJob = true;
+    }
     public int caculateQuantityOfFoodConsumedPerDay()
     {
         int quantity = 0;
@@ -160,6 +165,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
                 jobForWorkers.Add(villagerComponent);
             }
         }
+        Singleton<EnemyManager>.Instance.enemySpawned += OnEnermySpawn;
     }
     private void Start()
     {
@@ -186,6 +192,11 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     }    
     public void SendJobToVillager()
     {
+        if (isUnableToSendJob)
+        {
+            Debug.LogWarning("Unable to send job due to enermy spawn.");
+            return;
+        }
         foreach (Villager villager in jobForWorkers)
         {
             if (jobForWorkerPool.Count == 0)
@@ -194,7 +205,26 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
             }
             if (villager.isWorking == false)
             {
-                villager.currentJob = jobForWorkerPool.Pop();
+                 JobForWorker job = jobForWorkerPool.Pop();
+                if(job.JobType.Equals(JobType.None))
+                {
+                    Debug.LogWarning("Job type is None, skipping assignment.");
+                    continue;
+                }
+                else if (job.JobType.Equals(JobType.Build))
+                {
+                    if( job.buildingBase == null)
+                    {
+                        Debug.LogWarning("Building base is null for job type: " + job.JobType);
+                        continue;
+                    }
+                    else if(job.buildingBase.isBuildingComplete)
+                    {
+                        Debug.LogWarning("Building base is null for job type: " + job.JobType);
+                        continue;
+                    }
+                }
+                villager.currentJob = job;
                 Debug.Log("Assigning job to villager: " + villager.name + " with job type: " + villager.currentJob.JobType);
                 villager.TransitionTo(villager.villagerWorkingState);
                 return;

@@ -10,7 +10,7 @@ public class VillagerInWorState : IState
     }
     public void EnterState()
     {
-       villager.Move(new Vector2Int(0, 0), villager.speed, moveCoroutine); // Assuming home is at (0, 0)
+       villager.Move(new Vector2Int(0, 0), villager.speed); // Assuming home is at (0, 0)
        villager.completedGoToTarget += DropItem;
     }
     public void DropItem()
