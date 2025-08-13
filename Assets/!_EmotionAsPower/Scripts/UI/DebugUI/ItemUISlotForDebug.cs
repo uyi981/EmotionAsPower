@@ -29,6 +29,6 @@ public class ItemUISlotForDebug : MonoBehaviour
 
     public void Debug_TakeItem()
     {
-        ItemStorage.Instance.TryTakeItem(itemSO, amountToDebug);
+        ItemStorage.Instance.SubtractItem(itemSO, amountToDebug);
     }
 }

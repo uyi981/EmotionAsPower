@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3379607372127711514}
   - component: {fileID: 8531307281971148774}
   - component: {fileID: 3701410605575046213}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BaseItemPrefab
   m_TagString: Item
   m_Icon: {fileID: 0}

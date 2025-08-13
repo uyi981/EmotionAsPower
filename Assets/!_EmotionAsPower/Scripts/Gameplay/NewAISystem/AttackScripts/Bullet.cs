@@ -16,11 +16,12 @@ public class Bullet : MonoBehaviour
     public float currentLifetime { get; set; } = 0f;
     private bool hasHit = false;
 
-    public void Initialize(Vector3 shootDirection, float bulletDamage, float bulletSpeed, LayerMask layerMask)
+    public void Initialize(Vector3 shootDirection, float bulletDamage, float bulletSpeed, float bulletLifetime, LayerMask layerMask)
     {
         direction = shootDirection.normalized;
         damage = bulletDamage;
         speed = bulletSpeed;
+        lifetime = bulletLifetime;
         damageLayerMask = layerMask;
         currentLifetime = 0f;
         hasHit = false;
@@ -50,7 +51,6 @@ public class Bullet : MonoBehaviour
         // Check for collision using raycast
         RaycastHit hit;
         float rayDistance = speed * Time.deltaTime;
-
         if (Physics.Raycast(transform.position, direction, out hit, rayDistance, damageLayerMask))
         {
             OnHit(hit.collider, hit.point);

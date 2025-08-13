@@ -8,6 +8,7 @@ public class GameData
 {
     public GameDateTime dateTime;
     public int playerBaseLevel;
+    public float playerBaseHealth;
     public SerializableDictionary<EmotionType, int> emotionEnergy;
     public SerializableDictionary<string, int> storagedItems;
     public ItemRuntimeInstance[] items;

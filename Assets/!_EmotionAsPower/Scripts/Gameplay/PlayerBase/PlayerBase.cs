@@ -12,6 +12,7 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
 
     [SerializeField]
     private float maxHealth = 100f;
+    [SerializeField]
     private float health = 100f;
 
     private bool isDestroyed = false;
@@ -97,6 +98,7 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     public void LoadGame(GameData gameData)
     {
         this.level = 0;
+        this.health = gameData.playerBaseHealth;
         while (level < gameData.playerBaseLevel)
         {
             SetLevel(++level);
@@ -106,6 +108,7 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
     public void SaveGame(ref GameData gameData)
     {
         gameData.playerBaseLevel = this.Level;
+        gameData.playerBaseHealth = this.health;
     }
 
     public void Upgrade()
@@ -153,5 +156,10 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
                 }
             }
         }
+    }
+    public void FullRecovery()
+    {
+        this.health = maxHealth;
+        healthBar.SetProcess(health / maxHealth);
     }
 }

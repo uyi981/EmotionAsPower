@@ -43,4 +43,9 @@ public class PauseMenu : MonoBehaviour
             enterDebugModeCondition = 0;
         }
     }
+
+    public void ShowTutorial()
+    {
+        UIManager.Instance.tutorialPanel.ShowTutorial();
+    }
 }

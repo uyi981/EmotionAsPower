@@ -56,11 +56,9 @@ public class VillagerIdleState : IState
     }
     public IEnumerator CheckForTarget()
     {
-        Debug.Log("Starting CheckForTarget for Villager: " + villager.gameObject.name);
         hasItem = false;
         while (!hasItem)
         {
-            Debug.Log("Villager: " + villager.gameObject.name + " is checking for items or resources.");
             //Debug.Log("Checking for items or resources...");
             yield return new WaitForSeconds(0.2f); // Check every 0.5 seconds
             Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 5f); // Adjust the radius as needed
@@ -74,7 +72,7 @@ public class VillagerIdleState : IState
                         Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
                         ResetMovingRandom();
-                        villager.Move(villagerPosition, villager.speed);
+                        villager.Move(villagerPosition, villager.speed, moveCoroutine);
                         hasItem = true;
                         break;
                     }
@@ -86,7 +84,7 @@ public class VillagerIdleState : IState
                         Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
                         ResetMovingRandom();
-                        villager.Move(villagerPosition, villager.speed);
+                        villager.Move(villagerPosition, villager.speed, moveCoroutine);
                         hasItem = true;
                         break;
                     }
@@ -95,7 +93,7 @@ public class VillagerIdleState : IState
                         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
                         ResetMovingRandom();
-                        villager.Move(targetPosition, villager.speed);
+                        villager.Move(targetPosition, villager.speed, moveCoroutine);
                         hasItem = true;
                         break;
                     }
@@ -105,7 +103,7 @@ public class VillagerIdleState : IState
                         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
                         ResetMovingRandom();
-                        villager.Move(targetPosition, villager.speed);
+                        villager.Move(targetPosition, villager.speed, moveCoroutine);
                         hasItem = true;
                         break;
                     }
@@ -115,7 +113,7 @@ public class VillagerIdleState : IState
         }
         hasItem = false; // Reset the flag after checking
     }
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collision collision)
     {
          if(collision.gameObject.CompareTag("Item"))
         {
@@ -184,19 +182,17 @@ public class VillagerIdleState : IState
     }
     public void EnterState()
     {
-        Debug.Log("Enter Idle State for Villager: " + villager.gameObject.name);
-
         moveCoroutine = villager.StartCoroutine(MoveToRandomPointRoutine());
         checkForTargetCoroutine = villager.StartCoroutine(CheckForTarget()); // Start checking for items
         villager.completedGoToTarget+= OnComeTarget; // Subscribe to the event when the villager reaches the target
         villager.isWorking = false; // Set working state to false
-        villager.collisionTrigger += OnCollisionEnter; // Subscribe to the collision event
+       // villager.collisionTrigger += OnCollisionEnter; // Subscribe to the collision event
         villager.chatTrigger += CheckIsChatable; // Subscribe to the chat trigger event
-        if (villager.CheckItemsPicked())
-        {
-            villager.TransitionTo(villager.villagerBackToHomeState); // Transition to working state if items are picked
-            return;
-        }
+        //if (villager.CheckItemsPicked())
+        //{
+        //    villager.TransitionTo(villager.villagerBackToHomeState); // Transition to working state if items are picked
+        //    return;
+        //}
     }
     public void UpdateState()
     {
@@ -205,7 +201,7 @@ public class VillagerIdleState : IState
     public void ExitState()
     {
         villager.completedGoToTarget -= OnComeTarget; // Subscribe to the event when the villager reaches the target
-        villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from the collision event
+        //villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from the collision event
         villager.chatTrigger -= CheckIsChatable; // Unsubscribe from the chat trigger event
         if (moveCoroutine != null)
             villager.StopCoroutine(moveCoroutine);

@@ -58,6 +58,7 @@ public class VillagerSleepState : IState
 {
     Villager villager;
     Coroutine sleepCoroutine;
+    Coroutine moveCoutine;
     public VillagerSleepState(Villager villager)
     {
         this.villager = villager;
@@ -68,7 +69,7 @@ public class VillagerSleepState : IState
         Debug.Log("Villager is entering sleep state.");
         villager.StartCoroutine(WaitForBed());
         villager.completedGoToTarget += OnGoToTarget;
-      
+        
         villager.isWorking = true;
         villager.isSleeping = true;
     }
@@ -81,7 +82,7 @@ public class VillagerSleepState : IState
         if(getBedPosition!=Vector2Int.zero)
         {
             Debug.Log("Villager found a bed at position: " + getBedPosition);
-            villager.Move(getBedPosition,1f);
+            villager.Move(getBedPosition,1f,moveCoutine);
         }
         else
         {
@@ -111,14 +112,15 @@ public class VillagerSleepState : IState
     public void ExitState()
     {
         villager.completedGoToTarget -= OnGoToTarget;
-        if(villager.moveCoroutine != null)
-        {
-            villager.StopCoroutine(villager.moveCoroutine); // Stop any existing movement coroutine
-        }
         if(sleepCoroutine != null)
         {
             villager.StopCoroutine(sleepCoroutine); // Stop the sleep coroutine
             sleepCoroutine = null;
+        }
+        if(moveCoutine!=null)
+        {
+            villager.StopCoroutine(moveCoutine);
+            moveCoutine = null;
         }
         // Logic for exiting the villager sleep state
     }

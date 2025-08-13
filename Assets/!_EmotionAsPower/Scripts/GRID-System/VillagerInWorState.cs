@@ -3,13 +3,14 @@ using UnityEngine;
 public class VillagerInWorState : IState
 {
     Villager villager;
+    Coroutine moveCoroutine;
     public VillagerInWorState(Villager villager)
     {
         this.villager = villager;
     }
     public void EnterState()
     {
-       villager.Move(new Vector2Int(0, 0), 1f); // Assuming home is at (0, 0)
+       villager.Move(new Vector2Int(0, 0), villager.speed, moveCoroutine); // Assuming home is at (0, 0)
        villager.completedGoToTarget += DropItem;
     }
     public void DropItem()

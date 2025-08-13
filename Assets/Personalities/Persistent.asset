@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d7fe13b0681f9458a5cde40d2f3d5c, type: 3}
+  m_Name: Persistent
+  m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
+  name: Persistent
+  description: '+5 Joy to receiver.
+
+    -3 food/day.
+
+    +50% Work speed.
+
+    +50%
+    Move speed.
+
+    +50% Max carry.'
+  rateSendChat: 0.5
+  rateAcceptChat: 0.8
+  emotionSendAffterChat:
+    AngerLevel: 0
+    JoyLevel: 5
+    SadnessLevel: 0
+    FearLevel: 0
+    ApatheticLevel: 0
+  emotionSensity:
+    AngerLevel: 0
+    JoyLevel: 1
+    SadnessLevel: 0
+    FearLevel: 0
+    ApatheticLevel: 0
+  hungerModifier: 3
+  moveSpeedModifier: 1.5
+  workSpeedModifier: 1.5
+  maxCarryModifier: 1.5

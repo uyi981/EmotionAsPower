@@ -3,6 +3,7 @@ using UnityEngine;
 public class VillagerBackToHomeState : IState
 {
     Villager villager;
+    Coroutine moveCoroutine;
     public VillagerBackToHomeState(Villager villager)
     {
         this.villager = villager;
@@ -10,7 +11,7 @@ public class VillagerBackToHomeState : IState
     public void EnterState()
     {
         
-        villager.Move(new Vector2Int(0, 0), 1f); // Assuming home is at (0, 0)
+        villager.Move(new Vector2Int(0, 0), 1f, moveCoroutine); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
         villager.isWorking = true; // Set working state to false
     }
@@ -26,8 +27,10 @@ public class VillagerBackToHomeState : IState
     public void ExitState()
     {
         villager.completedGoToTarget -= DropItem;
-        villager.Target =  null; // Clear the target
-        villager.animator.Play("idle");
+        villager.ResetCoroutine(moveCoroutine); 
+        // Reset the move coroutine reference
+      //  villager.Target =  null; // Clear the target
+       // villager.animator.Play("idle");
         // Logic for exiting the villager selected state
     }
 }
@@ -35,6 +38,7 @@ public class VillagerAttackEnermyState : IState
 {
     Villager villager;
     Coroutine attack;
+    Coroutine moveCoroutine;
 
 
     public VillagerAttackEnermyState(Villager villager)
@@ -50,7 +54,7 @@ public class VillagerAttackEnermyState : IState
         }
         Vector3Int vector3Int = Singleton<GridSystem>.Instance.grid.WorldToCell(villager.Target.transform.position);
         Vector2Int targetPosition = new Vector2Int(vector3Int.x, vector3Int.z);
-        villager.Move(targetPosition,villager.speed); // Assuming home is at (0, 0)
+        villager.Move(targetPosition,villager.speed, moveCoroutine); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
         villager.isWorking = true; // Set working state to false
     }
@@ -102,9 +106,8 @@ public class VillagerAttackEnermyState : IState
         villager.completedGoToTarget -= DropItem;
         villager.Target = null; // Clear the target
         villager.animator.Play("idle");
-        if(attack != null)
-            villager.StopCoroutine(attack); // Stop the attack coroutine if it's running
-        attack = null; // Clear the attack coroutine reference
+        villager.ResetCoroutine(attack); // Reset the coroutine reference
+        villager.ResetCoroutine(moveCoroutine); // Reset the move coroutine reference
         // Logic for exiting the villager selected state
     }
 }

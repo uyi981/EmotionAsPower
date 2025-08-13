@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5821588278392093578}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4312676962411703384
@@ -45,9 +46,142 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Explosive
   explosionRange: 3
-  explosionDamage: 50
+  explosionDamage: 10
   damageLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  explosionPrefab: {fileID: 0}
+    m_Bits: 1024
+  usePhysicsForce: 1
+  explosionForce: 500
+  scaleWithDistance: 1
+  damageFalloffCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: -0.9
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.1
+      inSlope: -0.9
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  explosionPrefab: {fileID: 2909872314976155758, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
   explosionSound: {fileID: 0}
+  explosionEffectDuration: 0.2
+  effectLingerDuration: 0.5
+  explosionScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  showDebugGizmos: 1
+  logDamageDealt: 1
+--- !u!1001 &7131395419665845234
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4575566922941794431}
+    m_Modifications:
+    - target: {fileID: 2909872314976155758, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_Name
+      value: ExplosiveWithShader
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+--- !u!4 &5821588278392093578 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3620227694423486584, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+  m_PrefabInstance: {fileID: 7131395419665845234}
+  m_PrefabAsset: {fileID: 0}

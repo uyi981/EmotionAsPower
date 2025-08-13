@@ -22,11 +22,16 @@ public class PrisonBuilding : BuildingBase
             Debug.LogError("VFX object is null");
         }
     }
+    public override void OnBuildingComplete()
+    {
+        base.OnBuildingComplete();
+        InvokeRepeating(nameof(TakeEmotionEverytime), 0f, timeCheckPrison); // Check every second
+
+    }
     private void Start()
     {
         base.Start();
         gameObject.tag = "PrisonBuilding";
-        InvokeRepeating(nameof(TakeEmotionEverytime), 0f, timeCheckPrison); // Check every second
     }
     public void TakeEmotionEverytime()
     {

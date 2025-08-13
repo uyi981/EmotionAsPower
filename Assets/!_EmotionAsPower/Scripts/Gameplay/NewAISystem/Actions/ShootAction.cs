@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Shoot Action", menuName = "Scriptable Objects/AI/Actions/Shoot")]
 public class ShootAction : NewAIAction
 {
-    [Header("Shooting Settings")]
-    [SerializeField] private float shootingRange = 8f;
+    [Header("Attack Settings")]
+    [SerializeField] private float attackRange = 8f;
     [SerializeField] private float bulletDamage = 25f;
     [SerializeField] private float bulletSpeed = 10f;
     [SerializeField] private float fireRate = 1f; // shots per second
@@ -13,6 +13,7 @@ public class ShootAction : NewAIAction
 
     [Header("Bullet")]
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float bulletLifetime = 5f; // Bullet lifetime in seconds
 
     [Header("Shooting Position")]
     [SerializeField] private Vector3 shootOffset = new Vector3(0, 1.5f, 0); // Offset from AI center for bullet spawn
@@ -24,12 +25,13 @@ public class ShootAction : NewAIAction
     [Header("Behavior")]
     [SerializeField] private bool requiresLineOfSight = true;
     [SerializeField] private bool stopMovingWhileShooting = true;
-    [SerializeField] private float aimTime = 0.2f; // Time to aim before shooting
 
-    public float ShootingRange => shootingRange;
+    // Properties
+    public float AttackRange => attackRange;
     public float BulletDamage => bulletDamage;
     public float BulletSpeed => bulletSpeed;
     public float FireRate => fireRate;
+    public float BulletLifetime => bulletLifetime;
     public LayerMask DamageLayerMask => damageLayerMask;
     public GameObject BulletPrefab => bulletPrefab;
     public Vector3 ShootOffset => shootOffset;
@@ -37,7 +39,6 @@ public class ShootAction : NewAIAction
     public AudioClip ShootSound => shootSound;
     public bool RequiresLineOfSight => requiresLineOfSight;
     public bool StopMovingWhileShooting => stopMovingWhileShooting;
-    public float AimTime => aimTime;
 
     public override DetectableType[] TargetTypes()
     {

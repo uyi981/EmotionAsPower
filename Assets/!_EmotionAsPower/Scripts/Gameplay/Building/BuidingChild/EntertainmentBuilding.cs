@@ -30,7 +30,6 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
             Vector3 worldPos = transform.position;
             gridPosition = new Vector2Int(Mathf.FloorToInt(worldPos.x), Mathf.FloorToInt(worldPos.z));
 
-            InvokeRepeating(nameof(CheckForTargets), 0f, CHECK_INTERVAL);
         }
 
         private void OnDisable()
@@ -50,10 +49,15 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                 TryAffectTargets();
             }
         }
+        public override void OnBuildingComplete()
+        {
+            base.OnBuildingComplete();
+            InvokeRepeating(nameof(CheckForTargets), 0f, CHECK_INTERVAL);
 
+        }
         private void TryAffectTargets()
         {
-            Vector3 boxSize = new Vector3(effectRange * 2 + 1, 10f, effectRange * 2 + 1);
+            Vector3 boxSize = new Vector3(effectRange , 10f, effectRange * 2 + 1);
 
             Collider[] hitColliders = Physics.OverlapBox(
                 transform.position,

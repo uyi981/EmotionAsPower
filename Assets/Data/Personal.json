@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Extroverted",
+    "description": "Chat initiation +90%, chat acceptance +95%. Emotions after chat: Anger +20%, Joy +80%, Sadness +10%, Fear +10%, Apathetic 0%. Emotion sensitivity: Anger -20%, Joy +50%, Sadness -20%, Fear -20%, Apathetic -50%. Consumes 3.5 food/day. Movement speed +20%, Work speed 0%, Max carry 0%.",
+    "rateSendChat": 0.9,
+    "rateAcceptChat": 0.95,
+    "emotionSendAfterChat": { "anger": 2, "joy": 8, "sadness": 1, "fear": 1, "apathetic": 0 },
+    "emotionSensity": { "anger": 0.8, "joy": 1.5, "sadness": 0.8, "fear": 0.8, "apathetic": 0.5 },
+    "hungerModifier": 3.5,
+    "moveSpeedModifier": 1.2,
+    "workSpeedModifier": 1.0,
+    "maxCarryModifier": 1
+  },
+  {
+    "name": "Introverted",
+    "description": "Chat initiation -70%, chat acceptance -40%. Emotions after chat: Anger +10%, Joy +30%, Sadness +20%, Fear +20%, Apathetic +40%. Emotion sensitivity: Anger -50%, Joy 0%, Sadness +20%, Fear 0%, Apathetic +50%. Consumes 2.8 food/day. Movement speed 0%, Work speed +10%, Max carry 0%.",
+    "rateSendChat": 0.3,
+    "rateAcceptChat": 0.6,
+    "emotionSendAfterChat": { "anger": 1, "joy": 3, "sadness": 2, "fear": 2, "apathetic": 4 },
+    "emotionSensity": { "anger": 0.5, "joy": 1.0, "sadness": 1.2, "fear": 1.0, "apathetic": 1.5 },
+    "hungerModifier": 2.8,
+    "moveSpeedModifier": 1.0,
+    "workSpeedModifier": 1.1,
+    "maxCarryModifier": 1
+  },
+  {
+    "name": "Logical",
+    "description": "Chat initiation -50%, chat acceptance -20%. Emotions after chat: Anger +20%, Joy +40%, Sadness +20%, Fear +10%, Apathetic +20%. Emotion sensitivity: Anger -30%, Joy 0%, Sadness -20%, Fear -20%, Apathetic -30%. Consumes 3.0 food/day. Movement speed 0%, Work speed +30%, Max carry +100%.",
+    "rateSendChat": 0.5,
+    "rateAcceptChat": 0.8,
+    "emotionSendAfterChat": { "anger": 2, "joy": 4, "sadness": 2, "fear": 1, "apathetic": 2 },
+    "emotionSensity": { "anger": 0.7, "joy": 1.0, "sadness": 0.8, "fear": 0.8, "apathetic": 0.7 },
+    "hungerModifier": 3.0,
+    "moveSpeedModifier": 1.0,
+    "workSpeedModifier": 1.3,
+    "maxCarryModifier": 2
+  },
+  {
+    "name": "Emotional",
+    "description": "Chat initiation +80%, chat acceptance +90%. Emotions after chat: Anger +40%, Joy +80%, Sadness +50%, Fear +30%, Apathetic 0%. Emotion sensitivity: Anger +50%, Joy +80%, Sadness +80%, Fear +50%, Apathetic -50%. Consumes 3.2 food/day. Movement speed 0%, Work speed -10%, Max carry 0%.",
+    "rateSendChat": 0.8,
+    "rateAcceptChat": 0.9,
+    "emotionSendAfterChat": { "anger": 4, "joy": 8, "sadness": 5, "fear": 3, "apathetic": 0 },
+    "emotionSensity": { "anger": 1.5, "joy": 1.8, "sadness": 1.8, "fear": 1.5, "apathetic": 0.5 },
+    "hungerModifier": 3.2,
+    "moveSpeedModifier": 1.0,
+    "workSpeedModifier": 0.9,
+    "maxCarryModifier": 1
+  },
+  {
+    "name": "Perfectionist",
+    "description": "Chat initiation -40%, chat acceptance -30%. Emotions after chat: Anger +20%, Joy +40%, Sadness +20%, Fear +10%, Apathetic +10%. Emotion sensitivity: Anger 0%, Joy 0%, Sadness 0%, Fear -10%, Apathetic -20%. Consumes 3.0 food/day. Movement speed -10%, Work speed +50%, Max carry +100%.",
+    "rateSendChat": 0.6,
+    "rateAcceptChat": 0.7,
+    "emotionSendAfterChat": { "anger": 2, "joy": 4, "sadness": 2, "fear": 1, "apathetic": 1 },
+    "emotionSensity": { "anger": 1.0, "joy": 1.0, "sadness": 1.0, "fear": 0.9, "apathetic": 0.8 },
+    "hungerModifier": 3.0,
+    "moveSpeedModifier": 0.9,
+    "workSpeedModifier": 1.5,
+    "maxCarryModifier": 2
+  },
+  {
+    "name": "Creative",
+    "description": "Chat initiation +70%, chat acceptance +85%. Emotions after chat: Anger +10%, Joy +70%, Sadness +20%, Fear +10%, Apathetic 0%. Emotion sensitivity: Anger -20%, Joy +50%, Sadness -20%, Fear -10%, Apathetic -40%. Consumes 3.1 food/day. Movement speed +10%, Work speed 0%, Max carry 0%.",
+    "rateSendChat": 0.7,
+    "rateAcceptChat": 0.85,
+    "emotionSendAfterChat": { "anger": 1, "joy": 7, "sadness": 2, "fear": 1, "apathetic": 0 },
+    "emotionSensity": { "anger": 0.8, "joy": 1.5, "sadness": 0.8, "fear": 0.9, "apathetic": 0.6 },
+    "hungerModifier": 3.1,
+    "moveSpeedModifier": 1.1,
+    "workSpeedModifier": 1.0,
+    "maxCarryModifier": 1
+  },
+  {
+    "name": "Persistent",
+    "description": "Chat initiation -50%, chat acceptance -20%. Emotions after chat: Anger +20%, Joy +50%, Sadness +20%, Fear +10%, Apathetic 0%. Emotion sensitivity: Anger -10%, Joy 0%, Sadness -20%, Fear -10%, Apathetic -40%. Consumes 3.4 food/day. Movement speed 0%, Work speed +40%, Max carry +200%.",
+    "rateSendChat": 0.5,
+    "rateAcceptChat": 0.8,
+    "emotionSendAfterChat": { "anger": 2, "joy": 5, "sadness": 2, "fear": 1, "apathetic": 0 },
+    "emotionSensity": { "anger": 0.9, "joy": 1.0, "sadness": 0.8, "fear": 0.9, "apathetic": 0.6 },
+    "hungerModifier": 3.4,
+    "moveSpeedModifier": 1.0,
+    "workSpeedModifier": 1.4,
+    "maxCarryModifier": 3
+  },
+  {
+    "name": "Adaptable",
+    "description": "Chat initiation +70%, chat acceptance +85%. Emotions after chat: Anger +10%, Joy +60%, Sadness +10%, Fear +10%, Apathetic 0%. Emotion sensitivity: Anger -20%, Joy +20%, Sadness -20%, Fear -20%, Apathetic -40%. Consumes 3.0 food/day. Movement speed +10%, Work speed +20%, Max carry +100%.",
+    "rateSendChat": 0.7,
+    "rateAcceptChat": 0.85,
+    "emotionSendAfterChat": { "anger": 1, "joy": 6, "sadness": 1, "fear": 1, "apathetic": 0 },
+    "emotionSensity": { "anger": 0.8, "joy": 1.2, "sadness": 0.8, "fear": 0.8, "apathetic": 0.6 },
+    "hungerModifier": 3.0,
+    "moveSpeedModifier": 1.1,
+    "workSpeedModifier": 1.2,
+    "maxCarryModifier": 2
+  },
+  {
+    "name": "Leader",
+    "description": "Chat initiation +85%, chat acceptance +90%. Emotions after chat: Anger +30%, Joy +70%, Sadness +10%, Fear +10%, Apathetic 0%. Emotion sensitivity: Anger 0%, Joy +50%, Sadness -20%, Fear -20%, Apathetic -50%. Consumes 3.6 food/day. Movement speed +10%, Work speed +50%, Max carry +200%.",
+    "rateSendChat": 0.85,
+    "rateAcceptChat": 0.9,
+    "emotionSendAfterChat": { "anger": 3, "joy": 7, "sadness": 1, "fear": 1, "apathetic": 0 },
+    "emotionSensity": { "anger": 1.0, "joy": 1.5, "sadness": 0.8, "fear": 0.8, "apathetic": 0.5 },
+    "hungerModifier": 3.6,
+    "moveSpeedModifier": 1.1,
+    "workSpeedModifier": 1.5,
+    "maxCarryModifier": 3
+  },
+  {
+    "name": "Peacemaker",
+    "description": "Chat initiation +75%, chat acceptance +95%. Emotions after chat: Anger 0%, Joy +70%, Sadness +20%, Fear +10%, Apathetic +10%. Emotion sensitivity: Anger -50%, Joy +30%, Sadness 0%, Fear -20%, Apathetic -30%. Consumes 3.0 food/day. Movement speed 0%, Work speed 0%, Max carry +100%.",
+    "rateSendChat": 0.75,
+    "rateAcceptChat": 0.95,
+    "emotionSendAfterChat": { "anger": 0, "joy": 7, "sadness": 2, "fear": 1, "apathetic": 1 },
+    "emotionSensity": { "anger": 0.5, "joy": 1.3, "sadness": 1.0, "fear": 0.8, "apathetic": 0.7 },
+    "hungerModifier": 3.0,
+    "moveSpeedModifier": 1.0,
+    "workSpeedModifier": 1.0,
+    "maxCarryModifier": 2
+  }
+]

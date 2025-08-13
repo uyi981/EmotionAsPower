@@ -30,5 +30,5 @@ MonoBehaviour:
     ApatheticLevel: 1
   hungerModifier: 3
   moveSpeedModifier: 1.5
-  worKSpeedModifier: 0
-  maxCarryModifier: 0
+  workSpeedModifier: 0
+  maxCarryModifier: 1

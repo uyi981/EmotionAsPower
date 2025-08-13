@@ -280,11 +280,10 @@ MonoBehaviour:
     FearLevel: 0
     ApatheticLevel: 0
   personality: {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
+  emotionSO: {fileID: 0}
   itemHandle: {fileID: 5513727919606256443}
   isChatting: 0
   currentStateName: 
-  currentHunger: 100
-  currentThirst: 100
   playerEmotion: {fileID: 0}
   Target: {fileID: 0}
 --- !u!54 &9021815274021938899
@@ -344,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6655321178570764308}
   - component: {fileID: 5847622815356158302}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ItemHolder
   m_TagString: Villager
   m_Icon: {fileID: 0}
@@ -385,7 +384,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: -0.05, z: 1}
+  m_Size: {x: 1, y: 0.71, z: 1}
   m_Center: {x: 0, y: -0.23, z: 0}
 --- !u!1 &6037135054073991707
 GameObject:

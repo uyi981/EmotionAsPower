@@ -87,6 +87,29 @@ public class ItemStorage : Singleton<ItemStorage>, IDataPersistence
         return 0;
     }
 
+    public void SubtractItem(ItemSO itemSO, int amount)
+    {
+        string id = itemSO.ID;
+        if (amount <= 0) return;
+
+        if (storagedItems.ContainsKey(id) && storagedItems[id] >= amount)
+        {
+            storagedItems[id] -= amount;
+            if (storagedItems[id] == 0)
+            {
+                storagedItems.Remove(id);
+            }
+            OnStoragedItemsChange?.Invoke(storagedItems);
+            return;
+        }
+        if(storagedItems.ContainsKey(id) && storagedItems[id] < amount)
+        {
+            storagedItems.Remove(id);
+        }
+        OnStoragedItemsChange?.Invoke(storagedItems);
+        return ;
+    }
+
     public int TryTakeItem(ItemSO itemSO, int amount)
     {
         return TryTakeItem(itemSO.ID, amount);

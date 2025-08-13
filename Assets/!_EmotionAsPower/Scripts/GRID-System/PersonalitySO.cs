@@ -12,6 +12,6 @@ public class PersonalitySO :ScriptableObject
     public EmotionVector emotionSensity; //will analyze emotionSendAffterChat from other NPC
     public int hungerModifier; // how much hunger will be affected by emotion
     public float moveSpeedModifier; // how much movement speed will be affected by emotion
-    public float worKSpeedModifier; // how much work speed will be affected by emotion
+    public float workSpeedModifier; // how much work speed will be affected by emotion
     public float maxCarryModifier;
 }
