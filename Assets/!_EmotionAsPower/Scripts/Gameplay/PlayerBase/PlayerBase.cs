@@ -157,4 +157,9 @@ public class PlayerBase : Singleton<PlayerBase>, IDataPersistence, IHealth
             }
         }
     }
+    public void FullRecovery()
+    {
+        this.health = maxHealth;
+        healthBar.SetProcess(health / maxHealth);
+    }
 }
