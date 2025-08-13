@@ -74,7 +74,7 @@ public class VillagerIdleState : IState
                         Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
                         ResetMovingRandom();
-                        villager.Move(villagerPosition, villager.personality.moveSpeedModifier);
+                        villager.Move(villagerPosition, villager.speed);
                         hasItem = true;
                         break;
                     }
@@ -86,7 +86,7 @@ public class VillagerIdleState : IState
                         Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
                         ResetMovingRandom();
-                        villager.Move(villagerPosition, villager.personality.moveSpeedModifier);
+                        villager.Move(villagerPosition, villager.speed);
                         hasItem = true;
                         break;
                     }
@@ -95,7 +95,7 @@ public class VillagerIdleState : IState
                         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
                         ResetMovingRandom();
-                        villager.Move(targetPosition, villager.personality.moveSpeedModifier);
+                        villager.Move(targetPosition, villager.speed);
                         hasItem = true;
                         break;
                     }
@@ -105,7 +105,7 @@ public class VillagerIdleState : IState
                         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                         Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
                         ResetMovingRandom();
-                        villager.Move(targetPosition, villager.personality.moveSpeedModifier);
+                        villager.Move(targetPosition, villager.speed);
                         hasItem = true;
                         break;
                     }
@@ -174,7 +174,7 @@ public class VillagerIdleState : IState
                 villager.transform.position = Vector3.MoveTowards(
                     villager.transform.position,
                     targetPosition,
-                    villager.personality.moveSpeedModifier * Time.deltaTime
+                    villager.speed * Time.deltaTime
                 );
                 yield return null;
             }

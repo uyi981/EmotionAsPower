@@ -181,7 +181,7 @@ public class VillagerStarvingState : IState
                 villager.transform.position = Vector3.MoveTowards(
                     villager.transform.position,
                     targetPosition,
-                     villager.personality.moveSpeedModifier * Time.deltaTime
+                     villager.speed
                 );
                 yield return null;
             }

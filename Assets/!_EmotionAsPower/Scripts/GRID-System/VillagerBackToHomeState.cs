@@ -50,7 +50,7 @@ public class VillagerAttackEnermyState : IState
         }
         Vector3Int vector3Int = Singleton<GridSystem>.Instance.grid.WorldToCell(villager.Target.transform.position);
         Vector2Int targetPosition = new Vector2Int(vector3Int.x, vector3Int.z);
-        villager.Move(targetPosition,villager.personality.moveSpeedModifier); // Assuming home is at (0, 0)
+        villager.Move(targetPosition,villager.speed); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
         villager.isWorking = true; // Set working state to false
     }
@@ -62,18 +62,10 @@ public class VillagerAttackEnermyState : IState
             return;
         }
         Health health = villager.Target.GetComponent<Health>();
-        if (health == null)
+        if(health==null)
         {
-            BuildingBase healthInterface = villager.Target.GetComponent<BuildingBase>();
-            if(healthInterface != null)
-            {
-                attack = villager.StartCoroutine(Attack(health)); // Start attacking the target
-                return;
-            }
-            Debug.LogWarning("No health component found on the target.");
-            villager.TransitionTo(villager.villagerIdleState);
-            
-        }
+            return;
+        } 
         attack = villager.StartCoroutine(Attack(health)); // Start attacking the target
     }
     public IEnumerator Attack(BuildingBase health)
@@ -90,8 +82,13 @@ public class VillagerAttackEnermyState : IState
     {
         while(health !=null||health.CurrentHealth>0)
         {
+            if(health==null)
+            {
+                break;
+            }    
             villager.animator.Play("Attack");
             health.TakeDamage(1f);
+            
             yield return new WaitForSeconds(1f); // Wait for 1 second before the next attack
         }
         villager.TransitionTo(villager.villagerIdleState); // Transition to idle state after defeating the enemy
@@ -121,6 +118,11 @@ public class villagerPrisonState :IState
     public void EnterState()
     {
        villager.isPrisoner = true; // Set villager as a prisoner
+        if(villager.moveCoroutine!=null)
+        {
+            villager.StopCoroutine(villager.moveCoroutine); // Stop any existing move coroutine
+            villager.moveCoroutine = null; // Clear the reference
+        }
     }
 
     public void ExitState()

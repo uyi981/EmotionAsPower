@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PrisonBuilding : BuildingBase
 {
-    Villager currentPrison;
+    public Villager currentPrison;
     public float timeCheckPrison = 30f;
     public Transform position;
     public void TakeEmotion(Emotion emotion,int value)
@@ -47,6 +47,7 @@ public class PrisonBuilding : BuildingBase
             ReleasePrison();//release prison
             return;
         }
+        Singleton<ItemStorage>.Instance.AddItem(EmotionHelper.GetEmotionID(emotion), 10);
         currentPrison.emotion.minusEmotion(emotion,10);
         currentPrison.HandleEmotion(emotion);
     }

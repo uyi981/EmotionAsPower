@@ -4,8 +4,6 @@ public class ShootActionExecutor : AIActionExecutor
 {
     private ShootAction shootAction;
     private float lastShotTime;
-    private float aimTimer;
-    private bool isAiming;
     private bool wasMoving;
     private Vector3 lastTargetPosition;
 
@@ -17,8 +15,6 @@ public class ShootActionExecutor : AIActionExecutor
     public override void StartAction()
     {
         lastShotTime = 0f;
-        aimTimer = 0f;
-        isAiming = false;
         wasMoving = false;
         lastTargetPosition = Vector3.zero;
     }
@@ -37,11 +33,9 @@ public class ShootActionExecutor : AIActionExecutor
         float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetPosition);
 
         // If target is out of range, move closer
-        if (distanceToTarget > shootAction.ShootingRange)
+        if (distanceToTarget > shootAction.AttackRange)
         {
             HandleMovementToTarget();
-            isAiming = false;
-            aimTimer = 0f;
             return ActionState.Running;
         }
 
@@ -49,8 +43,6 @@ public class ShootActionExecutor : AIActionExecutor
         if (shootAction.RequiresLineOfSight && !HasLineOfSight(targetPosition))
         {
             HandleMovementToTarget();
-            isAiming = false;
-            aimTimer = 0f;
             return ActionState.Running;
         }
 
@@ -68,20 +60,11 @@ public class ShootActionExecutor : AIActionExecutor
         // Face the target
         FaceTarget(targetPosition);
 
-        // Handle aiming and shooting
-        if (!isAiming)
-        {
-            isAiming = true;
-            aimTimer = 0f;
-        }
-
-        aimTimer += Time.deltaTime;
-
-        // Check if we can shoot (after aim time and fire rate cooldown)
+        // Check if we can shoot (fire rate cooldown)
         float timeSinceLastShot = Time.time - lastShotTime;
         float shootCooldown = 1f / shootAction.FireRate;
 
-        if (aimTimer >= shootAction.AimTime && timeSinceLastShot >= shootCooldown)
+        if (timeSinceLastShot >= shootCooldown)
         {
             Shoot(targetPosition);
         }
@@ -96,9 +79,9 @@ public class ShootActionExecutor : AIActionExecutor
 
         Vector3 currentTargetPos = actionData.targetObject.transform.position;
 
-        // Move to optimal shooting position (slightly closer than max range)
+        // Move to optimal attack position (85% of max range for grid-based map to account for pathfinding)
         Vector3 directionToTarget = (currentTargetPos - actionData.ai.transform.position).normalized;
-        Vector3 optimalPosition = currentTargetPos - directionToTarget * (shootAction.ShootingRange * 0.8f);
+        Vector3 optimalPosition = currentTargetPos - directionToTarget * (shootAction.AttackRange * 0.85f);
 
         mover.MoveToWorldPosition(optimalPosition);
         wasMoving = true;
@@ -124,17 +107,16 @@ public class ShootActionExecutor : AIActionExecutor
 
     private void FaceTarget(Vector3 targetPosition)
     {
-        Vector3 directionToTarget = (targetPosition - actionData.ai.transform.position).normalized;
-        directionToTarget.y = 0f; // Keep rotation only on Y axis
+        UnitMover mover = actionData.ai.UnitMover;
+        if (mover == null || !mover.flipable) return;
 
-        if (directionToTarget != Vector3.zero)
+        Vector3 directionToTarget = (targetPosition - actionData.ai.transform.position).normalized;
+
+        // Determine flip direction based on target position
+        if (Mathf.Abs(directionToTarget.x) > 0.1f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-            actionData.ai.transform.rotation = Quaternion.Slerp(
-                actionData.ai.transform.rotation,
-                targetRotation,
-                Time.deltaTime * 5f
-            );
+            bool shouldFlip = mover.baseFlip ? (directionToTarget.x >= 0) : (directionToTarget.x < 0);
+            mover.ToggleFlip(shouldFlip);
         }
     }
 
@@ -155,7 +137,7 @@ public class ShootActionExecutor : AIActionExecutor
 
             if (bullet != null)
             {
-                bullet.Initialize(shootDirection, shootAction.BulletDamage, shootAction.BulletSpeed, shootAction.DamageLayerMask);
+                bullet.Initialize(shootDirection, shootAction.BulletDamage, shootAction.BulletSpeed, shootAction.BulletLifetime, shootAction.DamageLayerMask);
             }
         }
 
@@ -181,13 +163,11 @@ public class ShootActionExecutor : AIActionExecutor
             mover.StopMovement();
         }
         wasMoving = false;
-        isAiming = false;
     }
 
     public override void OnActionComplete()
     {
         wasMoving = false;
-        isAiming = false;
     }
 
     public override void OnActionInterrupted()
@@ -198,8 +178,6 @@ public class ShootActionExecutor : AIActionExecutor
             mover.StopMovement();
         }
         wasMoving = false;
-        isAiming = false;
-        aimTimer = 0f;
     }
 
     public override void Perform()
@@ -230,11 +208,9 @@ public class ShootActionExecutor : AIActionExecutor
         float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetPosition);
 
         // If target is out of range, move closer
-        if (distanceToTarget > shootAction.ShootingRange)
+        if (distanceToTarget > shootAction.AttackRange)
         {
             HandleMovementToTarget();
-            isAiming = false;
-            aimTimer = 0f;
             actionData.state = ActionState.Running;
             return;
         }
@@ -243,8 +219,6 @@ public class ShootActionExecutor : AIActionExecutor
         if (shootAction.RequiresLineOfSight && !HasLineOfSight(targetPosition))
         {
             HandleMovementToTarget();
-            isAiming = false;
-            aimTimer = 0f;
             actionData.state = ActionState.Running;
             return;
         }
@@ -263,20 +237,11 @@ public class ShootActionExecutor : AIActionExecutor
         // Face the target
         FaceTarget(targetPosition);
 
-        // Handle aiming and shooting
-        if (!isAiming)
-        {
-            isAiming = true;
-            aimTimer = 0f;
-        }
-
-        aimTimer += Time.deltaTime;
-
-        // Check if we can shoot
+        // Check if we can shoot (fire rate cooldown)
         float timeSinceLastShot = Time.time - lastShotTime;
         float shootCooldown = 1f / shootAction.FireRate;
 
-        if (aimTimer >= shootAction.AimTime && timeSinceLastShot >= shootCooldown)
+        if (timeSinceLastShot >= shootCooldown)
         {
             Shoot(targetPosition);
         }
