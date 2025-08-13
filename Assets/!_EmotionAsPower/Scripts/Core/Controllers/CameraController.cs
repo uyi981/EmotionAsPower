@@ -44,7 +44,6 @@ public class CameraController : MonoBehaviour
         {
             return;
         }
-
         Singleton<InputManager>.Instance.OnCameraMovement -= Instance_OnCameraMovement;
         Singleton<InputManager>.Instance.OnCameraScroll -= Instance_OnCameraScroll;
     }
@@ -67,8 +66,9 @@ public class CameraController : MonoBehaviour
         float actualScrollSpeed = scrollSpeed * speedMultiplier;
         float deltaTime = GetDeltaTime();
 
-        // Apply vertical movement based on scroll velocity
-        Vector3 scrollMovement = Vector3.up * scrollVelocity * actualScrollSpeed * deltaTime;
+        // Move along the camera's forward direction instead of world up
+        // This maintains the camera's focus point while zooming
+        Vector3 scrollMovement = mainCamera.transform.forward * scrollVelocity * actualScrollSpeed * deltaTime;
         transform.Translate(scrollMovement, Space.World);
 
         ClampCameraHeight();

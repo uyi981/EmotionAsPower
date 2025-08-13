@@ -17,4 +17,14 @@ public class DebugPanel : MonoBehaviour
     {
         DataPersistenceManager.Instance.LoadGame();
     }
+
+    public void HealPlayerBase()
+    {
+        PlayerBase.Instance.FullRecovery();
+    }
+
+    public void ClearThreats()
+    {
+        EnemyManager.Instance.ClearAllThreats();
+    }
 }
