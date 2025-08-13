@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewAIBehaviour
   actions:
     pairs:
-    - key: {fileID: 11400000, guid: f9c830364e5e7c347974f0408c36ab62, type: 2}
+    - key: {fileID: 11400000, guid: c813b297d6c70274bb19c39e5f55bde1, type: 2}
       value: 20
-    - key: {fileID: 11400000, guid: 8b561f3f524d35c45b34a25d501dd360, type: 2}
-      value: 10

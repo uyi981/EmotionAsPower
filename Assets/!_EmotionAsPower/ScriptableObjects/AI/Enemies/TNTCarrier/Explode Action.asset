@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Explode Action
   m_EditorClassIdentifier: Assembly-CSharp::ExplodeAction
   explosionRange: 0.5
-  explosionDamage: 50
+  explosionDamage: 10
   triggerRange: 1
   targetTypes: 0300000005000000
   damageLayerMask:
@@ -22,5 +22,5 @@ MonoBehaviour:
   destroySelfOnExplode: 1
   explosionDelay: 0.5
   explosiveObjectPrefab: {fileID: 8169177151157882191, guid: 95c971762c2d5494591fb8ba3cebeb9c, type: 3}
-  explosionPrefab: {fileID: 2909872314976155758, guid: f4b6bb77bf6fc214fb3869816c66f17f, type: 3}
+  explosionPrefab: {fileID: 8169177151157882191, guid: 95c971762c2d5494591fb8ba3cebeb9c, type: 3}
   explosionSound: {fileID: 0}
