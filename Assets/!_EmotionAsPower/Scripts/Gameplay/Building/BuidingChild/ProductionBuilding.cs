@@ -98,7 +98,18 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             workersAmount = 0;
         }
     }
-
+    public float GetWorkerSpeedModifier()
+    {
+        float speedModifier = 0f;
+        foreach (var worker in workers)
+        {
+            if (worker != null && worker.personality != null)
+            {
+                speedModifier += worker.personality.worKSpeedModifier;
+            }
+        }
+        return speedModifier;
+    }
     public IEnumerator ProduceItem()
     {
         while (isProducing)
@@ -110,7 +121,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             currentProductionTime = 0f;
             while (currentProductionTime < productionTime && isProducing)
             {
-                currentProductionTime += 0.1f*workersAmount;
+                currentProductionTime += 0.1f*GetWorkerSpeedModifier();
                 ProcessBar processBar = productionBarInstance.GetComponent<ProcessBar>();
 
                 processBar.SetProcess(currentProductionTime / productionTime);
@@ -195,7 +206,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
 
             // Spawn positions: in front, left, right
             Vector3[] spawnPositions = new Vector3[3];
-            spawnPositions[0] = basePosition + forward * (1 + selectedBuilding.size.y);      // In front
+            spawnPositions[0] = basePosition - forward * (1 + selectedBuilding.size.y);      // In front
             spawnPositions[1] = basePosition - right * (0.5f * selectedBuilding.size.x);      // Left
             spawnPositions[2] = basePosition + right * (0.5f * selectedBuilding.size.x);      // Right
 

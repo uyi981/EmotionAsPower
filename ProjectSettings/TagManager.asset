@@ -20,7 +20,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Skill
   - Water
   - UI
   - Ground
@@ -28,6 +28,7 @@ TagManager:
   - Villager
   - Resource
   - Building
+  - Item
   - 
   - 
   - 
