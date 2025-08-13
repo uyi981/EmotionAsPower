@@ -10,16 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10d7fe13b0681f9458a5cde40d2f3d5c, type: 3}
-  m_Name: Distant
+  m_Name: Emotional
   m_EditorClassIdentifier: Assembly-CSharp::PersonalitySO
-  name: 'Sociable '
-  description: "100% \n+50% moveSpeed\n-15% hieu suat lam vie\n"
-  rateSendChat: 1
-  rateAcceptChat: 1
+  name: Emotional
+  description: '+8 Sad to receiver.
+
+    -2 food/day.
+
+    -10% Work speed.
+
+    -Never
+    feel boring'
+  rateSendChat: 0.8
+  rateAcceptChat: 0.9
   emotionSendAffterChat:
-    AngerLevel: 10000
+    AngerLevel: 0
     JoyLevel: 0
-    SadnessLevel: 0
+    SadnessLevel: 8
     FearLevel: 0
     ApatheticLevel: 0
   emotionSensity:
@@ -27,8 +34,8 @@ MonoBehaviour:
     JoyLevel: 1
     SadnessLevel: 1
     FearLevel: 1
-    ApatheticLevel: 1
-  hungerModifier: 3
-  moveSpeedModifier: 1.5
-  workSpeedModifier: 0
+    ApatheticLevel: 0
+  hungerModifier: 2
+  moveSpeedModifier: 1
+  workSpeedModifier: 0.9
   maxCarryModifier: 1

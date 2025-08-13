@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class VillagerDetailUI :MonoBehaviour
         villagerThirstText.text = "Thirst: " + "100/100";
         villagerStateText.text = "State: " + currentSelectedVillager.currentStateName;
         villagerPersonalityDescriptionText.text = currentSelectedVillager.personality.description;
+        SetStatsFromString(currentSelectedVillager.personality.description);
         villagerHPText.text = "HP: " + "100/100";
         // You can add more details as needed
     }
@@ -40,5 +42,40 @@ public class VillagerDetailUI :MonoBehaviour
     void Update()
     {
         
+    }
+    public void SetStatsFromString(string multiLineText)
+    {
+        if (villagerPersonalityDescriptionText == null || string.IsNullOrWhiteSpace(multiLineText)) return;
+
+        // Tách thành list string theo dòng
+        string[] lines = multiLineText.Split(new[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+        List<string> stats = new List<string>(lines);
+        ApplyColors(stats);
+    }
+
+    private void ApplyColors(List<string> stats)
+    {
+        string finalText = "";
+
+        foreach (string stat in stats)
+        {
+            string trimmed = stat.Trim();
+
+            if (trimmed.StartsWith("+"))
+            {
+                finalText += $"<color=green>{trimmed}</color>\n";
+            }
+            else if (trimmed.StartsWith("-"))
+            {
+                finalText += $"<color=red>{trimmed}</color>\n";
+            }
+            else
+            {
+                finalText += $"{trimmed}\n";
+            }
+        }
+
+        villagerPersonalityDescriptionText.text = finalText.TrimEnd('\n');
     }
 }

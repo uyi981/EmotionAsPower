@@ -261,7 +261,9 @@ MonoBehaviour:
     keyValuePairs:
       pairs:
       - key: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
-        value: 10
+        value: 2
+      - key: {fileID: 11400000, guid: 65d0c0ff07e78234ab06dc59a8f60be8, type: 2}
+        value: 2
     buildTime: 1
     size: {x: 1, y: 1}
     maxHP: 1000
