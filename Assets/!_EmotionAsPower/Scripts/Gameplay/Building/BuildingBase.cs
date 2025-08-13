@@ -185,7 +185,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         while (time > 0f)
         {
             yield return new WaitForSeconds(0.1f);
-            time -= 0.1f * workersAmount;
+            time -= 0.1f * GetWorkerSpeedModifier();
             buildProgress = time / buildTime;
             processBarImg.SetProcess(1 - buildProgress);
         }
@@ -197,8 +197,18 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         OnBuildingComplete();
         isBuildingComplete = true; // Đánh dấu công trình đã hoàn thành xây dựng
     }
-
-
+    public float GetWorkerSpeedModifier()
+    {
+        float speedModifier = 0f; // Mặc định là không có modifier
+        if (workers.Count > 0)
+        {
+            foreach (Villager worker in workers)
+            {
+                speedModifier += worker.workSpeed; // Cộng modifier từ từng công nhân
+            }
+        }
+        return speedModifier;
+    }
 
     /// <summary>
     /// Phương thức này được gọi để reset danh sách công nhân.
