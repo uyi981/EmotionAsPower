@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using LgTyUtils;
@@ -21,6 +22,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     public Transform explosivesParent;
     [SerializeField]
     public Transform bulletsParent;
+    public event Action enemySpawned;
 
     private void Start()
     {
@@ -106,7 +108,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     {
         if (radius < 0) radius = spawnRadius;
 
-        float angle = Random.Range(0f, 2f * Mathf.PI);
+        float angle = UnityEngine.Random.Range(0f, 2f * Mathf.PI);
         Vector3 position = spawnCenter + new Vector3(
             Mathf.Cos(angle) * radius,
             0f,
@@ -362,6 +364,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     public void SpawnEnemyWave(StageOfDay stageOfDayCondition)
     {
         if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
+        enemySpawned?.Invoke();
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
 
         // Iterate through each enemy type and their spawn data arrays
@@ -381,7 +384,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
                     // Add random variation if spawning multiple enemies
                     if (spawnData.count > 1)
                     {
-                        angleDeg += Random.Range(-20f, 20f);
+                        angleDeg += UnityEngine.Random.Range(-20f, 20f);
                     }
 
                     float angleRad = angleDeg * Mathf.Deg2Rad;

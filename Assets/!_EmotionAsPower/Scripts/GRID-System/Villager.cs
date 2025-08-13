@@ -32,7 +32,7 @@ public class Villager : MonoBehaviour,IInteractable
     public bool isSleeping = false;
     public bool isStarving = false;
     public bool isPrisoner = false;
-    public bool isOverControlled = false; // Flag to indicate if the villager is being controlled by the player
+    public bool isChatting = false; // Flag to indicate if the villager is currently chatting
     public Animator animator;
     public Emotion currentEmotion = Emotion.Normal;
     public JobForWorker currentJob;
@@ -56,7 +56,6 @@ public class Villager : MonoBehaviour,IInteractable
     public event Action<Villager> receiveChat;
     public event Action changeEmotion;
     public event Action<Collider> chatTrigger;
-    public bool isChatting;
     public string currentStateName;
     public event Action OnVillagerUpdate;
     public PlayerEmotion playerEmotion;
@@ -77,10 +76,6 @@ public class Villager : MonoBehaviour,IInteractable
     }
     void OnMouseDown()
     {
-        if(isOverControlled)
-        {
-            return; // Prevent interaction if the villager is over-controlled
-        }
         isDragging = true;
         if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
         {
@@ -177,6 +172,7 @@ public class Villager : MonoBehaviour,IInteractable
         {
             Debug.Log("Đã đầy túi, không thể nhặt thêm.");
             // Nếu muốn villager về, gọi TransitionTo hoặc set flag ở đây
+            //   TransitionTo(villagerBackToHomeState);
             TransitionTo(villagerBackToHomeState);
             return;
         }
@@ -196,11 +192,11 @@ public class Villager : MonoBehaviour,IInteractable
 
         currentCarryCount++;
 
-        // Nếu đạt max thì trigger hành động về
         if (currentCarryCount >= maxCarryCount)
         {
             Debug.Log("Đã nhặt đủ " + maxCarryCount + " item, quay về.");
-            TransitionTo(villagerBackToHomeState);
+            TransitionTo(villagerIdleState);
+            // TransitionTo(villagerBackToHomeState);
             return;
         }
         TransitionTo(villagerIdleState); // Chuyển sang trạng thái làm việc nếu chưa đầy túi
@@ -321,15 +317,6 @@ public class Villager : MonoBehaviour,IInteractable
         Emotion emo = this.emotion.CheckEmotion();
         currentEmotion = emo;
         HandleEmotion(emo);
-        if(this.emotion.GetEmotionMaxPoint()>=80)
-        {
-            Debug.Log("Villager " + gameObject.name + " is over-controlled due to high emotion: " + emo);
-            isOverControlled = true; // Set the villager as over-controlled if any emotion exceeds 80
-        }
-        else
-        {
-            isOverControlled = false; // Reset the over-controlled flag if no emotion exceeds 80
-        }
     }
  
     public void Initialize(IState startingState)
@@ -344,6 +331,10 @@ public class Villager : MonoBehaviour,IInteractable
         //    return; // No transition needed if the next state is the same as the current state
         //}
         if (isPrisoner)
+        {
+            return;
+        }
+        if(isChatting)
         {
             return;
         }
@@ -395,7 +386,7 @@ public class Villager : MonoBehaviour,IInteractable
             coroutine = null; // Reset the coroutine reference
         }
     }
-    public void Move(Vector2Int targetPosition, float speed,Coroutine moveCoroutine)
+    public void Move(Vector2Int targetPosition, float speed)
     {
         Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(transform.position);
         //Debug.Log(villagerPosition);
@@ -405,6 +396,7 @@ public class Villager : MonoBehaviour,IInteractable
         List<Vector2Int> path = pathFinding.GetPathResult(VoHauMethod.NormalizeGridPosition(startPosition, 100, 100), VoHauMethod.NormalizeGridPosition(targetPosition, 100, 100), Singleton<GridSystem>.Instance.gridMap, 1);
         if (path != null && path.Count > 0)
         {
+            Debug.Log("is stucll");
 
             if (moveCoroutine!= null)
             {

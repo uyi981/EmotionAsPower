@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 
+[System.Serializable]
 public struct JobForWorker
 {
     public Vector2Int Position;

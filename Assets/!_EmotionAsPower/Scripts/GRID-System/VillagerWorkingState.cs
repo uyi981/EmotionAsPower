@@ -12,7 +12,7 @@ public class VillagerWorkingState : IState
     public void EnterState()
     {
         Debug.Log("Villager is now working.");
-        villager.Move(villager.currentJob.Position,villager.speed,moveCoroutine);
+        villager.Move(villager.currentJob.Position,villager.speed);
         villager.completedGoToTarget += OnWork;
         villager.collisionTrigger += OnCollisionEnter; // Subscribe to collision events
         villager.isWorking = true;
@@ -39,7 +39,14 @@ public class VillagerWorkingState : IState
     }
     public void UpdateState()
     {
-
+        if(villager.currentJob.JobType.Equals(JobType.Produce))
+        {
+           if(villager.currentJob.buildingBase==null)
+            {
+                villager.TransitionTo(villager.villagerIdleState);
+                return;
+            }
+        }
     }
     public void ExitState()
     {
@@ -51,11 +58,7 @@ public class VillagerWorkingState : IState
         Debug.Log("Villager has finished working.");
         villager.completedGoToTarget -= OnWork;
         villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from collision events
-        if (villager.moveCoroutine != null)
-        {
-            villager.StopCoroutine(villager.moveCoroutine);
-            villager.moveCoroutine = null;
-        }
+        villager.ResetCoroutine(moveCoroutine); // Reset the move coroutine
         villager.currentJob.JobType = JobType.None; // Reset the job type after exiting the working state
         // Implement logic for exiting the working state
     }

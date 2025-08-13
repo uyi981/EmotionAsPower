@@ -56,59 +56,48 @@ public class VillagerIdleState : IState
     }
     public IEnumerator CheckForTarget()
     {
+        yield return new WaitForSeconds(0.5f); // Initial delay before checking for items
         hasItem = false;
         while (!hasItem)
         {
-            //Debug.Log("Checking for items or resources...");
+            Debug.Log("Checking for items or resources...");
             yield return new WaitForSeconds(0.2f); // Check every 0.5 seconds
             Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 5f); // Adjust the radius as needed
-            for(int i = colliders.Length - 1; i >= 0; i--)
+            for (int i = colliders.Length - 1; i >= 0; i--)
             {
                 Collider collider = colliders[i];
-                if(villager.isOverControlled&&villager.currentEmotion.Equals(Emotion.Anger))
+                if (collider.CompareTag("Item"))
                 {
-                    if (collider.CompareTag("Building"))
-                    {
-                        Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
-                        Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
-                        ResetMovingRandom();
-                        villager.Move(villagerPosition, villager.speed, moveCoroutine);
-                        hasItem = true;
-                        break;
-                    }
+                    Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
+                    Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
+                    ResetMovingRandom();
+                    villager.Move(villagerPosition, villager.speed);
+                    hasItem = true;
+                    villager.isWorking = true; // Set working state to true
+                    yield break;
                 }
-                else
+                else if (collider.CompareTag("Resource"))
                 {
-                    if (collider.CompareTag("Item"))
-                    {
-                        Vector3Int itemPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
-                        Vector2Int villagerPosition = new Vector2Int(itemPosition.x, itemPosition.z);
-                        ResetMovingRandom();
-                        villager.Move(villagerPosition, villager.speed, moveCoroutine);
-                        hasItem = true;
-                        break;
-                    }
-                    else if (collider.CompareTag("Resource"))
-                    {
-                        Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
-                        Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
-                        ResetMovingRandom();
-                        villager.Move(targetPosition, villager.speed, moveCoroutine);
-                        hasItem = true;
-                        break;
-                    }
-                    else if (collider.CompareTag("Enermy")||collider.gameObject.layer==LayerMask.NameToLayer("Enemy"))
-                    {
-                        Debug.Log("Found Enermy: " + collider.gameObject.name);
-                        Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
-                        Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
-                        ResetMovingRandom();
-                        villager.Move(targetPosition, villager.speed, moveCoroutine);
-                        hasItem = true;
-                        break;
-                    }
+                    Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
+                    Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
+                    ResetMovingRandom();
+                    villager.Move(targetPosition, villager.speed);
+                    hasItem = true;
+                    villager.isWorking = true; // Set working state to true
+                    yield break;
                 }
-           
+                else if (collider.CompareTag("Enermy") || collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    Debug.Log("Found Enermy: " + collider.gameObject.name);
+                    Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
+                    Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
+                    ResetMovingRandom();
+                    villager.Move(targetPosition, villager.speed);
+                    hasItem = true;
+                    villager.isWorking = true; // Set working state to true
+                    yield break;
+                }
+
             }
         }
         hasItem = false; // Reset the flag after checking
@@ -122,20 +111,22 @@ public class VillagerIdleState : IState
     }
     public void CheckIsChatable(Collider other)
     {
+        if (villager.isChatting||villager.isWorking)
+        {
+            return; // Ignore if already chatting
+        }
         Villager otherVillager = other.GetComponent<Villager>();
-        if(otherVillager == null || otherVillager == villager)
+        if (otherVillager == null || otherVillager == villager)
         {
-            return; // Ignore if the collider is not a Villager or is the same Villager
+
+            return; // Ignore if  collider is not a Villager or is the same Villager 
         }
-        Debug.Log("Checking if villagers can chat: " + villager.name +villager.isChatting + " and " + otherVillager.name + otherVillager.isChatting);
-        if (otherVillager.isChatting)
-        {
-            return;
-        }
-       if(villager.isChatting)
+        Debug.Log("Checking if villagers can chat: " + villager.name + villager.isChatting + " and " + otherVillager.name + otherVillager.isChatting);
+        if (otherVillager.isChatting || otherVillager.isWorking)
         {
             return;
         }
+
         SendMessageToOtherVillager(otherVillager);
     }
     public void SendMessageToOtherVillager(Villager otherVillager)
@@ -147,10 +138,10 @@ public class VillagerIdleState : IState
             if(number2<=otherVillager.personality.rateAcceptChat*100)
             {
                 Debug.Log("Villager " + villager.name + " is chatting with " + otherVillager.name);
-                villager.isChatting = true;
-                otherVillager.isChatting = true;
                 villager.TransitionTo(villager.villagerChattingState);
                 otherVillager.TransitionTo(otherVillager.villagerChattingState);
+                villager.isChatting = true;
+                otherVillager.isChatting = true;
                 otherVillager.ReceiveChat(villager);
             }
         }
@@ -182,6 +173,8 @@ public class VillagerIdleState : IState
     }
     public void EnterState()
     {
+        if(moveCoroutine != null)
+            villager.StopCoroutine(moveCoroutine); // Stop any existing movement coroutine
         moveCoroutine = villager.StartCoroutine(MoveToRandomPointRoutine());
         checkForTargetCoroutine = villager.StartCoroutine(CheckForTarget()); // Start checking for items
         villager.completedGoToTarget+= OnComeTarget; // Subscribe to the event when the villager reaches the target
@@ -200,6 +193,7 @@ public class VillagerIdleState : IState
     }
     public void ExitState()
     {
+        villager.isWorking = false; // Set working state to false
         villager.completedGoToTarget -= OnComeTarget; // Subscribe to the event when the villager reaches the target
         //villager.collisionTrigger -= OnCollisionEnter; // Unsubscribe from the collision event
         villager.chatTrigger -= CheckIsChatable; // Unsubscribe from the chat trigger event
