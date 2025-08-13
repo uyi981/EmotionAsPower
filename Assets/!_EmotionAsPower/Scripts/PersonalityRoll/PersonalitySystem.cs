@@ -1,16 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PersonalitySystem : Singleton<PersonalitySystem>
 {
     public List<PersonalitySO> personalities = new List<PersonalitySO>();
+    public List<EmotionSO> emotionModifiers = new List<EmotionSO>();
     public Dictionary<string,PersonalitySO> personalitiesDic = new Dictionary<string,PersonalitySO>();
+    public Dictionary<Emotion, EmotionSO> emotionModifier = new Dictionary<Emotion, EmotionSO>();
+    bool isSetUp = false;
     public void SetUp()
     {
-        foreach(var item in personalities)
+        if(isSetUp)
+            return;
+        foreach (var item in personalities)
         {
             personalitiesDic.Add(item.name, item);
         }
+        foreach (var item in emotionModifiers)
+        {
+            if (!emotionModifier.ContainsKey(item.id))
+            {
+                emotionModifier.Add(item.id, item);
+            }
+        }
+        isSetUp = true;
+    }
+    private void Start()
+    {
+        SetUp();
     }
     public PersonalitySO GetPersonality(string name)
     {
@@ -18,6 +36,10 @@ public class PersonalitySystem : Singleton<PersonalitySystem>
         if(personality!=null)
             return personality;
         return null;
+    }
+    public EmotionSO GetEmotionModifier(Emotion emotion)
+    {
+        return emotionModifier[emotion];
     }
     public PersonalitySO Breeding()
     {

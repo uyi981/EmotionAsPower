@@ -98,18 +98,6 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             workersAmount = 0;
         }
     }
-    public float GetWorkerSpeedModifier()
-    {
-        float speedModifier = 0f;
-        foreach (var worker in workers)
-        {
-            if (worker != null && worker.personality != null)
-            {
-                speedModifier += worker.personality.worKSpeedModifier;
-            }
-        }
-        return speedModifier;
-    }
     public IEnumerator ProduceItem()
     {
         while (isProducing)

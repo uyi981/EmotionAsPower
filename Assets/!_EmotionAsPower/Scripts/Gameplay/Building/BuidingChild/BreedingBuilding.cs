@@ -29,7 +29,7 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
         {
             PersonalitySO personality = Singleton<PersonalitySystem>.Instance.Breeding();
             Villager villagerData = Instantiate(villagerPrefab, transform.position - Vector3.forward * 2f, Quaternion.identity, villagerManager.transform);
-            villagerData.personality = personality;
+            villagerData.SetPersonality(personality);
             villagerData.name = name;
             Singleton<VillagerManager>.Instance.AssginNewVillager(villagerData);
         }

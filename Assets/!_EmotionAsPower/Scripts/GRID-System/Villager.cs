@@ -22,6 +22,7 @@ public class VillagerRuntimeData
     public string id;
 
 }
+    
 public class Villager : MonoBehaviour,IInteractable
 {
     public string villagerId = Guid.NewGuid().ToString();
@@ -46,6 +47,7 @@ public class Villager : MonoBehaviour,IInteractable
     public VillagerAttackEnermyState villagerAttackEnermyState;
     public villagerPrisonState villagerPrisonState;
     public PersonalitySO personality;
+    public EmotionSO emotionSO;
     IState CurrentState;
     public Coroutine moveCoroutine;
     public GameObject itemHandle;
@@ -63,7 +65,16 @@ public class Villager : MonoBehaviour,IInteractable
     public IState oldState;
     private float itemHeight = 0.15f; // Chiều cao 1 item
     private int currentCarryCount = 0;
-    private int maxCarryCount = 6;   // Giới hạn số item có thể cầm
+
+    public float speed { get { return personality.moveSpeedModifier * emotionSO.moveSpeedModifier; } }
+    public float workSpeed { get { return personality.worKSpeedModifier * emotionSO.worKSpeedModifier; } }
+    public float hungerModifier { get { return Mathf.RoundToInt(personality.hungerModifier*emotionSO.hungerModifier); } }
+    public int maxCarryCount { get { return Mathf.RoundToInt(personality.maxCarryModifier * emotionSO.maxCarryModifier)*2; } }
+    public void SetPersonality(PersonalitySO personality)
+    {
+        this.personality = personality;
+
+    }
     void OnMouseDown()
     {
         if(isOverControlled)
@@ -129,6 +140,7 @@ public class Villager : MonoBehaviour,IInteractable
                 PrisonBuilding prisonBuilding = colliders[i].GetComponent<PrisonBuilding>();
                 if (prisonBuilding != null)
                 {
+                    Debug.Log("Villager " + gameObject.name + " is being set to prison.");
                     prisonBuilding.SetPrison(this);
                 }
             }
@@ -265,33 +277,38 @@ public class Villager : MonoBehaviour,IInteractable
             case Emotion.Joy:
                 // Ví dụ: NPC cười, vẫy tay, chạy nhanh
                 playerEmotion.SetEmotion(Emotion.Joy, Color.yellow);
+                emotionSO = Singleton<PersonalitySystem>.Instance.GetEmotionModifier(Emotion.Joy);
                 break;
 
             case Emotion.Sad:
                 // Ví dụ: NPC chậm chạp, cúi đầu
                 playerEmotion.SetEmotion(Emotion.Sad, Color.blue);
+                emotionSO = Singleton<PersonalitySystem>.Instance.GetEmotionModifier(Emotion.Sad);
                 break;
 
             case Emotion.Anger:
                 // Ví dụ: NPC đỏ mặt, nói gắt, đấm tường
                 playerEmotion.SetEmotion(Emotion.Anger, Color.orangeRed);
+                emotionSO = Singleton<PersonalitySystem>.Instance.GetEmotionModifier(Emotion.Anger);
                 break;
 
             case Emotion.Fear:
                 // Ví dụ: NPC rung, bỏ chạy, né xa player
                 playerEmotion.SetEmotion(Emotion.Fear, Color.lawnGreen);
-
+                emotionSO = Singleton<PersonalitySystem>.Instance.GetEmotionModifier(Emotion.Fear);
                 break;
 
             case Emotion.Apethatic:
                 // Ví dụ: NPC không phản ứng gì, đứng yên
                 playerEmotion.SetEmotion(Emotion.Apethatic, Color.gray);
+                emotionSO = Singleton<PersonalitySystem>.Instance.GetEmotionModifier(Emotion.Apethatic);
                 break;
 
             case Emotion.Normal:
             default:
                 // NPC hoạt động bình thường
                 playerEmotion.SetEmotion(Emotion.Normal, Color.white);
+                emotionSO = Singleton<PersonalitySystem>.Instance.GetEmotionModifier(Emotion.Normal);
                 break;
         }
         changeEmotion?.Invoke(); // Notify subscribers that the emotion has changed
