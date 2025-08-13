@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
 {
@@ -10,6 +12,12 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     Stack<JobForWorker> jobForWorkerPool = new Stack<JobForWorker>();
     public Stack<Vector2Int> bedPool = new Stack<Vector2Int>();
     public List<VillagerRuntimeData> villagersRuntime = new List<VillagerRuntimeData>();
+    public TextMeshProUGUI villagerCountText;
+    public TextMeshProUGUI foodConsumeText;
+    public int QuantityOfFoodConsumedPerDay
+    {
+        get { return caculateQuantityOfFoodConsumedPerDay(); }
+    }
     public void SendJobInMorning()
     {
 
@@ -21,6 +29,46 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         }
         SendJobToVillager();
     }   
+    public int caculateQuantityOfFoodConsumedPerDay()
+    {
+        int quantity = 0;
+        foreach (Villager villager in jobForWorkers)
+        {
+            quantity += villager.personality.hungerModifier;
+        }
+        return quantity;
+    }
+    public void VillagerEating(int quantity)
+    {
+        List<ItemSO> foodItems = new List<ItemSO>();
+        foreach (var item in Singleton<ContentManager>.Instance.itemLibrary.foods)
+        {
+            foodItems.Add(item);
+        }
+        foodItems.Sort((x, y) => y.useCases.Pairs[0].value.CompareTo(x.useCases.Pairs[0].value));
+        for(int i=0;i<foodItems.Count && quantity > 0; i++)
+        {
+            ItemSO foodItem = foodItems[i];
+            if (Singleton<ItemStorage>.Instance.StoragedItems.ContainsKey(foodItem.ID) && Singleton<ItemStorage>.Instance.StoragedItems[foodItem.ID] > 0)
+            {
+                int amountToConsume = Mathf.Min(quantity, Singleton<ItemStorage>.Instance.StoragedItems[foodItem.ID] * foodItem.useCases.Pairs[0].value);
+                Singleton<ItemStorage>.Instance.TryTakeItem(foodItem.ID, amountToConsume);
+                quantity -= amountToConsume;
+                Debug.Log("Villager consumed " + amountToConsume + " of " + foodItem.name);
+            }
+        }
+        if(quantity > 0)
+        {
+            Debug.LogWarning("Not enough food for villagers. Remaining quantity: " + quantity);
+        }
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            VillagerEating(QuantityOfFoodConsumedPerDay);
+        }
+    }
     public void WakeUpVillagerWhenRaidCome()
     {
      
@@ -117,6 +165,14 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         SetUp();
         villagerManagerUI.UpdateVillagerSlots(jobForWorkers);
         InvokeRepeating("SendJobToVillager", 5f,1);
+        if (villagerCountText != null)
+        {
+            villagerCountText.text =""+ jobForWorkers.Count;
+        }
+        if (foodConsumeText != null)
+        {
+            foodConsumeText.text = "" + QuantityOfFoodConsumedPerDay;
+        }
     }
     public void VillagersGoToSleep()
     {

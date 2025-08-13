@@ -98,7 +98,18 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             workersAmount = 0;
         }
     }
-
+    public float GetWorkerSpeedModifier()
+    {
+        float speedModifier = 0f;
+        foreach (var worker in workers)
+        {
+            if (worker != null && worker.personality != null)
+            {
+                speedModifier += worker.personality.worKSpeedModifier;
+            }
+        }
+        return speedModifier;
+    }
     public IEnumerator ProduceItem()
     {
         while (isProducing)
@@ -110,7 +121,7 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
             currentProductionTime = 0f;
             while (currentProductionTime < productionTime && isProducing)
             {
-                currentProductionTime += 0.1f*workersAmount;
+                currentProductionTime += 0.1f*GetWorkerSpeedModifier();
                 ProcessBar processBar = productionBarInstance.GetComponent<ProcessBar>();
 
                 processBar.SetProcess(currentProductionTime / productionTime);

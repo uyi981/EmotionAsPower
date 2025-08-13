@@ -18,4 +18,6 @@ MonoBehaviour:
   description: Ohh...This thing is amazing!
   category: 4
   useCases:
-    pairs: []
+    pairs:
+    - key: 0
+      value: 20

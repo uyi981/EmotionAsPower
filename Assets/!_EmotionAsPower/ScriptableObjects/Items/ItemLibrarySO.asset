@@ -29,6 +29,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5fe72cdec60b05e41811a08ef459deea, type: 2}
   - {fileID: 11400000, guid: fcc4c3619bc1e5942a3767a611e5cd4a, type: 2}
   - {fileID: 11400000, guid: 7ece13ca5a635c846810a8b5a9d1faf1, type: 2}
+  - {fileID: 11400000, guid: 72bae683e5472e449ade7367fa84bcfb, type: 2}
+  - {fileID: 11400000, guid: b7ff62e9261037446ba02ab4bedcb876, type: 2}
   specials: []
   itemSOs:
     pairs:
@@ -60,3 +62,7 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: fcc4c3619bc1e5942a3767a611e5cd4a, type: 2}
     - key: Item_RainbowMushroom
       value: {fileID: 11400000, guid: 7ece13ca5a635c846810a8b5a9d1faf1, type: 2}
+    - key: Item_PinkStickyRice
+      value: {fileID: 11400000, guid: 72bae683e5472e449ade7367fa84bcfb, type: 2}
+    - key: Item_LongStickyRice
+      value: {fileID: 11400000, guid: b7ff62e9261037446ba02ab4bedcb876, type: 2}

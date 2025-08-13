@@ -17,15 +17,11 @@ public class VillagerBackToHomeState : IState
     public void DropItem()
     {
         villager.DropAllItems();
+        villager.TransitionTo(villager.villagerIdleState);   // Transition to idle state after dropping items
     }
     public void UpdateState()
     {
-        // Logic for updating the villager selected state
-        if (villager.itemHandle.transform.childCount == 0)
-        {
-            villager.TransitionTo(villager.villagerIdleState);
-            return;
-        }
+        // Logic for updating the villager selected stat
     }
     public void ExitState()
     {
@@ -38,7 +34,9 @@ public class VillagerBackToHomeState : IState
 public class VillagerAttackEnermyState : IState
 {
     Villager villager;
-    
+    Coroutine attack;
+
+
     public VillagerAttackEnermyState(Villager villager)
     {
         this.villager = villager;
@@ -69,29 +67,31 @@ public class VillagerAttackEnermyState : IState
             BuildingBase healthInterface = villager.Target.GetComponent<BuildingBase>();
             if(healthInterface != null)
             {
-                villager.StartCoroutine(Attack(health)); // Start attacking the target
+                attack = villager.StartCoroutine(Attack(health)); // Start attacking the target
                 return;
             }
             Debug.LogWarning("No health component found on the target.");
             villager.TransitionTo(villager.villagerIdleState);
             
         }
-        villager.StartCoroutine(Attack(health)); // Start attacking the target
+        attack = villager.StartCoroutine(Attack(health)); // Start attacking the target
     }
     public IEnumerator Attack(BuildingBase health)
     {
         while (health.currentHP>0)
         {
             villager.animator.Play("Attack");
+            health.TakeDamage(1f); // Assuming personality has attack damage
             yield return new WaitForSeconds(1f); // Wait for 1 second before the next attack
         }
         villager.TransitionTo(villager.villagerIdleState); // Transition to idle state after defeating the enemy
     }
     public IEnumerator Attack(Health health)
     {
-        while(health.CurrentHealth>0)
+        while(health !=null||health.CurrentHealth>0)
         {
             villager.animator.Play("Attack");
+            health.TakeDamage(1f);
             yield return new WaitForSeconds(1f); // Wait for 1 second before the next attack
         }
         villager.TransitionTo(villager.villagerIdleState); // Transition to idle state after defeating the enemy
@@ -103,6 +103,11 @@ public class VillagerAttackEnermyState : IState
     public void ExitState()
     {
         villager.completedGoToTarget -= DropItem;
+        villager.Target = null; // Clear the target
+        villager.animator.Play("idle");
+        if(attack != null)
+            villager.StopCoroutine(attack); // Stop the attack coroutine if it's running
+        attack = null; // Clear the attack coroutine reference
         // Logic for exiting the villager selected state
     }
 }
