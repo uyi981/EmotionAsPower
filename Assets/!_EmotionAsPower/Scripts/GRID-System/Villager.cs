@@ -265,7 +265,7 @@ public class Villager : MonoBehaviour,IInteractable
         villagerStarvingState = new VillagerStarvingState(this);
         villagerAttackEnermyState = new VillagerAttackEnermyState(this);
         villagerPrisonState = new villagerPrisonState(this);
-        InvokeRepeating("UpdateState", 0f, 0.1f);
+        InvokeRepeating("UpdateState", 0f, 1f);
         Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
         TransitionTo(villagerIdleState); // Start with idle state
         playerEmotion =GetComponent<PlayerEmotion>();
@@ -364,6 +364,8 @@ public class Villager : MonoBehaviour,IInteractable
         {
             return;
         }
+        Singleton<ItemStorage>.Instance.AddItem(EmotionHelper.GetEmotionID(Emotion.Joy),1);
+
         //if (CurrentState != null)
         //{
         //    CurrentState.UpdateState();
