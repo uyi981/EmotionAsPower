@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c6c45369aa5b14241b98a61f380d33ab
+guid: 8e42272a9bb2e6a47bf5c1a3c5ce11ca
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,17 +106,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tower_0
+      name: Cage_0
       rect:
         serializedVersion: 2
-        x: 159
-        y: 330
-        width: 375
-        height: 366
+        x: 252
+        y: 42
+        width: 290
+        height: 403
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,30 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eaa7ba50b13f97e43a1a1f9642c4af0e
-      internalID: -1052965146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tower_1
-      rect:
-        serializedVersion: 2
-        x: 665
-        y: 326
-        width: 134
-        height: 455
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5c1c4bbad2537464cbba6ff620300b2d
-      internalID: 1105545474
+      spriteID: bcbb25eb7102f8444b337b9fb11f895e
+      internalID: -1149508409
       vertices: []
       indices: 
       edges: []
@@ -157,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2cdda0fed45d0ad4e88b864cc717bc32
+    spriteID: d03a39c51267d8246a88207e25f46b3b
     internalID: 0
     vertices: []
     indices: 
@@ -169,8 +160,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      tower_0: -1052965146
-      tower_1: 1105545474
+      Cage_0: -1149508409
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
