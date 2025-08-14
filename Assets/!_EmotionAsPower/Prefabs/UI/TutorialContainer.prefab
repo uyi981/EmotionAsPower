@@ -931,7 +931,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946369122700399638}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1787,10 +1787,17 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   nextButton: {fileID: 4633012588484654560}
+  skipButton: {fileID: 1785229516106290409}
   nextButtonText: {fileID: 5578998365037584160}
   panelSlider: {fileID: 0}
   nextButtonDefaultText: Next
   nextButtonFinishText: Finish
+  onTutorialFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onTutorialStarted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4992897797168924549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,8 +1902,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7358947193580394914}
-  - {fileID: 6981078431980202797}
-  - {fileID: 699872534415526293}
   - {fileID: 8115248807652202486}
   - {fileID: 7805844345327930332}
   - {fileID: 1473955688237336073}
@@ -1904,6 +1909,8 @@ RectTransform:
   - {fileID: 8061253727943741806}
   - {fileID: 4819297603389991572}
   - {fileID: 8932684762280397731}
+  - {fileID: 6981078431980202797}
+  - {fileID: 699872534415526293}
   m_Father: {fileID: 3616298763960793387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -2694,7 +2701,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8637951950110149956}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

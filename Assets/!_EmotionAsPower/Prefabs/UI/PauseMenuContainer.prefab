@@ -715,7 +715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7244809341423669803, guid: f55fe35f6773fe642a31045e64aa14ef, type: 3}
       propertyPath: m_text
-      value: Show Tutorial
+      value: Tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 8791844005544334029, guid: f55fe35f6773fe642a31045e64aa14ef, type: 3}
       propertyPath: m_Pivot.x
