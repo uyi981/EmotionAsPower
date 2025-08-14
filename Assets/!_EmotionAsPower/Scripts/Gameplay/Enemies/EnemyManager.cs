@@ -23,7 +23,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     [SerializeField]
     public Transform bulletsParent;
     public event Action enemySpawned;
-
+    public event Action enemyWaveEnd;
     private void Start()
     {
         DayTimeController.Instance.OnStageOfDayChanged += SpawnEnemyWave;

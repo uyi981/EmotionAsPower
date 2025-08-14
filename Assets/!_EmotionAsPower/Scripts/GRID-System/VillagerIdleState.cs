@@ -16,7 +16,7 @@ public class VillagerIdleState : IState
     }
     public void OnComeTarget()
     {
-        Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 2f); // Adjust the radius as needed
+        Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 1f); // Adjust the radius as needed
         for (int i = colliders.Length - 1; i >= 0; i--)
         {
             Collider collider = colliders[i];
@@ -62,7 +62,7 @@ public class VillagerIdleState : IState
         while (!hasItem)
         {
             yield return new WaitForSeconds(0.2f); // Check every 0.5 seconds
-            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 2f); // Adjust the radius as needed
+            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 5f); // Adjust the radius as needed
             for (int i = colliders.Length - 1; i >= 0; i--)
             {
                 Collider collider = colliders[i];
@@ -88,7 +88,6 @@ public class VillagerIdleState : IState
                 }
                 else if (collider.CompareTag("Enermy") || collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
-                    Debug.Log("Found Enermy: " + collider.gameObject.name);
                     Vector3Int villagerPosition = Singleton<GridSystem>.Instance.grid.WorldToCell(collider.transform.position);
                     Vector2Int targetPosition = new Vector2Int(villagerPosition.x, villagerPosition.z);
                     ResetMovingRandom();
@@ -121,7 +120,6 @@ public class VillagerIdleState : IState
 
             return; // Ignore if  collider is not a Villager or is the same Villager 
         }
-        Debug.Log("Checking if villagers can chat: " + villager.name + villager.isChatting + " and " + otherVillager.name + otherVillager.isChatting);
         if (otherVillager.isChatting || otherVillager.isWorking)
         {
             return;
@@ -137,7 +135,6 @@ public class VillagerIdleState : IState
             int number2 = Random.Range(0, 100);
             if(number2<=otherVillager.personality.rateAcceptChat*100)
             {
-                Debug.Log("Villager " + villager.name + " is chatting with " + otherVillager.name);
                 villager.TransitionTo(villager.villagerChattingState);
                 otherVillager.TransitionTo(otherVillager.villagerChattingState);
                 villager.isChatting = true;

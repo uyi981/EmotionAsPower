@@ -77,7 +77,7 @@ MonoBehaviour:
   baseCell: {x: 0, y: 0, z: 0}
   isBuildingComplete: 0
   attackDamage: 16
-  attackRange: 2
+  attackRange: 3
   attackCooldown: 1
   vfxName: attack2
   poolDefaultCapacity: 3

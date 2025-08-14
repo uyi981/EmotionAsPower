@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Explode Action
   m_EditorClassIdentifier: Assembly-CSharp::ExplodeAction
   explosionRange: 0.5
-  explosionDamage: 10
+  explosionDamage: 50
   triggerRange: 1
   targetTypes: 0300000005000000
   damageLayerMask:

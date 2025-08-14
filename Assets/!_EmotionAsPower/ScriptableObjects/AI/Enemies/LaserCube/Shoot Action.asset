@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaabaa691102a2c4b8d48fd91c8c3084, type: 3}
   m_Name: Shoot Action
   m_EditorClassIdentifier: Assembly-CSharp::ShootAction
-  attackRange: 8
-  bulletDamage: 25
+  attackRange: 5
+  bulletDamage: 5
   bulletSpeed: 5
   fireRate: 1
   targetTypes: 0300000005000000

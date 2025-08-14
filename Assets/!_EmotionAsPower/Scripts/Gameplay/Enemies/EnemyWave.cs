@@ -13,4 +13,5 @@ public class EnemyWave : ScriptableObject
     }
 
     public SerializableDictionary<GameObject, EnemySpawnData[]> enemies;
+    public bool isWaveEnd = false;
 }
