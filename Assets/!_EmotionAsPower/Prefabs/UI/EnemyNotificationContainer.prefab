@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWaveNotification
   notificationObject: {fileID: 8520669304503546029}
   warningTimeSeconds: 30
+  text: {fileID: 3932168332578418962}
 --- !u!1 &8520669304503546029
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class EnemyWaveNotification : MonoBehaviour
@@ -9,7 +10,9 @@ public class EnemyWaveNotification : MonoBehaviour
     private EnemySpawningConfig spawningConfig;
     private bool isShowing = false;
     private StageOfDay nextStageOfDay;
-
+    public TextMeshProUGUI text;
+    string notificationText = "Enemies will spawn soon!";
+    string notificationEndText = "Enemies Wave is end!";
     private void Awake()
     {
         dayTimeController = DayTimeController.Instance;
@@ -49,6 +52,17 @@ public class EnemyWaveNotification : MonoBehaviour
 
         if (spawningConfig.waves.ContainsKey(nextStageOfDay) && remainingSeconds <= warningTimeSeconds)
         {
+            if(spawningConfig.waves[nextStageOfDay] != null)
+            {
+                if (spawningConfig.waves[nextStageOfDay].isEndWave)
+                {
+                    text.text = notificationEndText;
+                }
+                else
+                {
+                    text.text = notificationText;
+                }
+            }
             ShowNotification();
         }
     }
