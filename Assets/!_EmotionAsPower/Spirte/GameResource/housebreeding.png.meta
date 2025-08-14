@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e1b36f4bc7a1254ca4d93804a9cb8fc
+guid: e5d7c1e186c9dde4a9237eebd7255ade
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ChiliTree_0
+      name: housebreeding_0
       rect:
         serializedVersion: 2
-        x: 207
-        y: 403
-        width: 106
-        height: 128
+        x: 326
+        y: 558
+        width: 321
+        height: 415
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6db75b3e299f137409ef070c1d32b5d4
-      internalID: 1183996941
+      spriteID: a212bb4e432fcc643a0c7e65d87f0b37
+      internalID: 759393428
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 63465e0bda210ba49839c896fd745e44
+    spriteID: bb66b83657e2fb14585640418bc005d1
     internalID: 0
     vertices: []
     indices: 
@@ -160,7 +160,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      ChiliTree_0: 1183996941
+      housebreeding_0: 759393428
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

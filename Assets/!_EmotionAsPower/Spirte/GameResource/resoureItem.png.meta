@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 77c09f9cadd493d42bec0de14e288f22
+guid: ea8f81f11395c624c8c452e45a28d2b9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: homeAndTower_0
+      name: resoureItem_0
       rect:
         serializedVersion: 2
-        x: 83
-        y: 386
-        width: 200
-        height: 204
+        x: 91
+        y: 578
+        width: 92
+        height: 102
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,20 +138,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad0e79578bcf4c14da627676840e27e2
-      internalID: 1952208395
+      spriteID: 2d044804b7464c6409562fe65df32999
+      internalID: 269033852
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: homeAndTower_1
+      name: resoureItem_1
       rect:
         serializedVersion: 2
-        x: 474
-        y: 328
-        width: 131
-        height: 371
+        x: 203
+        y: 601
+        width: 58
+        height: 54
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,8 +160,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90999ffa4231dcf478255aee9c52674c
-      internalID: 992145435
+      spriteID: 07d6cb8f4d7866840af6d89f8c1e7d29
+      internalID: -614349844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: resoureItem_2
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 595
+        width: 69
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52715f595156e734e97632fd42d63f20
+      internalID: 775446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: resoureItem_3
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 602
+        width: 51
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28931f9ee9ec3174aaf128da5f482e89
+      internalID: 1159732979
       vertices: []
       indices: 
       edges: []
@@ -170,7 +214,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: f1cdfe1fa3ef18e46823ac91afc47f5c
+    spriteID: 499272baa7194734988a6a4cf32baf3b
     internalID: 0
     vertices: []
     indices: 
@@ -182,10 +226,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      homeAndTower_0: 1952208395
-      homeAndTower_1: 992145435
-      homeAndTower_2: -1390570896
-      homeAndTower_3: -1397596241
+      resoureItem_0: 269033852
+      resoureItem_1: -614349844
+      resoureItem_2: 775446
+      resoureItem_3: 1159732979
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f1e8d0a39b384324c9bf59cd3052eea8
+guid: 6f0281c8ed0f10c4abdbea781dfbdf61
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: foodBuilding_0
+      name: Statue_0
       rect:
         serializedVersion: 2
-        x: 444
-        y: 99
-        width: 195
-        height: 201
+        x: 653
+        y: 40
+        width: 140
+        height: 392
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,30 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc641b2cf02519f49881dc0421106a01
-      internalID: -1015998845
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: foodBuilding_1
-      rect:
-        serializedVersion: 2
-        x: 666
-        y: 93
-        width: 221
-        height: 180
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9810eb44d67b22f428c6e00b02446445
-      internalID: 1336608594
+      spriteID: 8badc8eb429cf164aa3d2d33c91739de
+      internalID: -2041443278
       vertices: []
       indices: 
       edges: []
@@ -170,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a106e74a8d20c924e862b3e5762a3d11
+    spriteID: 0314c0a244684784fbd9a2169c328313
     internalID: 0
     vertices: []
     indices: 
@@ -182,8 +160,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      foodBuilding_0: -1015998845
-      foodBuilding_1: 1336608594
+      Statue_0: -2041443278
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
