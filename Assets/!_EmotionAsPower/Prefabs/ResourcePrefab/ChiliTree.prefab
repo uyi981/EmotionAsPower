@@ -364,7 +364,7 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: fcc4c3619bc1e5942a3767a611e5cd4a, type: 2}
     amountChances:
-    - amount: 3
+    - amount: 15
       chance: 100
   - item: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
     amountChances:
