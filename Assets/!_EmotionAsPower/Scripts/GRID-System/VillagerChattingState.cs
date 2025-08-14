@@ -30,7 +30,6 @@ public class VillagerChattingState : IState
         }
         outChat = villager.StartCoroutine(OutChat());
 
-        Debug.Log($"{villager.name} is entering chatting state.");
         villager.isChatting = true;
         villager.isWorking = true;
     }
@@ -39,7 +38,6 @@ public class VillagerChattingState : IState
     {
         if (!isChattingActive) return; // chặn nếu đã thoát hoặc đang kết thúc
 
-        Debug.Log($"{villager.name} received chat from: {sender.name}");
 
         // Nếu đang có chatCoroutine thì không start thêm
         if (chatCoroutine == null)
@@ -105,7 +103,6 @@ public class VillagerChattingState : IState
         yield return new WaitForSeconds(5f); // timeout
         if (isChattingActive)
         {
-            Debug.Log($"{villager.name} chat timeout.");
             isChattingActive = false;
             villager.TransitionTo(villager.villagerIdleState);
         }
@@ -146,7 +143,6 @@ public class VillagerSleepState : IState
     public void EnterState()
     {
         // Logic for entering the villager sleep state
-        Debug.Log("Villager is entering sleep state.");
         villager.StartCoroutine(WaitForBed());
         villager.completedGoToTarget += OnGoToTarget;
         
@@ -155,13 +151,11 @@ public class VillagerSleepState : IState
     }
     public IEnumerator WaitForBed()
     {
-        Debug.Log("Villager is trying to sleep.");
         yield return new WaitForSeconds(0.1f);
         Vector2Int getBedPosition = Singleton<VillagerManager>.Instance.GetBed();
 
         if(getBedPosition!=Vector2Int.zero)
         {
-            Debug.Log("Villager found a bed at position: " + getBedPosition);
             villager.Move(getBedPosition,1f);
         }
         else

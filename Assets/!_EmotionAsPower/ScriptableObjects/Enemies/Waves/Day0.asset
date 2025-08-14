@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28d5edd156501874c97dfe599da17b47, type: 3}
-  m_Name: Day2
+  m_Name: Day0
   m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
   enemies:
-    pairs:
-    - key: {fileID: 3329578327918105278, guid: ad1a56bd6c12bd04992c56498d718af4, type: 3}
-      value:
-      - count: 4
-        spawnAngle: 0
-  isWaveEnd: 0
+    pairs: []
+  isWaveEnd: 1

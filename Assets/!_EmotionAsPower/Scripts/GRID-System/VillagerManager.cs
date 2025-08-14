@@ -168,6 +168,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
             }
         }
         Singleton<EnemyManager>.Instance.enemySpawned += OnEnermySpawn;
+        Singleton<EnemyManager>.Instance.enemyWaveEnd += () => isUnableToSendJob = false;
     }
     private void Start()
     {

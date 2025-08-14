@@ -21,7 +21,7 @@ MonoBehaviour:
 
 '
   rateSendChat: 0.3
-  rateAcceptChat: 1
+  rateAcceptChat: 0.5
   emotionSendAffterChat:
     AngerLevel: 0
     JoyLevel: 0

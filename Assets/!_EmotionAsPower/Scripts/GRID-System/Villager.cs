@@ -90,7 +90,6 @@ public class Villager : MonoBehaviour,IInteractable
     {
         if(other.CompareTag("Villager"))
         {
-            Debug.Log("Villager " + gameObject.name + " has entered the trigger area of another villager: " + other.gameObject.name);
             chatTrigger?.Invoke(other); // Notify subscribers that a villager has entered the trigger area
         }
     }
@@ -113,6 +112,10 @@ public class Villager : MonoBehaviour,IInteractable
             {
                 DropAllItems();
             }
+            else if (colliders[i].gameObject.CompareTag("Item"))
+            {
+                PickupItem(colliders[i].gameObject);
+            }
             else if (colliders[i].gameObject.tag.Equals("PrisonBuilding"))
             {
                 if (currentEmotion.Equals(Emotion.Normal))
@@ -122,7 +125,6 @@ public class Villager : MonoBehaviour,IInteractable
                 PrisonBuilding prisonBuilding = colliders[i].GetComponent<PrisonBuilding>();
                 if (prisonBuilding != null)
                 {
-                    Debug.Log("Villager " + gameObject.name + " is being set to prison.");
                     prisonBuilding.SetPrison(this);
                 }
             }
@@ -155,7 +157,6 @@ public class Villager : MonoBehaviour,IInteractable
     {
         if (currentCarryCount >= maxCarryCount)
         {
-            Debug.Log("Đã đầy túi, không thể nhặt thêm.");
             // Nếu muốn villager về, gọi TransitionTo hoặc set flag ở đây
             //   TransitionTo(villagerBackToHomeState);
             TransitionTo(villagerBackToHomeState);
@@ -179,7 +180,6 @@ public class Villager : MonoBehaviour,IInteractable
 
         if (currentCarryCount >= maxCarryCount)
         {
-            Debug.Log("Đã nhặt đủ " + maxCarryCount + " item, quay về.");
             TransitionTo(villagerIdleState);
             // TransitionTo(villagerBackToHomeState);
             return;

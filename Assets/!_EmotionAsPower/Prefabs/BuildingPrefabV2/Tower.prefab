@@ -66,7 +66,7 @@ MonoBehaviour:
   buildTime: 0
   isBuild: 0
   workersAmount: 0
-  maxHP: 500
+  maxHP: 300
   currentHP: 0
   buildingType: 1
   workerPositions: []
@@ -78,7 +78,7 @@ MonoBehaviour:
   isBuildingComplete: 0
   attackDamage: 7
   attackRange: 7
-  attackCooldown: 1
+  attackCooldown: 0.5
   vfxName: attack1
   poolDefaultCapacity: 5
   poolMaxSize: 20

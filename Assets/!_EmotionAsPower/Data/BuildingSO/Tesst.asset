@@ -188,7 +188,7 @@ MonoBehaviour:
         value: 5
     buildTime: 15
     size: {x: 1, y: 1}
-    maxHP: 1000
+    maxHP: 400
     damage: 0
     attackRange: 0
     attackSpeed: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
-    maxHP: 1000
+    maxHP: 200
     damage: 0
     attackRange: 0
     attackSpeed: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
         value: 10
     buildTime: 15
     size: {x: 1, y: 1}
-    maxHP: 1000
+    maxHP: 300
     damage: 0
     attackRange: 0
     attackSpeed: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
         value: 2
     buildTime: 1
     size: {x: 1, y: 1}
-    maxHP: 1000
+    maxHP: 100
     damage: 0
     attackRange: 0
     attackSpeed: 0

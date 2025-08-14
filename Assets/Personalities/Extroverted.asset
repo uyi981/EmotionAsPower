@@ -22,7 +22,7 @@ MonoBehaviour:
     -50%
     Work Speed'
   rateSendChat: 0.9
-  rateAcceptChat: 1
+  rateAcceptChat: 0.5
   emotionSendAffterChat:
     AngerLevel: 0
     JoyLevel: 6
