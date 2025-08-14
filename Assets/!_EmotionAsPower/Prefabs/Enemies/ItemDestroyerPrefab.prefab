@@ -532,6 +532,7 @@ MonoBehaviour:
   smoothingRadius: 0.5
   minDistanceForNewPath: 1
   pathValidationDistance: 0.5
+  gridOffset: {x: 50, y: 50}
 --- !u!114 &852876542901442357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,7 +605,7 @@ MonoBehaviour:
     id: TheSawer
     maxHealth: 30
     moveSpeed: 3
-    existingTime: 50
+    existingTime: 120
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &6750320140384029178

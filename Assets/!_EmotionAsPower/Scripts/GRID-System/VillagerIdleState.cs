@@ -9,6 +9,7 @@ public class VillagerIdleState : IState
     public Coroutine checkForTargetCoroutine;
     private Vector3 targetPosition;
     private bool hasItem = false;
+    private bool isRandomMoving = false;
     public VillagerIdleState(Villager villager)
     {
       this.villager = villager;
@@ -60,9 +61,8 @@ public class VillagerIdleState : IState
         hasItem = false;
         while (!hasItem)
         {
-            Debug.Log("Checking for items or resources...");
             yield return new WaitForSeconds(0.2f); // Check every 0.5 seconds
-            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 5f); // Adjust the radius as needed
+            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 2f); // Adjust the radius as needed
             for (int i = colliders.Length - 1; i >= 0; i--)
             {
                 Collider collider = colliders[i];
@@ -111,7 +111,7 @@ public class VillagerIdleState : IState
     }
     public void CheckIsChatable(Collider other)
     {
-        if (villager.isChatting||villager.isWorking)
+        if (villager.isChatting || villager.isWorking)
         {
             return; // Ignore if already chatting
         }
@@ -150,13 +150,14 @@ public class VillagerIdleState : IState
     {
         while (true)
         {
+       
             // Chọn vị trí ngẫu nhiên trong không gian 3D
             targetPosition = new Vector3(
                 Random.Range(-5, 5),
                 Random.Range(0, 0), // có thể điều chỉnh trục Y tùy game
                 Random.Range(-5, 5)
             );
-
+        
             // Di chuyển dần đến vị trí đích
             while (Vector3.Distance(villager.transform.position, targetPosition) > 0.1f)
             {
@@ -189,7 +190,9 @@ public class VillagerIdleState : IState
     }
     public void UpdateState()
     {
-    
+            if(moveCoroutine==null)
+            {
+        }
     }
     public void ExitState()
     {

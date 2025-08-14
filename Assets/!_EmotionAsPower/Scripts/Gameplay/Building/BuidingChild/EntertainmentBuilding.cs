@@ -49,6 +49,11 @@ namespace Assets.__EmotionAsPower.Scripts.Gameplay.Building.BuidingChild
                 TryAffectTargets();
             }
         }
+        public override void OnMoveComplete()
+        {
+            base.OnMoveComplete();
+            InvokeRepeating(nameof(CheckForTargets), 0f, CHECK_INTERVAL);
+        }
         public override void OnBuildingComplete()
         {
             base.OnBuildingComplete();

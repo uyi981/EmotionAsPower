@@ -10,9 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa0117a00a27ad6438f9272295fc6c72, type: 3}
-  m_Name: Tesst
+  m_Name: Tesst 1
   m_EditorClassIdentifier: Assembly-CSharp::ObjectsDatabaseSO
   buildings:
+  - buildingID: 1
+    buildingName: Tent
+    type: 4
+    blueprintPrefab: {fileID: 8501337020369230570, guid: 16d67b4bb034eca478e26a9fd2bd7904, type: 3}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 8501337020369230570, guid: aaf8dd65cea75a8419c45a8eb37b8fba, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
+        value: 5
+    buildTime: 1
+    size: {x: 1, y: 1}
+    maxHP: 200
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: increase max villager count.
   - buildingID: 2
     buildingName: Entertaiment Joy
     type: 3
@@ -33,7 +50,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: "An entertainment facility that increases the villagers\u2019 happiness
       level."
-  - buildingID: 1
+  - buildingID: 3
     buildingName: Entertaiment Sad
     type: 3
     blueprintPrefab: {fileID: 279218985217429014, guid: c9169f79e2d386649b75196575bbf63c, type: 3}
@@ -55,7 +72,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: "An entertainment facility that increases the villagers\u2019 happiness
       level."
-  - buildingID: 2
+  - buildingID: 4
     buildingName: Entertaiment Fear
     type: 3
     blueprintPrefab: {fileID: 76506552556472127, guid: adb1a431514f9ef45a548501dedf4d4d, type: 3}
@@ -75,7 +92,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: "An entertainment facility that increases the villagers\u2019 fear
       level."
-  - buildingID: 3
+  - buildingID: 5
     buildingName: Entertaiment Anger
     type: 3
     blueprintPrefab: {fileID: 4094005548699814757, guid: e053f6b7fd4b5e841ac28f57a3800ae2, type: 3}
@@ -95,7 +112,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: "An entertainment facility that increases the villagers\u2019 anger
       level."
-  - buildingID: 4
+  - buildingID: 6
     buildingName: Entertaiment Apethatic
     type: 3
     blueprintPrefab: {fileID: 5715943784165529665, guid: 86a118e23c7f48f498903e9d4d28a5d1, type: 3}
@@ -115,7 +132,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: "An entertainment facility that increases the villagers\u2019 apethatic
       level."
-  - buildingID: 5
+  - buildingID: 7
     buildingName: Factory
     type: 2
     blueprintPrefab: {fileID: 3176276359225916853, guid: dfcbcbd4908909f4e94457eae3110e1f, type: 3}
@@ -134,7 +151,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A facility that produces wood.
-  - buildingID: 6
+  - buildingID: 8
     buildingName: Factory 1
     type: 2
     blueprintPrefab: {fileID: 6438594455533947798, guid: 1809b89622323054097e2ec5a38eb9e7, type: 3}
@@ -153,7 +170,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A facility that produces fruit.
-  - buildingID: 7
+  - buildingID: 9
     buildingName: Factory 2
     type: 2
     blueprintPrefab: {fileID: 844683087737877263, guid: ffcf7554ee84d8d4cae7c5bb489ca8fa, type: 3}
@@ -172,7 +189,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A facility that produces stone.
-  - buildingID: 8
+  - buildingID: 10
     buildingName: Tower
     type: 1
     blueprintPrefab: {fileID: 4156817599570265274, guid: fc0703bb5b423ea45ac6083ed4ef7652, type: 3}
@@ -193,7 +210,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A tower that shoots light beams.
-  - buildingID: 9
+  - buildingID: 11
     buildingName: Tower 1
     type: 1
     blueprintPrefab: {fileID: 3670662489938317494, guid: 8fdf9b2b23846dd41a96fbc1e72e4cc8, type: 3}
@@ -214,7 +231,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A tower that shoots poisonous gas.
-  - buildingID: 10
+  - buildingID: 12
     buildingName: Tower 1
     type: 1
     blueprintPrefab: {fileID: 622358888786554861, guid: 068860b6aa188e240ba517d5a2e1098b, type: 3}
@@ -235,7 +252,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A tower that launches fireballs.
-  - buildingID: 11
+  - buildingID: 13
     buildingName: Wall
     type: 0
     blueprintPrefab: {fileID: 8881148771481265413, guid: fe7e55423c877c0468705da0648813c2, type: 3}
@@ -254,7 +271,7 @@ MonoBehaviour:
     attackRange: 0
     attackSpeed: 0
     description: A wall that protects the area.
-  - buildingID: 12
+  - buildingID: 14
     buildingName: Tower 1
     type: 6
     blueprintPrefab: {fileID: 5068722114887075134, guid: d246b5f1d77e49e479f32a9db0afce75, type: 3}
@@ -276,7 +293,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: 'A facility dedicated to breeding and increasing the village population,
       ensuring the community continues to grow and thrive over time. '
-  - buildingID: 13
+  - buildingID: 15
     buildingName: Tower 1
     type: 5
     blueprintPrefab: {fileID: 839637811253782123, guid: 46c7c3169384b9441ba2f395b5c1de1e, type: 3}
@@ -296,7 +313,7 @@ MonoBehaviour:
     attackSpeed: 0
     description: A facility that produces food to supply the villagers, ensuring
       they have enough nutrition to stay healthy and work efficiently.
-  - buildingID: 14
+  - buildingID: 16
     buildingName: Tower 1
     type: 5
     blueprintPrefab: {fileID: 6804071097264351240, guid: b28b9360e5adf3648bc3f9c402107e65, type: 3}
@@ -316,3 +333,22 @@ MonoBehaviour:
     attackSpeed: 0
     description: A facility that produces food to supply the villagers, ensuring
       they have enough nutrition to stay healthy and work efficiently.
+  - buildingID: 0
+    buildingName: Tower 1
+    type: 7
+    blueprintPrefab: {fileID: 167690424386379601, guid: 65461e4c5880a9241a244d80375a1d55, type: 3}
+    redprintPrefab: {fileID: 0}
+    buildingPrefab: {fileID: 167690424386379601, guid: 8b01d842ab6e98441b3581bb8d295bca, type: 3}
+    keyValuePairs:
+      pairs:
+      - key: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
+        value: 10
+      - key: {fileID: 11400000, guid: 3a49fc751475edf4983aecb90c16b99b, type: 2}
+        value: 5
+    buildTime: 3
+    size: {x: 1, y: 1}
+    maxHP: 1000
+    damage: 0
+    attackRange: 0
+    attackSpeed: 0
+    description: "A prison building designed to drain the villagers\u2019 energy"

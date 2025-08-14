@@ -237,7 +237,7 @@ MonoBehaviour:
     id: TNTCarrier
     maxHealth: 20
     moveSpeed: 3
-    existingTime: 20
+    existingTime: 120
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &3583203535932230069
@@ -262,6 +262,7 @@ MonoBehaviour:
   smoothingRadius: 0.5
   minDistanceForNewPath: 1
   pathValidationDistance: 0.5
+  gridOffset: {x: 50, y: 50}
 --- !u!114 &1883475828387628006
 MonoBehaviour:
   m_ObjectHideFlags: 0

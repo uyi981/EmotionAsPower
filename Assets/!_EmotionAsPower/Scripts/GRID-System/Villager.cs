@@ -45,10 +45,12 @@ public class Villager : MonoBehaviour,IInteractable
     public VillagerSleepState villagerSleepState;
     public VillagerStarvingState villagerStarvingState;
     public VillagerAttackEnermyState villagerAttackEnermyState;
+    public VillagerLeavingState villagerLeavingState;
+    public float maxDistanceFromCenter = 30f; // Adjust as needed
     public villagerPrisonState villagerPrisonState;
     public PersonalitySO personality;
     public EmotionSO emotionSO;
-    IState CurrentState;
+    public IState CurrentState;
     public Coroutine moveCoroutine;
     public GameObject itemHandle;
     public event Action completedGoToTarget;
@@ -78,30 +80,14 @@ public class Villager : MonoBehaviour,IInteractable
     {
         isDragging = true;
         Singleton<DetailInfoController>.Instance.OpenVillageUI(this);
-        //if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
-        //{
-        //    return;
-        //}
-        //Debug.Log("Villager clicked: " + gameObject.name);
-        //// Handle villager click logic here
-        //if (isSelected)
-        //{
-        //    Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
-        //    isSelected = !isSelected;
-        //    TransitionTo(villagerIdleState);
-        //}
-        //else
-        //{
-        //    Singleton<PlayerController>.Instance.AddVillagerToList(this);
-        //    isSelected = !isSelected;
-        //    TransitionTo(villagerSelectedState);
-        //}
-
-        //gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
+        gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
+        if(CurrentState.Equals(villagerWorkingState))
+        {
+            TransitionTo(villagerIdleState); // Transition to selected state when clicked
+        }    
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + "trigeer ne");
         if(other.CompareTag("Villager"))
         {
             Debug.Log("Villager " + gameObject.name + " has entered the trigger area of another villager: " + other.gameObject.name);
@@ -112,12 +98,6 @@ public class Villager : MonoBehaviour,IInteractable
     {
         isSleeping = false;
         isDragging = false;
-        //ReceiveEmotion(new EmotionVector(Emotion.Anger,5));
-        //SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-        //spriteRenderer.color = Color.white; // Reset color if already selected
-        //Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
-        //isSelected = !isSelected;
-        //TransitionTo(villagerIdleState);
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Adjust the radius as needed
         for (int i = colliders.Length - 1; i >= 0; i--)
         {
@@ -128,6 +108,10 @@ public class Villager : MonoBehaviour,IInteractable
                 {
                     productionBuilding.CheckIsHaveEmptyJob(this);
                 }
+            }
+            else if (colliders[i].gameObject.tag.Equals("PlayerBase"))
+            {
+                DropAllItems();
             }
             else if (colliders[i].gameObject.tag.Equals("PrisonBuilding"))
             {
@@ -237,6 +221,7 @@ public class Villager : MonoBehaviour,IInteractable
         if (CurrentState == villagerStarvingState) return "Starving";
         if (CurrentState == villagerAttackEnermyState) return "Attacking";
         if (CurrentState == villagerPrisonState) return "Prison";
+        if (CurrentState == villagerLeavingState) return "Leaving";
         // Add more states as needed                                                                                                                                                                      
         return "Unknown";
     }
@@ -261,7 +246,8 @@ public class Villager : MonoBehaviour,IInteractable
         villagerStarvingState = new VillagerStarvingState(this);
         villagerAttackEnermyState = new VillagerAttackEnermyState(this);
         villagerPrisonState = new villagerPrisonState(this);
-        InvokeRepeating("UpdateState", 0f, 0.1f);
+        villagerLeavingState = new VillagerLeavingState(this);
+        InvokeRepeating("UpdateState", 0f,5f);
         Initialize(villagerBackToHomeState); // Initialize the villager with the idle state
         TransitionTo(villagerIdleState); // Start with idle state
         playerEmotion =GetComponent<PlayerEmotion>();
@@ -360,24 +346,28 @@ public class Villager : MonoBehaviour,IInteractable
         {
             return;
         }
-        //if (CurrentState != null)
+        //float distance = Vector3.Distance(transform.position, Vector3.zero);
+        //if (distance > maxDistanceFromCenter)
         //{
-        //    CurrentState.UpdateState();
-        //    currentHunger = Mathf.Clamp(currentHunger - 0.1f * personality.hungerModifier,0,100);
-        //    //currentThirst -= 0.1f * personality.thirstModifier;
-        //    if (currentHunger <= 20f)
-        //    {
-        //        if(emotion.JoyLevel >= 80)
-        //        {
-        //            return;
-        //        }
-        //        else
-        //        {
-        //          TransitionTo(villagerStarvingState);
-        //        }
-        //    }
-        //    OnVillagerUpdate?.Invoke();
+        //    // Increase fear points by 1 (or any value you want)
+        //    emotion += new EmotionVector(Emotion.Fear, 1f);
         //}
+        //if (emotion.FearLevel > 80f || emotion.AngerLevel > 80f)
+        //{
+        //    TransitionTo(villagerLeavingState);
+        //    return;
+        //}
+        SendEmotionToGod();
+    }
+    public void SendEmotionToGod()
+    {
+        if(currentEmotion.Equals(Emotion.Normal))
+        {
+            return; // Không gửi emotion nếu là Emotion.Normal
+        }
+        Singleton<ItemStorage>.Instance.AddItem(EmotionHelper.GetEmotionID(currentEmotion),1);
+        emotion.minusEmotion(currentEmotion, 1); // Giảm emotion vector
+        ReceiveEmotion(new EmotionVector(currentEmotion,0)); // Cập nhật emotion vector
     }
     public void ResetCoroutine(Coroutine coroutine)
     {
@@ -408,6 +398,7 @@ public class Villager : MonoBehaviour,IInteractable
         else
         {
             Debug.LogWarning("No valid path found for villager to move from " + startPosition + " to " + targetPosition);
+            TransitionTo(villagerIdleState); // Transition to idle state if no path is found
             // Handle case where no path is found
         }
     }

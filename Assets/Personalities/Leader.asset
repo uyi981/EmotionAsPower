@@ -22,12 +22,12 @@ MonoBehaviour:
     +200%
     Max carry.'
   rateSendChat: 0.85
-  rateAcceptChat: 0.9
+  rateAcceptChat: 1
   emotionSendAffterChat:
     AngerLevel: 0
     JoyLevel: 0
     SadnessLevel: 0
-    FearLevel: 8
+    FearLevel: 6
     ApatheticLevel: 0
   emotionSensity:
     AngerLevel: 1

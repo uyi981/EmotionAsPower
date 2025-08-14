@@ -555,8 +555,8 @@ MonoBehaviour:
   joy: {fileID: 3478805269429642912}
   angry: {fileID: 1191270468342010556}
   neutral: {fileID: 442977272124652133}
-  fear: {fileID: 7710912207205640363}
-  boring: {fileID: 442977272124652133}
+  fear: {fileID: 1551280053867770069}
+  boring: {fileID: 7710912207205640363}
   icon: {fileID: 6957375742312959558}
   border: {fileID: 7383265245961788767}
   isSetup: 0

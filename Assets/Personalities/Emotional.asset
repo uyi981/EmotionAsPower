@@ -22,11 +22,11 @@ MonoBehaviour:
     -Never
     feel boring'
   rateSendChat: 0.8
-  rateAcceptChat: 0.9
+  rateAcceptChat: 1
   emotionSendAffterChat:
     AngerLevel: 0
     JoyLevel: 0
-    SadnessLevel: 8
+    SadnessLevel: 6
     FearLevel: 0
     ApatheticLevel: 0
   emotionSensity:
