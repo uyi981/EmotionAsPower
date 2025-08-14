@@ -142,6 +142,10 @@ public class Villager : MonoBehaviour,IInteractable
                     prisonBuilding.SetPrison(this);
                 }
             }
+            else if (colliders[i].gameObject.tag.Equals("PlayerBase"))
+            {
+                DropAllItems();
+            }
         }
     }
     public void OnDayStageChange(DayTimeController.TimeStage timeStage)

@@ -15,6 +15,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     public TextMeshProUGUI villagerCountText;
     public TextMeshProUGUI foodConsumeText;
     public bool isUnableToSendJob;
+
     public int QuantityOfFoodConsumedPerDay
     {
         get { return caculateQuantityOfFoodConsumedPerDay(); }
@@ -166,6 +167,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
             }
         }
         Singleton<EnemyManager>.Instance.enemySpawned += OnEnermySpawn;
+        Singleton<EnemyManager>.Instance.enermyWaveEnd += () => isUnableToSendJob = false;
     }
     private void Start()
     {

@@ -23,6 +23,7 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
     [SerializeField]
     public Transform bulletsParent;
     public event Action enemySpawned;
+    public event Action enermyWaveEnd;
 
     private void Start()
     {
@@ -363,10 +364,15 @@ public class EnemyManager : Singleton<EnemyManager>, IDataPersistence
 
     public void SpawnEnemyWave(StageOfDay stageOfDayCondition)
     {
-        if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;
-        enemySpawned?.Invoke();
+        if (!enemySpawningConfig.waves.ContainsKey(stageOfDayCondition)) return;    
         EnemyWave enemyWave = enemySpawningConfig.waves[stageOfDayCondition];
-
+        if(enemyWave.isEndWave)
+        {
+            enermyWaveEnd?.Invoke();
+            ClearAllThreats();
+            return;
+        }
+        enemySpawned?.Invoke();
         // Iterate through each enemy type and their spawn data arrays
         foreach (var enemyEntry in enemyWave.enemies.Dictionary)
         {
