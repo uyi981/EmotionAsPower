@@ -21,13 +21,13 @@ MonoBehaviour:
 
 '
   rateSendChat: 0.3
-  rateAcceptChat: 0.6
+  rateAcceptChat: 0.5
   emotionSendAffterChat:
     AngerLevel: 0
     JoyLevel: 0
     SadnessLevel: 0
     FearLevel: 0
-    ApatheticLevel: 8
+    ApatheticLevel: 6
   emotionSensity:
     AngerLevel: 0
     JoyLevel: 1

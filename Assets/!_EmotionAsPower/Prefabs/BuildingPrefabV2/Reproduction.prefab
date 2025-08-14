@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1583290393159609327}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 759393428, guid: e5d7c1e186c9dde4a9237eebd7255ade, type: 3}
+  m_Sprite: {fileID: 1952208395, guid: 77c09f9cadd493d42bec0de14e288f22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
+  isBuildingComplete: 0
   villagerManager: {fileID: 0}
   villagerPrefab: {fileID: 1289892368652287868, guid: 323a33caf0b2211449da9d117a6174b9, type: 3}
 --- !u!65 &5322800939289134493

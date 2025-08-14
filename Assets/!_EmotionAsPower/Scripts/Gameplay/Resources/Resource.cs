@@ -423,6 +423,6 @@ public class Resource : MonoBehaviour, IInteractable
         }
         Vector2 mousePosition = InputManager.Instance.mousePos.ReadValue<Vector2>();
 
-        //UIManager.Instance.ShowResourceInfoPanel(this, mousePosition);
+        UIManager.Instance.ShowResourceInfoPanel(this, mousePosition);
     }
 }

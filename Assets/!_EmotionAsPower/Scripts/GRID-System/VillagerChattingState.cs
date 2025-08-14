@@ -6,60 +6,129 @@ public class VillagerChattingState : IState
 {
     Villager villager;
     Coroutine chatCoroutine;
-    float time = 3;
+    Coroutine outChat;
+    float time = 3; // số lượt chat tối đa
+    bool isChattingActive = false; // flag để tránh loop vô hạn
+
     public VillagerChattingState(Villager villager)
     {
         this.villager = villager;
     }
+
     public void EnterState()
     {
         time = 3;
+        isChattingActive = true;
+
         villager.receiveChat += OnReceiveChat;
-        Debug.Log("Villager is entering chatting state.");
+
+        // Dừng coroutine timeout cũ (nếu có)
+        if (outChat != null)
+        {
+            villager.StopCoroutine(outChat);
+            outChat = null;
+        }
+        outChat = villager.StartCoroutine(OutChat());
+
         villager.isChatting = true;
         villager.isWorking = true;
     }
+
     public void OnReceiveChat(Villager sender)
     {
-        Debug.Log("Villager received chat from: " + sender.name);
-        chatCoroutine = villager.StartCoroutine(ReplyChat(sender));
+        if (!isChattingActive) return; // chặn nếu đã thoát hoặc đang kết thúc
+
+
+        // Nếu đang có chatCoroutine thì không start thêm
+        if (chatCoroutine == null)
+        {
+            chatCoroutine = villager.StartCoroutine(ReplyChat(sender));
+        }
     }
+
     public IEnumerator ReplyChat(Villager sender)
     {
         yield return new WaitForSeconds(1f);
-        time -= 1;
-        if (time == 0)
+
+        // Giảm số lượt chat ở cả 2 NPC
+        time--;
+        if (sender.CurrentState is VillagerChattingState sChat)
         {
-            villager.isChatting = false;
-            sender.isChatting = false;
-            villager.TransitionTo(villager.villagerIdleState);
-            sender.TransitionTo(sender.villagerIdleState);
-            sender.ReceiveEmotion(villager.personality.emotionSendAffterChat);
-            villager.ReceiveEmotion(sender.personality.emotionSendAffterChat);
+            sChat.time--;
         }
+
+        // Hiển thị popup chat
         ChatPopup cp = Singleton<ChatPopupPool>.Instance.Get(Emotion.Normal, "meow");
         cp.transform.position = villager.transform.position;
         cp.transform.SetParent(villager.itemHandle.transform);
-        sender.ReceiveChat(villager);
+
+        // Nếu vẫn còn lượt thì gửi lại chat, ngược lại thì kết thúc
+        if (time > 0)
+        {
+            if (sender != null && sender.CurrentState == sender.villagerChattingState)
+            {
+                sender.ReceiveChat(villager);
+            }
+        }
+        else
+        {
+            EndChat(sender);
+            yield break;
+        }
+
         chatCoroutine = null;
     }
-    public void UpdateState()
+
+    void EndChat(Villager sender)
     {
-        // Logic for updating the villager selected state
+        isChattingActive = false;
+        villager.isChatting = false;
+        if (sender != null)
+        {
+            sender.isChatting = false;
+            sender.TransitionTo(sender.villagerIdleState);
+        }
+        villager.TransitionTo(villager.villagerIdleState);
+
+        // Trao đổi cảm xúc
+        if (sender != null)
+        {
+            sender.ReceiveEmotion(villager.personality.emotionSendAffterChat);
+            villager.ReceiveEmotion(sender.personality.emotionSendAffterChat);
+        }
     }
+
     public IEnumerator OutChat()
     {
-        yield return new WaitForSeconds(5f);
-        villager.TransitionTo(villager.villagerIdleState);
+        yield return new WaitForSeconds(5f); // timeout
+        if (isChattingActive)
+        {
+            isChattingActive = false;
+            villager.TransitionTo(villager.villagerIdleState);
+        }
     }
+
+    public void UpdateState() { }
+
     public void ExitState()
     {
+        isChattingActive = false;
         villager.isChatting = false;
         villager.isWorking = false;
+
         villager.receiveChat -= OnReceiveChat;
-        if(chatCoroutine != null)
-            villager.StopCoroutine(chatCoroutine); // Stop the chat coroutine if it is running
-        // Logic for exiting the villager selected state
+
+        if (chatCoroutine != null)
+        {
+            villager.StopCoroutine(chatCoroutine);
+            chatCoroutine = null;
+        }
+
+        if (outChat != null)
+        {
+            villager.StopCoroutine(outChat);
+            outChat = null;
+        }
     }
 }
 public class VillagerSleepState : IState
@@ -74,7 +143,6 @@ public class VillagerSleepState : IState
     public void EnterState()
     {
         // Logic for entering the villager sleep state
-        Debug.Log("Villager is entering sleep state.");
         villager.StartCoroutine(WaitForBed());
         villager.completedGoToTarget += OnGoToTarget;
         
@@ -83,13 +151,11 @@ public class VillagerSleepState : IState
     }
     public IEnumerator WaitForBed()
     {
-        Debug.Log("Villager is trying to sleep.");
         yield return new WaitForSeconds(0.1f);
         Vector2Int getBedPosition = Singleton<VillagerManager>.Instance.GetBed();
 
         if(getBedPosition!=Vector2Int.zero)
         {
-            Debug.Log("Villager found a bed at position: " + getBedPosition);
             villager.Move(getBedPosition,1f);
         }
         else
@@ -120,6 +186,7 @@ public class VillagerSleepState : IState
     public void ExitState()
     {
         villager.completedGoToTarget -= OnGoToTarget;
+        
         if(sleepCoroutine != null)
         {
             villager.StopCoroutine(sleepCoroutine); // Stop the sleep coroutine

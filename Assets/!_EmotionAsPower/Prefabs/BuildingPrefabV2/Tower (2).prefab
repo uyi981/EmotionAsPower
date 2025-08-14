@@ -66,7 +66,7 @@ MonoBehaviour:
   buildTime: 0
   isBuild: 0
   workersAmount: 0
-  maxHP: 100
+  maxHP: 400
   currentHP: 0
   buildingType: 1
   workerPositions: []
@@ -76,9 +76,9 @@ MonoBehaviour:
   healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
   isBuildingComplete: 0
-  attackDamage: 10
-  attackRange: 10
-  attackCooldown: 1
+  attackDamage: 25
+  attackRange: 5
+  attackCooldown: 0.75
   vfxName: attack4
   poolDefaultCapacity: 3
   poolMaxSize: 5

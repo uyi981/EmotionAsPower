@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4c7b6100bb004d41a30f3cfbc03e14a, type: 3}
-  m_Name: Fear
-  m_EditorClassIdentifier: Assembly-CSharp::EmotionSO
-  id: 4
-  hungerModifier: 1
-  moveSpeedModifier: 2
-  worKSpeedModifier: 1
-  maxCarryModifier: 1
+  m_Script: {fileID: 11500000, guid: 28d5edd156501874c97dfe599da17b47, type: 3}
+  m_Name: Day0
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
+  enemies:
+    pairs: []
+  isWaveEnd: 1

@@ -379,6 +379,10 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
         PlacementSystem placementSystem = Singleton<PlacementSystem>.Instance;
 
         placementSystem.StartMovingBuilding(gameObject);
+        OnMoveComplete();
+    }
+    public virtual void OnMoveComplete()
+    {
 
     }
 

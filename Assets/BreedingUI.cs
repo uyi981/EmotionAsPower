@@ -14,7 +14,7 @@ public class BreedingUI : MonoBehaviour
             Debug.LogError("BreedingBuilding is null!");
             return;
         }
-        breedingBuilding.Breeding(nameInputField.text);
+        breedingBuilding.Breeding("Meow");
         gameObject.SetActive(false);
     }
     public void Start()

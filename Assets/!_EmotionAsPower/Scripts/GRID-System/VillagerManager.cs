@@ -66,6 +66,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
         if(quantity > 0)
         {
             Debug.LogWarning("Not enough food for villagers. Remaining quantity: " + quantity);
+            
         }
     }
     private void Update()
@@ -108,6 +109,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
             personalityName = villager.personality.name,
             id = villager.villagerId
         });
+        Singleton<VillagerManagerUI>.Instance.UpdateVillagerSlots(jobForWorkers);
     }
     public void LoadingAllVillagers()
     {

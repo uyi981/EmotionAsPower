@@ -34,6 +34,53 @@ public class VillagerBackToHomeState : IState
         // Logic for exiting the villager selected state
     }
 }
+public class VillagerLeavingState : IState
+{
+    Villager villager;
+    Coroutine moveCoroutine;
+
+    public VillagerLeavingState(Villager villager)
+    {
+        this.villager = villager;
+    }
+
+    public void EnterState()
+    {
+        // Move to a far position (e.g., outside the map)
+        villager.Move(new Vector2Int(69,69), 1f);
+        villager.completedGoToTarget += OnLeavingComplete;
+        villager.isWorking = true;
+    }
+
+    private void OnLeavingComplete()
+    {
+        // Remove from job list and other systems if needed
+        Singleton<VillagerManager>.Instance.jobForWorkers.Remove(villager);
+
+        // Optionally play a leaving animation here
+        // villager.animator.Play("Leave");
+
+        // Destroy after a short delay for animation (optional)
+        villager.StartCoroutine(DestroyAfterDelay(0.5f));
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject.Destroy(villager.gameObject);
+    }
+
+    public void UpdateState()
+    {
+        // No update logic needed for leaving
+    }
+
+    public void ExitState()
+    {
+        villager.completedGoToTarget -= OnLeavingComplete;
+        villager.ResetCoroutine(moveCoroutine);
+    }
+}
 public class VillagerAttackEnermyState : IState
 {
     Villager villager;
@@ -57,7 +104,7 @@ public class VillagerAttackEnermyState : IState
         Vector2Int targetPosition = new Vector2Int(vector3Int.x, vector3Int.z);
         villager.Move(targetPosition,villager.speed); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
-        villager.isWorking = true; // Set working state to false
+        //villager.isWorking = true; // Set working state to false
     }
     public void DropItem()
     {

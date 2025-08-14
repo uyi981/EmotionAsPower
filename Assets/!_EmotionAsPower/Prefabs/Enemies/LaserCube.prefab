@@ -205,11 +205,11 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
     amountChances:
-    - amount: 1
+    - amount: 0
       chance: 10
-    - amount: 2
+    - amount: 0
       chance: 40
-    - amount: 3
+    - amount: 0
       chance: 50
   - item: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
     amountChances:
@@ -237,7 +237,7 @@ MonoBehaviour:
     id: LaseCube
     maxHealth: 40
     moveSpeed: 4
-    existingTime: 40
+    existingTime: 120
   existingTimer: 0
   isInitialized: 0
 --- !u!114 &3583203535932230069
@@ -262,6 +262,7 @@ MonoBehaviour:
   smoothingRadius: 0.5
   minDistanceForNewPath: 1
   pathValidationDistance: 0.5
+  gridOffset: {x: 50, y: 50}
 --- !u!114 &1883475828387628006
 MonoBehaviour:
   m_ObjectHideFlags: 0
