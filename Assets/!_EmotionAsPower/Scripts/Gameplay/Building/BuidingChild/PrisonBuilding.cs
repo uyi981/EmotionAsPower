@@ -80,6 +80,7 @@ public class PrisonBuilding : BuildingBase
     }
     public void ReleasePrison()
     {
+        if(currentPrison==null)return;
         currentPrison.isPrisoner = false; // Set villager as not a prisoner
         currentPrison.TransitionTo(currentPrison.villagerIdleState);
         currentPrison = null;

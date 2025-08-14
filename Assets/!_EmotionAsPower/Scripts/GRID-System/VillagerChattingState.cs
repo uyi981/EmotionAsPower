@@ -16,6 +16,8 @@ public class VillagerChattingState : IState
         time = 3;
         villager.receiveChat += OnReceiveChat;
         Debug.Log("Villager is entering chatting state.");
+        villager.isChatting = true;
+        villager.isWorking = true;
     }
     public void OnReceiveChat(Villager sender)
     {
@@ -28,10 +30,10 @@ public class VillagerChattingState : IState
         time -= 1;
         if (time == 0)
         {
-            villager.TransitionTo(villager.villagerIdleState);
-            sender.TransitionTo(sender.villagerIdleState);
             villager.isChatting = false;
             sender.isChatting = false;
+            villager.TransitionTo(villager.villagerIdleState);
+            sender.TransitionTo(sender.villagerIdleState);
             sender.ReceiveEmotion(villager.personality.emotionSendAffterChat);
             villager.ReceiveEmotion(sender.personality.emotionSendAffterChat);
         }
@@ -45,9 +47,15 @@ public class VillagerChattingState : IState
     {
         // Logic for updating the villager selected state
     }
+    public IEnumerator OutChat()
+    {
+        yield return new WaitForSeconds(5f);
+        villager.TransitionTo(villager.villagerIdleState);
+    }
     public void ExitState()
     {
         villager.isChatting = false;
+        villager.isWorking = false;
         villager.receiveChat -= OnReceiveChat;
         if(chatCoroutine != null)
             villager.StopCoroutine(chatCoroutine); // Stop the chat coroutine if it is running
@@ -82,7 +90,7 @@ public class VillagerSleepState : IState
         if(getBedPosition!=Vector2Int.zero)
         {
             Debug.Log("Villager found a bed at position: " + getBedPosition);
-            villager.Move(getBedPosition,1f,moveCoutine);
+            villager.Move(getBedPosition,1f);
         }
         else
         {

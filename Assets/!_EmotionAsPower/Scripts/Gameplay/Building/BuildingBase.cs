@@ -49,16 +49,13 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     public GameObject buildingBar;
     [Tooltip("Thanh HP")]
     public GameObject healthBar;
-
-
-
     public Vector3Int baseCell;
     private int selectedBuildingID;
     private ProcessBar processBarImg;
     private HealthBar healthBarImg;
     private GameObject processBarInstance;
     private GameObject healthBarInstance;
-    private bool isBuildingComplete = false;
+    public bool isBuildingComplete = false;
     private bool isDestroyed = false;
     protected List<Villager> workers = new List<Villager>();
 
@@ -215,10 +212,13 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
     /// </summary>
     public void ResetWorkerList()
     {
-        foreach (Villager worker in workers)
+        if (workers == null) return;
+
+        for (int i = workers.Count - 1; i >= 0; i--)
         {
+            var worker = workers[i];
             Debug.Log($"Resetting worker: {worker.gameObject.name} for building {gameObject.name}");
-            worker.TransitionTo(worker.villagerIdleState); // Trả công nhân về trạng thái nhàn rỗi
+            worker.TransitionTo(worker.villagerIdleState);
         }
         workers.Clear();
     }
@@ -440,6 +440,7 @@ public class BuildingBase : MonoBehaviour, IBuilding, IInteractable, IHealth
 
     public void TakeDamage(float damage)
     {
+        ResetWorkerList();
         currentHP -= (int)damage;
         UpdateHealthBar();
 

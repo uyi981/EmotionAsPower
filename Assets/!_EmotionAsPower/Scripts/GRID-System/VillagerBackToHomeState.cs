@@ -11,7 +11,7 @@ public class VillagerBackToHomeState : IState
     public void EnterState()
     {
         
-        villager.Move(new Vector2Int(0, 0), 1f, moveCoroutine); // Assuming home is at (0, 0)
+        villager.Move(new Vector2Int(0, 0), 1f); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
         villager.isWorking = true; // Set working state to false
     }
@@ -47,14 +47,15 @@ public class VillagerAttackEnermyState : IState
     }
     public void EnterState()
     {
-        if(villager.Target == null)
+        villager.isWorking = true; // Set working state to false
+        if (villager.Target == null)
         {
             villager.TransitionTo(villager.villagerIdleState);
             return;
         }
         Vector3Int vector3Int = Singleton<GridSystem>.Instance.grid.WorldToCell(villager.Target.transform.position);
         Vector2Int targetPosition = new Vector2Int(vector3Int.x, vector3Int.z);
-        villager.Move(targetPosition,villager.speed, moveCoroutine); // Assuming home is at (0, 0)
+        villager.Move(targetPosition,villager.speed); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
         villager.isWorking = true; // Set working state to false
     }
@@ -63,11 +64,13 @@ public class VillagerAttackEnermyState : IState
         if(villager.Target == null)
         {
             Debug.LogWarning("No target to attack.");
+            villager.TransitionTo(villager.villagerIdleState);
             return;
         }
         Health health = villager.Target.GetComponent<Health>();
         if(health==null)
         {
+            villager.TransitionTo(villager.villagerIdleState);
             return;
         } 
         attack = villager.StartCoroutine(Attack(health)); // Start attacking the target
@@ -103,6 +106,7 @@ public class VillagerAttackEnermyState : IState
     }
     public void ExitState()
     {
+        villager.isWorking = false; // Reset working state
         villager.completedGoToTarget -= DropItem;
         villager.Target = null; // Clear the target
         villager.animator.Play("idle");
