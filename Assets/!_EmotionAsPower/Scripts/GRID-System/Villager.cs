@@ -77,26 +77,27 @@ public class Villager : MonoBehaviour,IInteractable
     void OnMouseDown()
     {
         isDragging = true;
-        if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
-        {
-            return;
-        }
-        Debug.Log("Villager clicked: " + gameObject.name);
-        // Handle villager click logic here
-        if (isSelected)
-        {
-            Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
-            isSelected = !isSelected;
-            TransitionTo(villagerIdleState);
-        }
-        else
-        {
-            Singleton<PlayerController>.Instance.AddVillagerToList(this);
-            isSelected = !isSelected;
-            TransitionTo(villagerSelectedState);
-        }
-   
-        gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
+        Singleton<DetailInfoController>.Instance.OpenVillageUI(this);
+        //if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
+        //{
+        //    return;
+        //}
+        //Debug.Log("Villager clicked: " + gameObject.name);
+        //// Handle villager click logic here
+        //if (isSelected)
+        //{
+        //    Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
+        //    isSelected = !isSelected;
+        //    TransitionTo(villagerIdleState);
+        //}
+        //else
+        //{
+        //    Singleton<PlayerController>.Instance.AddVillagerToList(this);
+        //    isSelected = !isSelected;
+        //    TransitionTo(villagerSelectedState);
+        //}
+
+        //gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -111,12 +112,12 @@ public class Villager : MonoBehaviour,IInteractable
     {
         isSleeping = false;
         isDragging = false;
-        ReceiveEmotion(new EmotionVector(Emotion.Anger,5));
-        SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.color = Color.white; // Reset color if already selected
-        Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
-        isSelected = !isSelected;
-        TransitionTo(villagerIdleState);
+        //ReceiveEmotion(new EmotionVector(Emotion.Anger,5));
+        //SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
+        //spriteRenderer.color = Color.white; // Reset color if already selected
+        //Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
+        //isSelected = !isSelected;
+        //TransitionTo(villagerIdleState);
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Adjust the radius as needed
         for (int i = colliders.Length - 1; i >= 0; i--)
         {
@@ -130,7 +131,7 @@ public class Villager : MonoBehaviour,IInteractable
             }
             else if (colliders[i].gameObject.tag.Equals("PrisonBuilding"))
             {
-                if(currentEmotion.Equals(Emotion.Normal))
+                if (currentEmotion.Equals(Emotion.Normal))
                 {
                     continue;
                 }

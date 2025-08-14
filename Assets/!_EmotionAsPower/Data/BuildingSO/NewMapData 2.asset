@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f970499370592f74d83d920382bd06d7, type: 3}
-  m_Name: NewMapData
+  m_Name: NewMapData 2
   m_EditorClassIdentifier: Assembly-CSharp::MapData
   placedObjects:
   - id: 0

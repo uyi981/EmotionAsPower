@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 1655377525213187016}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.166, y: 0.576, z: -0.1}
+  m_LocalPosition: {x: -0.186, y: 0.797, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -364,7 +364,7 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: fcc4c3619bc1e5942a3767a611e5cd4a, type: 2}
     amountChances:
-    - amount: 3
+    - amount: 15
       chance: 100
   - item: {fileID: 11400000, guid: a5924222bf1c9d743a9209c9be05be04, type: 2}
     amountChances:
@@ -550,7 +550,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1723212424, guid: 4ff90205f8a356c4593ccd0cb5aac45c, type: 3}
+  m_Sprite: {fileID: 1183996941, guid: 4e1b36f4bc7a1254ca4d93804a9cb8fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

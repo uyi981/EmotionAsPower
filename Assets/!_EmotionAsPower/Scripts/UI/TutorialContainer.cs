@@ -12,6 +12,7 @@ public class TutorialContainer : MonoBehaviour
 
     [Header("UI References")]
     public Button nextButton;
+    public Button skipButton;
     public TextMeshProUGUI nextButtonText;
     public UIPanelSlider panelSlider;
 
@@ -19,13 +20,22 @@ public class TutorialContainer : MonoBehaviour
     public string nextButtonDefaultText = "Next";
     public string nextButtonFinishText = "Finish";
 
+    [Header("Events")]
+    public UnityEvent onTutorialFinished;
+    public UnityEvent onTutorialStarted;
+
     private int currentTutorialIndex = -1;
+    private bool isTutorialActive = false;
 
     private void Start()
     {
         if (nextButton != null)
         {
             nextButton.onClick.AddListener(OnNextButtonClicked);
+        }
+        if (skipButton != null)
+        {
+            skipButton.onClick.AddListener(() => SkipTutorial());
         }
     }
 
@@ -42,7 +52,14 @@ public class TutorialContainer : MonoBehaviour
             return;
         }
 
-        GameManager.Instance.PauseGame();
+        // Only pause if we're starting a new tutorial session
+        if (!isTutorialActive && GameManager.Instance != null)
+        {
+            GameManager.Instance.PauseGame();
+            onTutorialStarted?.Invoke();
+        }
+
+        isTutorialActive = true;
 
         if (tutorialPanel != null)
         {
@@ -68,16 +85,34 @@ public class TutorialContainer : MonoBehaviour
 
     private void OnNextButtonClicked()
     {
+        // Prevent multiple clicks
+        if (nextButton != null)
+        {
+            nextButton.interactable = false;
+        }
+
         bool isLastTutorial = currentTutorialIndex == TutorialPanels.Length - 1;
 
         if (isLastTutorial)
         {
-            FinishTutorial();
+            // Add a small delay before finishing to ensure UI interactions complete
+            StartCoroutine(FinishTutorialDelayed());
         }
         else
         {
             ShowNextTutorial();
+            // Re-enable button after showing next tutorial
+            if (nextButton != null)
+            {
+                nextButton.interactable = true;
+            }
         }
+    }
+
+    private System.Collections.IEnumerator FinishTutorialDelayed()
+    {
+        yield return new WaitForEndOfFrame();
+        FinishTutorial();
     }
 
     public void ShowNextTutorial()
@@ -117,20 +152,52 @@ public class TutorialContainer : MonoBehaviour
 
     public void FinishTutorial()
     {
+        // Invoke finish event before cleaning up
+        onTutorialFinished?.Invoke();
+
+        // Hide all tutorial panels
         HideAllTutorials();
 
+        // Hide the panel slider
         if (panelSlider != null)
         {
             panelSlider.HidePanel();
         }
 
+        // Hide the main tutorial panel
         if (tutorialPanel != null)
         {
             tutorialPanel.SetActive(false);
         }
 
+        // Reset state
         currentTutorialIndex = -1;
-        GameManager.Instance.ResumeGame();
+        isTutorialActive = false;
+
+        // Re-enable buttons to ensure they work for next time
+        EnableButtons();
+
+        // Resume game safely
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResumeGame();
+        }
+        else
+        {
+            Debug.LogWarning("GameManager instance is null. Cannot resume game.");
+        }
+    }
+
+    private void EnableButtons()
+    {
+        if (nextButton != null)
+        {
+            nextButton.interactable = true;
+        }
+        if (skipButton != null)
+        {
+            skipButton.interactable = true;
+        }
     }
 
     private void HideAllTutorials()
@@ -150,6 +217,12 @@ public class TutorialContainer : MonoBehaviour
 
         bool isLastTutorial = currentTutorialIndex == TutorialPanels.Length - 1;
         nextButtonText.text = isLastTutorial ? nextButtonFinishText : nextButtonDefaultText;
+
+        // Ensure button remains interactable when updating text
+        if (nextButton != null)
+        {
+            nextButton.interactable = true;
+        }
     }
 
     public int GetCurrentTutorialIndex()
@@ -159,7 +232,7 @@ public class TutorialContainer : MonoBehaviour
 
     public bool IsTutorialActive()
     {
-        return currentTutorialIndex >= 0;
+        return isTutorialActive;
     }
 
     public int GetTotalTutorialCount()
@@ -169,11 +242,14 @@ public class TutorialContainer : MonoBehaviour
 
     public void CallPause()
     {
-        GameManager.Instance.PauseGame();
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.PauseGame();
+        }
     }
 }
 
-[Serializable]
+    [Serializable]
 public class TutorialPanelHolder
 {
     [Header("Panel Reference")]

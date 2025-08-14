@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaabaa691102a2c4b8d48fd91c8c3084, type: 3}
   m_Name: Shoot Action
   m_EditorClassIdentifier: Assembly-CSharp::ShootAction
-  shootingRange: 10
+  attackRange: 8
   bulletDamage: 25
-  bulletSpeed: 10
+  bulletSpeed: 5
   fireRate: 1
   targetTypes: 0300000005000000
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 1024
   bulletPrefab: {fileID: 4192761048226033285, guid: 5c3539e960623d3438ac074efc6faca5, type: 3}
+  bulletLifetime: 2
   shootOffset: {x: 0, y: 0, z: 0}
   muzzleFlashPrefab: {fileID: 0}
   shootSound: {fileID: 0}
   requiresLineOfSight: 1
   stopMovingWhileShooting: 1
-  aimTime: 0.1
