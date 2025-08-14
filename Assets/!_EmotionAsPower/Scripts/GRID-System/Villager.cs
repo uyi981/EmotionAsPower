@@ -48,7 +48,7 @@ public class Villager : MonoBehaviour,IInteractable
     public villagerPrisonState villagerPrisonState;
     public PersonalitySO personality;
     public EmotionSO emotionSO;
-    IState CurrentState;
+    public IState CurrentState;
     public Coroutine moveCoroutine;
     public GameObject itemHandle;
     public event Action completedGoToTarget;
@@ -77,46 +77,50 @@ public class Villager : MonoBehaviour,IInteractable
     void OnMouseDown()
     {
         isDragging = true;
-        if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
-        {
-            return;
-        }
-        Debug.Log("Villager clicked: " + gameObject.name);
-        // Handle villager click logic here
-        if (isSelected)
-        {
-            Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
-            isSelected = !isSelected;
-            TransitionTo(villagerIdleState);
-        }
-        else
-        {
-            Singleton<PlayerController>.Instance.AddVillagerToList(this);
-            isSelected = !isSelected;
-            TransitionTo(villagerSelectedState);
-        }
-   
+        //if (Singleton<InputManagerForGrid>.Instance.CurrentState== State.Building)
+        //{
+        //    return;
+        //}
+        //Debug.Log("Villager clicked: " + gameObject.name);
+        //// Handle villager click logic here
+        //if (isSelected)
+        //{
+        //    Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
+        //    isSelected = !isSelected;
+        //    TransitionTo(villagerIdleState);
+        //}
+        //else
+        //{
+        //    Singleton<PlayerController>.Instance.AddVillagerToList(this);
+        //    isSelected = !isSelected;
+        //    TransitionTo(villagerSelectedState);
+        //}
+        Singleton<DetailInfoController>.Instance.OpenVillageUI(this);
         gameObject.transform.position =Singleton<InputManagerForGrid>.Instance.GetSelectedMapPosition();
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + "trigeer ne");
         if(other.CompareTag("Villager"))
         {
             Debug.Log("Villager " + gameObject.name + " has entered the trigger area of another villager: " + other.gameObject.name);
             chatTrigger?.Invoke(other); // Notify subscribers that a villager has entered the trigger area
         }
+        //if (other.CompareTag("Item"))
+        //{
+        //    Debug.Log("Villager " + gameObject.name + " has entered the trigger area of an item: " + other.gameObject.name);
+        //    PickupItem(other.gameObject); // Call the PickupItem method to pick up the item
+        //}
     }
     void OnMouseUp()
     {
         isSleeping = false;
         isDragging = false;
-        ReceiveEmotion(new EmotionVector(Emotion.Anger,5));
-        SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
-        spriteRenderer.color = Color.white; // Reset color if already selected
-        Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
-        isSelected = !isSelected;
-        TransitionTo(villagerIdleState);
+        //ReceiveEmotion(new EmotionVector(Emotion.Anger,5));
+        //SpriteRenderer spriteRenderer = gameObject.transform.GetComponentInChildren<SpriteRenderer>();
+        //spriteRenderer.color = Color.white; // Reset color if already selected
+        //Singleton<PlayerController>.Instance.RemoveVillagerOutOfList(this);
+        //isSelected = !isSelected;
+        //TransitionTo(villagerIdleState);
         Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // Adjust the radius as needed
         for (int i = colliders.Length - 1; i >= 0; i--)
         {
@@ -128,9 +132,13 @@ public class Villager : MonoBehaviour,IInteractable
                     productionBuilding.CheckIsHaveEmptyJob(this);
                 }
             }
+            else if (colliders[i].gameObject.tag.Equals("PlayerBase"))
+            {
+                DropAllItems();
+            }
             else if (colliders[i].gameObject.tag.Equals("PrisonBuilding"))
             {
-                if(currentEmotion.Equals(Emotion.Normal))
+                if (currentEmotion.Equals(Emotion.Normal))
                 {
                     continue;
                 }

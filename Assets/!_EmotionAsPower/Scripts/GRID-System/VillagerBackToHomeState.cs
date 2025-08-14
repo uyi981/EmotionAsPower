@@ -57,7 +57,7 @@ public class VillagerAttackEnermyState : IState
         Vector2Int targetPosition = new Vector2Int(vector3Int.x, vector3Int.z);
         villager.Move(targetPosition,villager.speed); // Assuming home is at (0, 0)
         villager.completedGoToTarget += DropItem;
-        villager.isWorking = true; // Set working state to false
+        //villager.isWorking = true; // Set working state to false
     }
     public void DropItem()
     {
