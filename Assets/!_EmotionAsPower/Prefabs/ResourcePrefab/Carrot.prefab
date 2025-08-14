@@ -92,7 +92,7 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: 6b33d0f58ba06a24fbd129044bb865d1, type: 2}
     amountChances:
-    - amount: 1
+    - amount: 5
       chance: 100
   dropForce: 5
   dropRadius: 0.2
