@@ -7,9 +7,28 @@ public class ShootActionExecutor : AIActionExecutor
     private bool wasMoving;
     private Vector3 lastTargetPosition;
 
+    // Status properties for external access
+    public bool IsInRange { get; private set; }
+    public bool HasClearLineOfSight { get; private set; }
+    public bool IsShooting { get; private set; }
+    public bool IsMovingToTarget { get; private set; }
+    public float DistanceToTarget { get; private set; }
+    public bool CanShoot { get; private set; } // Based on cooldown
+
     public ShootActionExecutor(AIActionData data, ShootAction action) : base(data)
     {
         shootAction = action;
+        ResetStatusProperties();
+    }
+
+    private void ResetStatusProperties()
+    {
+        IsInRange = false;
+        HasClearLineOfSight = false;
+        IsShooting = false;
+        IsMovingToTarget = false;
+        DistanceToTarget = float.MaxValue;
+        CanShoot = false;
     }
 
     public override void StartAction()
@@ -17,36 +36,91 @@ public class ShootActionExecutor : AIActionExecutor
         lastShotTime = 0f;
         wasMoving = false;
         lastTargetPosition = Vector3.zero;
+        ResetStatusProperties();
     }
 
     public override ActionState UpdateAction()
     {
         if (actionData.targetObject == null)
+        {
+            ResetStatusProperties();
             return ActionState.Failed;
+        }
 
         // Check if target is still alive
         Health targetHealth = actionData.targetObject.GetComponent<Health>();
         if (targetHealth != null && targetHealth.IsDead)
+        {
+            ResetStatusProperties();
             return ActionState.Success;
+        }
 
-        Vector3 targetPosition = actionData.targetObject.transform.position;
-        float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetPosition);
+        UpdateStatusProperties();
 
         // If target is out of range, move closer
-        if (distanceToTarget > shootAction.AttackRange)
+        if (!IsInRange)
         {
             HandleMovementToTarget();
             return ActionState.Running;
         }
 
-        // Target is in range - check line of sight if required
-        if (shootAction.RequiresLineOfSight && !HasLineOfSight(targetPosition))
+        // Target is in range - stop moving and always shoot
+        StopMovementIfNeeded();
+
+        // Face the target
+        FaceTarget();
+
+        // Always shoot when in range (ignore line of sight once stopped)
+        if (CanShoot)
         {
-            HandleMovementToTarget();
-            return ActionState.Running;
+            Shoot();
         }
 
-        // Stop moving if required
+        return ActionState.Running;
+    }
+
+    private void UpdateStatusProperties()
+    {
+        if (actionData.targetObject == null)
+        {
+            ResetStatusProperties();
+            return;
+        }
+
+        Vector3 targetPosition = actionData.targetObject.transform.position;
+        DistanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetPosition);
+        IsInRange = DistanceToTarget <= shootAction.AttackRange;
+        HasClearLineOfSight = !shootAction.RequiresLineOfSight || HasLineOfSight(targetPosition);
+
+        // Check if we can shoot based on cooldown
+        float timeSinceLastShot = Time.time - lastShotTime;
+        float shootCooldown = 1f / shootAction.FireRate;
+        CanShoot = timeSinceLastShot >= shootCooldown;
+    }
+
+    private void HandleMovementToTarget()
+    {
+        UnitMover mover = actionData.ai.UnitMover;
+        if (mover == null)
+        {
+            IsMovingToTarget = false;
+            return;
+        }
+
+        Vector3 currentTargetPos = actionData.targetObject.transform.position;
+
+        // Move to optimal attack position (85% of max range for grid-based map to account for pathfinding)
+        Vector3 directionToTarget = (currentTargetPos - actionData.ai.transform.position).normalized;
+        Vector3 optimalPosition = currentTargetPos - directionToTarget * (shootAction.AttackRange * 0.85f);
+
+        mover.MoveToWorldPosition(optimalPosition);
+        IsMovingToTarget = true;
+        wasMoving = true;
+        lastTargetPosition = currentTargetPos;
+    }
+
+    private void StopMovementIfNeeded()
+    {
         if (shootAction.StopMovingWhileShooting && wasMoving)
         {
             UnitMover mover = actionData.ai.UnitMover;
@@ -56,36 +130,7 @@ public class ShootActionExecutor : AIActionExecutor
             }
             wasMoving = false;
         }
-
-        // Face the target
-        FaceTarget(targetPosition);
-
-        // Check if we can shoot (fire rate cooldown)
-        float timeSinceLastShot = Time.time - lastShotTime;
-        float shootCooldown = 1f / shootAction.FireRate;
-
-        if (timeSinceLastShot >= shootCooldown)
-        {
-            Shoot(targetPosition);
-        }
-
-        return ActionState.Running;
-    }
-
-    private void HandleMovementToTarget()
-    {
-        UnitMover mover = actionData.ai.UnitMover;
-        if (mover == null) return;
-
-        Vector3 currentTargetPos = actionData.targetObject.transform.position;
-
-        // Move to optimal attack position (85% of max range for grid-based map to account for pathfinding)
-        Vector3 directionToTarget = (currentTargetPos - actionData.ai.transform.position).normalized;
-        Vector3 optimalPosition = currentTargetPos - directionToTarget * (shootAction.AttackRange * 0.85f);
-
-        mover.MoveToWorldPosition(optimalPosition);
-        wasMoving = true;
-        lastTargetPosition = currentTargetPos;
+        IsMovingToTarget = false;
     }
 
     private bool HasLineOfSight(Vector3 targetPosition)
@@ -105,11 +150,14 @@ public class ShootActionExecutor : AIActionExecutor
         return true;
     }
 
-    private void FaceTarget(Vector3 targetPosition)
+    private void FaceTarget()
     {
+        if (actionData.targetObject == null) return;
+
         UnitMover mover = actionData.ai.UnitMover;
         if (mover == null || !mover.flipable) return;
 
+        Vector3 targetPosition = actionData.targetObject.transform.position;
         Vector3 directionToTarget = (targetPosition - actionData.ai.transform.position).normalized;
 
         // Determine flip direction based on target position
@@ -120,10 +168,14 @@ public class ShootActionExecutor : AIActionExecutor
         }
     }
 
-    private void Shoot(Vector3 targetPosition)
+    private void Shoot()
     {
-        lastShotTime = Time.time;
+        if (actionData.targetObject == null) return;
 
+        lastShotTime = Time.time;
+        IsShooting = true;
+
+        Vector3 targetPosition = actionData.targetObject.transform.position;
         Vector3 shootPosition = actionData.ai.transform.position + shootAction.ShootOffset;
         Vector3 shootDirection = (targetPosition - shootPosition).normalized;
 
@@ -153,6 +205,9 @@ public class ShootActionExecutor : AIActionExecutor
         {
             AudioSource.PlayClipAtPoint(shootAction.ShootSound, shootPosition);
         }
+
+        // Reset shooting flag after a brief moment (will be set to false on next frame update)
+        IsShooting = false;
     }
 
     public override void StopAction()
@@ -163,11 +218,15 @@ public class ShootActionExecutor : AIActionExecutor
             mover.StopMovement();
         }
         wasMoving = false;
+        IsMovingToTarget = false;
+        IsShooting = false;
     }
 
     public override void OnActionComplete()
     {
         wasMoving = false;
+        IsMovingToTarget = false;
+        IsShooting = false;
     }
 
     public override void OnActionInterrupted()
@@ -178,6 +237,8 @@ public class ShootActionExecutor : AIActionExecutor
             mover.StopMovement();
         }
         wasMoving = false;
+        IsMovingToTarget = false;
+        IsShooting = false;
     }
 
     public override void Perform()
@@ -196,6 +257,7 @@ public class ShootActionExecutor : AIActionExecutor
             return;
         }
 
+        // Check if target is still alive
         Health targetHealth = actionData.targetObject.GetComponent<Health>();
         if (targetHealth != null && targetHealth.IsDead)
         {
@@ -204,46 +266,27 @@ public class ShootActionExecutor : AIActionExecutor
             return;
         }
 
-        Vector3 targetPosition = actionData.targetObject.transform.position;
-        float distanceToTarget = Vector3.Distance(actionData.ai.transform.position, targetPosition);
+        // Update all status properties
+        UpdateStatusProperties();
 
         // If target is out of range, move closer
-        if (distanceToTarget > shootAction.AttackRange)
+        if (!IsInRange)
         {
             HandleMovementToTarget();
             actionData.state = ActionState.Running;
             return;
         }
 
-        // Check line of sight if required
-        if (shootAction.RequiresLineOfSight && !HasLineOfSight(targetPosition))
-        {
-            HandleMovementToTarget();
-            actionData.state = ActionState.Running;
-            return;
-        }
-
-        // Stop moving if required
-        if (shootAction.StopMovingWhileShooting && wasMoving)
-        {
-            UnitMover mover = actionData.ai.UnitMover;
-            if (mover != null)
-            {
-                mover.StopMovement();
-            }
-            wasMoving = false;
-        }
+        // We're in range - stop moving and always shoot
+        StopMovementIfNeeded();
 
         // Face the target
-        FaceTarget(targetPosition);
+        FaceTarget();
 
-        // Check if we can shoot (fire rate cooldown)
-        float timeSinceLastShot = Time.time - lastShotTime;
-        float shootCooldown = 1f / shootAction.FireRate;
-
-        if (timeSinceLastShot >= shootCooldown)
+        // Always shoot when in range (ignore line of sight once stopped)
+        if (CanShoot)
         {
-            Shoot(targetPosition);
+            Shoot();
         }
 
         actionData.state = ActionState.Running;
