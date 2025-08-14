@@ -70,14 +70,15 @@ public class ProductionBuilding : BuildingBase, IProductionBuilding
 
     public bool CheckIsHaveEmptyJob(Villager villager)
     {
+        Debug.Log(villager.name + " is checking for empty job slots in " + Name);
         if (empltyWokerSlot.Count > 0)
         {
-            if (villager.isWorking == false)
-            {
+            Debug.Log(villager.name + " is checking for empty job slots in1 " + Name);
+                Debug.Log(villager.name + " is checking for empty job slots in2" + Name);
                 villager.currentJob = new JobForWorker(empltyWokerSlot.Dequeue(), JobType.Produce, this);
                 Debug.Log("Assigning job to villager: " + villager.name + " with job type: " + villager.currentJob.JobType);
                 villager.TransitionTo(villager.villagerWorkingState);
-            }
+            Debug.Log(villager.name + " is checking for empty job slots in4 " + Name);
             return true;
         }
         return false;

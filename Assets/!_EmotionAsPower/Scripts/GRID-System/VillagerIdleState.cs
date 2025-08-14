@@ -62,7 +62,7 @@ public class VillagerIdleState : IState
         while (!hasItem)
         {
             yield return new WaitForSeconds(0.2f); // Check every 0.5 seconds
-            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 5f); // Adjust the radius as needed
+            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 2f); // Adjust the radius as needed
             for (int i = colliders.Length - 1; i >= 0; i--)
             {
                 Collider collider = colliders[i];

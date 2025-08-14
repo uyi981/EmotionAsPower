@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EmotionSO
   id: 4
   hungerModifier: 1
-  moveSpeedModifier: 3
+  moveSpeedModifier: 2
   worKSpeedModifier: 1
   maxCarryModifier: 1

@@ -134,7 +134,6 @@ public class VillagerChattingState : IState
         }
     }
 }
-
 public class VillagerSleepState : IState
 {
     Villager villager;

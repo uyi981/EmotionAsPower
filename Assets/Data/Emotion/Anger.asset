@@ -16,4 +16,4 @@ MonoBehaviour:
   hungerModifier: 1
   moveSpeedModifier: 1
   worKSpeedModifier: 1
-  maxCarryModifier: 3
+  maxCarryModifier: 2
