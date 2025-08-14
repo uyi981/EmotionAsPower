@@ -328,6 +328,14 @@ public class PlacementSystem : MonoBehaviour
                 if (gridMap[gx, gz] != 0)
                     return false;
             }
+        Collider[] physic = Physics.OverlapSphere(basePos, 0.1f);
+        for (int i = 0; i < physic.Length; i++)
+        {
+            if (physic[i].CompareTag("Resource"))
+            {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -347,6 +355,7 @@ public class PlacementSystem : MonoBehaviour
                 gridMap[gx + gridOffset.x, gz + gridOffset.y] = check;
             }
         }
+      
     }
 
     public void StopPlacement()
