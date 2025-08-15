@@ -28715,6 +28715,7 @@ MonoBehaviour:
   villagersRuntime: []
   villagerCountText: {fileID: 0}
   foodConsumeText: {fileID: 0}
+  isUnableToSendJob: 0
 --- !u!114 &1488546039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28732,6 +28733,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c7c5a9b82beba441a1d8b5ada4a8bd2, type: 2}
   - {fileID: 11400000, guid: a97a0c7674bc6a847933df6de3e83808, type: 2}
   - {fileID: 11400000, guid: e9f2f3cb2a4c79c49860bbb7622a0855, type: 2}
+  emotionModifiers: []
 --- !u!114 &1488546040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48715,6 +48717,63 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1001 &8284276061942754643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 443434567522809025, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1349910754254787495, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4202f7be02d0cd84b9f22f609ebee40c, type: 3}
 --- !u!224 &8380289419925112202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49219,6 +49278,7 @@ SceneRoots:
   - {fileID: 1044786799}
   - {fileID: 1296967364}
   - {fileID: 289090003}
+  - {fileID: 8284276061942754643}
   - {fileID: 1390832042}
   - {fileID: 349087219}
   - {fileID: 1393385231}

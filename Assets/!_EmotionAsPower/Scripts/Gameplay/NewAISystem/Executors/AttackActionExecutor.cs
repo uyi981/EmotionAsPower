@@ -24,10 +24,24 @@ public class AttackActionExecutor : AIActionExecutor
     {
         attackAction = action;
         animator = actionData.ai.GetComponent<Animator>();
+
+        // Setup AudioSource properly
         audioSource = actionData.ai.GetComponent<AudioSource>();
         if (audioSource == null && attackAction.AttackSound != null)
         {
             audioSource = actionData.ai.gameObject.AddComponent<AudioSource>();
+        }
+
+        // Configure AudioSource settings to match ShootActionExecutor behavior
+        if (audioSource != null)
+        {
+            audioSource.loop = false; // Ensure it doesn't loop
+            audioSource.playOnAwake = false;
+            // Optional: Configure 3D settings if you want distance-based volume
+            audioSource.spatialBlend = 1f; // 3D sound
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.maxDistance = 50f; // Adjust as needed
+            audioSource.minDistance = 1f;
         }
     }
 
@@ -161,10 +175,12 @@ public class AttackActionExecutor : AIActionExecutor
             Debug.LogWarning("No animator or animation trigger set!");
         }
 
-        // Play sound
-        if (audioSource != null && attackAction.AttackSound != null)
+        // Play sound using the same method as ShootActionExecutor
+        if (attackAction.AttackSound != null)
         {
-            audioSource.PlayOneShot(attackAction.AttackSound);
+            Vector3 attackPosition = actionData.ai.transform.position;
+            AudioSource.PlayClipAtPoint(attackAction.AttackSound, attackPosition);
+            Debug.Log("Attack sound played at position");
         }
     }
 
@@ -375,6 +391,13 @@ public class AttackActionExecutor : AIActionExecutor
         }
         isMovingToTarget = false;
         isPlayingAttackAnimation = false;
+
+        // Stop any playing audio to prevent looping issues
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         Debug.Log("Attack action stopped");
     }
 
@@ -382,6 +405,13 @@ public class AttackActionExecutor : AIActionExecutor
     {
         isMovingToTarget = false;
         isPlayingAttackAnimation = false;
+
+        // Stop any playing audio
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         Debug.Log("Attack action completed");
     }
 
@@ -394,6 +424,13 @@ public class AttackActionExecutor : AIActionExecutor
         }
         isMovingToTarget = false;
         isPlayingAttackAnimation = false;
+
+        // Stop any playing audio
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
         Debug.Log("Attack action interrupted");
     }
 
