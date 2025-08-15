@@ -24,7 +24,7 @@ MonoBehaviour:
 
     +100% Max carry.'
   rateSendChat: 0.6
-  rateAcceptChat: 0.5
+  rateAcceptChat: 0.8
   emotionSendAffterChat:
     AngerLevel: 6
     JoyLevel: 0

@@ -165,8 +165,9 @@ MonoBehaviour:
   buildingBar: {fileID: 8392199525925716247, guid: da1bebfc537b66642aebf68548b6628c, type: 3}
   healthBar: {fileID: 8392199525925716247, guid: 4a959ef845ea4f644bbbe34eeb12a012, type: 3}
   baseCell: {x: 0, y: 0, z: 0}
+  isBuildingComplete: 0
   productionBarPrefab: {fileID: 8392199525925716247, guid: 91d04d7e450b8bd409d8135d3d8b6db3, type: 3}
-  productionTime: 10
+  productionTime: 30
   currentProductionTime: 0
   isProducing: 0
   inputItems: []

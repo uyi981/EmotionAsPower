@@ -584,7 +584,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b4a7d5dd9b141409c9874001dbd71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemDropper
-  dropableItems: []
+  dropableItems:
+  - item: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
+    amountChances:
+    - amount: 3
+      chance: 100
   dropForce: 5
   dropRadius: 0.5
   minDropAmount: 1

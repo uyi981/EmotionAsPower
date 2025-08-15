@@ -361,6 +361,10 @@ public class Villager : MonoBehaviour,IInteractable
         //    TransitionTo(villagerLeavingState);
         //    return;
         //}
+        if(transform.position.y!=0)
+        {
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z); // Reset y position to 0
+        }
         SendEmotionToGod();
     }
     public void SendEmotionToGod()

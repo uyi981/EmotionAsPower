@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
 {
@@ -15,7 +16,7 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
     public TextMeshProUGUI villagerCountText;
     public TextMeshProUGUI foodConsumeText;
     public bool isUnableToSendJob;
-
+    public int maxVillagerCount = 20; // Maximum number of villagers that can be managed
     public int QuantityOfFoodConsumedPerDay
     {
         get { return caculateQuantityOfFoodConsumedPerDay(); }
@@ -100,6 +101,11 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
             Debug.LogWarning("Attempted to assign a null villager.");
             return;
         }
+        if(int.Parse(villagerCountText.text)>=maxVillagerCount)
+        {
+            Destroy(villager.gameObject);
+            return;
+        }
         villager.transform.SetParent(transform);
         jobForWorkers.Add(villager);
         villagersRuntime.Add(new VillagerRuntimeData()
@@ -109,7 +115,9 @@ public class  VillagerManager : Singleton<VillagerManager>,IDataPersistence
             personalityName = villager.personality.name,
             id = villager.villagerId
         });
+        villagerCountText.text = "" + (jobForWorkers.Count);
         Singleton<VillagerManagerUI>.Instance.UpdateVillagerSlots(jobForWorkers);
+        foodConsumeText.text = "" + QuantityOfFoodConsumedPerDay;
     }
     public void LoadingAllVillagers()
     {

@@ -205,18 +205,12 @@ MonoBehaviour:
   dropableItems:
   - item: {fileID: 11400000, guid: 340b8ce8aeb90d8419bcd8259411f864, type: 2}
     amountChances:
-    - amount: 0
-      chance: 10
-    - amount: 0
-      chance: 40
-    - amount: 0
-      chance: 50
-  - item: {fileID: 11400000, guid: 5737c859d55700c41a37d31f14b4f929, type: 2}
-    amountChances:
     - amount: 1
       chance: 10
-    - amount: 2
-      chance: 90
+    - amount: 1
+      chance: 40
+    - amount: 1
+      chance: 100
   dropForce: 5
   dropRadius: 2
   minDropAmount: 1

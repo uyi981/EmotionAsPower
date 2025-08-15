@@ -22,12 +22,19 @@ public class VillagerWorkingState : IState
     {
         if (villager.currentJob.JobType.Equals(JobType.Transport))
         {
+            Collider[] colliders = Physics.OverlapSphere(villager.transform.position, 1f,LayerMask.NameToLayer("Item")); // Adjust the radius as needed
+            for (int i = colliders.Length - 1; i >= 0; i--)
+            {
+                if (colliders[i].gameObject.CompareTag("Item"))
+                {
+                    villager.PickupItem(colliders[i].gameObject);
+                }
+            }
             villager.TransitionTo(villager.villagerIdleState);
         }
         else
         {
             villager.currentJob.buildingBase.OnWorkerCome(villager);
-
         }
     }
     public void OnCollisionEnter(Collision collision)
