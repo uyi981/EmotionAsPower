@@ -23,4 +23,4 @@ MonoBehaviour:
   explosionDelay: 0.5
   explosiveObjectPrefab: {fileID: 8169177151157882191, guid: 95c971762c2d5494591fb8ba3cebeb9c, type: 3}
   explosionPrefab: {fileID: 8169177151157882191, guid: 95c971762c2d5494591fb8ba3cebeb9c, type: 3}
-  explosionSound: {fileID: 0}
+  explosionSound: {fileID: 8300000, guid: 85393c6bc103ce64f88157e3b37d6161, type: 3}

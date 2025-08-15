@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 using UnityEngine;
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField] private AudioLibrarySO audioLibrarySO;
+    [SerializeField] public AudioLibrarySO audioLibrarySO;
     IObjectPool<SoundEmitter> soundEmitterPool;
     readonly List<SoundEmitter> activeSoundEmitters = new List<SoundEmitter>();
     public readonly Queue<SoundEmitter> FrequentSoundEmitters = new Queue<SoundEmitter>();

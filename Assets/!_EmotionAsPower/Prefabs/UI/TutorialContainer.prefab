@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can click on buildings to managing them
+  m_text: Once the building is completed, you can click on it to manage it.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -203,7 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "At the bottom of the screen is the villager management panel, which displays
     each villager\u2019s emotions. You can double-click a villager to zoom in on
-    him."
+    them. The panel also shows the total number of villagers you have and the amount
+    of food consumed each day."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1349,7 +1350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1473955688237336073
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1511,8 +1512,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can manage villagers by clicking on them to see information or dragging
-    and dropping to move them.
+  m_text: You can manage villagers by clicking on them to view their information
+    or by dragging and dropping them to move them, helping you guide the village
+    to do what you want.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1769,12 +1771,24 @@ MonoBehaviour:
   - tutorialPanel: {fileID: 1473955688237336073}
     onTutorialShow:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 5168058430602211873}
+          m_TargetAssemblyTypeName: TutorialContainer, Assembly-CSharp
+          m_MethodName: CallPause
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - tutorialPanel: {fileID: 7738953676427785907}
     onTutorialShow:
       m_PersistentCalls:
         m_Calls: []
-  - tutorialPanel: {fileID: 7738953676427785907}
+  - tutorialPanel: {fileID: 8061253727943741806}
     onTutorialShow:
       m_PersistentCalls:
         m_Calls: []

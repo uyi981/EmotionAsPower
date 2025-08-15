@@ -18,4 +18,8 @@ MonoBehaviour:
       value:
       - count: 4
         spawnAngle: 0
-  isWaveEnd: 0
+    - key: {fileID: 6170872781834844453, guid: a6e36effa3faccd4ebf11ac8c489d9a3, type: 3}
+      value:
+      - count: 4
+        spawnAngle: 0
+  isEndWave: 0

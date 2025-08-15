@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949586240a0ddb648b01bae58b7bd9f2, type: 3}
   m_Name: AttackBuilding
   m_EditorClassIdentifier: Assembly-CSharp::AttackAction
-  attackRange: 1.5
+  attackRange: 2
   attackDamage: 7
   attackSpeed: 1
   targetTypes: 03000000
   useSmartPositioning: 1
   positioningOffset: 1.5
   attackEffect: {fileID: 0}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: deed12b50a72a0842817a5297b69b402, type: 3}
   effectDuration: 0.5
   attackAnimationTrigger: Attack
   animationDuration: 1

@@ -4,10 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>, ISetup
 {
+
+    [SerializeField]
     private bool showUI = false;
 
     [Header("UI Panels")]
     public GameObject loseGamePanel;
+    public GameObject winGamePanel;
     public ResourceInfoPanel resourceInfoPanel;
     public ItemInfoPanel itemInfoPanel;
     public TutorialContainer tutorialPanel;
@@ -37,6 +40,10 @@ public class UIManager : Singleton<UIManager>, ISetup
         if(tutorialPanel == null)
         {
             tutorialPanel = GetComponentInChildren<TutorialContainer>();
+        }
+        if (winGamePanel != null)
+        {
+            winGamePanel.SetActive(false);
         }
     }
     private void Start()
@@ -229,6 +236,21 @@ public class UIManager : Singleton<UIManager>, ISetup
         else
         {
             tutorialPanel.SkipTutorial();
+        }
+    }
+
+    public void CheckIfWinGame(StageOfDay stageOfDay) { 
+        if(stageOfDay.day == 20)
+        {
+            WinGame();
+        }
+    }
+
+    public void WinGame()
+    {
+        GameManager.Instance.PauseGame();
+        if (winGamePanel != null) { 
+            winGamePanel.SetActive(true);
         }
     }
 }
