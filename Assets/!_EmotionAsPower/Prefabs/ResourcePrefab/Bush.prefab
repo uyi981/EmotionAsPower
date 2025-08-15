@@ -369,6 +369,16 @@ MonoBehaviour:
   destroyWhenDepleted: 1
   showHealthUI: 1
   harvestMarker: {fileID: 3046694415467279050}
+  enableHarvestSound: 1
+  harvestSoundID: bush
+  enableDepletedSound: 0
+  depletedSoundID: 
+  enableRespawnSound: 0
+  respawnSoundID: 
+  minDamageForSound: 1
+  soundCooldown: 0.1
+  randomizePitch: 1
+  pitchRange: {x: -0.1, y: 0.1}
   enableRegularDrops: 0
   regularDropInterval: 30
   regularDropItems: []

@@ -24,6 +24,6 @@ MonoBehaviour:
   bulletLifetime: 2
   shootOffset: {x: 0, y: 0, z: 0}
   muzzleFlashPrefab: {fileID: 0}
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 88fb46ce88ab0a44ab4b7e66746491d6, type: 3}
   requiresLineOfSight: 1
   stopMovingWhileShooting: 1
