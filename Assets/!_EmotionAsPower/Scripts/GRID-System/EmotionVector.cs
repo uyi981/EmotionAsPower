@@ -30,7 +30,7 @@ public struct EmotionVector
     public Emotion CheckEmotion()
     {
         float max = Mathf.Max(AngerLevel, JoyLevel, SadnessLevel, FearLevel, ApatheticLevel);
-        if (max >= 20)
+        if (max >= 10)
         {
             switch (max)
             {
